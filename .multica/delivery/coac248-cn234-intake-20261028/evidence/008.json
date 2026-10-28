@@ -1,0 +1,226 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-25T22:26:34.154Z",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1780400",
+    "url": "https://www.bilibili.com/read/cv1780400",
+    "title": "【日本麻雀讲座译文】状况判断2—要有顺位意识",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:52.707630+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+    "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+    "htmlSha256": "ac861bc7f51bdd9351c85c0a2796a851b3182276df89b1ac8b0aed9d5b575728",
+    "mainSha256": "3159340777d99e9d81264f61e83578e9a0c5f9102bbbd0e9fbd28e95ba7b8d58"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+    "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 4,
+    "imageRuns": 1,
+    "imageOccurrences": 1,
+    "figures": 1
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+    "rawHtmlSha256": "ac861bc7f51bdd9351c85c0a2796a851b3182276df89b1ac8b0aed9d5b575728",
+    "mainSha256": "3159340777d99e9d81264f61e83578e9a0c5f9102bbbd0e9fbd28e95ba7b8d58",
+    "textBlocks": 4,
+    "imageRuns": 1,
+    "imageOccurrences": 1,
+    "uniqueAssets": 1,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "已比较全部五个正文块和唯一图像出现，无表格或行内牌需要补核。中文正文、署名、原文地址、强调、数字、公式及图表教学信息均完整；b0003的三个日文规则俗称尚缺中文释义，完整翻译要求仍未满足。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1780400:b0003",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1780400:b0003"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780400:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780400:b0002",
+        "verdict": "faithful",
+        "evidence": "版权声明、译者SeventhTG（XD）及转载署名要求均完整保留，中文未改写。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780400:b0003",
+        "verdict": "needs-repair",
+        "evidence": "原文地址、中文正文、强调、三种马的支付数额及5000*4=20000公式均保留；但ゴットー、ワンツー、ワンスリー仍仅有日文，未提供中文对应释义，不满足日文完整译成中文的要求。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780400:b0004",
+        "verdict": "faithful",
+        "evidence": "唯一图片出现已由图表承接；图题、两组各四根柱的顺位、虚线相对位置、顺位点箭头及四项调整数值均有对应转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780400:b0005",
+        "verdict": "faithful",
+        "evidence": "全文及红色加粗强调完整保留，包括南场点差条件、头名顺位点很大时的判断、排位算法说明、各顺位打法及“（待续）”。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780400:b0004:figure",
+        "verdict": "faithful",
+        "evidence": "独立核对所附原图与放大视图：图题译为“马1－2、头名奖+20的情况”准确；左右两组均依次为第四、第三、第二、第一名；红箭头标注顺位点；右组蓝箭头分别向下、向下、向上、向上，对应▲20、▲10、+10、+40。柱顶与虚线的位置及底部黑色基线描述吻合。未给无刻度柱高编造精确数值。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780400:i00001",
+        "disposition": "represented",
+        "evidence": "该次图像出现已完整对应候选图表，图中日文标题、顺位标签及顺位点标签均有中文表达，全部明确调整数值已保留。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选依次保留免责声明、版权与译者声明、规则说明、图表、图后论述，与源b0001至b0005自然顺序一致。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "已比较全部五个正文块和唯一图像出现，无表格或行内牌需要补核。中文正文、署名、原文地址、强调、数字、公式及图表教学信息均完整；b0003的三个日文规则俗称尚缺中文释义，完整翻译要求仍未满足。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1780400:b0003",
+        "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+        "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+        "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "全文与唯一图表均已逐项核对；图表忠实，正文需补译三个日文规则俗称后通过。"
+  },
+  "calls": [
+    {
+      "callId": "9bbec3c1-907b-434b-8f71-e69ed35b271d",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1780400",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 17350,
+        "cachedInputTokens": 0,
+        "outputTokens": 1757
+      },
+      "promptSha256": "5a35fc288a791f6b26582f03bff64f79445f2d88c026ad9d2ddec5ca62ca00a7",
+      "semanticPromptSha256": "fc7cdbd1464a913cac8625091053f98948c8de203fcb2fc28cc33fd7082146c3",
+      "schemaSha256": "ead17936957e66fad7698c50bad2085182371237a086c8f8cff9c1cb02aa9a65",
+      "outputSha256": "7d78875b7d64b1f69762c8ea52389bd361d88fca1827159bfbb00c0320dfe4b4",
+      "requestPromptBytes": 20120,
+      "semanticPromptBytes": 19638,
+      "binding": {
+        "productionSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "sourceFileSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "semanticProjectionSha256": "3abb951423a0ac139c3a2fe7ad919502d7cbfec891b19ab922ea37ec853ffb0d",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:afd95349965917c3c295b658"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:afd95349965917c3c295b658",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.png",
+            "sourceSha256": "3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.x2.png",
+            "sha256": "8b94ccb00c0505cb73e319ccf3672cf5ee7f641fde1841c54e6e9873dad7ad08",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 878,
+            "height": 600
+          }
+        ]
+      },
+      "recordedAt": "2026-10-25T22:27:25.027Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+    "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "combinedSha256": "d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.json",
+      "sha256": "d34379e7b22e184db97de723c301c28c101fee74c63c899dfa1991e4b5ed4024",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 1,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "f885b72e-7a54-47e5-b3de-64bf028ff548",
+    "rawArtifactPath": "raw-calls/f885b72e-7a54-47e5-b3de-64bf028ff548.json",
+    "rawArtifactSha256": "b90a0a5870d10ced90bd705d7df7cec1869cdd9045083c93500d73f954bc15a9",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:afd95349965917c3c295b658",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.png",
+          "sourceSha256": "3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.png",
+          "sha256": "3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 439,
+          "height": 300
+        },
+        {
+          "assetId": "79-bilibili-cn:afd95349965917c3c295b658",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.png",
+          "sourceSha256": "3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.x2.png",
+          "sha256": "8b94ccb00c0505cb73e319ccf3672cf5ee7f641fde1841c54e6e9873dad7ad08",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 878,
+          "height": 600
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-sol-high-full-article-review"
+}

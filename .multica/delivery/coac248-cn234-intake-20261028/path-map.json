@@ -1,0 +1,506 @@
+[
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-target-reviewed-20261028.json",
+    "sha256": "d0a8e533bfcd1fc5b48fab3a064e8d674b8cd92111e0b242a2ed2c6fde0b4ba6",
+    "bytes": 24296,
+    "archivePath": "evidence/000.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+    "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+    "bytes": 32652,
+    "archivePath": "evidence/001.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\22b90f5e-1807-4b83-87f7-41df5485067d.json",
+    "sha256": "9beb422f213044a58dc83e1a37bc9fc4ec1d09991d9603d0e743d374f398402f",
+    "bytes": 106559,
+    "archivePath": "evidence/002.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-inheritance-20261028.json",
+    "sha256": "c309f62a2e098d3fea47769ee51668ae3491e384bc82c828ece401cef8b48d7d",
+    "bytes": 32953,
+    "archivePath": "evidence/003.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-scope-binding-20261028.json",
+    "sha256": "be0f28bef7cc945e004ab27cfdf4f27845060647be060cf3dfa1726f7a7cee77",
+    "bytes": 4234,
+    "archivePath": "evidence/004.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-exact-scope-20261028.json",
+    "sha256": "084ca5f54f8912ba72901fa8ea62c2694496d7970d98e044acfd0ccb5cc0a503",
+    "bytes": 13080,
+    "archivePath": "evidence/005.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+    "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+    "bytes": 17332,
+    "archivePath": "evidence/006.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+    "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+    "bytes": 25107,
+    "archivePath": "evidence/007.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+    "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+    "bytes": 11192,
+    "archivePath": "evidence/008.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9bbec3c1-907b-434b-8f71-e69ed35b271d.json",
+    "sha256": "e8774416f453a416db9801b145c524c5b82a8b389c23a3cb71413bac2e337d10",
+    "bytes": 65941,
+    "archivePath": "evidence/009.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\997c8aa4-7101-4c1e-9a9f-9af76deb1e70.json",
+    "sha256": "d6925ea556f2fe9d9ad8e9175981907541f1823b7b9a96a6ac13b3911ce4600c",
+    "bytes": 112840,
+    "archivePath": "evidence/010.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\runtime-manifest.json",
+    "sha256": "aa0239b728832854641f964760f2affa4efd9e6eb6f960e69b17ee9f0d0c08c2",
+    "bytes": 18007,
+    "archivePath": "evidence/011.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-cn234-text-r1-target-20261028\\plan.json",
+    "sha256": "9463fc34a47f1581f20cb21f29a5780d69a16e634ab6d27f0cf16808698f4dd2",
+    "bytes": 88086,
+    "archivePath": "evidence/012.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193234-text-20261028\\release.json",
+    "sha256": "09173a6b76f75fb1c0f8f1ed85813c94e78e5aef83712795fe1e848bdab33e1b",
+    "bytes": 14748,
+    "archivePath": "evidence/013.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\exact-carry.mjs",
+    "sha256": "029e5dbe1a1690a341769801bc9a9093bd21e60b23229f9ca75ad2ae60ee58ca",
+    "bytes": 2938,
+    "archivePath": "evidence/014.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\exact-text-contract.mjs",
+    "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2",
+    "bytes": 4175,
+    "archivePath": "evidence/015.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\inline-japanese-revision.mjs",
+    "sha256": "d00b99f922ed06d03cc1751409526432028307b06a069aa0eed69890f25e651a",
+    "bytes": 5095,
+    "archivePath": "evidence/016.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\jobs.json",
+    "sha256": "b1503ba5ddaa287955b09f45de77c872bf39da9320157530c8fbe10c3370b3a2",
+    "bytes": 5046,
+    "archivePath": "evidence/017.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\production-schema.mjs",
+    "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+    "bytes": 3961,
+    "archivePath": "evidence/018.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\text193-job.json",
+    "sha256": "e8dde4752063a5b1185acf175b72de19de78ef2a4977987c34a6ca8860bada2a",
+    "bytes": 2560,
+    "archivePath": "evidence/019.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\text193-recovery.mjs",
+    "sha256": "8973f7c11a1104192bf2cc5560cd57c66c0fb8859bf44a5fc41f0be703080ae9",
+    "bytes": 4999,
+    "archivePath": "evidence/020.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-legacy.mjs",
+    "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1",
+    "bytes": 19138,
+    "archivePath": "evidence/021.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-pdf-layout.mjs",
+    "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+    "bytes": 20603,
+    "archivePath": "evidence/022.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-pdf-native.mjs",
+    "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc",
+    "bytes": 8937,
+    "archivePath": "evidence/023.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-pdf-scope.mjs",
+    "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+    "bytes": 3783,
+    "archivePath": "evidence/024.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb",
+    "bytes": 1982,
+    "archivePath": "evidence/025.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+    "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b",
+    "bytes": 15708,
+    "archivePath": "evidence/026.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-web-batches.mjs",
+    "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9",
+    "bytes": 6989,
+    "archivePath": "evidence/027.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-web-source.py",
+    "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+    "bytes": 20969,
+    "archivePath": "evidence/028.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit-web.mjs",
+    "sha256": "1948faf8f00879db9e23e5eddceddcf5ce678765a9315eab42361704c058249f",
+    "bytes": 132968,
+    "archivePath": "evidence/029.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-audit.mjs",
+    "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1",
+    "bytes": 74908,
+    "archivePath": "evidence/030.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-production-cli.mjs",
+    "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+    "bytes": 14045,
+    "archivePath": "evidence/031.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-production-web-present.py",
+    "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+    "bytes": 2781,
+    "archivePath": "evidence/032.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-production-web-visual.py",
+    "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+    "bytes": 2089,
+    "archivePath": "evidence/033.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193234-text-v1-20261028\\textbook-production-web.mjs",
+    "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3",
+    "bytes": 40079,
+    "archivePath": "evidence/034.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\runtime-manifest.json",
+    "sha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+    "bytes": 5234,
+    "archivePath": "evidence/035.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\capability-evidence.json",
+    "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+    "bytes": 594,
+    "archivePath": "evidence/036.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\mixed-contract.json",
+    "sha256": "d07d197ffce26ef08b710205f8f9dcba113c757685d79c30a0d17ad9ba5dc500",
+    "bytes": 15972,
+    "archivePath": "evidence/037.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\mixed.mjs",
+    "sha256": "43993d0d15e8199a9128e48fd256c3a55ce35b57da98b0b3892a963f1bf7aef0",
+    "bytes": 3963,
+    "archivePath": "evidence/038.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\production-schema.mjs",
+    "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+    "bytes": 3961,
+    "archivePath": "evidence/039.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-definition.mjs",
+    "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+    "bytes": 5213,
+    "archivePath": "evidence/040.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-image-binding.test.mjs",
+    "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832",
+    "bytes": 2779,
+    "archivePath": "evidence/041.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-legacy.mjs",
+    "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+    "bytes": 19381,
+    "archivePath": "evidence/042.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-layout.mjs",
+    "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+    "bytes": 20673,
+    "archivePath": "evidence/043.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+    "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+    "bytes": 14311,
+    "archivePath": "evidence/044.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+    "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+    "bytes": 22532,
+    "archivePath": "evidence/045.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-native.mjs",
+    "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+    "bytes": 9877,
+    "archivePath": "evidence/046.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-scope.mjs",
+    "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+    "bytes": 3802,
+    "archivePath": "evidence/047.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+    "bytes": 1990,
+    "archivePath": "evidence/048.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+    "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+    "bytes": 15858,
+    "archivePath": "evidence/049.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+    "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+    "bytes": 7384,
+    "archivePath": "evidence/050.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web-batches.mjs",
+    "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+    "bytes": 7061,
+    "archivePath": "evidence/051.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web-source.py",
+    "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+    "bytes": 20969,
+    "archivePath": "evidence/052.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web.mjs",
+    "sha256": "0f4ab0b222327b14d2b054b743183507c065abf2dc0485a04542ae9ae65f2a11",
+    "bytes": 165632,
+    "archivePath": "evidence/053.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web.test.mjs",
+    "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074",
+    "bytes": 77404,
+    "archivePath": "evidence/054.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit.mjs",
+    "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+    "bytes": 84017,
+    "archivePath": "evidence/055.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-cli.mjs",
+    "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+    "bytes": 14045,
+    "archivePath": "evidence/056.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-pdf-flow.mjs",
+    "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+    "bytes": 8112,
+    "archivePath": "evidence/057.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-batches.mjs",
+    "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+    "bytes": 5297,
+    "archivePath": "evidence/058.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-dictionary.mjs",
+    "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+    "bytes": 7251,
+    "archivePath": "evidence/059.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-formal.mjs",
+    "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+    "bytes": 9385,
+    "archivePath": "evidence/060.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-labels.mjs",
+    "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+    "bytes": 3726,
+    "archivePath": "evidence/061.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-present.py",
+    "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+    "bytes": 2781,
+    "archivePath": "evidence/062.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-sources.py",
+    "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+    "bytes": 19235,
+    "archivePath": "evidence/063.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-visual.py",
+    "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+    "bytes": 2089,
+    "archivePath": "evidence/064.py"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web.mjs",
+    "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+    "bytes": 36385,
+    "archivePath": "evidence/065.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production.mjs",
+    "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+    "bytes": 54676,
+    "archivePath": "evidence/066.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\verification-dependencies.json",
+    "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+    "bytes": 1404,
+    "archivePath": "evidence/067.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193234-text-20261028\\review.mjs",
+    "sha256": "09bbaa4254fba82c5b9934856146b4df301077b0a15a84619c55baa01afd9982",
+    "bytes": 8599,
+    "archivePath": "evidence/068.mjs"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193234-text-20261028\\234-review-plan.json",
+    "sha256": "9463fc34a47f1581f20cb21f29a5780d69a16e634ab6d27f0cf16808698f4dd2",
+    "bytes": 88086,
+    "archivePath": "evidence/069.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+    "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+    "bytes": 35030,
+    "archivePath": "evidence/070.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+    "sha256": "48c10ee3063e57893f724f1ae8ceb4d0a799cb94d08d63d5daee915de0c98d72",
+    "bytes": 6316671,
+    "archivePath": "evidence/071.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+    "sha256": "264a068e7701ce74062f51dfe5a5d4437a70af6d2f6f583ddb63703f513702c4",
+    "bytes": 839317,
+    "archivePath": "evidence/072.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-193234-text-cv1780400-20261028\\model-output-without-display.json",
+    "sha256": "ef70e7cd98105e80142be9fa28924674ebf3362319a28c11f3cdcb780fcc0871",
+    "bytes": 31293,
+    "archivePath": "evidence/073.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reuse-maps\\eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41.json",
+    "sha256": "eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41",
+    "bytes": 1536,
+    "archivePath": "evidence/074.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1780400\\d34379e7b22e184d\\figure-0001.png",
+    "sha256": "c5aa694d75a61614b6c0a964b3ea3a63b7c649ec559adb497bed283f4e5bfaa3",
+    "bytes": 10309,
+    "archivePath": "evidence/075.png"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\f885b72e-7a54-47e5-b3de-64bf028ff548.json",
+    "sha256": "b90a0a5870d10ced90bd705d7df7cec1869cdd9045083c93500d73f954bc15a9",
+    "bytes": 32536,
+    "archivePath": "evidence/076.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.json",
+    "sha256": "d34379e7b22e184db97de723c301c28c101fee74c63c899dfa1991e4b5ed4024",
+    "bytes": 23094,
+    "archivePath": "evidence/077.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+    "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "bytes": 169472,
+    "archivePath": "evidence/078.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\plan-234.json",
+    "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+    "bytes": 887,
+    "archivePath": "evidence/079.json"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\html\\2ecda001f5c68789fc54c0a2\\source.html",
+    "sha256": "ac861bc7f51bdd9351c85c0a2796a851b3182276df89b1ac8b0aed9d5b575728",
+    "bytes": 73848,
+    "archivePath": "evidence/080.html"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\main.html",
+    "sha256": "3159340777d99e9d81264f61e83578e9a0c5f9102bbbd0e9fbd28e95ba7b8d58",
+    "bytes": 6147,
+    "archivePath": "evidence/081.html"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed.png",
+    "sha256": "3141f51a6075a602d7162409c853f57a823880b4faac61f51a158519f33041ed",
+    "bytes": 13180,
+    "archivePath": "evidence/082.png"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\8221a1c6-2607-4677-b96e-b8e175f35617.json",
+    "sha256": "a0a248e81559c5564933a8106b36e71b7ccf066bcf7fd9d313356480e297ff0d",
+    "bytes": 27351,
+    "archivePath": "evidence/083.json"
+  }
+]
