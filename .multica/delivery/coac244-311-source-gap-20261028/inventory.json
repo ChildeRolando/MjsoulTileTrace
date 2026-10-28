@@ -1,0 +1,52 @@
+{
+  "schema": "coac244-cn311-source-diagnosis-inventory/1",
+  "rawSourceBooksAndHttpResponsesExcluded": true,
+  "newModelCalls": 0,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "232-intake.json",
+      "sha256": "d84610d912bc98eb9f90737c6a10be14f842392ce116a5486b511338e35c3a15",
+      "bytes": 1331
+    },
+    {
+      "path": "archive_originals.py",
+      "sha256": "34f0624829b63f7ab9fb337efde53b1d4bcb11a4b2ae958f56f0ba023200d142",
+      "bytes": 1902
+    },
+    {
+      "path": "diagnose.py",
+      "sha256": "e20f98381872c2bf2295ca972fe4a18a5841896d863a8d17d114655e7efc345c",
+      "bytes": 9863
+    },
+    {
+      "path": "inspect_sources.py",
+      "sha256": "fdfabd8b5e0c40ee89cbda3d6c330838b6d4f05181d0e646977cff4611aed75e",
+      "bytes": 5661
+    },
+    {
+      "path": "minimal-gap-map.json",
+      "sha256": "3f64c9a720b2c83cdd9f4e0caebefaaf2365137543e1249b59b57a8ef5ebe82c",
+      "bytes": 11854
+    },
+    {
+      "path": "README.md",
+      "sha256": "128d6c9dc057c1b99fcc8bcac5b8fb0d05c1ecb991209e723a19690d5fa9173c",
+      "bytes": 6047
+    },
+    {
+      "path": "register-update.json",
+      "sha256": "2675da463bd4f5c0a7e0dab67a53f95a60b5a329f6e3d5da33146c46bd5efb2d",
+      "bytes": 473
+    },
+    {
+      "path": "source-readback.json",
+      "sha256": "4d774701f59fe5db838c0bbe8e9ad8700c2c9655d01df2ffff2fe5268cd51efb",
+      "bytes": 26907
+    }
+  ]
+}
