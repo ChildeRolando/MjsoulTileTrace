@@ -2263,3 +2263,71 @@ This extension has actual maker1, independent0 here,1/2 consumed; remaining1 bel
 No failed/void model call or retry occurred; the original4/4 account remains separate. Money,
 remote weights and upstream execution totals unknown. Wider ticket stays in_progress; no human
 annotation service restart/queue write,232 recognition or311/PDF257/261 call occurred.
+
+## Batch32 —224 seven-cell independent evidence accepted, display pending
+
+This supersedes Batch31's pending-review state for exactly candidate
+`c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a`. Full owner handoff
+`integration/coac249-224-seven-owner-handoff-20261028.md`, SHA
+`81b79cb4383a882f56685e75694a37403a08057391912d075372276d25901107`, was actually read and
+rehashed. Receipt `3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e`, raw
+`45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0`, inheritance
+`d0ba60967234b230a08c98067d2d623e87cf06b6db5d6e925b29f78e9db52729` and limited-scope
+proposal `e64d2e9ca2a6996adfb4ef676edbf2f4f4f27e6ab469812ca3e14a751e3e2257` all match.
+
+Real independent call `6dd562f2-2025-47b3-a48d-e8c6e5fdd12b` completed on **terra/max**,
+two ordered actual images,15 complete ordered source/candidate pairs,36487 input/0 cached/
+10369 output,147398ms. Seven cellChecks and contextContinuity are faithful. Actual original
+**repairPassed=true, limitedUnknownOkay=true**, status
+`seven-cells-faithful-limited-unknown-evidence`; **wholeChapterPassed=false, admissionGranted=false**.
+The original maker remains `8ebc6463-6f09-4861-b48f-1205fcb2ec55`,26525 input/0 cache/
+1678 output,28916ms. Both real calls, all old raw/parent-audit severities and frozen files are
+unchanged. No new model, OCR, maker, review or retry is performed during this registration.
+
+Independent original-pixel evidence confirms 放铳率6/7 approximately16/16,自摸占比6
+approximately49,立直棒没收率12 approximately21,一发比例6/7/12 approximately16/17/22.
+81 prior readings and all15 body blocks inherit exactly; the current table has88 approximate
+values and17 non-target unknowns. Those17 were not re-read in this review and are **not certified
+unreadable**, resolved, or turned into new OCR tasks. Their actual limited teaching impact is
+nonblocking-with-limits. The future conditional “if reliably readable later” is not new budget or
+a present unresolved production assignment. Original exact-coordinate and axis-unit uncertainty
+remains. The model's b0008 arithmetic comparison stays only in original review evidence: it is
+not inserted into author text, reclassified as a translation error, or promoted into a new numerical
+acceptance claim. Parent b0008's digits and all source-note history remain intact.
+
+The proposal's **ten verbatim “审校限制（非原文）” requirements** are mapped in
+`artifacts/b32-224-seven-result/verification.json` to every original raw field, unknown contribution
+and source block. They require original image/approximate labels, the complete attack/opponent
+not-ready/other-players-fold/rank-risk conditions, original turn13 approximately30% and “似乎有效”
+strength, comparison as an author judgment rather than this graph's standalone quantitative proof,
+all17 unknowns without interpolation or invented unreadability, an explicit88+17 partial-table
+description, no suppression of future genuinely readable approximate points, no invented axis
+unit, and clear sourcing of the author's turn13 statement. No requirement was paraphrased away,
+installed, or claimed verified in actual display. The proposal still has implementationVerified=false;
+no MCP/Arena readback or ordinary whole-chapter pass is manufactured.
+
+Original frozen `verifyProduction`, `prepareReview` and `verifyReviewExecution` were replayed
+for the exact new SHA. Published closed prompt/schema/image boundaries, real argv/model/effort/
+ordered image SHA/bytes, full session events/output/raw, unique standard audit ledger, complete
+source/parent/maker/independent chain and all113 inheritance references passed.35 dependency
+hashes and manifest7307b5fc… remained unchanged before/after. Fourteen negative checks reject
+invented whole-chapter pass/admission/installation, changed cell/unknown/source-note evidence,
+resolved or universally unreadable17 cells, missing/paraphrased limits and skipped readback.
+`verify-pack.py` passed immutable copies, JSON/Python AST/Node syntax and Windows paths
+(maximum213, strict limit240). Neither actual call failed transport or was repeated.
+
+Dedup found already queued exact-SHA consumers:244 `01a1820e-a8f0-7781-8fc2-0d40d4d5eadd`,
+250 `01a1820e-a904-7422-8df5-d04e1afb08ff`. No replacement consumer, wakeup or issue was added.
+The current observed preview contained no exact new candidate. Existing244/250 must compose
+the chapter-specific parent+seven-cell supplementary scope, install all ten restrictions in actual
+display, then perform real MCP/Arena readback before admission. A missing minimal loader belongs
+only to existing244 zero-model work, not another chapter's contract or a paid full-chart review.
+The current269 once wakeup has fired once and is disabled; no recurring wake is needed.
+
+Shared registration: `integration/coac269-224-seven-result-consumed-20261028.json`. Byte-exact
+original handoff/receipt/raw/inheritance/proposal and the executable consumption/verification
+scripts are in `artifacts/b32-224-seven-result`. Extension accounting is maker1+review1=**2/2,
+remaining0**, failed/void counted,0retry; prior224/232 **4/4** remains separate. This run adds0
+calls/consumers/global writes. Money, remote weights and upstream execution totals unknown.
+232, live human page/queue,311/PDF257/261 and283 are untouched. Wider ticket stays in_progress;
+target evidence completion and draft PR74 delivery do not mean whole-book completion or active switch.
