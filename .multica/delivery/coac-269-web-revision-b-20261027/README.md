@@ -2388,3 +2388,73 @@ This run performs **maker1, independent0**; independent maximum1 is handed off, 
 failed/void counted,0retry. Costs, remote weights and upstream execution counts unknown.
 PDF257/261, human annotation service/queue and other chapters are untouched. No new consumer,
 full-chapter audit, admission, integration or active switch; issue remains in_progress.
+
+## Batch34 — final human257 application and unchanged261 adjudication reuse
+
+After the original311 run completed, wakeup01a18232-6e7b-7916-87be-c9adae990cd1 delivered
+the244 final-human package for **only nemata-jp-chapter-250-1 PDF257/261**. The final-human
+authorization01a18217-36bb-7c2e-9dd7-46600908ab9a supersedes the1875139e conditional5m
+draft:261 already contains3m and must not be changed to5m or sent for another vote. This run
+performed **0 model/production/vision/independent calls**, acquired no maker/audit slot, did not
+write human annotation service/queue/events, and did not touch311 or other production scopes.
+The triggering once wakeup has fired and is already disabled; no recurring subscription remains.
+
+Both exact `entry.mjs verify 257 <269Owner>` and `verify 261 <269Owner>` passed against the
+actual latest saved events. Original180 input SHA pins and7 manifest files were rehashed.
+The original37-check harness was replayed in memory without its shared report write;7 additional
+negative checks reject a wrong owner, changed human value, silent old-machine correction,
+body/non-target-figure/unknown changes and fabricated model provenance. Raw190 events/final
+export and original book text/images stay in the shared snapshot, outside this Git delivery/ZIP.
+Evidence references and approved fact/event IDs, revisions, timestamps and SHAs remain traceable.
+
+257's existing deterministic human candidate **5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc**
+inherits parent6283c249…. Four saved items supply nine CPU river positions: upper1/6/17
+=2z/1s/1s;left16=2m riichi declaration;right1/2/7/13/14=1m/4m/8s/1m/3m. Only r1 transcription
+and its four corresponding unknown strings changed; author body, other3 figures and4 hidden/
+unseen unknown strings are exact. Public position count remains87. Public nine-slot application
+does **not** imply a complete legal record: `fullRecordMultiplicityPassed=false` is preserved.
+
+All23 conflicting positions are tied to original maker08715337 raw SHA75029d73…,
+`/parsedOutput/figures/0/transcription`, the original CPU single-panel ordering/row fragment,
+and explicit machine/human attribution in `artifacts/b34-human257261/verification.json`:
+
+| Tile/count | Exact CPU positions in original transcription order | Origin |
+|---|---|---|
+|4p×8|hand6;upper3/8;left11;right10/12;bottom5/6|all inherited machine|
+|9s×5|hand10/11;upper5;right4;bottom14|all inherited machine|
+|1s×5|hand7;upper6/17;left7;right9|upper6/17 human, others machine|
+|8s×5|hand9;left9;right7/16/17|right7 human, others machine|
+
+4p and9s exceed four before human application;1s and8s exceed four after combining the exact
+human facts with old machine fields. This is a transcription-consistency diagnostic, **not** a
+new pixel reading or a determination of which old position is wrong. No existing evidence fixes
+those specific old labels/position associations. The nine trusted human values cannot be changed
+to fit counts. Q9's conditional calling/one-suit discussion at256b27–b40 and257b1–b4 supplies
+the dependency boundary: the CPU reference cannot certify a full legal record, exact visible/
+remaining counts, acceptance tiles, probabilities, safety or optimality. The precise semantic
+effect remains unresolved, not independently accepted. Q10 b5 onward/r2–r4/b6–b10 is structurally
+separate and unchanged, inheriting original faithful checks; this does not convert Q9 into passed.
+The prepared257 pure-text sol/high request remains **proposal only, unauthorized and uninvoked**.
+
+261 candidate **376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359**
+was not edited. Human84791e37… revision2/event23e393c6… confirms3m. Existing same-SHA
+independent91507699 raw4803be12… says `target-is-3m / affectedExampleFaithful=true`.
+Original source-3m-adjudication5248fba6… and all source/audit/dependencies were verified.
+The unchanged frozen `verifyAuditForCandidate` actually returns **passed-after-source-adjudication**;
+the original5m error and its b33 derivative check remain recorded, not rewritten into a new ordinary
+pass. There was0 new production or review for261. Do not hold this exact reuse evidence hostage
+to257's remaining count conflict or repeat either source reading.
+
+Original preparation pages250–256,258–260,262 were rechecked through the actual frozen audit
+entry: **11 pages/837 source blocks passed**, with exact source/candidate/audit/raw hashes and
+0 repeated model reviews. Current preview/dedup observation found neither target page selected
+and no prior owner JSON consuming the new257 SHA or261 human event (142 owner JSONs scanned).
+
+Shared result `integration/coac269-human257261-consumed-20261028.json`,
+SHAb19d4192f637f7f719e8cf63b8b59dd99ebcb975749456a489d2b243bd72f5b9, was handed to
+existing250 via wakeup01a18238-1737-7ef8-b547-66400fda6aa7, along its existing single-writer
+queue.261 may reuse its original exact adjudication route when legal staging/readback permits;
+257 is registered as specifically unresolved, not admitted. No second consumer or model job is
+created. Actual display limitations are proposals only and no MCP/Arena readback is claimed here.
+`wholeChapterPassed=false / admissionGranted=false`; active is unchanged. Existing budgets are
+not reset; costs/remote weights/upstream total executions remain unknown. Wider issue in_progress.

@@ -1,0 +1,15 @@
+COAC-269→既有250唯一合库写者：用户244评论01a18217-36bb-7c2e-9dd7-46600908ab9a的最终人工证据已由269当前owner零模型消费。只接nemata-jp-chapter-250-1的PDF257/261，不新增工单/消费者/模型/制作/识图/复审，不碰311或其它章。沿原250队列顺序处理，不能与现有单写者并行写。
+
+先查精确SHA/人标事件/receipt在当前记录、run和队列是否已消费或在途；若同SHA证据已收，只补现有记录，不重复运行。共享结果 integration/coac269-human257261-consumed-20261028.json，SHA b19d4192f637f7f719e8cf63b8b59dd99ebcb975749456a489d2b243bd72f5b9。必须实际读取完整verification、conflictPositions、impact及261 actualFrozenVerifier，不用本条摘要替代。原包 integration/coac244-human-final-20261028 的README/manifest/derivation-receipts/entry仍为输入，原始190事件/final快照不动，每次应用须按entry重新核实际最新保存事件；不写用户页或队列。
+
+261可独立登记复用，不因257未齐而重复261：唯一候选production/sol-high-field-repair18-20261027-p261/candidates/nemata-jp/page-0261.json，SHA376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359，本来已是3m，未新派生或修改。人标84791e37a95dcfa295e38dbf27855039，revision2，2026-10-28T10:08:34.667Z，eventSHA23e393c61f516c0aef0552ba6b9c9eb76a7e61215996c8792bc6c82f5ac581c6填3m。真实同SHA旧独审91507699-61d3-496d-9481-de5f38e8418c，raw SHA4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255，原structuredOutput target-is-3m、affectedExampleFaithful=true，与原source-3m-adjudication SHA5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58绑定。本次已实跑entry.verify('261',269Owner)，并实跑audit/runtimes/coac269-109167-exact-v1-20261028/textbook-audit.mjs的verifyAuditForCandidate，确为passed-after-source-adjudication。原依赖manifest814df700…及各文件重算无变；原旧5m error与b33派生needs-repair原样保留，原精确source-adjudication只解决该既有问题的归属，不改severity，不算新普通全页审，不付费投票。
+
+请250按原合法精确source-adjudication路线保存该261页证据/选择。只有原合同明确允许且实际呈现与MCP/Arena读回均核验后，才判断该精确scope覆盖；本条不宣告已经合库/读回，更不因261可复用而宣布13页整章齐备。若现有完整章loader无法独立保存261证据，应准确记录最小接口缺项，不能重制或伪造整章passed。
+
+257候选 integration/coac244-human-final-20261028/candidates/257.human-final.json，SHA5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc；父6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88。四保存ID九位：上1/6/17=2z/1s/1s；左16=2m立直宣言；右1/2/7/13/14=1m/4m/8s/1m/3m。entry.verify('257',269Owner)实际通过确定性应用，只改transcription及对应4条unknown；作者全部body、其余3图和隐藏等4条unknown不动。87公开位置不变。九个人工码已固定，绝不能改码凑数或用模型重新猜。
+
+257 fullRecordMultiplicityPassed=false仍是具体阻断：4p×8、9s×5在原机转录08715337就存在；人工后1s×5、8s×5。全部23位置在verification.p257.conflictPositions逐项给CPU单帧scope/ordinal、原raw指针/转录片段、machine或trusted-human来源。位置采用原转录方向，未重新读像素；目前没有现成可靠证据指出具体哪张旧机转录或位置归属错，不擅改。Q9跨页的条件性鸣牌/一色手与CPU参考比较不能据此认证完整合法牌谱或精确可见/剩余张数、受入、概率、安全性和最优性；原始四画面相互关系与作者主张仍按原审记录，未产生新的语义pass。Q10 b5后r2/r3/r4及b6–b10结构隔离、原faithful与未改hash继承，不把旧CPU冲突扩散成重审所有页。
+
+257当前仅登记未准入及影响依赖，显示限制为提案、未安装/读回。request-257.json仅是纯文sol/high、images=[]的一次应用/论证审提案，根没有授权执行，本条不能派249或调用任何模型。若后续安排，只核人工应用与具体冲突对作者论证的影响，不能猜九人标或扩大读牌。没有证据裁定具体旧位置，就保持精确未决，不机械改unknown为error/source-note或删除旧审。
+
+其余11页250–256、258–260、262共837源块，原准备包reuse-pages.json的精确候选/source/audit/raw已重算且实跑冻结verifyAuditForCandidate均为passed，0重审。原37项回归以只读内存方式重放，不改原regression.json；新增7项负例通过。原180输入SHA、7入口manifest文件及原历史父链均核。新模型/制作/识图/独审0、0retry，不占maker-B或audit guard，不重置任何预算。wholeChapterPassed=false/admissionGranted=false/displayImplementationVerified=false，正式active不切。费用/远端权重/上游次数未知。结果回现有269原交付线程01a181e7-f366-7187-9a4d-4f0a70eaba7a，不新建消费者。
