@@ -1,7 +1,7 @@
 # 场景模式实验：额度中断后的独立重启
 
 用户于2026-10-28明确要求重启并完成实验。本轮目录为
-`E:/AgentData/Coach/scene-pattern-ceiling-restart-20261028`。
+`E:/AgentData/Coach/scene-pattern-ceiling-restart2-20261028`。
 旧目录`scene-pattern-ceiling-20261028`保留2748次请求及全部失败，不覆盖、不补刷、不复用失真的选版。
 本轮重新分配单轮6000次硬上限；旧轮消耗另记，两轮累计上限8748，不能混写为一次6000次实验。
 
@@ -15,7 +15,13 @@
 两并发已经发出的请求允许收尾。原始CLI诊断细节不足以证明账号额度状态，须以真实冒烟为准。
 相关31项回归通过，不通过绕过冻结、删失败或换样本恢复。
 
-执行：`node bin/scene-pattern-ceiling.mjs all --out E:/AgentData/Coach/scene-pattern-ceiling-restart-20261028`。
+第一次重启在244题时因现有语料合格样本不足而停止，未调用模型；
+`scene-pattern-ceiling-restart-20261028`保留该次准备状态、配额错误和验收未通过记录。
+已从既有固定revision来源计划导入`tenhou-houou-2026.tar`，12188场、0拒绝、下载87377920字节。
+独立只读输入库为`E:/AgentData/Coach/ceiling-corpus-2026/corpus.sqlite`，原语料库未改变。
+这次新样本来源年份为2026，须在最终覆盖范围说明；所有历史样本及244题准备记录继续排除。
+
+执行：`node bin/scene-pattern-ceiling.mjs all --out E:/AgentData/Coach/scene-pattern-ceiling-restart2-20261028 --database E:/AgentData/Coach/ceiling-corpus-2026/corpus.sqlite`。
 `pipeline-process.json`记录主进程，`pipeline.log`及`pipeline.err.log`记录运行。
 独立Python验收等待该进程退出，再复算正式评分、统计、账本和页面链接；失败明确报告，不重试模型。
 状态命令必须显式带本轮out；默认目录仍为历史实验，避免把旧进度当成新运行。
