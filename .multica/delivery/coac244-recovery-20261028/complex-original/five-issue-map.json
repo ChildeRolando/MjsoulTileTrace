@@ -1,0 +1,172 @@
+[
+  {
+    "originalIssueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+    "originalIssue": {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+      "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+      "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+    },
+    "currentCandidateStillHasOldFigure": true,
+    "donorDisposition": "donor-produced-and-independently-confirmed-hand",
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "maker": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+      "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+      "bytes": 153117
+    },
+    "independentCheckpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+      "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+      "bytes": 21564
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+      "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+      "bytes": 316132
+    },
+    "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+    "originalSeverityUnchanged": true
+  },
+  {
+    "originalIssueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+    "originalIssue": {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+      "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+      "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+    },
+    "currentCandidateStillHasOldFigure": true,
+    "donorDisposition": "donor-produced-and-independently-confirmed-hidden-hand-distinction",
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "maker": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+      "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+      "bytes": 153117
+    },
+    "independentCheckpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+      "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+      "bytes": 21564
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+      "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+      "bytes": 316132
+    },
+    "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+    "originalSeverityUnchanged": true
+  },
+  {
+    "originalIssueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+    "originalIssue": {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+      "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+      "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+    },
+    "currentCandidateStillHasOldFigure": true,
+    "donorDisposition": "honest-public-unknown-retained-with-positive-context-but-seat-error-still-open",
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "maker": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+      "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+      "bytes": 153117
+    },
+    "independentCheckpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+      "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+      "bytes": 21564
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+      "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+      "bytes": 316132
+    },
+    "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+    "originalSeverityUnchanged": true
+  },
+  {
+    "originalIssueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+    "originalIssue": {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+      "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+      "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+    },
+    "currentCandidateStillHasOldFigure": true,
+    "donorDisposition": "donor-produced-and-independent-faithful-question",
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "maker": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\fafc75a7-a3fb-4db5-b899-aa4ae346fa0c.json",
+      "sha256": "02260915db5aa39d0a08aa51333328b92d8cc941e8cca7b757ee8df2d58ccc9b",
+      "bytes": 158971
+    },
+    "independentCheckpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+      "sha256": "50a4862f7d2262d3ac34e1136b1f874e5f342142133dec25e0c5e57abd5cafc7",
+      "bytes": 22186
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7896f6fb-3a56-4444-bf7f-761db2958445.json",
+      "sha256": "cec5e1c91a2db633a5e7fe55eeea9bff61d177e23106e38c6610240229a36d0b",
+      "bytes": 332061
+    },
+    "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+    "originalSeverityUnchanged": true
+  },
+  {
+    "originalIssueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+    "originalIssue": {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+      "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+      "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+    },
+    "currentCandidateStillHasOldFigure": true,
+    "donorDisposition": "independent-figure-faithful-with-explicit-two-public-wind-unknowns",
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "maker": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\fafc75a7-a3fb-4db5-b899-aa4ae346fa0c.json",
+      "sha256": "02260915db5aa39d0a08aa51333328b92d8cc941e8cca7b757ee8df2d58ccc9b",
+      "bytes": 158971
+    },
+    "independentCheckpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+      "sha256": "50a4862f7d2262d3ac34e1136b1f874e5f342142133dec25e0c5e57abd5cafc7",
+      "bytes": 22186
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7896f6fb-3a56-4444-bf7f-761db2958445.json",
+      "sha256": "cec5e1c91a2db633a5e7fe55eeea9bff61d177e23106e38c6610240229a36d0b",
+      "bytes": 332061
+    },
+    "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+    "originalSeverityUnchanged": true
+  }
+]

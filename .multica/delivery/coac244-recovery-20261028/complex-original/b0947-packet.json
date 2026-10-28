@@ -1,0 +1,1225 @@
+{
+  "schema": "coac244-283-complex-target-zero-packet/1",
+  "canonical": "nemata-jp-chapter-283-1",
+  "target": "b0947",
+  "question": 60,
+  "current": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+    "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+    "bytes": 2132086
+  },
+  "stableParent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+    "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458",
+    "bytes": 2157755
+  },
+  "donor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "questionSourceBlockIds": [
+    "modern-yabejp-ja:chapter06-exercise003:b0945",
+    "modern-yabejp-ja:chapter06-exercise003:b0946",
+    "modern-yabejp-ja:chapter06-exercise003:b0947",
+    "modern-yabejp-ja:chapter06-exercise003:b0948",
+    "modern-yabejp-ja:chapter06-exercise003:b0949",
+    "modern-yabejp-ja:chapter06-exercise003:b0950"
+  ],
+  "commonDefinitionsIds": [
+    "modern-yabejp-ja:chapter06-exercise003:b0001",
+    "modern-yabejp-ja:chapter06-exercise003:b0002",
+    "modern-yabejp-ja:chapter06-exercise003:b0003",
+    "modern-yabejp-ja:chapter06-exercise003:b0004",
+    "modern-yabejp-ja:chapter06-exercise003:b0005",
+    "modern-yabejp-ja:chapter06-exercise003:b0006",
+    "modern-yabejp-ja:chapter06-exercise003:b0007",
+    "modern-yabejp-ja:chapter06-exercise003:b0008",
+    "modern-yabejp-ja:chapter06-exercise003:b0009"
+  ],
+  "orderedSourceCandidatePairs": [
+    {
+      "position": 0,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0001",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0001",
+        "tag": "h2",
+        "domPath": "main/h2[3]",
+        "tableContext": null,
+        "type": "text",
+        "text": "「鴉〃の麻雀解説」サイト問題",
+        "segments": [
+          {
+            "text": "「鴉〃の麻雀解説」サイト問題",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0001"
+        ],
+        "sourceText": "「鴉〃の麻雀解説」サイト問題",
+        "text": "“鸦〃的麻将解说”网站习题",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0001",
+        "sourceSegments": [
+          {
+            "text": "「鴉〃の麻雀解説」サイト問題",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 1,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0002",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0002",
+        "tag": "p",
+        "domPath": "main/p[5]",
+        "tableContext": null,
+        "type": "text",
+        "text": "問題出典：「鴉〃の麻雀解説」",
+        "segments": [
+          {
+            "text": "問題出典：「",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "鴉〃の麻雀解説",
+            "marks": [],
+            "href": "http://mjkarasu.sessya.net/index.html"
+          },
+          {
+            "text": "」",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0002"
+        ],
+        "sourceText": "問題出典：「鴉〃の麻雀解説」",
+        "text": "题目出处：“[鸦〃的麻将解说](http://mjkarasu.sessya.net/index.html)”",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0002",
+        "sourceSegments": [
+          {
+            "text": "問題出典：「",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "鴉〃の麻雀解説",
+            "marks": [],
+            "href": "http://mjkarasu.sessya.net/index.html"
+          },
+          {
+            "text": "」",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 2,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0003",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0003",
+        "tag": "p",
+        "domPath": "main/p[7]",
+        "tableContext": null,
+        "type": "text",
+        "text": "特に断りがない部分は、以下のルールと状況を適用。",
+        "segments": [
+          {
+            "text": "特に断りがない部分は、以下のルールと状況を適用。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0003"
+        ],
+        "sourceText": "特に断りがない部分は、以下のルールと状況を適用。",
+        "text": "除非另有说明，均适用以下规则和状况。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0003",
+        "sourceSegments": [
+          {
+            "text": "特に断りがない部分は、以下のルールと状況を適用。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 3,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0004",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+        "tag": "p",
+        "domPath": "main/p[9]",
+        "tableContext": null,
+        "type": "text",
+        "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+        "segments": [
+          {
+            "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0004"
+        ],
+        "sourceText": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+        "text": "规则：允许食断、后付，无赤宝牌，有一发、里宝牌、杠宝牌、杠里宝牌。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+        "sourceSegments": [
+          {
+            "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 4,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0005",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+        "tag": "p",
+        "domPath": "main/p[9]",
+        "tableContext": null,
+        "type": "text",
+        "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+        "segments": [
+          {
+            "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0005"
+        ],
+        "sourceText": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+        "text": " 状况：所有人的牌河中都只切出了1、9和字牌，也完全没有鸣牌。假定场上没有出现相关牌。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+        "sourceSegments": [
+          {
+            "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 5,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0006",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0005",
+        "tag": "p",
+        "domPath": "main/p[11]",
+        "tableContext": null,
+        "type": "text",
+        "text": "良問率はそこそこ高いと思います。ただ、解説の方に一つ大きな問題点があります。それは、比較要因をただ列挙しているだけで、それらの中で優先すべき”核心”は何かを示すという、解答、解説を行ううえで一番重要な行為がほとんど行われていないということです。（行われているものについても、比較方法が稚拙なものも多い。）確かに、優劣が微妙な問題も存在するので、比較が難しいこともあります。しかし、ルールと状況が十分に与えられていれば何切るに正解は存在しますし、問題に設定されてない状況についても適宜場合分けをしていけば良いだけです。（明らかにデメリットの方が大きいのに）この選択はこういうメリットもあるなどということを知っても役に立たないばかりか却って有害にもなります。様々なメリットデメリットを知ることより、この手牌でこの条件なら打○が最も有利（もしくは、打△ははっきり不利、打◇と打×は優劣微妙）と言えるパターンを少しでも増やしていくことが何倍も実力向上の為に重要なのです。また、比較の為に必要な、優先すべき核心が何かについて押さえることに慣れれば、正着を素早く打てるようになりますし、打牌選択を説明する場合もわざわざ長ったらしい解説をせずに簡潔に済ますことができるようになります。",
+        "segments": [
+          {
+            "text": "良問率はそこそこ高いと思います。ただ、解説の方に一つ大きな問題点があります。それは、比較要因をただ列挙しているだけで、それらの中で",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "優先すべき”核心”は何かを示す",
+            "marks": [
+              "strong::"
+            ],
+            "href": null
+          },
+          {
+            "text": "という、解答、解説を行ううえで一番重要な行為がほとんど行われていないということです。（行われているものについても、比較方法が稚拙なものも多い。）確かに、優劣が微妙な問題も存在するので、比較が難しいこともあります。しかし、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "ルールと状況が十分に与えられていれば何切るに正解は存在します",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "し、問題に設定されてない状況についても適宜場合分けをしていけば良いだけです。（明らかにデメリットの方が大きいのに）この選択はこういうメリットもあるなどということを知っても役に立たないばかりか却って有害にもなります。様々なメリットデメリットを知ることより、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "この手牌でこの条件なら打○が最も有利（もしくは、打△ははっきり不利、打◇と打×は優劣微妙）と言えるパターンを少しでも増やしていくことが何倍も実力向上の為に重要",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "なのです。また、比較の為に必要な、優先すべき核心が何かについて押さえることに慣れれば、正着を素早く打てるようになりますし、打牌選択を説明する場合もわざわざ長ったらしい解説をせずに簡潔に済ますことができるようになります。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0006"
+        ],
+        "sourceText": "良問率はそこそこ高いと思います。ただ、解説の方に一つ大きな問題点があります。それは、比較要因をただ列挙しているだけで、それらの中で優先すべき”核心”は何かを示すという、解答、解説を行ううえで一番重要な行為がほとんど行われていないということです。（行われているものについても、比較方法が稚拙なものも多い。）確かに、優劣が微妙な問題も存在するので、比較が難しいこともあります。しかし、ルールと状況が十分に与えられていれば何切るに正解は存在しますし、問題に設定されてない状況についても適宜場合分けをしていけば良いだけです。（明らかにデメリットの方が大きいのに）この選択はこういうメリットもあるなどということを知っても役に立たないばかりか却って有害にもなります。様々なメリットデメリットを知ることより、この手牌でこの条件なら打○が最も有利（もしくは、打△ははっきり不利、打◇と打×は優劣微妙）と言えるパターンを少しでも増やしていくことが何倍も実力向上の為に重要なのです。また、比較の為に必要な、優先すべき核心が何かについて押さえることに慣れれば、正着を素早く打てるようになりますし、打牌選択を説明する場合もわざわざ長ったらしい解説をせずに簡潔に済ますことができるようになります。",
+        "text": "我认为其中好题的比例还算高。不过，解说存在一个很大的问题：只是罗列比较因素，却几乎没有做到解答、解说时最重要的一点，即**指出这些因素中应优先考虑的“核心”是什么**。（即使有做到这一点的解说，也有很多比较方法相当拙劣。）确实，有些题目的优劣差距很微妙，有时很难比较。然而，*只要充分给定规则和状况，“何切”就存在正确答案*；至于题目没有设定的状况，也只需适当地分情况讨论即可。知道“这种选择也有这样的优点”之类的事情（尽管其缺点显然更大），不仅没有帮助，反而还可能有害。比起了解各种优缺点，*哪怕只是多积累一些能够断言“这副手牌在这些条件下，切○最有利”（或者“切△明显不利，切◇和切×优劣微妙”）的情形，对提高实力也重要数倍*。此外，如果习惯于把握比较时需要优先考虑的核心是什么，就能迅速打出正确的一手；在说明出牌选择时，也能简明扼要地说清楚，无须特意写出冗长的解说。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0005",
+        "sourceSegments": [
+          {
+            "text": "良問率はそこそこ高いと思います。ただ、解説の方に一つ大きな問題点があります。それは、比較要因をただ列挙しているだけで、それらの中で",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "優先すべき”核心”は何かを示す",
+            "marks": [
+              "strong::"
+            ],
+            "href": null
+          },
+          {
+            "text": "という、解答、解説を行ううえで一番重要な行為がほとんど行われていないということです。（行われているものについても、比較方法が稚拙なものも多い。）確かに、優劣が微妙な問題も存在するので、比較が難しいこともあります。しかし、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "ルールと状況が十分に与えられていれば何切るに正解は存在します",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "し、問題に設定されてない状況についても適宜場合分けをしていけば良いだけです。（明らかにデメリットの方が大きいのに）この選択はこういうメリットもあるなどということを知っても役に立たないばかりか却って有害にもなります。様々なメリットデメリットを知ることより、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "この手牌でこの条件なら打○が最も有利（もしくは、打△ははっきり不利、打◇と打×は優劣微妙）と言えるパターンを少しでも増やしていくことが何倍も実力向上の為に重要",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "なのです。また、比較の為に必要な、優先すべき核心が何かについて押さえることに慣れれば、正着を素早く打てるようになりますし、打牌選択を説明する場合もわざわざ長ったらしい解説をせずに簡潔に済ますことができるようになります。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 6,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0007",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0006",
+        "tag": "h3",
+        "domPath": "main/h3[13]",
+        "tableContext": null,
+        "type": "text",
+        "text": "解答と簡潔な解説",
+        "segments": [
+          {
+            "text": "解答と簡潔な解説",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0007"
+        ],
+        "sourceText": "解答と簡潔な解説",
+        "text": "答案与简要解说",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0006",
+        "sourceSegments": [
+          {
+            "text": "解答と簡潔な解説",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 7,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0008",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0007",
+        "tag": "p",
+        "domPath": "main/p[15]",
+        "tableContext": null,
+        "type": "text",
+        "text": "その後の打牌選択についてまで書く場合は長文になるのもやむをえないのでそこはご了承下さい。",
+        "segments": [
+          {
+            "text": "その後の打牌選択についてまで書く場合は長文になるのもやむをえないのでそこはご了承下さい。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0008"
+        ],
+        "sourceText": "その後の打牌選択についてまで書く場合は長文になるのもやむをえないのでそこはご了承下さい。",
+        "text": "如果连之后的出牌选择也要写到，篇幅难免会变长，这一点还请谅解。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0007",
+        "sourceSegments": [
+          {
+            "text": "その後の打牌選択についてまで書く場合は長文になるのもやむをえないのでそこはご了承下さい。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 8,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0009",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0008",
+        "tag": "p",
+        "domPath": "main/p[17]",
+        "tableContext": null,
+        "type": "text",
+        "text": "１シャンテン形について、便宜上、①＝余剰牌有り２面子形　②＝余剰牌無し２面子形　③＝ヘッドレス（雀頭無し）形　④＝くっつき形と表記する。",
+        "segments": [
+          {
+            "text": "１シャンテン形について、便宜上、①＝余剰牌有り２面子形　②＝余剰牌無し２面子形　③＝ヘッドレス（雀頭無し）形　④＝くっつき形と表記する。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0009"
+        ],
+        "sourceText": "１シャンテン形について、便宜上、①＝余剰牌有り２面子形　②＝余剰牌無し２面子形　③＝ヘッドレス（雀頭無し）形　④＝くっつき形と表記する。",
+        "text": "关于一向听牌形，为方便起见，记作：①＝有多余牌的2面子形　②＝无多余牌的2面子形　③＝无雀头形　④＝靠张形。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0008",
+        "sourceSegments": [
+          {
+            "text": "１シャンテン形について、便宜上、①＝余剰牌有り２面子形　②＝余剰牌無し２面子形　③＝ヘッドレス（雀頭無し）形　④＝くっつき形と表記する。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 944,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0945",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0439",
+        "tag": "div",
+        "domPath": "main/div[603]",
+        "tableContext": null,
+        "type": "text",
+        "text": "【問題60】",
+        "segments": [
+          {
+            "text": "【問題60】",
+            "marks": [],
+            "href": "http://mjkarasu.sessya.net/nanikiru60.html"
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0945"
+        ],
+        "sourceText": "【問題60】",
+        "text": "[【问题60】](http://mjkarasu.sessya.net/nanikiru60.html)",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0439",
+        "sourceSegments": [
+          {
+            "text": "【問題60】",
+            "marks": [],
+            "href": "http://mjkarasu.sessya.net/nanikiru60.html"
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 945,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0946",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0440",
+        "tag": "div",
+        "domPath": "main/div[605]",
+        "tableContext": null,
+        "type": "text",
+        "text": "※半荘戦、10－30、アリアリ、赤５牌３枚",
+        "segments": [
+          {
+            "text": "※半荘戦、10－30、アリアリ、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "赤５牌３枚",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0946"
+        ],
+        "sourceText": "※半荘戦、10－30、アリアリ、赤５牌３枚",
+        "text": "※半庄战，10－30，允许食断和后付，*3张赤5牌*",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0440",
+        "sourceSegments": [
+          {
+            "text": "※半荘戦、10－30、アリアリ、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "赤５牌３枚",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 946,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0947",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0440",
+        "tag": "div",
+        "domPath": "main/div[605]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter06-exercise003:i01158",
+            "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+            "sourceUrls": [
+              "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/002.jpg"
+            ],
+            "alt": "立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）",
+            "title": "",
+            "width": "623",
+            "height": "567",
+            "tileHint": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0947"
+        ],
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0440",
+        "tableContext": null
+      },
+      "currentFigure": {
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0947"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter06-exercise003:i01158"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+            "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/002.jpg"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "牌局画面，以下位置均以画面为准。\n中央：南二局；剩余36张；两处红色计数均为0。座风标记：上方1z，右方4z，下方3z，左方2z。中央右上有两枚骰子，点数未能可靠辨明。\n四角信息：左上“中流／28000／(+2000)”；右上“中流／31000／(+5000)”；左下“庶民／26000／第3名”；右下“中流／15000／(-11000)”。\n下方手牌，自左向右，均为正向：4m 5m 5m（赤）6m 7m 2s 2s 4s 5s 5s（赤）6s 7s 9s。\n下方牌河，第一行自左向右：1p 5z 3z 2z 1m 2m；第二行自左向右：4z 9m。均为正向。\n左方牌河，牌面相对画面顺时针旋转90°。靠中央一列自上向下：1s 9s 7z 2p 8p 7s；外侧一列自上向下：4z 5s 2s。末张2s有蓝色高亮。\n上方牌河，牌面相对画面旋转180°。靠中央一行按该玩家出牌顺序自右向左：3z 1s 9s 4z 7z [风牌未辨明]；外侧一行自右向左：6z 5z 1m。\n右方牌河，牌面相对画面顺时针旋转270°。靠中央一列按该玩家出牌顺序自下向上：9m 9s 9m 7z 3z [风牌未辨明]；外侧一列自下向上：6z 6z。\n中央上方有两层牌墙，横向7列；上层自左数第3张翻开，为5s宝牌指示牌，其余为牌背。\n其余三家的暗手显示为牌背：上方13张，左方13张，右方13张。\n右侧橙色按钮标注“鸣牌”。画面没有教学用摸入或切牌箭头。",
+        "unknowns": [
+          "上方牌河靠中央一行最左端、即该玩家第一张弃牌的风牌牌种无法可靠辨明。",
+          "右方牌河靠中央一列最上端、即该玩家第一张弃牌的风牌牌种无法可靠辨明。",
+          "中央右上两枚骰子的各自点数无法可靠辨明。"
+        ],
+        "caption": "问题60的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图为同一画面的两个视图，只计作一个图。",
+          "画面四周及下方有黑色遮挡或裁切区域。",
+          "蓝色高亮属于左方末张弃牌2s的界面显示，不表示赤牌。",
+          "1p中央的红色圆心是牌面图案，不表示赤牌；手牌中的两张赤牌已分别标明。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "f0c50fbe-dad3-4f19-a861-a3286297f4f2",
+          "outputSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0947"
+        }
+      },
+      "donorFigure": {
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0947"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter06-exercise003:i01158"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+            "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/002.jpg"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "题意：是否碰上家刚切出的2s？左侧牌河末张蓝色高亮的2s是本次鸣牌判断的对象。\n下方自己的手牌，从左至右：4m 5m 5m（赤）6m 7m 2s 2s 4s 5s 5s（赤）6s 7s 9s，共13张，均正向显示；没有另行分开的摸入牌。\n牌河按画面位置记录，保留各排、列的排列关系：\n下方牌河：第一排从左至右为1p 5z 3z 2z 1m 2m；第二排在第一排左端下方，从左至右为4z 9m。牌面均正向。\n上方牌河：靠近中央牌墙的一排，从左至右为[风牌未辨明] 7z 4z 9s 1s 3z；其上一排与右端对齐，从左至右为1m 5z 6z。牌面相对观者倒置。\n左侧牌河：靠近中央的一列，从上至下为1s 9s 7z 2p 8p 7s；其左侧一列与上端对齐，从上至下为4z 7s 2s。最后的2s以蓝色高亮。牌面相对观者顺时针旋转90°。\n右侧牌河：靠近中央的一列，从上至下为[风牌未辨明] 3z 7z 9m 9s 9m；其右侧一列与下端对齐，从上至下为6z 6z。牌面相对观者逆时针旋转90°。\n其余三家的隐手分别位于画面上方、左侧边缘和右侧边缘，各13张，只有牌背或侧面可见，具体牌面未知；这些是隐手，不是中央牌墙。画面没有可见副露。\n中央上方可见一段双层牌墙，上层从画面左至右有7个牌位，第3个牌位翻开5s作为宝牌指示牌，其余牌位背面朝上。\n中央显示：南二局，剩余36张，本场数0、立直供托0；座位标记为下方西家、左侧南家、上方东家、右侧北家。中央另有两枚骰子，点数未能可靠辨认。\n四角信息栏：左上“中流，28000（+2000）”；右上“中流，31000（+5000）”；左下“平民，26000，第3名”；右下“中流，15000（−11000）”。\n右侧另有一个橙色矩形标记，其黑色字形未能可靠辨认。",
+        "unknowns": [
+          "上方牌河靠近中央牌墙的一排，画面最左端风牌的确切牌码未能可靠辨认。",
+          "右侧牌河靠近中央的一列，最上端风牌的确切牌码未能可靠辨认。",
+          "上方、左侧和右侧三家隐手的具体牌面未显示。",
+          "中央两枚骰子的各自点数未能可靠辨认。",
+          "右侧橙色矩形标记内的黑色字形未能可靠辨认。"
+        ],
+        "caption": "问题60：是否碰上家刚切出的2s？左侧蓝色高亮的2s是此次鸣牌判断的对象。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不构成额外牌张或额外出现次数。",
+          "画面四周及下方有黑色区域，部分界面边缘被遮挡或裁切；未据此推定隐藏内容。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+          "outputSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0947"
+        }
+      }
+    },
+    {
+      "position": 947,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0948",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0441",
+        "tag": "p",
+        "domPath": "main/p[607]",
+        "tableContext": null,
+        "type": "text",
+        "text": "【解答と解説】",
+        "segments": [
+          {
+            "text": "【解答と解説】",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0948"
+        ],
+        "sourceText": "【解答と解説】",
+        "text": "【解答与解说】",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0441",
+        "sourceSegments": [
+          {
+            "text": "【解答と解説】",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 948,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0949",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0442",
+        "tag": "p",
+        "domPath": "main/p[609]",
+        "tableContext": null,
+        "type": "text",
+        "text": "スルー",
+        "segments": [
+          {
+            "text": "スルー",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0949"
+        ],
+        "sourceText": "スルー",
+        "text": "放过",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0442",
+        "sourceSegments": [
+          {
+            "text": "スルー",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    },
+    {
+      "position": 949,
+      "source": {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0950",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0443",
+        "tag": "p",
+        "domPath": "main/p[611]",
+        "tableContext": null,
+        "type": "text",
+        "text": "スルーしてもテンパイに取れる牌を鳴く権利は残り、現時点でリャンメン＋リャンメン･カンチャンのシャンテンで十分広いので大して早くならない。跳満～倍満の可能性を消してまで鳴かない。",
+        "segments": [
+          {
+            "text": "スルーしてもテンパイに取れる牌を鳴く権利は残り、現時点でリャンメン＋リャンメン･カンチャンのシャンテンで十分広いので大して早くならない。跳満～倍満の可能性を消してまで鳴かない。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0950"
+        ],
+        "sourceText": "スルーしてもテンパイに取れる牌を鳴く権利は残り、現時点でリャンメン＋リャンメン･カンチャンのシャンテンで十分広いので大して早くならない。跳満～倍満の可能性を消してまで鳴かない。",
+        "text": "即使放过，之后仍可以鸣入能使自己听牌的牌；而目前是两面＋两面嵌张的一向听，进张已经足够宽，因此鸣牌也不会快多少。不值得为了鸣牌而放弃跳满～倍满的可能性。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0443",
+        "sourceSegments": [
+          {
+            "text": "スルーしてもテンパイに取れる牌を鳴く権利は残り、現時点でリャンメン＋リャンメン･カンチャンのシャンテンで十分広いので大して早くならない。跳満～倍満の可能性を消してまで鳴かない。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "currentFigure": null,
+      "donorFigure": null
+    }
+  ],
+  "currentFigure": {
+    "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0947"
+    ],
+    "sourceOccurrenceIds": [
+      "modern-yabejp-ja:chapter06-exercise003:i01158"
+    ],
+    "sourceAssetBindings": [
+      {
+        "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+        "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/002.jpg"
+      }
+    ],
+    "kind": "mahjong-example",
+    "transcription": "牌局画面，以下位置均以画面为准。\n中央：南二局；剩余36张；两处红色计数均为0。座风标记：上方1z，右方4z，下方3z，左方2z。中央右上有两枚骰子，点数未能可靠辨明。\n四角信息：左上“中流／28000／(+2000)”；右上“中流／31000／(+5000)”；左下“庶民／26000／第3名”；右下“中流／15000／(-11000)”。\n下方手牌，自左向右，均为正向：4m 5m 5m（赤）6m 7m 2s 2s 4s 5s 5s（赤）6s 7s 9s。\n下方牌河，第一行自左向右：1p 5z 3z 2z 1m 2m；第二行自左向右：4z 9m。均为正向。\n左方牌河，牌面相对画面顺时针旋转90°。靠中央一列自上向下：1s 9s 7z 2p 8p 7s；外侧一列自上向下：4z 5s 2s。末张2s有蓝色高亮。\n上方牌河，牌面相对画面旋转180°。靠中央一行按该玩家出牌顺序自右向左：3z 1s 9s 4z 7z [风牌未辨明]；外侧一行自右向左：6z 5z 1m。\n右方牌河，牌面相对画面顺时针旋转270°。靠中央一列按该玩家出牌顺序自下向上：9m 9s 9m 7z 3z [风牌未辨明]；外侧一列自下向上：6z 6z。\n中央上方有两层牌墙，横向7列；上层自左数第3张翻开，为5s宝牌指示牌，其余为牌背。\n其余三家的暗手显示为牌背：上方13张，左方13张，右方13张。\n右侧橙色按钮标注“鸣牌”。画面没有教学用摸入或切牌箭头。",
+    "unknowns": [
+      "上方牌河靠中央一行最左端、即该玩家第一张弃牌的风牌牌种无法可靠辨明。",
+      "右方牌河靠中央一列最上端、即该玩家第一张弃牌的风牌牌种无法可靠辨明。",
+      "中央右上两枚骰子的各自点数无法可靠辨明。"
+    ],
+    "caption": "问题60的牌局画面。",
+    "sourceNotes": [
+      "原图与最近邻放大图为同一画面的两个视图，只计作一个图。",
+      "画面四周及下方有黑色遮挡或裁切区域。",
+      "蓝色高亮属于左方末张弃牌2s的界面显示，不表示赤牌。",
+      "1p中央的红色圆心是牌面图案，不表示赤牌；手牌中的两张赤牌已分别标明。"
+    ],
+    "provenance": {
+      "method": "model-transcription",
+      "callId": "f0c50fbe-dad3-4f19-a861-a3286297f4f2",
+      "outputSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0947"
+    }
+  },
+  "donorFigure": {
+    "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0947"
+    ],
+    "sourceOccurrenceIds": [
+      "modern-yabejp-ja:chapter06-exercise003:i01158"
+    ],
+    "sourceAssetBindings": [
+      {
+        "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+        "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/002.jpg"
+      }
+    ],
+    "kind": "mahjong-example",
+    "transcription": "题意：是否碰上家刚切出的2s？左侧牌河末张蓝色高亮的2s是本次鸣牌判断的对象。\n下方自己的手牌，从左至右：4m 5m 5m（赤）6m 7m 2s 2s 4s 5s 5s（赤）6s 7s 9s，共13张，均正向显示；没有另行分开的摸入牌。\n牌河按画面位置记录，保留各排、列的排列关系：\n下方牌河：第一排从左至右为1p 5z 3z 2z 1m 2m；第二排在第一排左端下方，从左至右为4z 9m。牌面均正向。\n上方牌河：靠近中央牌墙的一排，从左至右为[风牌未辨明] 7z 4z 9s 1s 3z；其上一排与右端对齐，从左至右为1m 5z 6z。牌面相对观者倒置。\n左侧牌河：靠近中央的一列，从上至下为1s 9s 7z 2p 8p 7s；其左侧一列与上端对齐，从上至下为4z 7s 2s。最后的2s以蓝色高亮。牌面相对观者顺时针旋转90°。\n右侧牌河：靠近中央的一列，从上至下为[风牌未辨明] 3z 7z 9m 9s 9m；其右侧一列与下端对齐，从上至下为6z 6z。牌面相对观者逆时针旋转90°。\n其余三家的隐手分别位于画面上方、左侧边缘和右侧边缘，各13张，只有牌背或侧面可见，具体牌面未知；这些是隐手，不是中央牌墙。画面没有可见副露。\n中央上方可见一段双层牌墙，上层从画面左至右有7个牌位，第3个牌位翻开5s作为宝牌指示牌，其余牌位背面朝上。\n中央显示：南二局，剩余36张，本场数0、立直供托0；座位标记为下方西家、左侧南家、上方东家、右侧北家。中央另有两枚骰子，点数未能可靠辨认。\n四角信息栏：左上“中流，28000（+2000）”；右上“中流，31000（+5000）”；左下“平民，26000，第3名”；右下“中流，15000（−11000）”。\n右侧另有一个橙色矩形标记，其黑色字形未能可靠辨认。",
+    "unknowns": [
+      "上方牌河靠近中央牌墙的一排，画面最左端风牌的确切牌码未能可靠辨认。",
+      "右侧牌河靠近中央的一列，最上端风牌的确切牌码未能可靠辨认。",
+      "上方、左侧和右侧三家隐手的具体牌面未显示。",
+      "中央两枚骰子的各自点数未能可靠辨认。",
+      "右侧橙色矩形标记内的黑色字形未能可靠辨认。"
+    ],
+    "caption": "问题60：是否碰上家刚切出的2s？左侧蓝色高亮的2s是此次鸣牌判断的对象。",
+    "sourceNotes": [
+      "原图与最近邻放大图是同一画面的两种视图，不构成额外牌张或额外出现次数。",
+      "画面四周及下方有黑色区域，部分界面边缘被遮挡或裁切；未据此推定隐藏内容。"
+    ],
+    "provenance": {
+      "method": "model-transcription",
+      "callId": "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+      "outputSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0947"
+    }
+  },
+  "donorFigureIndependentCheck": {
+    "id": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+    "verdict": "faithful",
+    "evidence": "13张手牌及两张赤五的位置、左侧蓝色高亮2s、四家牌河的分排列位均与原图相符。三家隐手与中央双层牌墙区分正确，无可见副露；5s指示牌、南二局、余36张、零本场与零供托及四家点数均对应。source与candidate的tableContext均为null，无表格归位冲突。",
+    "preservedUnknowns": {
+      "acknowledged": true,
+      "evidence": "三家隐手、两处未辨明风牌、骰子点数和橙色标记字形均明确保留为未知，没有猜填或删除对应牌位。"
+    }
+  },
+  "donorContextCheck": {
+    "faithful": true,
+    "evidence": "目标图完整支持问题60放过碰2s的题解；两处目标译文分别与切发或中、切三筒并比较切二万的论证保持连贯。"
+  },
+  "donorIndependentIssues": [],
+  "oldIssues": [
+    {
+      "originalIssueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+        "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+        "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+      },
+      "category": "语义/条件/图转录",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+        "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+        "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+      },
+      "category": "关键未知图/源场况",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    }
+  ],
+  "nativeSourceSize": [
+    623,
+    567
+  ],
+  "coordinatesHalfOpen": {
+    "upper-first-wind": [
+      236,
+      141,
+      266,
+      177
+    ],
+    "right-first-wind": [
+      399,
+      201,
+      440,
+      230
+    ],
+    "highlighted-discard-2s": [
+      151,
+      234,
+      188,
+      270
+    ]
+  },
+  "coordinateMeaning": "mechanical localization of independently named positions; not new semantic reading",
+  "originalImagesAndDerivedViews": [
+    {
+      "role": "ordered-original",
+      "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0947",
+      "occurrenceId": "modern-yabejp-ja:chapter06-exercise003:i01158",
+      "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0947-29f615224991.jpg",
+      "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+      "bytes": 56076,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg"
+    },
+    {
+      "role": "whole-original-nearest-x2",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0947-original-x2.png",
+      "sha256": "012236fb475beb71a6805869ef1c0dd43a502a0b8a9abc1497e83a3c11c7ac6a",
+      "bytes": 495708,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.x2.png"
+    }
+  ],
+  "maker": {
+    "callId": "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\fafc75a7-a3fb-4db5-b899-aa4ae346fa0c.json",
+      "sha256": "02260915db5aa39d0a08aa51333328b92d8cc941e8cca7b757ee8df2d58ccc9b",
+      "bytes": 158971
+    },
+    "record": {
+      "callId": "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise003",
+      "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T06:19:29.776Z",
+      "durationMs": 340142,
+      "usage": {
+        "inputTokens": 31399,
+        "cachedInputTokens": 31232,
+        "outputTokens": 6749
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/fafc75a7-a3fb-4db5-b899-aa4ae346fa0c.json",
+      "rawArtifactSha256": "02260915db5aa39d0a08aa51333328b92d8cc941e8cca7b757ee8df2d58ccc9b",
+      "outputSha256": "90b5fd87d375c05a78ac5296d7c8d743175c4487e34de3416014ede15026fb15",
+      "schemaSha256": "ba2e85e39d33a1dae3bc80602e066e4b4a8140815e3312cfc141b61d501de0f7",
+      "promptSha256": "ca11cff1f702e790dfd3ff01e9af89d94404cca7430ce32799ae5617d375d2ff",
+      "semanticPromptSha256": "17e9914aedbf14976c7f8dd0fcf796c5e6b0d87b99140d754d4a92ef43aac3f3",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+        "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "modern-yabejp-ja:chapter06-exercise003:b1017"
+        ],
+        "figureIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0947"
+        ]
+      },
+      "terminalEvents": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (stream disconnected before completion: IO error: cannot decrypt peer's message)",
+          "param": null
+        }
+      ],
+      "visualInputs": [
+        {
+          "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+          "sourceSha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+          "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 623,
+          "height": 567
+        },
+        {
+          "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+          "sourceSha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.x2.png",
+          "sha256": "012236fb475beb71a6805869ef1c0dd43a502a0b8a9abc1497e83a3c11c7ac6a",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1246,
+          "height": 1134
+        }
+      ],
+      "batchId": "chapter06-exercise003-batch-009",
+      "batchBinding": {
+        "planPath": "web-production/v1/batch-plans/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421.json",
+        "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+        "unitMap": {
+          "path": "web-production/v1/batch-plans/3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228.units.json",
+          "sha256": "3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228"
+        },
+        "helper": {
+          "path": "web-production/v1/runners/b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb.batches.mjs",
+          "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+        },
+        "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "batchId": "chapter06-exercise003-batch-009",
+        "revision": "group-targeted",
+        "revisionTargetsSha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f"
+      },
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "parentSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+        "notesSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+        "figureIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "modern-yabejp-ja:chapter06-exercise003:b0947:figure"
+        ],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0168",
+          "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "modern-yabejp-ja:chapter06-exercise003:b1179",
+          "modern-yabejp-ja:chapter06-exercise003:b1181"
+        ],
+        "groupRevision": {
+          "groups": [
+            "chapter06-exercise003-batch-002",
+            "chapter06-exercise003-batch-004",
+            "chapter06-exercise003-batch-007",
+            "chapter06-exercise003-batch-009",
+            "chapter06-exercise003-batch-011"
+          ],
+          "deferred": [
+            {
+              "batchId": "chapter06-exercise003-batch-001",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+              "severity": "uncertain",
+              "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+              "severity": "error",
+              "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+              "severity": "error",
+              "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+              "severity": "error",
+              "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-005",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+              "severity": "error",
+              "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-006",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+              "severity": "error",
+              "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-007",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+              "severity": "uncertain",
+              "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+              "reason": "unresolved unknown kept as evidence, not cleared"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-008",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+              "severity": "error",
+              "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-009",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+              "severity": "uncertain",
+              "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+              "reason": "unresolved unknown kept as evidence, not cleared"
+            }
+          ]
+        },
+        "targets": {
+          "path": "integration/coac248-283-1-group-revision-targets-20261027.json",
+          "sha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f"
+        }
+      }
+    }
+  },
+  "independent": {
+    "callId": "7896f6fb-3a56-4444-bf7f-761db2958445",
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+      "sha256": "50a4862f7d2262d3ac34e1136b1f874e5f342142133dec25e0c5e57abd5cafc7",
+      "bytes": 22186
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7896f6fb-3a56-4444-bf7f-761db2958445.json",
+      "sha256": "cec5e1c91a2db633a5e7fe55eeea9bff61d177e23106e38c6610240229a36d0b",
+      "bytes": 332061
+    },
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "usage": {
+      "inputTokens": 54367,
+      "cachedInputTokens": 0,
+      "outputTokens": 2388
+    },
+    "durationMs": 122897,
+    "evidenceBoundary": "Historical raw has frozen prompt/image asset bindings and completed semantic result; no structured requestExecution/argv captured. Do not invent old transport or remote-weight proof."
+  },
+  "expectedFigureNotProduced": {
+    "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0947"
+    ],
+    "sourceOccurrenceIds": [
+      "modern-yabejp-ja:chapter06-exercise003:i01158"
+    ],
+    "sourceAssetBindings": [
+      {
+        "assetId": "modern-yabejp-ja:7ae06ecd3d3e0369a6d4698a",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+        "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/002.jpg"
+      }
+    ],
+    "kind": "mahjong-example",
+    "transcription": "题意：是否碰上家刚切出的2s？左侧牌河末张蓝色高亮的2s是本次鸣牌判断的对象。\n下方自己的手牌，从左至右：4m 5m 5m（赤）6m 7m 2s 2s 4s 5s 5s（赤）6s 7s 9s，共13张，均正向显示；没有另行分开的摸入牌。\n牌河按画面位置记录，保留各排、列的排列关系：\n下方牌河：第一排从左至右为1p 5z 3z 2z 1m 2m；第二排在第一排左端下方，从左至右为4z 9m。牌面均正向。\n上方牌河：靠近中央牌墙的一排，从左至右为[风牌未辨明] 7z 4z 9s 1s 3z；其上一排与右端对齐，从左至右为1m 5z 6z。牌面相对观者倒置。\n左侧牌河：靠近中央的一列，从上至下为1s 9s 7z 2p 8p 7s；其左侧一列与上端对齐，从上至下为4z 7s 2s。最后的2s以蓝色高亮。牌面相对观者顺时针旋转90°。\n右侧牌河：靠近中央的一列，从上至下为[风牌未辨明] 3z 7z 9m 9s 9m；其右侧一列与下端对齐，从上至下为6z 6z。牌面相对观者逆时针旋转90°。\n其余三家的隐手分别位于画面上方、左侧边缘和右侧边缘，各13张，只有牌背或侧面可见，具体牌面未知；这些是隐手，不是中央牌墙。画面没有可见副露。\n中央上方可见一段双层牌墙，上层从画面左至右有7个牌位，第3个牌位翻开5s作为宝牌指示牌，其余牌位背面朝上。\n中央显示：南二局，剩余36张，本场数0、立直供托0；座位标记为下方西家、左侧南家、上方东家、右侧北家。中央另有两枚骰子，点数未能可靠辨认。\n四角信息栏：左上“中流，28000（+2000）”；右上“中流，31000（+5000）”；左下“平民，26000，第3名”；右下“中流，15000（−11000）”。\n右侧另有一个橙色矩形标记，其黑色字形未能可靠辨认。",
+    "unknowns": [
+      "上方牌河靠近中央牌墙的一排，画面最左端风牌的确切牌码未能可靠辨认。",
+      "右侧牌河靠近中央的一列，最上端风牌的确切牌码未能可靠辨认。",
+      "上方、左侧和右侧三家隐手的具体牌面未显示。",
+      "中央两枚骰子的各自点数未能可靠辨认。",
+      "右侧橙色矩形标记内的黑色字形未能可靠辨认。"
+    ],
+    "caption": "问题60：是否碰上家刚切出的2s？左侧蓝色高亮的2s是此次鸣牌判断的对象。",
+    "sourceNotes": [
+      "原图与最近邻放大图是同一画面的两种视图，不构成额外牌张或额外出现次数。",
+      "画面四周及下方有黑色区域，部分界面边缘被遮挡或裁切；未据此推定隐藏内容。"
+    ],
+    "provenance": {
+      "method": "model-transcription",
+      "callId": "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+      "outputSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0947"
+    }
+  },
+  "budgetProposal": {
+    "maker": 0,
+    "independentTargetReview": 0,
+    "totalNewCalls": 0,
+    "retry": 0,
+    "authorizedThisStage": false,
+    "purpose": "Reuse ONLY complete b0947 real producer output and exact independent figure check plus Q60 context. Needs lawful exact donor-figure assembly, not whole rev2 replacement or a new model call."
+  },
+  "scopeExclusions": [
+    "b1017 old same-group passed is NOT inherited",
+    "six tables",
+    "Q8",
+    "b0168",
+    "b0396",
+    "b0962",
+    "b1181",
+    "all other1193 blocks and522 figures"
+  ],
+  "actualCallsThisStage": 0,
+  "candidateWritten": false,
+  "chapterPassed": false
+}

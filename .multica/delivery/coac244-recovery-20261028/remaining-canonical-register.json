@@ -1,0 +1,2051 @@
+{
+  "schema": "coac244-readonly-recovery-register/1",
+  "recordedAt": "2026-10-28T08:08:19.690457+00:00",
+  "master": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+    "sha256": "7fa48f42237d7bd9ce9d36313138ee8d44754650210e67c2866954b1e8ff5c6d"
+  },
+  "counts": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212,
+    "displayChapters": 244,
+    "displayUnits": 252,
+    "displayBlocks": 6754,
+    "displayFigures": 5315,
+    "effectiveCoveredOriginalChapters": 243,
+    "effectiveUncoveredOriginalChapters": 13,
+    "uncoveredProduced": 13,
+    "trulyUnproduced": 0,
+    "register80": 80,
+    "register80Groups": {
+      "confirmed-produced-not-covered": 56,
+      "reclassified-covered": 17,
+      "legacy-covered": 1,
+      "additional-uncovered-not-in-246": 6
+    },
+    "verdicts": {
+      "covered-effective": 243,
+      "produced-needs-repair": 13,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  },
+  "display": {
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z",
+    "corpusId": "93866260afbca2a2f2c74f3da71c44a13f3963f686aa4233e9515c24e1baa895",
+    "displayChapters": 244,
+    "displayUnits": 252,
+    "displayBlocks": 6754,
+    "displayFigures": 5315,
+    "selectedWeb": 211,
+    "pendingWeb": 12,
+    "pdfStages": 30
+  },
+  "canonicalCount": 13,
+  "rows": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "title": "手役7—染手（二）",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.display.json",
+          "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+          "bytes": 57289
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+          "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+          "bytes": 32355
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+        "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+        "bodyBlocks": 17,
+        "sourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "currentSourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+        "auditRecordedAt": "2026-10-25T15:56:29.870Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 1,
+        "pagesWithPassedCandidate": 1,
+        "missingPassedPages": [
+          110,
+          111
+        ],
+        "pagesDetail": [
+          {
+            "page": 109,
+            "candidates": 1,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": true,
+            "blocks": 12
+          },
+          {
+            "page": 110,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 8
+          },
+          {
+            "page": 111,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 7
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 25,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 25,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 25,
+        "acceptanceGapPages": [
+          110,
+          111
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          110,
+          111
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+          "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+          "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+          "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+          "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+          "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+          "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+          "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+          "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+          "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+        }
+      ],
+      "nextStep": "复用最新同源修订和父审；b0004/b0006的5m读法与b0012三处未明牌分开，后者取更清晰同源图或定位审证；不得仅修已知两牌就放行。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+          "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+          "bytes": 32855
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+          "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+          "bytes": 12132
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "bodyBlocks": 6,
+        "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "currentSourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+        "auditRecordedAt": "2026-10-25T16:41:10.409Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          167,
+          168,
+          169
+        ],
+        "pagesDetail": [
+          {
+            "page": 167,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 9
+          },
+          {
+            "page": 168,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 3
+          },
+          {
+            "page": 169,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 3
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 13,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 13,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 13,
+        "acceptanceGapPages": [
+          167,
+          168,
+          169
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          167,
+          168,
+          169
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "sourceEvidence": "原图左侧北家牌河按画面第3行最左侧的7p呈纵向，与该家其余横向舍牌方向相差90°；中央同时显示1根立直棒。后文明确讨论吃7饼破一发。",
+          "description": "候选将北家牌河统一标为顺时针旋转90度，并写“未见……横置牌”，遗漏7p为立直宣言牌的关键状态。",
+          "suggestedRepair": "单独注明该7p相对于北家其他舍牌横置、为立直宣言牌，并修正统一方向说明及“未见横置牌”的表述。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "sourceEvidence": "南家牌河按画面第5行第3列存在一张万子牌；候选写“数字未辨清的万子牌”，并在unknowns中重复列为未确定。",
+          "description": "此处缺少确定牌码；本次从所附视图无法可靠确认数字，不能判定逐牌转写完整。",
+          "suggestedRepair": "保留原图与此项未知状态，待可靠辨认该牌数字后补齐确定牌码；在此之前阻断语义完整通过。"
+        }
+      ],
+      "nextStep": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "title": "立直6—立直理论（2）",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+          "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+          "bytes": 41083
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "bytes": 25032
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+        "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+        "bodyBlocks": 13,
+        "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+        "currentSourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+        "auditRecordedAt": "2026-10-25T18:14:01.257Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          182,
+          183
+        ],
+        "pagesDetail": [
+          {
+            "page": 182,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 11
+          },
+          {
+            "page": 183,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 16
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 23,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 23,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 23,
+        "acceptanceGapPages": [
+          182,
+          183
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          182,
+          183
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1760573:b0003",
+          "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+          "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+          "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1760573:b0013",
+          "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+          "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+          "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+        }
+      ],
+      "nextStep": "b0003日文格言可定点翻译，但b0013“对日”在原HTML与PDF183一致；需最小上游原句校勘，现不猜对应行为、不为单一格言花整章调用。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+          "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+          "bytes": 26992
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+          "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+          "bytes": 11973
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+        "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+        "bodyBlocks": 7,
+        "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "currentSourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+        "auditRecordedAt": "2026-10-25T18:53:27.161Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          201,
+          202,
+          203
+        ],
+        "pagesDetail": [
+          {
+            "page": 201,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 11
+          },
+          {
+            "page": 202,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 6
+          },
+          {
+            "page": 203,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 8
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 16,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 16,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 16,
+        "acceptanceGapPages": [
+          201,
+          202,
+          203
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          201,
+          202,
+          203
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1770179:b0006",
+          "sourceEvidence": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+          "description": "日文未译，遗漏了日本向美国挑起战争的具体比喻以及“でしょう”的推测语气。",
+          "suggestedRepair": "将该日文句子译为“恐怕就像日本向美国挑起战争一样鲁莽吧。”，保留前后中文原文及原有括注。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+          "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+          "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+          "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+        }
+      ],
+      "nextStep": "先复用已有rev1及独审差异；b0006比喻翻译与b0005北家9m各有原定位，限定同源目标，不覆盖其它正文。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "title": "状况判断2—要有顺位意识",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+          "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "bytes": 25107
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+          "bytes": 11192
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "bodyBlocks": 5,
+        "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "currentSourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "auditRecordedAt": "2026-10-25T22:26:34.154Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          234,
+          235
+        ],
+        "pagesDetail": [
+          {
+            "page": 234,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 235,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 7
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 11,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 11,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 11,
+        "acceptanceGapPages": [
+          234,
+          235
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          234,
+          235
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1780400:b0003",
+          "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+          "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+          "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+        }
+      ],
+      "nextStep": "旧900秒超时无完整最终输出，底层重连后上游执行次数未知；保持原失败账，先补传输可观测计数边界，不自动retry。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "title": "第三节 攻守判断的基准",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+          "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+          "bytes": 279228
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+          "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+          "bytes": 115627
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+        "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+        "bodyBlocks": 225,
+        "sourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+        "currentSourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+        "auditRecordedAt": "2026-10-25T23:57:25.496Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 19,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          311,
+          312,
+          313,
+          314,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          321,
+          322,
+          323,
+          324,
+          325,
+          326,
+          327,
+          328,
+          329
+        ],
+        "pagesDetail": [
+          {
+            "page": 311,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 39
+          },
+          {
+            "page": 312,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 21
+          },
+          {
+            "page": 313,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 19
+          },
+          {
+            "page": 314,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 315,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 8
+          },
+          {
+            "page": 316,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 17
+          },
+          {
+            "page": 317,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 13
+          },
+          {
+            "page": 318,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 11
+          },
+          {
+            "page": 319,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 320,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 11
+          },
+          {
+            "page": 321,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 6
+          },
+          {
+            "page": 322,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 6
+          },
+          {
+            "page": 323,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 10
+          },
+          {
+            "page": 324,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 33
+          },
+          {
+            "page": 325,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 37
+          },
+          {
+            "page": 326,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 19
+          },
+          {
+            "page": 327,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 15
+          },
+          {
+            "page": 328,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 329,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 63
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 339,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 339,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 339,
+        "acceptanceGapPages": [
+          311,
+          312,
+          313,
+          314,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          321,
+          322,
+          323,
+          324,
+          325,
+          326,
+          327,
+          328,
+          329
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          311,
+          312,
+          313,
+          314,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          321,
+          322,
+          323,
+          324,
+          325,
+          326,
+          327,
+          328,
+          329
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+          "sourceEvidence": "附图8、29的图例包含不立直0%、5%、10%及立直0%、5%、10%六系列；候选明确未记录其中两系列在2、4、6、8、10、12、14巡的数据。",
+          "description": "图8缺少不立直10%与立直0%的完整条件曲线，不能仅凭其余四系列通过语义完整性检查。",
+          "suggestedRepair": "依据已给原图补充可辨的标记对应和逐点约值；确实无法读取的点逐项保留未知及原图，并维持阻断状态，不推算填补。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0124:figure",
+          "sourceEvidence": "附图9、30为双方子家恶形六系列图；候选不立直10%、立直0%两项均写为逐点位置无法可靠辨识。",
+          "description": "两系列各七点未核定，危险度与是否立直对应的所需收入信息不完整。",
+          "suggestedRepair": "补全能够直接辨认的系列、标记及近似读数；余下逐点说明未知，保留原图，不以文字概括替代数据。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0126:figure",
+          "sourceEvidence": "附图10、31包含对手亲家良形的六种条件；候选两条浅色曲线及中间重叠标记未完整记录。",
+          "description": "不立直10%和立直0%的曲线数据仍未核定，条件化判断缺少信息。",
+          "suggestedRepair": "分别核对两系列的标记和七个巡目位置，近似读数明确标近似；不能分辨处列为具体未知并保持uncertain。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0128:figure",
+          "sourceEvidence": "附图11、32六项图例中，候选只提供第1、第2、第5、第6系列完整数组。",
+          "description": "图11两条系列未完整转录，无法审定所有危险度、立直条件对应的所需收入。",
+          "suggestedRepair": "补充可辨的两系列数据及图例标记；无法辨认的数据继续逐点标未知，不凭其他图或公式补齐。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0130:figure",
+          "sourceEvidence": "附图12、33的自己亲家良形图有六系列；候选不立直10%和立直0%没有七巡读数。",
+          "description": "该图仍缺两系列教学数据，完整性不能通过。",
+          "suggestedRepair": "逐系列补齐可辨的标记与近似点值；其余保留明确未知及原图，维持阻断。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0132:figure",
+          "sourceEvidence": "附图13、34中候选另列叉形曲线约值[3400,3550,3700,3850,3900,3950,3800]，但未确定属于不立直10%还是立直0%。",
+          "description": "已记录数据没有可靠绑定条件，且另一条系列未完整读取；不能用于明确的攻守判断。",
+          "suggestedRepair": "核对原图图例与叉形、浅色曲线的对应，再分别记录两系列。不能确定的绑定和点值保留未知，禁止任选条件。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0154:figure",
+          "sourceEvidence": "附图14、35可见牌列为2m 3m 9m 9m 9m 4p 5p 6s 7s 8s 9s 2z，仅12张；b0155将其用于一向听进张示例。",
+          "description": "可见牌码转录准确，缺失来自源图；但不能据这12张核定完整手牌的一向听构型，候选unknowns为空。",
+          "suggestedRepair": "保留现有12张及原图，在unknowns中明确完整手牌其余信息未知、不能核定第13张及完整构型；不得补牌，该例完整牌型判断保持uncertain。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+          "sourceEvidence": "附图15、36图例为“和了時ツモ率”“被ツモ率”；候选译为“和牌时摸入率”“被摸入率”，并未完整读取这两系列的15巡数据。",
+          "description": "“摸入”未准确表达自摸和牌及被他家自摸，且两个教学系列的数据仍不完整。",
+          "suggestedRepair": "将图例译为“和牌时的自摸比例”“被自摸率”，同步修改unknowns中的名称；补录可辨的标记与各巡约值，无法辨认处明确列未知并保持完整性阻断。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1815400:b0158:figure",
+          "sourceEvidence": "附图16、37的20%一向听图同样使用“和了時ツモ率”“被ツモ率”，候选仍使用摸入率译名且省缺两系列逐巡数据。",
+          "description": "自摸相关教学图例译义不准确，五系列图表尚未完整表达。",
+          "suggestedRepair": "改为“和牌时的自摸比例”“被自摸率”，补充能直接读取的系列标记和15巡约值；其余保留具体未知及原图，不推补。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "candidate.figures.sourceNotes",
+          "sourceEvidence": "本次给出的原图为附件1～21，对应放大图为22～42；例如图1对应1与22，图2对应2与23，C/D图对应21与42。",
+          "description": "各figure的sourceNotes把附件按相邻两张配对，属于加工附件编号说明错误，不影响已绑定的教材图像身份。",
+          "suggestedRepair": "按本次明确给出的原图与放大图对应关系修正附件编号说明；此项不作为教学语义阻断。"
+        }
+      ],
+      "nextStep": "按原独审逐target/group生成有限补丁和shared-premise闭包，保留题库225块原顺序；先核当前修订/失败ledger，不整章从头再制。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-001-64",
+      "title": "封面、目录与网页说明",
+      "verdict": "produced-needs-repair",
+      "materials": [],
+      "registeredCandidate": null,
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 3,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          1,
+          2,
+          3
+        ],
+        "pagesDetail": [
+          {
+            "page": 1,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 67
+          },
+          {
+            "page": 2,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 68
+          },
+          {
+            "page": 3,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 33
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 168,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 168,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 168,
+        "acceptanceGapPages": [
+          1,
+          2,
+          3
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          1,
+          2,
+          3
+        ]
+      },
+      "originalAuditIssuesPreserved": [],
+      "nextStep": "封面组合补证由当前249现有运行核验；保留六处unknown与非核心限定，实际确定转录撤销的精确字段沿246原链，不重复识字。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "title": "ドラ切り",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.display.json",
+          "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+          "bytes": 205462
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+          "sha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+          "bytes": 55237
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+        "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "bodyBlocks": 97,
+        "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "currentSourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+        "auditRecordedAt": "2026-10-26T13:16:13.262Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          193,
+          194
+        ],
+        "pagesDetail": [
+          {
+            "page": 193,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 67
+          },
+          {
+            "page": 194,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 15
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 82,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 82,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 82,
+        "acceptanceGapPages": [
+          193,
+          194
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          193,
+          194
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "sourceEvidence": "附件1及附件2下方手牌最右三张，每张均为两枚黑色圆点加四枚红色圆点，即六筒。",
+          "description": "下方手牌末三张被转录为8p8p8p，实际为6p6p6p，改变了三张牌的牌值。",
+          "suggestedRepair": "将下方手牌改为5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "sourceEvidence": "附件中右侧手牌上方三张索子之后还有三张筒子；候选transcription及unknowns均明确未辨认其点数和赤牌状态。",
+          "description": "这三张实际展示的手牌尚未完成逐牌转录。其牌值及赤色情况属于教学牌桌数据，不能作为无教学意义的界面残痕放行。",
+          "suggestedRepair": "逐张确认右侧手牌自上而下第4至第6张的点数及赤牌状态，补齐后再审；无法可靠辨认时继续保留具体unknowns并阻断完整性通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+          "sourceEvidence": "原文：“上のような河でリーチが入った場合、入り目でなければまず待ちは”。候选：“只要相关牌不是使其进张听牌的那一张”。",
+          "description": "“入り目”在此区分立直宣言牌与进张侧的关系，候选却表达成相关牌是否就是使其听牌的摸入牌，混淆了切牌与进张牌，并改变后续读牌结论的例外条件。",
+          "suggestedRepair": "改为：“面对上图这样的牌河，有人立直时，若立直宣言牌并非从此次进张完成的面子一侧切出，就基本可以读出其听牌是……”并与后续6m−9m或9m双碰连读。"
+        }
+      ],
+      "nextStep": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "title": "逆切り３",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+          "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+          "bytes": 107372
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+          "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+          "bytes": 37129
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "bodyBlocks": 53,
+        "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "currentSourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+        "auditRecordedAt": "2026-10-26T13:20:26.533Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          213,
+          214,
+          215
+        ],
+        "pagesDetail": [
+          {
+            "page": 213,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 44
+          },
+          {
+            "page": 214,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 3
+          },
+          {
+            "page": 215,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 33
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 51,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 51,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 51,
+        "acceptanceGapPages": [
+          213,
+          214,
+          215
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          213,
+          214,
+          215
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+          "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+          "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+          "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+          "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+          "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+          "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+          "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+        }
+      ],
+      "nextStep": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "title": "オーラスの見逃し判断",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+          "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+          "bytes": 34202
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+          "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+          "bytes": 18385
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "bodyBlocks": 15,
+        "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "currentSourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+        "auditRecordedAt": "2026-10-26T13:21:45.456Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          224,
+          225
+        ],
+        "pagesDetail": [
+          {
+            "page": 224,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 38
+          },
+          {
+            "page": 225,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 13
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 51,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 51,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 51,
+        "acceptanceGapPages": [
+          224,
+          225
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          224,
+          225
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "sourceEvidence": "原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。",
+          "description": "候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。",
+          "suggestedRepair": "补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "sourceEvidence": "橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。",
+          "description": "「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。",
+          "suggestedRepair": "分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0008",
+          "sourceEvidence": "源文先给出36.765%，再称其他家和牌概率为10%就会低于里宝牌率；前文里宝牌率约为三成。",
+          "description": "按前文公式及30%的参照值计算，36.765%×90%=33.0885%，尚未低于30%。这是源文数值论证的疑点，候选忠实保留，不属于翻译错误。",
+          "suggestedRepair": "保留忠实译文；如添加校注，应明确这是原文数值疑点，不要静默修改原文概率或结论。"
+        }
+      ],
+      "nextStep": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "title": "満貫和了技術",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+          "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+          "bytes": 35623
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+          "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+          "bytes": 21102
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "bodyBlocks": 14,
+        "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "currentSourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+        "auditRecordedAt": "2026-10-26T13:24:40.601Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          232,
+          233
+        ],
+        "pagesDetail": [
+          {
+            "page": 232,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 26
+          },
+          {
+            "page": 233,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 18
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 44,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 44,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 44,
+        "acceptanceGapPages": [
+          232,
+          233
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          232,
+          233
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+          "sourceEvidence": "“確和了でも構わないようなケース”",
+          "description": "“确保和牌也无妨”把名次不变的结束和牌误译成确保能够和牌，改变了最快和牌策略的适用情形。",
+          "suggestedRepair": "改为“允许以不改变当前名次的和牌结束比赛的情况”，保留原有判断技术7链接。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+          "sourceEvidence": "“運良く配牌やツモに恵まれたら逆転手を目指し”",
+          "description": "“起手牌和摸牌都不错”增加了两者必须同时有利的条件。",
+          "suggestedRepair": "改为“运气好，起手牌或摸牌有利时，就争取做出反超牌”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "sourceEvidence": "附图本家手牌从左数第7张可见上方一根、下方两根索子，为3s。",
+          "description": "手牌中的3s被误记为2s，影响手牌结构及做牌分析。",
+          "suggestedRepair": "将手牌序列修正为“3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z”，摸入牌仍为3p。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "sourceEvidence": "右侧牌河从上数第2张有可见万子牌面；候选仅记录“［万子，点数无法辨认］”。",
+          "description": "该张明示弃牌的具体点数尚未可靠确定，逐牌核对仍有缺口。",
+          "suggestedRepair": "保留原图和当前未知说明；可靠确认后补齐具体牌码及赤色情况，在此之前保持阻断状态。"
+        }
+      ],
+      "nextStep": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "title": "「ネマー日記」ブログ問題",
+      "verdict": "produced-needs-repair",
+      "materials": [],
+      "registeredCandidate": null,
+      "pdfRoute": {
+        "pagesTotal": 13,
+        "pagesWithCandidate": 13,
+        "pagesWithPassedCandidate": 11,
+        "missingPassedPages": [
+          257,
+          261
+        ],
+        "pagesDetail": [
+          {
+            "page": 250,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 69
+          },
+          {
+            "page": 251,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": true,
+            "blocks": 78
+          },
+          {
+            "page": 252,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": true,
+            "blocks": 85
+          },
+          {
+            "page": 253,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 92
+          },
+          {
+            "page": 254,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 72
+          },
+          {
+            "page": 255,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": true,
+            "blocks": 95
+          },
+          {
+            "page": 256,
+            "candidates": 5,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 60
+          },
+          {
+            "page": 257,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 15
+          },
+          {
+            "page": 258,
+            "candidates": 1,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 85
+          },
+          {
+            "page": 259,
+            "candidates": 1,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 76
+          },
+          {
+            "page": 260,
+            "candidates": 2,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 76
+          },
+          {
+            "page": 261,
+            "candidates": 2,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 93
+          },
+          {
+            "page": 262,
+            "candidates": 2,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 49
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 945,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 945,
+        "acceptedBlocks": 837,
+        "acceptanceGapBlocks": 108,
+        "acceptanceGapPages": [
+          257,
+          261
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          257,
+          261
+        ]
+      },
+      "originalAuditIssuesPreserved": [],
+      "nextStep": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。",
+      "newCallsAuthorizedThisRecovery": 0
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "verdict": "produced-needs-repair",
+      "materials": [
+        {
+          "role": "candidate",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+          "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+          "bytes": 2169759
+        },
+        {
+          "role": "audit",
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+          "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+          "bytes": 1690739
+        }
+      ],
+      "registeredCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "bodyBlocks": 1195,
+        "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "currentSourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+        "auditRecordedAt": "2026-10-27T04:39:45.647Z",
+        "deterministicPassed": true,
+        "semanticComplete": false,
+        "repairErrors": 389,
+        "revision": null
+      },
+      "pdfRoute": {
+        "pagesTotal": 20,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ],
+        "pagesDetail": [
+          {
+            "page": 283,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 48
+          },
+          {
+            "page": 284,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 54
+          },
+          {
+            "page": 285,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 58
+          },
+          {
+            "page": 286,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 76
+          },
+          {
+            "page": 287,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 62
+          },
+          {
+            "page": 288,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 59
+          },
+          {
+            "page": 289,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 66
+          },
+          {
+            "page": 290,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 61
+          },
+          {
+            "page": 291,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 73
+          },
+          {
+            "page": 292,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 78
+          },
+          {
+            "page": 293,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 64
+          },
+          {
+            "page": 294,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 30
+          },
+          {
+            "page": 295,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 27
+          },
+          {
+            "page": 296,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 68
+          },
+          {
+            "page": 297,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 58
+          },
+          {
+            "page": 298,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 24
+          },
+          {
+            "page": 299,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 65
+          },
+          {
+            "page": 300,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 65
+          },
+          {
+            "page": 301,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 58
+          },
+          {
+            "page": 302,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 30
+          }
+        ]
+      },
+      "gap": {
+        "ownedSourceBlocks": 1124,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 1124,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 1124,
+        "acceptanceGapPages": [
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ]
+      },
+      "originalAuditIssuesPreserved": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+          "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+          "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+          "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+          "sourceEvidence": "问题12的b0153明确给出宝牌北；括号原文连续为“（ドラ［四索］引きの場合の差で［七索］より［五索］）”。结合题设，此处列举摸入宝牌或四索时的差异。",
+          "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+          "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+          "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+          "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+          "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+          "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+          "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+          "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+          "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+          "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+          "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+          "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+          "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+          "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+          "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+          "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+          "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+          "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+          "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+          "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+          "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+          "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+          "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+          "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+          "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+          "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+          "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+          "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+          "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+          "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+          "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+          "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+          "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+          "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+          "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+          "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+          "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+          "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+          "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+          "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+          "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+          "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+          "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+          "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+          "sourceEvidence": "问题12的b0153明确给出宝牌北；括号原文连续为“（ドラ［四索］引きの場合の差で［七索］より［五索］）”。结合题设，此处列举摸入宝牌或四索时的差异。",
+          "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+          "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+          "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+          "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+          "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+          "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+          "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+          "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+          "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+          "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+          "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+          "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+          "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+          "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+          "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+          "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+          "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+          "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+          "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+          "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+          "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+          "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+          "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+          "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+          "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+          "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+          "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+          "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+          "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+          "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+          "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+          "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+          "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+          "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+          "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+          "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+          "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+          "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+          "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+          "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+          "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+        }
+      ],
+      "nextStep": "以本次精确b1017通过链解除该项；复杂5条见complex-original/five-issue-map.json。b0947复用旧目标独审后合法装配0call；b0785仅中央东/西方位待修，提案1maker+1靶审，当前不派。",
+      "newCallsAuthorizedThisRecovery": 0
+    }
+  ],
+  "note": "原始register历史候选不等于最新分支；本文件列原证据并明确下方283覆盖状态。共享register/集成指针未写入。"
+}

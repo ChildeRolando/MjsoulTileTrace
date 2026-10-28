@@ -1,0 +1,28 @@
+{
+  "currentRegister": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+    "sha256": "7fa48f42237d7bd9ce9d36313138ee8d44754650210e67c2866954b1e8ff5c6d"
+  },
+  "corpusId": "93866260afbca2a2f2c74f3da71c44a13f3963f686aa4233e9515c24e1baa895",
+  "effectiveCoveredOriginalChapters": 243,
+  "effectiveUncoveredOriginalChapters": 13,
+  "proofs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T07-58-15-045Z\\accepted-preview-receipt.json",
+      "sha256": "064ca207e31d6667c28e13e5b2538fdd2b299df0d86f138894a28eee81377cda",
+      "bytes": 6293785
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T07-58-15-045Z\\mcp-validation.json",
+      "sha256": "62c4e5d8f8f79b04ae708a8e4b4e3ed653a835f748cda15d2dceb3eaa2944608",
+      "bytes": 38562
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T07-58-15-045Z\\arena-validation.json",
+      "sha256": "890b8cc93a75b85065449ca3a3f82bcd0851dd4678f12014472c735a16b06711",
+      "bytes": 156861
+    }
+  ],
+  "sharedPointersWrittenBy244": false,
+  "integrationWriter": "existing COAC-250 run; no redispatch"
+}

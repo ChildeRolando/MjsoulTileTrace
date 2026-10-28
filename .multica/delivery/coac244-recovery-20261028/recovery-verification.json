@@ -1,0 +1,348 @@
+{
+  "checks": [
+    {
+      "name": "remaining canonical count matches current master",
+      "passed": true
+    },
+    {
+      "name": "79-cn-chapter-109-4 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "79-cn-chapter-167-4 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "79-cn-chapter-182-5 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "79-cn-chapter-201-6 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "79-cn-chapter-234-12 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "79-cn-chapter-311-18 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "nemata-jp-chapter-193-1 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "nemata-jp-chapter-213-1 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "nemata-jp-chapter-224-1 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "nemata-jp-chapter-232-1 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "nemata-jp-chapter-283-1 registered candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency capability-evidence.json",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency exact-contract.json",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency exact-request.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency production-schema.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-definition.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-image-binding.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-legacy.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-pdf-layout.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-pdf-native-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-pdf-native-structure-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-pdf-native.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-pdf-scope.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-pdf-source-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-tile-dictionary.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-verification-dependencies.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-web-batches.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-web-source.py",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-web.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit-web.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-audit.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-cli.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-pdf-flow.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-batches.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-dictionary.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-formal.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-labels.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-present.py",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-sources.py",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web-visual.py",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production-web.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency textbook-production.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen dependency verification-dependencies.json",
+      "passed": true
+    },
+    {
+      "name": "b1017 raw exact independent checkpoint output",
+      "passed": true
+    },
+    {
+      "name": "b1017 target faithful no issues",
+      "passed": true
+    },
+    {
+      "name": "1195 blocks exactly one changed",
+      "passed": true
+    },
+    {
+      "name": "only approved b1017 parenthesis deleted",
+      "passed": true
+    },
+    {
+      "name": "all b1017 nontext fields exact",
+      "passed": true
+    },
+    {
+      "name": "524 full figure objects unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual terra max 11 image payload",
+      "passed": true
+    },
+    {
+      "name": "actual image 7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+      "passed": true
+    },
+    {
+      "name": "actual image ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+      "passed": true
+    },
+    {
+      "name": "actual image 0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+      "passed": true
+    },
+    {
+      "name": "actual image 27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+      "passed": true
+    },
+    {
+      "name": "actual image b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+      "passed": true
+    },
+    {
+      "name": "actual image 77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+      "passed": true
+    },
+    {
+      "name": "actual image c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+      "passed": true
+    },
+    {
+      "name": "actual image 1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+      "passed": true
+    },
+    {
+      "name": "actual image 2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+      "passed": true
+    },
+    {
+      "name": "actual image e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+      "passed": true
+    },
+    {
+      "name": "actual image f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+      "passed": true
+    },
+    {
+      "name": "new aggregate is still needs-repair",
+      "passed": true
+    },
+    {
+      "name": "d7a3602 audit result equals shared original",
+      "passed": true
+    },
+    {
+      "name": "02d2f27 linked maker handoff candidate SHA",
+      "passed": true
+    },
+    {
+      "name": "b0785 current scope pin",
+      "passed": true
+    },
+    {
+      "name": "b0785 original/derived image SHA b0785-d3b908cf0a30.jpg",
+      "passed": true
+    },
+    {
+      "name": "b0785 original/derived image SHA b0785-346bb333657e.png",
+      "passed": true
+    },
+    {
+      "name": "b0785 original/derived image SHA b0785-original-x2.png",
+      "passed": true
+    },
+    {
+      "name": "b0785 original/derived image SHA b0785-seat-panel-x4.png",
+      "passed": true
+    },
+    {
+      "name": "b0785 nearest pixels whole-original-nearest-x2",
+      "passed": true
+    },
+    {
+      "name": "b0785 nearest pixels seat-panel-nearest-x4",
+      "passed": true
+    },
+    {
+      "name": "b0785 exact ordered full question and definitions",
+      "passed": true
+    },
+    {
+      "name": "b0947 current scope pin",
+      "passed": true
+    },
+    {
+      "name": "b0947 original/derived image SHA b0947-29f615224991.jpg",
+      "passed": true
+    },
+    {
+      "name": "b0947 original/derived image SHA b0947-original-x2.png",
+      "passed": true
+    },
+    {
+      "name": "b0947 nearest pixels whole-original-nearest-x2",
+      "passed": true
+    },
+    {
+      "name": "b0947 exact ordered full question and definitions",
+      "passed": true
+    },
+    {
+      "name": "five historical issue identities preserved",
+      "passed": true
+    },
+    {
+      "name": "same current corpus accepted-preview-receipt.json",
+      "passed": true
+    },
+    {
+      "name": "same current corpus mcp-validation.json",
+      "passed": true
+    },
+    {
+      "name": "same current corpus arena-validation.json",
+      "passed": true
+    },
+    {
+      "name": "preview formal active unchanged",
+      "passed": true
+    },
+    {
+      "name": "real Arena exact body readback",
+      "passed": true
+    }
+  ],
+  "count": 84,
+  "newModelCalls": 0,
+  "productionWrites": 0,
+  "oldRawWrites": 0,
+  "sharedPointerWrites": 0,
+  "remainingCanonicalCount": 13,
+  "b1017Closed": true,
+  "wholeChapterPassed": false
+}

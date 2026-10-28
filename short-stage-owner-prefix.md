@@ -1,3 +1,11 @@
+2026-10-28 07:51 UTC恢复指令已在run01a18181-4d08-7e39-a43b-f99f0d8011d5实际执行（07:55:10Z启动）。前run01a1817e-7e73-7cd3-ae2e-99571382ab77是start API EOF、started_at=null、事件[]，不是制作/审校失败；保留原错、不再派恢复消费者。模型子调用0、预算未重置、源/候选/raw/共享集成指针未写。新补证包integration/coac244-recovery-20261028，仓库.multica/delivery同名；只追加恢复证据，不覆盖失败run原283准备包。
+
+283/b1017提交02d2f27→d7a3602与候选de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c真实链核符；3a171a7b独审terra/max11原图、目标passed，32依赖/1194非靶块/524完整图对象已重核。现有效原19条=12补证/5复杂尚未装配/2source-note；不再把b1017挂待修，也不按旧12条deferred重复派发。aggregate仍needs-repair，普通整章门禁实际拒绝，旧raw不改。
+
+复杂两包复用原落盘材料：Q60/b0947真实旧makerfafc75a7+独审7896f6fb已判该figure faithful、unknown诚实、context faithful，精确跨分支装配可0模型；不得把同组旧b1017结论搬回。Q48/b0785真实maker9f557ee3+独审51d6b447确认正确手牌12355789m34688s、摸5s和隐手区分，仅中央方位左上东/右下西应改左上西/右下东；三张公开万子unknown、暗手/遮挡/骰子/裁切保持。下一最小提案只1maker+1方位/保留未知影响独审=最多2新call，失败void计、0retry，当前不派；b0947不增call。原图/全题16或15有序块/tableContext/坐标和真实请求构造、27拒绝/范围检查已重验，expected不冒充已产。恢复84证据检查及真实冻结group gate已过，不改通用门禁。
+
+当前只读250并行恢复后同corpus93866260的register+MCP/Arena实物为243/256原章、剩13（不是旧242/14）；正式active未切。完整13canonical、已有候选/审/原问题/实际缺口/接续入口见本次remaining-canonical-register.json及README，含001前言目录与250附录问题。256由唯一250继续，不重复合库；234900秒重连的上游次数仍未知、不盲retry。下方所有旧coverage/旧b1017待修与旧问题总数仅保留历史，以本恢复账与后续250真实更新为准。整书未完成，工单in_progress。
+
 2026-10-28 前言两包独立定向结果已收齐并零模型登记：nemata-jp-chapter-001-64（p1/2/3候选195ec4e9/205a9a8a/b4c7a236）及nemata-jp-chapter-317-51（p317候选e0911ad1）。所有原candidate/raw/旧needs-repair不改；226源块已映射不等于整章通过，前言/目录/书目和跨页书评仍纳入完整教材。
 
 真实call1ac40202-64c8-4068-92fd-fb62ea5ad4ff，terra/max、19原图/准确裁剪/资产，154803in/0cache/15291out、191.920秒，receipt36246d0d/raw7d9ad8b6；call4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf，terra/max、7图，47740in/0cache/8113out、85.203秒，receiptd85aa60a/rawfa33cfbf。两收据机械checks.passed=true仅为请求/输出契约通过；scopeConclusion needs-exact-repair，status needs-repair，admissionGranted/wholePagePassed/wholeChapterAccepted均false。预算2/2余0、制作0、0retry；本轮未加调用/候选/消费者/唤醒。

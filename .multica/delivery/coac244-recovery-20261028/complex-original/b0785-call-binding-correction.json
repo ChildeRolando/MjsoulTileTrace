@@ -1,0 +1,33 @@
+{
+  "initialDisplayFigureCallId": "8b122484-82db-4a79-a3e3-4202d0f72ade",
+  "rev1FigureCallId": "d43a772e-04c1-4b41-8218-e5b5aaf89759",
+  "actualAttemptCallId": "d43a772e-04c1-4b41-8218-e5b5aaf89759",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\d43a772e-04c1-4b41-8218-e5b5aaf89759.json",
+    "sha256": "05a01db12add5f04ddf073580c94cfec120385529f6ae1566f89266d013972ac",
+    "bytes": 159060
+  },
+  "allSemanticAndSourceFieldsEqual": true,
+  "initialPresentationOmittedInRev1": {
+    "path": "web-production/v1/presentations/modern-yabejp-ja/chapter06-exercise003/16025c35d004c0aa/figure-0350.png",
+    "sha256": "114825f8a581fa303c770dbef4e7d141286d951ae028a912d32d94ec1b553d94",
+    "width": 621,
+    "height": 565,
+    "derivation": {
+      "kind": "single-source-image-rgba-to-png",
+      "alignment": "original-size",
+      "sourceAssetBindings": [
+        {
+          "assetId": "modern-yabejp-ja:817cde2d79dae92dca2e0c63",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+          "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/001.jpg"
+        }
+      ],
+      "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    }
+  },
+  "initialPresentationExactOriginalPixels": true,
+  "actualOriginalOutputMatches": true,
+  "meaning": "Bookkeeping-only callId correction and omission of exact PNG presentation already completed; neither fixed hand/hidden-hand errors or produced new semantics. Keep all original files unchanged."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "01a18181-4d08-7e39-a43b-f99f0d8011d5",
+    "status": "running",
+    "started_at": "2026-10-28T07:55:10Z",
+    "completed_at": null,
+    "error": null
+  },
+  {
+    "id": "01a1817e-7e73-7cd3-ae2e-99571382ab77",
+    "status": "failed",
+    "started_at": null,
+    "completed_at": "2026-10-28T07:52:38Z",
+    "error": "start task failed: Post \"https://api.multica.ai/api/daemon/tasks/01a1817e-7e73-7cd3-ae2e-99571382ab77/start\": EOF"
+  },
+  {
+    "id": "01a17fb2-41ad-7002-be8a-bc7788b8334a",
+    "status": "failed",
+    "started_at": "2026-10-27T23:39:17Z",
+    "completed_at": "2026-10-27T23:39:24Z",
+    "error": "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits or try again at Nov 2nd, 2026 5:46 PM."
+  },
+  {
+    "id": "01a17fb1-f239-7a0e-b2c2-abfbe457fad2",
+    "status": "failed",
+    "started_at": "2026-10-27T23:28:57Z",
+    "completed_at": "2026-10-27T23:39:08Z",
+    "error": "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits or try again at Nov 2nd, 2026 5:46 PM."
+  }
+]
