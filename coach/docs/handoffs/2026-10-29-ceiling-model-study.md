@@ -208,3 +208,34 @@ high、单次POST。工程154/154，总1796已结算。45项聚焦回归、架�
 用户另授权：Codex剩余严格低于2%且实验未完成时使用现有重置卡；本机只读查询目前已用91%、
 剩余9%，CC Switch可见存下的重置剩余1次。只在条件满足时使用，并核对结果；额度重置不改变
 实验模型请求次数上限。策略与零模型用量快照在主档案quota-reset-policy.json及qa/quota-check-*。
+
+
+## 最后交接：不依赖DeepSeek的部分已全部完成，等待用户更新过期密钥
+
+权威状态见主档案STATUS.md。当前冻结revision8/hash bd3d7b9ae4ea4bbef8c4f67654bfc6d96dbbc93ef2f002b613f9e3856754b400，
+生成源码提交5446592；以后文档提交不改变该源码身份。调用4869/6144、全部结算、无在途。
+Sol1000/Terra1000正式齐；DeepSeek934/2000（679有效，255其他失败）后因Command Code密钥过期停止。
+200题选材163成功37失败；可运行O93=74有效+19选材失败；Luna400=379有效+21选材失败；
+Sol/Terra重复42均有效。90旧补充保留。余Deep正式1066、O107、重复58，不重发既有失败。
+
+非敏感错误证据command-code-auth-pause.json：服务401明确提示API key expired。
+已异步请用户在CC Switch更新有效凭据，不索要聊天中的密钥；配置仅有这一个Command Code连接，
+尚未找到已有其他有效凭据。当前凭据哈希与过期凭据相同，禁止继续试发DeepSeek。
+用户更新后，核对provider ID67b25f76-26ac-4318-b10f-27438a518ad3/后端DeepSeek/effort high，
+再恢复新bin/scene-pattern-models.mjs all；当前helper已正常结束，不要重启无用的ready helper。
+如有新helper在途，先写qa/auth-resume-drain.json让它停止接新题并等结束，别杀在途调用。
+
+辅助coordinator qa/continue-ready-while-auth.mjs通过同一冻结owner/预算账本执行上述可运行部分，
+没有改模型请求、书库、候选、模式或检索。原版快照和每次协调器源码哈希、进程及退出日志均归档。
+选材阶段按连续3次真实服务错误才暂停，单次失败写入原失败文件后继续新题，不重试。
+
+独立部分验收ready-parts-validation.json通过4869请求/响应链及3559条已有记录合法性/引用核查；
+wholeStudyComplete=false，没有提前汇总Mortal胜负。完整复算及800题视觉验收仍未完成。
+
+用户明确授权Codex低于2%且未完成时用卡。已于22:17UTC在剩余1%时通过官方CLI重置接口用1张，
+验证100%、ordinaryUsageAllowed=true、卡0；最新78%。工具qa/check-or-reset-codex.py经过8项零副作用
+条件检查，账户哈希/阈值/幂等键/实验状态均有保护；意图及成功回执在quota-reset-*.json/qa/quota-action-*。
+不购买新卡、不增加模型调用上限。quota-reset-policy.json.experimentComplete仍false，整体实验未完成。
+
+Goal工具当前显示blocked；等待用户恢复凭据。可用模型工作已全部做完，停止重复空轮询以节省token；
+用户回复已更新后恢复15分钟监控。既有批准、失败、旧冻结和当前原始统计不可抹除。
