@@ -7,6 +7,7 @@ import math
 from pathlib import Path
 import re
 import statistics
+from urllib.parse import unquote, urlsplit
 
 spec = importlib.util.spec_from_file_location('ceiling_base_validation', Path(__file__).with_name('ceiling-validate.py'))
 base = importlib.util.module_from_spec(spec)
@@ -273,7 +274,7 @@ def validate(out):
         assert page.is_file()
         for url in re.findall(r'(?:src|href)="([^"]+)"', page.read_text(encoding='utf-8')):
             if url and not url.startswith(('#', 'https:', 'http:', 'data:')):
-                assert (page.parent / url.split('#')[0]).exists(), (page.name, url)
+                assert (page.parent / unquote(urlsplit(url).path)).exists(), (page.name, url)
     return {'status': 'computed_checks_passed', 'formalCases': 800, 'formalScores': 4000,
             'supplementalScores': 90, 'oracleScores': 200, 'practicalScores': 400, 'stabilityScores': 100,
             'claims': len(claims), 'buckets': buckets, 'formalCallsByModel': formal_models,
