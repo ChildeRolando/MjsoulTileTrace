@@ -1,6 +1,6 @@
 import {writeFile,readdir} from 'node:fs/promises';
 import {join} from 'node:path';
-import {BudgetLedger,ARMS,hash,read,save,mean} from './ceiling-protocol.mjs';
+import {BudgetLedger,ARMS,hash,read,save,mean,exists} from './ceiling-protocol.mjs';
 import {verifyModelStudy,modelRunKey} from './ceiling-model-study.mjs';
 import {scoreCeilingRows,renderCeilingReview,summarizeRows,pairedDifference} from './ceiling-report.mjs';
 import {holm} from './report.mjs';
@@ -67,5 +67,11 @@ export async function reportModelStudy(out){
     lines.push('',`优选资料O−D：${pct(v.oracle.versusD.estimate)}，区间 ${pct(v.oracle.versusD.low)} 至 ${pct(v.oracle.versusD.high)}，${v.oracle.summary.planned}次计划尝试。选材者为独立Sol上下文，生成与对应D同模型；统计差异不能单独证明资料遗漏。`,'');
   }
   lines.push('## 选材、成本与重复运行','',`200题选材：成功${selectionSummary.selected}，失败${selectionSummary.failed}，成功但空选${selectionSummary.emptySelected}。全部失败保留；相关性理由是AI判断。`,`Luna/max D−A：${pct(practicalContrast.estimate)}；区间 ${pct(practicalContrast.low)} 至 ${pct(practicalContrast.high)}。完整用量配对${practicalContrast.tokenPairs}/100，token比值${number(practicalContrast.tokenRatio)}；${tokenVerdict}。`,'','每题实际输入/输出token、耗时、错误与失败关联成本见metrics.json的costCalls；各阶段/模型汇总见costs。未知用量保留未知，缓存输入不重复相加。稳定性按原题同模型追加，结果见stability，不选优。','',`实际实验请求/派发意图：${m.budget.claimed}/${Object.values(f.budgets).reduce((a,b)=>a+b,0)}。正式主样本4000格，另保留90次旧Sol跨模型补充。预算统计不能替代不可见的CLI或代理内部网络重试次数，已知reconnect及路由证据保留在调用档案。`,'','## 解释与覆盖范围','','Sol开发集选出V0，三轮预先编码候选均未胜出。D与V0是同配置的独立生成；二者差异不能归因于优化。其他两个模型使用Sol选出的固定版本，不能称其各自经过三轮优化后的上限。','',`本教材232章/240单元完整索引；43个超预算完整单元不直接交付，3个导航单元不作教学正文。材料按完整论证保留条件与例外，每题至多6段/6000字符。未查看图片与超预算单元限制须连同结果解读。`,`来源为2026年四人半庄牌谱等权的纯弃牌窗口，排除含西入延长局的牌谱及完整性错误。准备排除${d.rejectedGames}场；新增规则查询${d.screening.checked}窗口，其中非纯弃牌排除${d.screening.contains_non_discard_action??0}个。缓存复用${d.screening.cacheHits??0}场；排除比例只描述实际查询范围。`,'','模型与CLI/代理路线共同构成实验条件；high不是等算力保证，后端标识为服务回显。三模型题目不同，模型间比较带抽样不确定性；90次旧补充为探索性同题同组对照。Mortal一致率衡量偏好接近，不等于教材正确性、讲解质量或实战收益。','','DeepSeek客户端按版本修复总结元数据兼容：最新版本忽略可选展示总结，弃牌、理由、引用与备选参数不改。原始首答及规范化记录均归档，旧失败不改写、不重试。首53次中8项可经新解析离线恢复，主统计仍保留原始失败，仅作格式兼容影响诊断。修复未改变模型请求正文；传输实现版本见冻结及逐次proof。受控切换时新增4个在途请求按失败保留，未补发。此前中断轮2748次另档；正式结果没有用于修改教材、模式、检索或选版。','','[逐题图形入口](review/index.html)','');
+  lines.push('## 运行条件与档案完整性补充','','Command Code凭据更新后，实际服务回显从deepseek/deepseek-v4.1-flash-1017变为deepseek/deepseek-v4.1-flash-1017-cm。路由、模型族与high保持原配置，但不能据此断言服务权重相同；DeepSeek结果包含这项运行条件差异。');
+  if(await exists(join(out,'archive-recovery.json'))){
+    const recovery=await read(join(out,'archive-recovery.json'));
+    m.archiveRecovery={manifestHash:hash(recovery),lostResponseFailures:1,key:recovery.lostResponse.key,noRetry:true};
+    lines.push('','电脑于2026-10-29 06:13:42 UTC重启，4个在途请求按中断失败保留。另有1次原本记为ready的DeepSeek C组回答及派生记录落盘后变成全零，无法恢复其决策，因此按档案丢失失败计入原计划分母；不重发、不换题、不推测其答案。另1个损坏的请求文件由相同冻结输入重建，摘要与原派发账本一致。3个损坏原文件、原始账本与显式恢复清单均保留，独立验收单独核对这1项更正。');
+  }
   await save(join(out,'metrics.json'),m);await save(join(out,'scoring-inputs.json'),rows.map(r=>r.scoringInput));const text=lines.join('\n');await writeFile(join(out,'REPORT.md'),text);await renderCeilingReview(out,d,m);await save(join(out,'archive-manifest.json'),{version:'ceiling-model-archive/v1',freezeHash:hash(f),metricsHash:hash(m),ledgerHead:ledger.rows.at(-1)?.digest,reportHash:hash(text)});return m;
 }

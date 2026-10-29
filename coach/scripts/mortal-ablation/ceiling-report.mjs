@@ -21,6 +21,13 @@ export function summarizeRows(rows){
   const lowerBound=rows.map(r=>Number.isFinite(r.usage?.totalTokens)?r.usage.totalTokens:[r.usage?.inputTokens,r.usage?.outputTokens].filter(Number.isFinite).reduce((a,b)=>a+b,0));
   return {planned:rows.length,started:rows.filter(r=>r.status!=='not_started').length,matches:rows.reduce((n,r)=>n+r.match,0),rate:mean(rows.map(r=>r.match)),interval:wilson(rows.reduce((n,r)=>n+r.match,0),rows.length),submitted:valid.length,successRate:rows.length?valid.length/rows.length:null,conditionalRate:mean(valid.map(r=>r.match)),meanRegret:mean(rows.map(r=>r.regret).filter(Number.isFinite)),p90Regret:quantile(rows.map(r=>r.regret),.9),statuses:rows.reduce((a,r)=>(a[r.status]=(a[r.status]??0)+1,a),{}),knownTokens:tokens.reduce((n,r)=>n+r.usage.totalTokens,0),knownTokensLowerBound:lowerBound.reduce((a,b)=>a+b,0),usageFields,cachedInputAlreadyIncluded:true,unknownUsage:rows.length-tokens.length,meanSeconds:mean(rows.map(r=>r.elapsedMs===null?null:r.elapsedMs/1000).filter(Number.isFinite)),patternCoverage:mean(rows.map(r=>Number(r.patterns?.length>0))),noHits:rows.filter(r=>r.retrieval?.noHits).length};
 }
+export async function verifyArchivedCall(out,key,call,settled){
+  if(!settled?.callDigest||settled.callDigest===hash(call))return;
+  const path=join(out,'archive-recovery.json');
+  if(!await exists(path))throw Error('report_call_changed');
+  const r=await read(path),binding=await read(join(out,'archive-recovery-binding.json')),lost=r.lostResponse;
+  if(binding.manifestHash!==hash(r)||r.modelRequests!==0||r.originalLedgerUnchanged!==true||r.lostAttemptRetainedInDenominator!==true||key!=='evaluation-deepseek_via_claude-5902a03b4b38950093f44330-C'||lost.key!==key||hash(settled)!==hash(lost.originalSettlement.result)||lost.originalSettlement.result.status!=='ready'||hash(call)!==lost.replacementCallDigest||call.requestDigest!==lost.requestDigest||call.status!=='provider_error'||call.response.status!=='provider_error'||call.response.failureCode!=='archive_result_lost_after_reboot')throw Error('report_call_changed');
+}
 export function pairedDifference(rows,treatment,control){
   const ids=[...new Set(rows.map(r=>r.caseId))],pairs=ids.map(id=>({t:rows.find(r=>r.caseId===id&&r.arm===treatment),c:rows.find(r=>r.caseId===id&&r.arm===control)})).filter(p=>p.t&&p.c);
   const ds=pairs.map(p=>p.t.match-p.c.match),wins=ds.filter(x=>x>0).length,losses=ds.filter(x=>x<0).length;
@@ -55,7 +62,7 @@ async function rowsFor(out,dataset,phase,arms,versions,options={}){
         const call=await read(join(out,'calls',key+'.json')),request=await read(join(out,'requests',key+'.json'));
         if(options.modelFor&&hash(request.model)!==hash(options.modelFor(c,arm)))throw Error('report_model_binding_changed');
         if(ledger.claims.get(key).requestDigest!==hash({request:request.request,model:request.model})||call.requestDigest!==ledger.claims.get(key).requestDigest)throw Error('report_request_changed');
-        const settled=settlements.get(key);if(settled?.callDigest&&settled.callDigest!==hash(call))throw Error('report_call_changed');
+        const settled=settlements.get(key);await verifyArchivedCall(out,key,call,settled);
         const body=JSON.parse(request.request.messages[1].content),pub=publicCase(c);
         if(hash(body.observation)!==hash(pub.observation)||hash(body.facts)!==hash(pub.facts))throw Error('report_visible_case_changed');
         const derived=validateDecision(call.response,{observation:pub.observation,evidenceRefs:body.citationPermissions.evidenceRefs,sourceRefs:body.citationPermissions.sourceRefs});

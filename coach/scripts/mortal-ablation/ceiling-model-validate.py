@@ -1,5 +1,6 @@
 """Independent three-model closeout. Reads archives only; never invokes a model."""
 import argparse
+import hashlib
 import importlib.util
 import json
 import math
@@ -47,7 +48,43 @@ def comparison(recorded, values, treatment, control, token_keys, out):
     return computed
 
 
+def archive_recovery(out):
+    """Accept one disclosed data-loss failure; never turn a lost response into a success."""
+    if not (out / 'archive-recovery.json').exists():
+        return None
+    r = read(out / 'archive-recovery.json')
+    assert read(out / 'archive-recovery-binding.json')['manifestHash'] == digest(r)
+    assert r['version'] == 'scene-ceiling-artifact-recovery/v1'
+    assert r['modelRequests'] == 0 and r['originalLedgerUnchanged'] is True
+    assert r['lostAttemptRetainedInDenominator'] is True and r['generationCodeChanged'] is False
+    lost = r['lostResponse']
+    assert lost['key'] == 'evaluation-deepseek_via_claude-5902a03b4b38950093f44330-C'
+    assert lost['originalSettlement']['key'] == lost['key']
+    assert lost['originalSettlement']['result']['status'] == 'ready'
+    expected = {'calls/' + lost['key'] + '.json', 'runs/' + lost['key'] + '.json',
+                'requests/evaluation-deepseek_via_claude-14e9a1dc3215c7a1a50eae24-B.json'}
+    assert {b['path'] for b in r['backupFiles']} == expected and len(r['backupFiles']) == 3
+    for b in r['backupFiles']:
+        p = (out / b['preservedPath']).resolve()
+        assert p.is_relative_to((out / 'model-revisions').resolve())
+        data = p.read_bytes()
+        assert len(data) == b['length'] and data and not any(data)
+        assert hashlib.sha256(data).hexdigest() == b['sha256']
+    call = read(out / 'calls' / (lost['key'] + '.json'))
+    assert digest(call) == lost['replacementCallDigest']
+    assert call['requestDigest'] == lost['requestDigest']
+    assert call['status'] == call['response']['status'] == 'provider_error'
+    assert call['response']['failureCode'] == 'archive_result_lost_after_reboot'
+    assert call['archiveRecovery']['originalCallDigest'] == lost['originalSettlement']['result']['callDigest']
+    rebuilt = r['reconstructedRequest']
+    request = read(out / 'requests' / (rebuilt['key'] + '.json'))
+    assert digest(request) == rebuilt['artifactDigest']
+    assert digest({'request': request['request'], 'model': request['model']}) == rebuilt['requestDigest']
+    return r
+
+
 def validate(out):
+    recovery = archive_recovery(out)
     m, f, d = (read(out / name) for name in ('metrics.json', 'model-freeze.json', 'dataset.json'))
     assert m['version'] == 'ceiling-model-report/v1' and m['complete'] is True
     assert read(out / 'model-freeze-binding.json')['freezeHash'] == digest(f) == m['freezeHash']
@@ -167,6 +204,8 @@ def validate(out):
         row = json.loads(line)
         assert row['seq'] == seq and row['previous'] == previous and digest({k: v for k, v in row.items() if k != 'digest'}) == row['digest']
         previous = row['digest']
+        if recovery and seq == recovery['originalLedgerRows'] - 1:
+            assert row['digest'] == recovery['originalLedgerHead']
         if seq == f['ledgerBaseline']['rows'] - 1:
             assert row['digest'] == f['ledgerBaseline']['head']
         key = row['key']
@@ -220,7 +259,11 @@ def validate(out):
             call = read(out / 'calls' / (key + '.json'))
             assert call['requestDigest'] == claims[key]['requestDigest']
             if 'callDigest' in row['result']:
-                assert digest(call) == row['result']['callDigest']
+                if recovery and key == recovery['lostResponse']['key']:
+                    assert row == recovery['lostResponse']['originalSettlement']
+                    assert digest(call) == recovery['lostResponse']['replacementCallDigest']
+                else:
+                    assert digest(call) == row['result']['callDigest']
     assert len(claims) == len(settled) <= 6144
     assert all(buckets[k] <= n for k, n in f['budgets'].items())
     assert all(formal_models[k] <= n for k, n in {'sol': 1090, 'deepseek_via_claude': 2000, 'terra': 1000}.items())
@@ -234,7 +277,8 @@ def validate(out):
     return {'status': 'computed_checks_passed', 'formalCases': 800, 'formalScores': 4000,
             'supplementalScores': 90, 'oracleScores': 200, 'practicalScores': 400, 'stabilityScores': 100,
             'claims': len(claims), 'buckets': buckets, 'formalCallsByModel': formal_models,
-            'contrasts': contrasts, 'visualInspectionPerformed': False}
+            'contrasts': contrasts, 'archiveDataLossFailures': 1 if recovery else 0,
+            'visualInspectionPerformed': False}
 
 
 def main():
