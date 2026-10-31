@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   ArenaBatchScoreSchema,
   ArenaBlindObservationSchema,
+  ArenaRagApplicabilityLimitsSchema,
   ArenaFailureCountsSchema,
   ArenaRagModeSchema,
   ArenaRateSchema,
@@ -22,7 +23,20 @@ export const ARENA_EXPERIMENTS = {
   flat: { datasetId: "blind-discard-flat-v1", label: "平面何切", description: "基础牌效场景：四家均无立直、副露。仍保留当时可见牌河与局况，并非只给手牌的纯平面测验。" },
   spatial: { datasetId: "blind-discard-spatial-v1", label: "立体何切", description: "四家中已有立直或副露的真实场面，结合牌河、分数、局况及公开鸣牌进行决策。" },
 } as const;
-export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1", "blind-discard-holdout-v1"]);
+export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1", "blind-discard-holdout-v1", "blind-discard-generated-v1"]);
+export const ArenaGeneratedSourceSchema = z.object({
+  kind: z.literal("question_lab"), bankId: z.string().uuid(),
+  bankSha256: Sha256Schema, sourceRecordHash: SourceRecordHashSchema,
+}).strict();
+export const ArenaGeneratedCatalogInfoSchema = z.object({
+  bankId: z.string().uuid(), name: z.string().min(1).max(120),
+  seed: z.number().int().min(0).max(0xffffffff),
+  requested: z.number().int().min(1).max(128),
+  sourceGroups: z.number().int().nonnegative(),
+  attempts: z.number().int().nonnegative(),
+  failures: z.record(z.string(), z.number().int().nonnegative()),
+  status: z.enum(["complete", "budget_exhausted"]),
+}).strict();
 const DatasetCaseSchema = z.object({
   canonicalDecisionOrder: z.number().int().nonnegative(),
   candidateCount: z.number().int().min(2).max(46),
@@ -44,7 +58,7 @@ export const ArenaArchiveManifestSchema = z.object({
     id: DatasetIdSchema,
     selection: z.object({ offset: z.number().int().min(0).max(127), poolSize: z.number().int().min(1).max(128) }).strict().optional(),
     caseSetDigest: Sha256Schema,
-    split: z.object({
+    split: z.union([z.object({
       unit: z.literal("complete_game"),
       developmentGames: z.number().int().nonnegative(),
       acceptanceGames: z.number().int().nonnegative(),
@@ -56,16 +70,21 @@ export const ArenaArchiveManifestSchema = z.object({
           split.groups.acceptance.some(hash => split.groups!.development.includes(hash)))) {
         context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_holdout_split_invalid" });
       }
-    }),
-    source: z.object({
+    }), z.object({ unit: z.literal("synthetic_source_group"), developmentGroups: z.number().int().nonnegative(),
+      acceptanceGroups: z.literal(0), status: z.literal("development_only") }).strict()]),
+    source: z.union([z.object({
       kind: z.literal("sanitized_mahjong_soul_fixture"),
       fixtureSha256: Sha256Schema,
       sourceRecordHash: SourceRecordHashSchema,
-    }).strict(),
+    }).strict(), ArenaGeneratedSourceSchema]),
     inputCaseCount: z.number().int().nonnegative(),
     selected: z.array(DatasetCaseSchema).max(128),
     excluded: z.array(ExclusionSchema).max(1000),
-  }).strict(),
+  }).strict().superRefine((dataset, ctx) => {
+    const generated = dataset.id === "blind-discard-generated-v1";
+    if (generated !== (dataset.source.kind === "question_lab") || generated !== (dataset.split.unit === "synthetic_source_group"))
+      ctx.addIssue({ code: "custom", message: "arena_dataset_source_mismatch" });
+  }),
   mortal: z.object({
     runtimeIdentity: ManagedMortalRuntimeIdentitySchema,
     ruleIdentity: LibriichiRuleIdentitySchema,
@@ -84,6 +103,14 @@ export const ArenaArchiveManifestSchema = z.object({
     mode: ArenaRagModeSchema,
     corpusVersion: z.string().min(1).max(100).nullable(),
     retrieverVersion: z.string().min(1).max(100),
+    /** Written only when the applicability gate is opted in (spec §4.8). */
+    applicability: z.object({
+      gateVersion: z.string().min(1).max(40),
+      promptVersion: z.string().min(1).max(80),
+      selectorProviderId: z.string().min(1).max(80),
+      selectorModel: z.string().min(1).max(200),
+      limits: ArenaRagApplicabilityLimitsSchema,
+    }).strict().optional(),
   }).strict(),
   controlledFault: z.enum(["none", "first-helper-timeout"]),
   budget: z.object({
@@ -104,12 +131,17 @@ export const ArenaCaseCatalogSchema = z.object({
   caseSetDigest: Sha256Schema,
   sourceRecordHash: SourceRecordHashSchema,
   fixtureSha256: Sha256Schema,
-  developmentGames: z.literal(1),
+  developmentGames: z.number().int().min(0).max(1),
   acceptanceGames: z.literal(0),
   inputCaseCount: z.number().int().nonnegative(),
   cases: z.array(z.object({ canonicalDecisionOrder: z.number().int().nonnegative(), observation: ArenaBlindObservationSchema }).strict()).max(128),
   excluded: z.array(ExclusionSchema).max(1000),
-}).strict();
+  generated: ArenaGeneratedCatalogInfoSchema.optional(),
+}).strict().superRefine((catalog, ctx) => {
+  const generated = catalog.datasetId === "blind-discard-generated-v1";
+  if (generated !== Boolean(catalog.generated) || catalog.developmentGames !== (generated ? 0 : 1))
+    ctx.addIssue({ code: "custom", message: "arena_catalog_source_mismatch" });
+});
 
 export const ArenaArchiveEventSchema = z.discriminatedUnion("type", [
   z.object({
@@ -214,6 +246,19 @@ export const ArenaArchiveSummarySchema = z.object({
   toolCallCount: z.number().int().nonnegative(),
   toolFailureCount: z.number().int().nonnegative(),
   tokenUsage: TokenTotalsSchema,
+  /** Present only for runs archived with the applicability gate enabled. */
+  applicability: z.object({
+    gateVersion: z.string().min(1).max(40).nullable(),
+    promptVersion: z.string().min(1).max(80).nullable(),
+    callCount: z.number().int().nonnegative(),
+    appliedCount: z.number().int().nonnegative(),
+    degradedCount: z.number().int().nonnegative(),
+    failedCount: z.number().int().nonnegative(),
+    skippedCount: z.number().int().nonnegative(),
+    retainedPassageCount: z.number().int().nonnegative(),
+    droppedPassageCount: z.number().int().nonnegative(),
+    usage: z.object({ status: z.enum(["reported", "unknown"]) }).strict(),
+  }).strict().optional(),
 }).strict();
 export type ArenaArchiveSummary = z.infer<typeof ArenaArchiveSummarySchema>;
 
@@ -322,6 +367,10 @@ export function summarizeArenaArchive(input: {
   let ragQueries = 0;
   let ragHits = 0;
   let ragDisabled = 0;
+  const applicabilityTotals = {
+    callCount: 0, appliedCount: 0, degradedCount: 0, failedCount: 0, skippedCount: 0,
+    retainedPassageCount: 0, droppedPassageCount: 0, unknownUsageRunCount: 0,
+  };
 
   for (const event of runs) {
     if (event.type !== "case_run") continue;
@@ -350,8 +399,21 @@ export function summarizeArenaArchive(input: {
       if (runEvent.type === "tool_call" && runEvent.toolName === "search_knowledge") ragQueries += 1;
       if (runEvent.type === "tool_result" && runEvent.toolName === "search_knowledge" && runEvent.status === "ok") {
         const resultData = runEvent.result as { status?: unknown } | undefined;
-        if (resultData?.status === "hits") ragHits += 1;
+        // `filtered`/`degraded` belong to the applicability result shape and still mean the search hit.
+        if (resultData?.status === "hits" || resultData?.status === "filtered" || resultData?.status === "degraded") ragHits += 1;
         if (resultData?.status === "disabled") ragDisabled += 1;
+      }
+    }
+    if (result.applicability !== undefined) {
+      applicabilityTotals.callCount += result.applicability.callCount;
+      applicabilityTotals.appliedCount += result.applicability.appliedCount;
+      applicabilityTotals.degradedCount += result.applicability.degradedCount;
+      applicabilityTotals.failedCount += result.applicability.failedCount;
+      applicabilityTotals.skippedCount += result.applicability.skippedCount;
+      applicabilityTotals.retainedPassageCount += result.applicability.retainedPassageCount;
+      applicabilityTotals.droppedPassageCount += result.applicability.droppedPassageCount;
+      if (result.applicability.callCount > 0 && result.applicability.usage.status !== "reported") {
+        applicabilityTotals.unknownUsageRunCount += 1;
       }
     }
     if (result.providerUsage.status === "reported") {
@@ -413,6 +475,23 @@ export function summarizeArenaArchive(input: {
     toolCallCount,
     toolFailureCount,
     tokenUsage,
+    ...(manifest.rag.applicability === undefined ? {} : {
+      applicability: {
+        gateVersion: manifest.rag.applicability.gateVersion,
+        promptVersion: manifest.rag.applicability.promptVersion,
+        callCount: applicabilityTotals.callCount,
+        appliedCount: applicabilityTotals.appliedCount,
+        degradedCount: applicabilityTotals.degradedCount,
+        failedCount: applicabilityTotals.failedCount,
+        skippedCount: applicabilityTotals.skippedCount,
+        retainedPassageCount: applicabilityTotals.retainedPassageCount,
+        droppedPassageCount: applicabilityTotals.droppedPassageCount,
+        usage: {
+          status: applicabilityTotals.callCount > 0 && applicabilityTotals.unknownUsageRunCount === 0
+            ? "reported" : "unknown",
+        },
+      },
+    }),
   });
 }
 

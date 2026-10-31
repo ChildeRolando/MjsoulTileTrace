@@ -233,3 +233,100 @@
                      Event::Kakan {
                          actor,
                          pai,
+--- a/libriichi/src/arena/mod.rs
++++ b/libriichi/src/arena/mod.rs
+@@ -1,3 +1,4 @@
+ mod board;
++mod research;
+ mod game;
+ mod one_vs_three;
+@@ -19,3 +20,4 @@
+     let m = PyModule::new(py, "arena")?;
++    m.add_class::<research::ResearchBoard>()?;
+     m.add_class::<OneVsThree>()?;
+     m.add_class::<TwoVsTwo>()?;
+--- /dev/null
++++ b/libriichi/src/arena/research.rs
+@@ -0,0 +1,82 @@
++// AGPL-3.0-or-later; adapter over Equim-chan/Mortal's pinned Board implementation.
++use super::board::{Board, BoardState, Poll};
++use crate::mjai::EventExt;
++use crate::tile::Tile;
++use pyo3::exceptions::PyValueError;
++use pyo3::prelude::*;
++use serde::{Deserialize, Serialize};
++use serde_json::json;
++
++#[derive(Deserialize, Serialize)]
++#[serde(deny_unknown_fields)]
++struct Spec {
++    kyoku: u8,
++    honba: u8,
++    kyotaku: u8,
++    scores: [i32; 4],
++    haipai: [[Tile; 13]; 4],
++    // All vectors are in consumption order; Board's stack reversal stays here.
++    yama: Vec<Tile>,
++    rinshan: Vec<Tile>,
++    dora_indicators: Vec<Tile>,
++    ura_indicators: Vec<Tile>,
++}
++
++fn invalid<E: std::fmt::Display>(_: E) -> PyErr {
++    PyValueError::new_err("research_board_invalid")
++}
++
++#[pyclass(module = "libriichi.arena")]
++pub struct ResearchBoard {
++    state: BoardState,
++    ended: bool,
++}
++
++#[pymethods]
++impl ResearchBoard {
++    #[new]
++    fn new(spec: &str) -> PyResult<Self> {
++        let spec: Spec = serde_json::from_str(spec).map_err(invalid)?;
++        if spec.kyoku > 7 || spec.yama.len() != 70 || spec.rinshan.len() != 4
++            || spec.dora_indicators.len() != 5 || spec.ura_indicators.len() != 5 {
++            return Err(invalid("geometry"));
++        }
++        let mut counts = [0u8; 34];
++        let mut reds = [0u8; 3];
++        for tile in spec.haipai.iter().flatten().chain(&spec.yama).chain(&spec.rinshan)
++            .chain(&spec.dora_indicators).chain(&spec.ura_indicators) {
++            let id = tile.deaka().as_usize();
++            if id >= 34 { return Err(invalid("unknown tile")); }
++            counts[id] += 1;
++            if tile.is_aka() { reds[(id - 4) / 9] += 1; }
++        }
++        if counts.iter().any(|&n| n != 4) || reds != [1, 1, 1]
++            || spec.scores.iter().map(|&s| i64::from(s)).sum::<i64>() + i64::from(spec.kyotaku) * 1000 != 100000 {
++            return Err(invalid("tile or score conservation"));
++        }
++        let mut board = Board { kyoku: spec.kyoku, honba: spec.honba,
++            kyotaku: spec.kyotaku, scores: spec.scores, haipai: spec.haipai,
++            yama: spec.yama, rinshan: spec.rinshan, dora_indicators: spec.dora_indicators,
++            ura_indicators: spec.ura_indicators };
++        board.yama.reverse();
++        board.rinshan.reverse();
++        board.dora_indicators.reverse();
++        let mut state = board.into_state();
++        state.poll(Default::default()).map_err(invalid)?;
++        Ok(Self { state, ended: false })
++    }
++
++    fn snapshot(&self) -> PyResult<String> {
++        let context = self.state.agent_context();
++        let active: Vec<bool> = context.player_states.iter().map(|s| s.last_cans().can_act()).collect();
++        serde_json::to_string(&json!({ "ended": self.ended, "events": context.log, "active": active }))
++            .map_err(invalid)
++    }
++
++    fn step(&mut self, actions: &str) -> PyResult<String> {
++        if self.ended { return Err(invalid("ended")); }
++        let actions: [EventExt; 4] = serde_json::from_str(actions).map_err(invalid)?;
++        self.ended = matches!(self.state.poll(actions).map_err(invalid)?, Poll::End);
++        self.snapshot()
++    }
++}

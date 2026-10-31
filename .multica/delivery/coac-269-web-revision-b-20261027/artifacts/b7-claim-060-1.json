@@ -1,0 +1,55 @@
+{
+  "schema": "coac269-candidate-claim/3",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b7",
+  "claimedAt": "2026-10-27T11:51:37.246Z",
+  "owner": "COAC-269 Ticket executor",
+  "claimKey": "nemata-jp-chapter-060-1:ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+  "chapterId": "nemata-jp-chapter-060-1",
+  "articleId": "chapter01-section021-06",
+  "parentCandidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+    "sha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828"
+  },
+  "parentAudit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+    "sha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7"
+  },
+  "source": {
+    "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section021-06/source.json",
+    "sha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5"
+  },
+  "targets": [
+    "modern-yabejp-ja:chapter01-section021-06:b0027",
+    "modern-yabejp-ja:chapter01-section021-06:b0033"
+  ],
+  "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json",
+  "variant": "coac269rev1",
+  "sharedClaim": {
+    "interface": "parallel/slots.mjs claim",
+    "path": "parallel/claims/nemata-jp-chapter-060-1.json",
+    "sha256": "5f2ffa52d363d46e389ec5e1164588ff9f906304eed1bfa87e80ec55def06187",
+    "owner": "COAC-269 Ticket executor",
+    "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+    "claimedAt": "2026-10-27T11:51:37.235Z",
+    "created": true,
+    "verifiedAt": "2026-10-27T11:51:37.246Z",
+    "registrationKind": "pre-dispatch"
+  },
+  "selectionProof": {
+    "rule": "canonical chapter id absent from the union of active preview selection/unit-map, latest unified register, and every passed receipt bound to the current source sha",
+    "jointExclusion": {
+      "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-51-37-091Z-e17cc5c1.json",
+      "sha256": "1fd481dd6745d5c07c0a7d2cd19c1eb953a478384441d6f25a4f7a8a5c907f92",
+      "recordedAt": "2026-10-27T11:51:37.091Z",
+      "ageSecondsAtClaim": 0,
+      "pointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+    },
+    "preflight": {
+      "path": "web-production/v1/coac269-20261027/preflight/preflight-b7-2026-10-27T11-51-31-209Z-01ba0dac5f953810.json",
+      "sha256": "6ea606df7c190c0db7e00bd0e0c8fab1b1186504a8bd45816d5af52cefc4c79e"
+    }
+  },
+  "writes": "shared ownership in parallel/claims (the only surface line A reads); detail record in the ticket namespace; no shared list, selection, pointer or formal library write"
+}

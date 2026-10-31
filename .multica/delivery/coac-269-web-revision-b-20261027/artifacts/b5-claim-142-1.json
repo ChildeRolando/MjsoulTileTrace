@@ -1,0 +1,45 @@
+{
+  "schema": "coac269-candidate-claim/2",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b5",
+  "claimedAt": "2026-10-27T11:03:56.388Z",
+  "owner": "COAC-269 Ticket executor",
+  "claimKey": "nemata-jp-chapter-142-1:264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+  "chapterId": "nemata-jp-chapter-142-1",
+  "articleId": "chapter01-section054",
+  "parentCandidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+    "sha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e"
+  },
+  "parentAudit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
+    "sha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872"
+  },
+  "source": {
+    "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section054/source.json",
+    "sha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc"
+  },
+  "targets": [
+    "modern-yabejp-ja:chapter01-section054:b0173"
+  ],
+  "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+  "variant": "coac269rev1",
+  "selectionProof": {
+    "rule": "canonical chapter id absent from the union of active preview selection/unit-map, latest unified register, and every passed receipt bound to the current source sha",
+    "jointExclusion": {
+      "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-03-38-283Z-6df4fae8.json",
+      "sha256": "030500e49f9668831328e41318771c781afc6d628dff80d6fe578967fe6aa731",
+      "recordedAt": "2026-10-27T11:03:38.283Z",
+      "ageSecondsAtClaim": 18,
+      "pointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+    },
+    "preflight": {
+      "path": "web-production/v1/coac269-20261027/preflight/preflight-b5-2026-10-27T11-03-51-086Z-6fa44dc29496e6b3.json",
+      "sha256": "c830a731e329473d2caaed1c5549ef7a43372a9080cd1c365d059bd747b1595b"
+    },
+    "passedCandidatesForArticle": [],
+    "absenceOfPassedCandidate": true
+  },
+  "writes": "ticket namespace only: claims/, receipts/, preflight/, handoff/; no shared list, selection, pointer or formal library write"
+}

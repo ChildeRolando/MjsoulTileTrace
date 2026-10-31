@@ -5,7 +5,7 @@ import { parseArenaArchiveEvents, summarizeArenaArchive } from '@riichi-coach/de
 
 const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 export const arenaQuestionId = (manifest, selected) => digest([manifest.dataset.source.sourceRecordHash, selected.canonicalDecisionOrder, selected.candidateSetDigest, manifest.mortal]);
-export const mistakeType = id => id === 'blind-discard-holdout-v1' ? 'holdout' : id === 'blind-discard-flat-v1' ? 'flat' : id === 'blind-discard-spatial-v1' ? 'spatial' : 'legacy';
+export const mistakeType = id => id === 'blind-discard-generated-v1' ? 'generated' : id === 'blind-discard-holdout-v1' ? 'holdout' : id === 'blind-discard-flat-v1' ? 'flat' : id === 'blind-discard-spatial-v1' ? 'spatial' : 'legacy';
 
 // Derived from immutable archive records; never use run-local opaque caseRefs as question IDs.
 export function collectArenaMistakes(archives, { type = 'all', model = 'all', rag = 'all', includeFaults = false } = {}) {

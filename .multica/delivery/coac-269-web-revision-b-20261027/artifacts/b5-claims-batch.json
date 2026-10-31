@@ -1,0 +1,33 @@
+{
+  "schema": "coac269-claim-batch/2",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b5",
+  "recordedAt": "2026-10-27T11:03:56.399Z",
+  "modelCalls": 0,
+  "claimKeyRule": "chapterId + current candidate SHA; a second revision of the same original chapter cannot slip through on variant-file absence",
+  "preflight": "web-production/v1/coac269-20261027/preflight/preflight-b5-2026-10-27T11-03-51-086Z-6fa44dc29496e6b3.json",
+  "jointExclusion": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-03-38-283Z-6df4fae8.json",
+    "sha256": "030500e49f9668831328e41318771c781afc6d628dff80d6fe578967fe6aa731",
+    "recordedAt": "2026-10-27T11:03:38.283Z"
+  },
+  "claims": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "passedCandidatesForArticle": [],
+      "claimPath": "web-production/v1/coac269-20261027/claims/claim-b5-nemata-jp-chapter-142-1-264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.json",
+      "created": true
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "passedCandidatesForArticle": [],
+      "claimPath": "web-production/v1/coac269-20261027/claims/claim-b5-nemata-jp-chapter-127-1-0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.json",
+      "created": true
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

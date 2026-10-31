@@ -1,0 +1,91 @@
+{
+  "schema": "coac269-dual-slot-entry-check/1",
+  "recordedAt": "2026-10-27T10:13:57.286834+00:00",
+  "ticket": "COAC-269",
+  "line": "B",
+  "mechanism": {
+    "path": "parallel/slots.mjs",
+    "sha256": "360298d7302fa17972f2460b93717ff274047624d80a7bef0bc7862c196bb077",
+    "contractPath": "parallel/CONTRACT.md",
+    "contractSha256": "05fc5c81bee7718d4e806245525a5d9aefaffb46865db3aae09c19e589afd080",
+    "verificationPath": "parallel/verification-20261027.json",
+    "verificationSha256": "fe71be5534842326ce626896d910ce1bb4142b0eceb35c63035acba76a3a2459",
+    "verifiedAt": "2026-10-27T09:37:33.704Z",
+    "caseCount": 15,
+    "passed": true,
+    "maxMakerSlots": 2,
+    "fixedOwners": {
+      "A": "COAC-248 Mika",
+      "B": "COAC-269 Ticket executor"
+    },
+    "guarantees": [
+      "mkdir-exclusive critical section + wx atomic record",
+      "third concurrent acquire refused maker_slot_limit_reached",
+      "same-lane re-acquire refused lane_slot_busy",
+      "foreign release refused owner_mismatch",
+      "normal exit releases own slot",
+      "stale slot blocks until recover with dead-owner evidence",
+      "live owner recover refused owner_still_live",
+      "claim single owner and A-skips-B-claim verified"
+    ]
+  },
+  "slotUseThisBatch": {
+    "lane": "B",
+    "owner": "COAC-269 Ticket executor",
+    "acquireExit": 0,
+    "releaseExit": 0,
+    "released": true,
+    "acquiredAt": "2026-10-27T10:08:42.306351+00:00",
+    "releasedAt": "2026-10-27T10:10:49.848681+00:00",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-B",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "pid": 65772,
+      "claimedAt": "2026-10-27T10:08:42.295Z",
+      "heartbeatAt": "2026-10-27T10:08:42.295Z",
+      "ttlMinutes": 20
+    },
+    "slotLiveAfter": false
+  },
+  "legacyLockIntegration": {
+    "path": "production-lane.lock",
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "size": 1,
+    "contentHex": "30",
+    "mtime": "2026-10-25T15:40:57.878891+00:00",
+    "slotsMjsReferences": 0,
+    "acquiredByThisBatch": false,
+    "unchangedBeforeAfter": true,
+    "rule": "COAC-244 contract: the legacy single-maker lock is neither deleted, rewritten nor bypassed; line capacity is recorded by the lane maker slots. B holds maker-B for the whole dispatch window and never touches the legacy file."
+  },
+  "realConcurrency": {
+    "method": "production and audit ledger call intervals (startedAt + durationMs) only; no agent-level concurrency is claimed",
+    "productionCalls": [
+      {
+        "callId": "5bef56bd-fac6-4730-a40a-0aaed5071888",
+        "articleId": "chapter06-section002",
+        "start": "2026-10-27T10:08:42.380000+00:00",
+        "end": "2026-10-27T10:09:52.446000+00:00"
+      },
+      {
+        "callId": "394ff5d0-31fb-4f82-b30e-47b0dce5c3a3",
+        "articleId": "chapter04-section016",
+        "start": "2026-10-27T10:09:52.594000+00:00",
+        "end": "2026-10-27T10:10:49.711000+00:00"
+      }
+    ],
+    "overlaps": [],
+    "note": "249 audited batch-1 (338/273) at 10:01-10:04Z, before this batch window; batch-2 production ran 10:08:42-10:10:49Z with no overlapping maker or audit call, so real model-call overlap in this batch was 0.",
+    "ledgerScan": {
+      "files": [
+        "web-production/v1/calls.jsonl",
+        "production/calls.jsonl",
+        "audit/calls.jsonl"
+      ],
+      "otherProductionCallsInBatchWindow": [],
+      "otherProductionOverlaps": []
+    }
+  }
+}

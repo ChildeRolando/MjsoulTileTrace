@@ -1,0 +1,89 @@
+{
+  "schema": "coac269-to-coac249-handoff/1",
+  "ticket": "COAC-269",
+  "batch": "b3",
+  "to": "COAC-249",
+  "recordedAt": "2026-10-27T10:19:09.065Z",
+  "modelCalls": 0,
+  "scope": "first independent semantic audit per candidate SHA; do not re-audit passed SHAs",
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "articleId": "chapter03-section003",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+      "targets": [
+        "modern-yabejp-ja:chapter03-section003:b0018"
+      ],
+      "notes": "b0018: the parent audit was uncertain whether 「打1張」 means discarding one and asked not to hard-rewrite it as 「已打出1张」 without confirmation. The candidate keeps 「已打出1张、可见1张」 but changes 能看到1张 to 可见1张 and rewrites the second clause as 「牌手会受到客风牌单骑更容易争取荣和这一想法的影响」. Verify the discard/visible wording and that the psychological clause still matches the original.",
+      "candidateSha256": "5083143622906fd318dfd9847c1a446f59deb78ff613a31adb44dd81df299ccd",
+      "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+      "parentAuditSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "productionCall": [
+        {
+          "callId": "35508223-36a6-4982-a382-aa5d6683c9a1",
+          "success": true,
+          "usage": {
+            "inputTokens": 12597,
+            "cachedInputTokens": 12416,
+            "outputTokens": 500
+          },
+          "durationMs": 61503,
+          "rawArtifactPath": "raw-calls/35508223-36a6-4982-a382-aa5d6683c9a1.json",
+          "rawArtifactSha256": "d6e2f1e913a0ea727fcdfca331ffed57f89ef7a0fd37f0f4cd8f69cc0cb8d8b8",
+          "promptSha256": "a42fe9f1ff994b0baa0cc0400d053a1e1eccb10b70023ed787c742a918b97fb4",
+          "semanticPromptSha256": "4b1600884f5198989b43f9ebc6b564016fd710013fc5994a95e64af03f30803c",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b3-3b846f9db751ee3e.json",
+      "selfCheckOk": true
+    },
+    {
+      "chapterId": "nemata-jp-chapter-131-1",
+      "articleId": "chapter01-section049",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section049/source.v2.json",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section049:b0123"
+      ],
+      "notes": "b0123: the parent audit rejected 「失去七对子的可能性也不太令人介意」 as turning a lost chance into losing the route, and suggested the loss-of-七对子-value reading. The candidate now says 「七对子方面的损失也不太令人介意」. Verify against the original 「七対子の目がなくなるのも気にならない」.",
+      "candidateSha256": "40da07ac8cac2acd378963d8e297d28be52d894d31b35712c1ce9f87c4995096",
+      "parentSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+      "parentAuditSha256": "8875bb9c2dec37ce1ca1dcc36edc24d7a04ec489ffe604d9dd610e04b77ba552",
+      "sourceSha256": "a463edd2bf6d41428d46be506a60cf27615b2bd7c698b16dd39ced7ee30968bd",
+      "productionCall": [
+        {
+          "callId": "c045a2dc-bbca-4e75-ae8f-97b1c4d5110a",
+          "success": true,
+          "usage": {
+            "inputTokens": 11751,
+            "cachedInputTokens": 0,
+            "outputTokens": 136
+          },
+          "durationMs": 26756,
+          "rawArtifactPath": "raw-calls/c045a2dc-bbca-4e75-ae8f-97b1c4d5110a.json",
+          "rawArtifactSha256": "322bd851872bc8a6482742688b29157cf6059b04b53c997587f95d1c2fd7f883",
+          "promptSha256": "4b8dd7b4cf1823d460ef74c5b04ea6049c88cc6db6a49e200607ad883bf5dc6e",
+          "semanticPromptSha256": "d21562df8908c351c658d872aecca6f30b6a7120d22e2c8d14ef2c99f70d8675",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b3-3b846f9db751ee3e.json",
+      "selfCheckOk": true
+    }
+  ]
+}

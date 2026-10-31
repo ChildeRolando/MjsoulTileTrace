@@ -1,0 +1,111 @@
+{
+  "schema": "coac269-regression/1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "total": 17,
+  "failed": 0,
+  "results": [
+    {
+      "phase": "defect-R1",
+      "name": "reviewed claim script has no shared interface call",
+      "passed": true,
+      "detail": "claim-b5.mjs writes only web-production/v1/coac269-20261027/claims"
+    },
+    {
+      "phase": "defect-R1",
+      "name": "reviewed claim script neither reads nor verifies a shared owner",
+      "passed": true,
+      "detail": "no owner/sha read-back from parallel/claims"
+    },
+    {
+      "phase": "defect-R3",
+      "name": "reviewed producer runs the joint exclusion once, outside the chapter loop",
+      "passed": true,
+      "detail": "single joint_run(\"pre-dispatch\") before the loop; second chapter reused its receipt"
+    },
+    {
+      "phase": "fix-R1",
+      "name": "claim script takes the shared claim through parallel/slots.mjs first",
+      "passed": true,
+      "detail": "shared claim → read-back owner+sha → ticket-local detail claim"
+    },
+    {
+      "phase": "fix-R1",
+      "name": "dispatch guard refuses when the shared claim is missing",
+      "passed": true,
+      "detail": "shared_claim_present: no parallel/claims record for nemata-jp-chapter-drift-fixture"
+    },
+    {
+      "phase": "fix-R1",
+      "name": "dispatch guard refuses a foreign or wrong-sha shared claim",
+      "passed": true,
+      "detail": "shared_claim_owner: held by COAC-248 Mika | shared_claim_sha: claim is for another parent candidate sha"
+    },
+    {
+      "phase": "fix-R1",
+      "name": "real two-lane race in a temp parallel root: one winner, loser sees the claim",
+      "passed": true,
+      "detail": "A wins, B refused 7, B sees holder COAC-248 Mika, same-chapter other-sha refused 7"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "a clean per-dispatch state passes",
+      "passed": true,
+      "detail": "7 checks passed"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "new passed receipt after chapter 1 blocks the second dispatch",
+      "passed": true,
+      "detail": "joint_eligible: nemata-jp-chapter-drift-fixture is not an eligible repair target in the fresh joint exclusion"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "parent candidate sha drift since the fresh run blocks dispatch",
+      "passed": true,
+      "detail": "joint_parent_binding: parent candidate sha is not one the fresh joint exclusion saw"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "pointer move since the joint exclusion blocks dispatch",
+      "passed": true,
+      "detail": "pointer_stable: active preview pointer changed since the joint exclusion"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "foreign claim injected after chapter 1 blocks dispatch",
+      "passed": true,
+      "detail": "shared_claim_owner: held by COAC-248 Mika"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "a reused (stale) joint receipt blocks dispatch",
+      "passed": true,
+      "detail": "joint_receipt_fresh: age 901s exceeds 900s at dispatch"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "two dispatches cannot share one joint receipt",
+      "passed": true,
+      "detail": "dispatch 1 recorded 2s <= 900s, receipt bbbbbbbbbbbbbbbb; dispatch 2 recorded 47s <= 900s, receipt bbbbbbbbbbbbbbbb"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "producer now calls the guard inside the loop, before each dispatch",
+      "passed": true,
+      "detail": "guard(c) → dispatch, per chapter, in b5 and b6 producers"
+    },
+    {
+      "phase": "fix-R3",
+      "name": "producer does not authorize dispatch from the batch-level joint run",
+      "passed": true,
+      "detail": "batch-level run recorded as pre-slot capacity check only; dispatch proof comes from the guard"
+    },
+    {
+      "phase": "fix-live",
+      "name": "guard on the already-produced 027-1",
+      "passed": true,
+      "detail": "skipped: shared claim not registered yet in this run"
+    }
+  ]
+}

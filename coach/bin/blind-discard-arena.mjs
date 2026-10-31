@@ -8,9 +8,12 @@ import { fileURLToPath } from "node:url";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { arenaQuestionId } from "./arena-mistakes.mjs";
 import {
+  ARENA_RAG_APPLICABILITY_GATE_VERSION,
+  ARENA_RAG_APPLICABILITY_PROMPT_VERSION,
   LibriichiRuleResponseSchema,
   OpenAiCoachProviderConfigSchema,
   libriichiRuleCanonicalJson,
+  resolveArenaRagApplicabilityLimits,
 } from "@riichi-coach/contracts";
 import {
   loadMahjongSoulProtocolBundle,
@@ -44,6 +47,7 @@ import {
 import { projectArenaLocalMortalRuleScoring } from "@riichi-coach/desktop/blind-discard-arena-scorer";
 import { ArenaMcpClient } from "@riichi-coach/desktop/blind-discard-arena-mcp";
 import { createArenaRagRetriever, ARENA_RAG_RETRIEVER_VERSION } from "@riichi-coach/desktop/blind-discard-arena-rag";
+import { createArenaRagApplicabilityGate } from "@riichi-coach/desktop/blind-discard-arena-rag-applicability";
 import { ARENA_TOOL_CALL_PROMPT_VERSION } from "@riichi-coach/desktop/blind-discard-arena-provider";
 import { createArenaToolCallProvider } from "@riichi-coach/desktop/llm-provider/service";
 import {
@@ -58,12 +62,15 @@ import {
   DatasetIdSchema,
 } from "@riichi-coach/desktop/blind-discard-arena-archive";
 
+import { GENERATED_DATASET, BankId, GenerationOptions, generateBank, loadGeneratedBank, prepareBankRuleInputs, pendingDecision, questionLabNativeReceipt } from "./arena-question-bank.mjs";
+
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const repoRoot = resolve(coachRoot, "..");
 const fixturesRoot = join(coachRoot, "packages/mahjong-soul-source/tests/fixtures");
 const holdoutSourceRecordHash = "sha256:4df4cb710b32c4327efab6171826f2ef74a8805ac40a13e3238024d85590e968";
 export function arenaDatasetSource(datasetId) {
   DatasetIdSchema.parse(datasetId);
+  if (datasetId === GENERATED_DATASET) throw new Error("arena_generated_bank_required");
   const holdout = datasetId === "blind-discard-holdout-v1";
   return { fixturePath: join(fixturesRoot, holdout ? "arena-holdout-complete.json" : "real-record-complete.json"),
     expectedSourceRecordHash: holdout ? holdoutSourceRecordHash : expectedSourceRecordHash,
@@ -75,7 +82,7 @@ export function arenaDatasetSource(datasetId) {
 const packageRoot = join(coachRoot, "packages/mortal-runtime");
 const platformManifest = "mortal-582500.windows-x64.json";
 const expectedSourceRecordHash = "sha256:fe547cc2b42f0ea83230feaa0fbbdf9bab7281838a66f051cb7a8609687e1c33";
-const expectedRuleArtifactSha256 = "5ff7f712a45c7288f739af7c7e0613567b467ee4ade2c66c0988e18982cdefad";
+const expectedRuleArtifactSha256 = "7a50e685591fb5c221b928588eb73b7c50812705f48ea734dd43aad4ec73a911";
 const expectedRuntime = {
   runtimeRevision: "0cff2b52982be5b1163aa9a62fb01f03ce91e0d2",
   checkpointRevision: "7386c9f5c751a3ea75efea99737cef5a5ef950f1",
@@ -83,7 +90,7 @@ const expectedRuntime = {
   checkpointModelTag: "mortal-hpc@582500",
   runtimeConfigSha256: "1c4d2711033cbc897602655907548ba47876b356723a52efc7ab05a30f6a35df",
 };
-const ARCHIVE_ROOT = join(coachRoot, "reports/blind-discard-arena");
+const ARCHIVE_ROOT = process.env.RIICHI_ARENA_ARCHIVE_ROOT ?? join(coachRoot, "reports/blind-discard-arena");
 const MCP_SERVER_PATH = join(coachRoot, "bin/blind-discard-arena-mcp-server.mjs");
 const DEFAULT_BUDGET = Object.freeze({ maxProviderTurns: 4, maxToolCalls: 2, maxProviderOutputTokens: 512, maxRunElapsedMs: 120_000 });
 const DEFAULT_TOKEN_WARNING = 100_000_000;
@@ -93,7 +100,10 @@ function usage() {
     "Blind Discard Arena local CLI",
     "",
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag off [options]",
+    "  node bin/blind-discard-arena.mjs generate <bank-uuid> <options-json>",
+    "  npm run arena -- run --dataset blind-discard-generated-v1 --bank <bank-uuid> --rag off",
     "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag local [options]",
+    "  npm run arena -- run --dataset blind-discard-smoke-v1 --rag local --rag-applicability applicability-v1 [options]",
     "  npm run arena -- inspect <runId>",
     "  npm run arena -- mortal-details <runId>  rebuild post-run Q scores without model calls",
     "  npm run arena -- catalog         build the label-free development question catalog (no model calls)",
@@ -116,6 +126,7 @@ function usage() {
     "  --max-tool-calls <1..16>          default 2",
     "  --max-run-ms <1..300000>          default 120000",
     "  --fault first-helper-timeout      controlled helper timeout path",
+    "  --rag-applicability applicability-v1  opt-in post-retrieval applicability gate (requires --rag local)",
     "",
     "Credentials are read only from RIICHI_COACH_API_KEY and are never written to the archive.",
   ].join("\n");
@@ -124,6 +135,10 @@ function usage() {
 export function parseArgs(argv) {
   if (argv.length === 0 || argv.includes("--help") || argv.includes("-h")) return { command: "help" };
   const [command, ...rest] = argv;
+  if (command === "generate") {
+    if (rest.length !== 2) throw new Error("arena_generation_options_invalid");
+    return { command, bankId: BankId.parse(rest[0]), generation: GenerationOptions.parse(JSON.parse(rest[1])) };
+  }
   if (command === "catalog") { if (rest.length) throw new Error("arena_option_invalid"); return { command }; }
   if (command === "inspect" || command === "mortal-details") {
     if (rest.length !== 1 || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/u.test(rest[0])) {
@@ -138,7 +153,7 @@ export function parseArgs(argv) {
     if (!key?.startsWith("--")) throw new Error("arena_option_invalid");
     const value = rest[index + 1];
     if (value === undefined || value.startsWith("--")) throw new Error("arena_option_value_missing");
-    if (["--dataset", "--rag", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort", "--replay-run"].includes(key)) {
+    if (["--bank", "--dataset", "--rag", "--rag-applicability", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort", "--replay-run"].includes(key)) {
       if (options[key] !== undefined) throw new Error("arena_option_duplicate");
       options[key] = value;
       index += 1;
@@ -156,8 +171,17 @@ export function parseArgs(argv) {
   if (!DatasetIdSchema.safeParse(datasetId).success || !["off", "local"].includes(options["--rag"])) {
     throw new Error("arena_dataset_or_rag_invalid");
   }
+  const ragApplicabilityOption = options["--rag-applicability"];
+  if (ragApplicabilityOption !== undefined && ragApplicabilityOption !== ARENA_RAG_APPLICABILITY_GATE_VERSION) {
+    throw new Error("arena_rag_applicability_invalid");
+  }
+  if (ragApplicabilityOption !== undefined && options["--rag"] !== "local") {
+    throw new Error("arena_rag_applicability_requires_local");
+  }
   const replayRunId = options["--replay-run"], replayCaseOrdinal = options["--replay-case"];
   if (replayRunId !== undefined ? !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(replayRunId) || !Number.isInteger(replayCaseOrdinal) || replayCaseOrdinal < 0 || replayCaseOrdinal > 127 : replayCaseOrdinal !== undefined) throw new Error("arena_replay_reference_invalid");
+  const bankId = datasetId === GENERATED_DATASET && (!replayRunId || options["--bank"] !== undefined) ? BankId.parse(options["--bank"]) : undefined;
+  if (datasetId !== GENERATED_DATASET && options["--bank"] !== undefined) throw new Error("arena_bank_not_applicable");
   const maxCases = replayRunId ? 1 : options["--max-cases"] ?? (datasetId === "blind-discard-smoke-v1" ? 3 : 10);
   const caseOffset = options["--case-offset"] ?? 0;
   if (!Number.isSafeInteger(maxCases) || maxCases < 1 || maxCases > 128 || !Number.isSafeInteger(caseOffset) || caseOffset < 0 || caseOffset > 127
@@ -193,8 +217,9 @@ export function parseArgs(argv) {
   if (providerSettings !== null && !providerSettings.success) throw new Error("arena_provider_settings_invalid");
   return {
     command,
-    datasetId, maxCases, caseOffset, replayRunId, replayCaseOrdinal,
+    datasetId, maxCases, caseOffset, bankId, replayRunId, replayCaseOrdinal,
     ragMode: options["--rag"],
+    ragApplicability: ragApplicabilityOption ?? null,
     fault: options["--fault"] ?? "none",
     budget,
     tokenWarningThreshold,
@@ -268,9 +293,10 @@ function checkPinnedMortalManifest(manifest) {
   }
 }
 
-async function createPinnedRuntime() {
+export async function createPinnedRuntime(generated = false) {
   const artifactRoot = mortalArtifactRoot();
-  const nativeReceipt = await findNativeReceipt(artifactRoot);
+  const receiptPath = generated ? await questionLabNativeReceipt() : null;
+  const nativeReceipt = generated ? { path: receiptPath, receipt: JSON.parse(await readFile(receiptPath, "utf8")) } : await findNativeReceipt(artifactRoot);
   const runtimeManifest = await loadManagedMortalManifest(join(packageRoot, "manifests", platformManifest));
   checkPinnedMortalManifest(runtimeManifest);
   const pythonExecutable = join(artifactRoot, "python", "Scripts", "python.exe");
@@ -282,8 +308,8 @@ async function createPinnedRuntime() {
     nativeReceiptPath: nativeReceipt.path,
     nativeModulePath: nativeReceipt.receipt.nativeModulePath,
   });
-  if (runtime.identity.nativeArtifactSha256 !== expectedRuleArtifactSha256 ||
-      runtime.ruleIdentity.nativeArtifactSha256 !== expectedRuleArtifactSha256) {
+  if (!generated && (runtime.identity.nativeArtifactSha256 !== expectedRuleArtifactSha256 ||
+      runtime.ruleIdentity.nativeArtifactSha256 !== expectedRuleArtifactSha256)) {
     await runtime.close();
     throw new Error("arena_pinned_runtime_artifact_mismatch");
   }
@@ -318,6 +344,7 @@ export function selectExperimentPool(pool, datasetId) {
 }
 
 async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-smoke-v1", maxCases: 3, caseOffset: 0 }) {
+  if (options.datasetId === GENERATED_DATASET) return makeGeneratedDataset(runtime, options);
   const source = arenaDatasetSource(options.datasetId);
   const fixtureBytes = await readFile(source.fixturePath);
   const fixture = JSON.parse(fixtureBytes.toString("utf8"));
@@ -366,8 +393,22 @@ async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-
       ruleResponse,
     });
   }
+  return finishDataset(runtime, options, { decisions, ruleInputs, stream: mapped.stream,
+    sourceRecordHash: mapped.stream.sourceRecordHash, fixtureSha256: sha256(fixtureBytes), split: source.split,
+    sourceMetadata: { kind: "sanitized_mahjong_soul_fixture", fixtureSha256: sha256(fixtureBytes), sourceRecordHash: mapped.stream.sourceRecordHash } });
+}
+async function makeGeneratedDataset(runtime, options) {
+  const { bank, samples, bankSha256 } = await loadGeneratedBank(ARCHIVE_ROOT, options.bankId);
+  if (options.bankSha256 && options.bankSha256 !== bankSha256) throw new Error("arena_bank_identity_mismatch");
+  const decisions = samples.map(s => pendingDecision(s.stream));
+  const ruleInputs = await prepareBankRuleInputs(samples, runtime);
+  return finishDataset(runtime, options, { decisions, ruleInputs, sourceRecordHash: `sha256:${bankSha256}`, fixtureSha256: bankSha256,
+    sourceMetadata: { kind: "question_lab", bankId: bank.bankId, bankSha256, sourceRecordHash: `sha256:${bankSha256}` },
+    split: { unit: "synthetic_source_group", developmentGroups: bank.sourceGroups, acceptanceGroups: 0, status: "development_only" } });
+}
+export async function finishDataset(runtime, options, { decisions, ruleInputs, stream, sourceRecordHash, fixtureSha256, sourceMetadata, split }) {
   const pool = selectExperimentPool(screenArenaDecisions(ruleInputs, { maxIncluded: 128 }), options.datasetId);
-  if (options.replayManifest && mapped.stream.sourceRecordHash !== options.replayManifest.dataset.source.sourceRecordHash) throw new Error("arena_replay_source_changed");
+  if (options.replayManifest && sourceRecordHash !== options.replayManifest.dataset.source.sourceRecordHash) throw new Error("arena_replay_source_changed");
   const screening = options.replayManifest ? selectReplayCase(pool, options.replayManifest.dataset.selected[options.replayCaseOrdinal]) : selectDatasetBatch(pool, options.maxCases, options.caseOffset);
   const byOrder = new Map(ruleInputs.map((input) => [input.canonicalDecisionOrder, input]));
   const labels = new Map();
@@ -400,7 +441,7 @@ async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-
   });
   const caseSetDigest = canonicalDigest({
     datasetVersion: options.datasetId,
-    sourceRecordHash: mapped.stream.sourceRecordHash,
+    sourceRecordHash: sourceRecordHash,
     ruleIdentity: runtime.ruleIdentity,
     selected: selected.map(({ caseOrdinal, selected: row, candidateCount, candidateSetDigest }) => ({
       caseOrdinal,
@@ -411,9 +452,9 @@ async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-
     excluded: screening.excluded,
   });
   return {
-    fixtureSha256: sha256(fixtureBytes),
-    sourceRecordHash: mapped.stream.sourceRecordHash,
-    stream: mapped.stream,
+    fixtureSha256,
+    sourceRecordHash: sourceRecordHash,
+    source: sourceMetadata, split, stream,
     decisions,
     screening,
     poolSize: pool.selected.length,
@@ -486,7 +527,7 @@ async function runCommand(options) {
   let runtime;
   let archiveComplete = false;
   try {
-    const prepared = await createPinnedRuntime();
+    const prepared = await createPinnedRuntime(options.datasetId === GENERATED_DATASET);
     runtime = prepared.runtime;
     if (options.replayRunId) {
       const original = join(ARCHIVE_ROOT, options.replayRunId);
@@ -495,6 +536,11 @@ async function runCommand(options) {
       summarizeArenaArchive({ manifest: options.replayManifest, events });
       const result = events.find(e => e.type === "case_run" && e.caseOrdinal === options.replayCaseOrdinal)?.result;
       if (options.replayManifest.dataset.id !== options.datasetId || !options.replayManifest.dataset.selected[options.replayCaseOrdinal] || result?.status !== "completed" || result.score.cases[0]?.status !== "not_matched") throw new Error("arena_replay_reference_invalid");
+    }
+    if (options.replayManifest?.dataset.source.kind === "question_lab") {
+      const source = options.replayManifest.dataset.source;
+      if (options.bankId && options.bankId !== source.bankId) throw new Error("arena_bank_identity_mismatch");
+      options.bankId = source.bankId; options.bankSha256 = source.bankSha256;
     }
     const dataset = await makeFrozenDataset(runtime, options);
     const computedRuntimeConfigSha256 = canonicalDigest({
@@ -526,12 +572,8 @@ async function runCommand(options) {
         id: options.datasetId,
         ...(options.datasetId === "blind-discard-smoke-v1" ? {} : { selection: { offset: options.caseOffset, poolSize: dataset.poolSize } }),
         caseSetDigest: dataset.caseSetDigest,
-        split: arenaDatasetSource(options.datasetId).split,
-        source: {
-          kind: "sanitized_mahjong_soul_fixture",
-          fixtureSha256: dataset.fixtureSha256,
-          sourceRecordHash: dataset.sourceRecordHash,
-        },
+        split: dataset.split,
+        source: dataset.source,
         inputCaseCount: dataset.decisions.length,
         selected: dataset.selected.map(({ selected, candidateCount, candidateSetDigest }) => ({
           canonicalDecisionOrder: selected.canonicalDecisionOrder,
@@ -558,6 +600,15 @@ async function runCommand(options) {
         mode: options.ragMode,
         corpusVersion: ragCorpusVersion,
         retrieverVersion: options.ragMode === "local" ? ARENA_RAG_RETRIEVER_VERSION : "disabled",
+        ...(options.ragApplicability === null ? {} : {
+          applicability: {
+            gateVersion: ARENA_RAG_APPLICABILITY_GATE_VERSION,
+            promptVersion: ARENA_RAG_APPLICABILITY_PROMPT_VERSION,
+            selectorProviderId: descriptor.providerId,
+            selectorModel: descriptor.model,
+            limits: resolveArenaRagApplicabilityLimits(),
+          },
+        }),
       },
       controlledFault: options.fault,
       budget: { maxCases: options.maxCases, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold },
@@ -604,7 +655,15 @@ async function runCommand(options) {
           tools.push(await createArenaMcpRunnerTool({ client: mcp.client, caseRef: observation.caseRef }));
         }
         const retriever = createArenaRagRetriever({ mode: options.ragMode, caseRef: observation.caseRef, aliases });
-        tools.push(createArenaRagRunnerTool({ retriever, caseRef: observation.caseRef }));
+        // One gate per case: its call/output budgets are case-local (spec §4.7).
+        const applicabilityGate = options.ragApplicability === null
+          ? undefined
+          : createArenaRagApplicabilityGate({ provider: descriptorProvider, caseRef: observation.caseRef });
+        tools.push(createArenaRagRunnerTool({
+          retriever,
+          caseRef: observation.caseRef,
+          ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
+        }));
         const result = await runBlindCoachCase({
           observation,
           grading: { binding, reference },
@@ -667,13 +726,13 @@ async function mortalDetailsCommand(runId) {
   const events = parseArenaArchiveEvents(await readFile(join(directory, "events.jsonl"), "utf8"));
   const completed = new Set(events.filter(e => e.type === "case_run").map(e => e.caseOrdinal));
   if (!completed.size) throw new Error("arena_no_completed_cases");
-  const prepared = await createPinnedRuntime(), runtime = prepared.runtime;
+  const prepared = await createPinnedRuntime(manifest.dataset.id === GENERATED_DATASET), runtime = prepared.runtime;
   try {
     const mortal = { runtimeIdentity: runtime.identity, ruleIdentity: runtime.ruleIdentity,
       runtimeConfigSha256: canonicalDigest({ geometry: prepared.runtimeManifest.geometry, inference: prepared.runtimeManifest.inference }) };
     if (canonicalDigest(mortal) !== canonicalDigest(manifest.mortal)) throw new Error("arena_mortal_identity_mismatch");
-    const dataset = await makeFrozenDataset(runtime, { datasetId: manifest.dataset.id, maxCases: manifest.budget.maxCases, caseOffset: manifest.dataset.selection?.offset ?? 0 });
-    if (dataset.caseSetDigest !== manifest.dataset.caseSetDigest || dataset.fixtureSha256 !== manifest.dataset.source.fixtureSha256 || dataset.sourceRecordHash !== manifest.dataset.source.sourceRecordHash) throw new Error("arena_mortal_dataset_mismatch");
+    const dataset = await makeFrozenDataset(runtime, { datasetId: manifest.dataset.id, ...(manifest.replay ? { replayManifest: manifest, replayCaseOrdinal: 0 } : {}), bankId: manifest.dataset.source.bankId, bankSha256: manifest.dataset.source.bankSha256, maxCases: manifest.budget.maxCases, caseOffset: manifest.dataset.selection?.offset ?? 0 });
+    if (dataset.caseSetDigest !== manifest.dataset.caseSetDigest || dataset.fixtureSha256 !== (manifest.dataset.source.fixtureSha256 ?? manifest.dataset.source.bankSha256) || dataset.sourceRecordHash !== manifest.dataset.source.sourceRecordHash) throw new Error("arena_mortal_dataset_mismatch");
     const cases = dataset.selected.filter(e => completed.has(e.caseOrdinal)).map(e => {
       const label = dataset.labels.get(e.selected.canonicalDecisionOrder);
       if (label?.status !== "available") throw new Error("arena_mortal_unavailable");
@@ -751,6 +810,11 @@ async function reportedTokenBudget(root, threshold) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
+  if (options.command === "generate") {
+    const catalog = await generateBank(ARCHIVE_ROOT, options.bankId, options.generation, requireCleanGitHead());
+    process.stdout.write(JSON.stringify({ bankId: options.bankId, availableCaseCount: catalog.cases.length, ...catalog.generated }) + "\n");
+    return;
+  }
   if (options.command === "mortal-details") { await mortalDetailsCommand(options.runId); return; }
   if (options.command === "catalog") { await catalogCommand(); return; }
   if (options.command === "help") {

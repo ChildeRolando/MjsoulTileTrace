@@ -2,6 +2,9 @@
 
 本指南让新开发者在本机完成安装、全量验证，并运行现有命令行或 Electron 入口。
 
+定向生成题库与研究模式边界，见 [Question Lab 运行与配置](../../packages/question-lab/README.md)。
+该入口在本地 CLI 中运行，独立学习环境、构造见证和研究档案不进入生产复盘会话。
+
 ## 前置条件
 
 - Node.js 22；
@@ -153,3 +156,9 @@ COAC-13/14 的机器版本、路径、权限和任务配置记录属于历史案
 
 这是当前已知的 app composition 缺口，不表示 M7 Review Workspace 不存在。不要用手工输入
 package id 绕过发布验收；Integration Closeout 要求来源入口创建/复用 session 并自动导航。
+## 本机牌面人工标注辅助页
+
+教材可见牌面的人工确认入口见
+[本机牌面人工标注](../specs/2026-10-28-local-tile-annotations.md)。这是只读教材加工材料、
+另存人工历史的辅助工具；启动 `node scripts/tile-annotations/server.mjs` 后访问
+`http://127.0.0.1:8765/`。首次运行先按该文档生成真实队列。

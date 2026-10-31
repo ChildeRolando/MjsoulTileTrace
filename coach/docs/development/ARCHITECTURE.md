@@ -87,6 +87,32 @@ mahjong-soul-source ──► CanonicalEventStreamV2
 
 ## Workspace 边界
 
+### `@riichi-coach/question-lab`
+
+本地离线研究组合入口：严格条件配置 → 原生 Board 合成 → canonical 待决策快照 →
+完整规则结果与 Mortal 评分 → 可见事实特征 → 独立 Python SVM／SVR → 合法补样和离线报告。
+允许依赖 contracts、reasoning、mortal-runtime 与 mortal-source 的公开 tile 工具；
+生产包和 renderer 不依赖它。原生进程仍由 mortal-runtime owner 管理，学习依赖不进入
+Mortal 的虚拟环境。研究档案不写入 ReviewSession，也不借用 actual-action 比较路径。
+完整契约、配置与运行见 [Question Lab](../../packages/question-lab/README.md)。
+
+Arena 本地控制台通过 `bin/arena-question-bank.mjs` 组合公开 Question Lab API 与 Arena API。
+生成任务复用控制台唯一子进程，题库放在 Arena 归档根的 `question-banks/<UUID>/`，
+不新增桌面依赖。只有完整候选均为普通弃牌的待决策窗口进入该实验；评测时重新查询原生规则，
+复核候选集合，再走既有盲测、helper 与 Mortal grader。题库来源显式标为 `question_lab`，
+分组单位为 `synthetic_source_group`，不能充作真实完整牌局或冻结验收集。
+
+
+全知牌山、他家暗手和构造脚本仅保留在私有 witness；canonical 投影显式隐藏他家摸牌与
+起手。题面和学习只消费决策时可见事实；Mortal 标签独立保存。实际暗手同构和同源变体
+按整组留出，补样不得进入冻结的测试来源。原始 helper 估计保留证据哈希；研究启发式
+特征另有明确数值精度版本，避免把无序浮点累加的末位差异误当作新局面。
+
+v2 配对研究在同一 owner 内承载有序主张、连续 Q 差、受控历史扫描和 SVR；v1 分类语义不变。
+配对特征与标签分离，构造缓存和扫描／补样快照按完整输入与生产者身份绑定。
+首次标注前冻结来源组，主研究与解释冻结后才揭示独立集；威胁扩展只评估外推。
+见 [配对研究变更记录](../plans/2026-10-16-efficiency-dora-pairs.md)。
+
 ### `@riichi-coach/contracts`
 
 所有跨模块数据结构的信任边界。主要包括：
@@ -129,7 +155,7 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 
 ### `@riichi-coach/mortal-runtime`
 
-独立 privileged native-model owner：由 Electron main 托管固定 Mortal V4 subprocess 与
+独立 privileged native-model owner：生产由 Electron main 托管固定 Mortal V4 subprocess 与
 `Yuchen1457/mortal-582500` checkpoint，只接收 contracts-owned canonical/replay request，
 通过严格协议返回 model evidence。它不解析雀魂/天凤格式，
 同一 owner 已提供独立于权重的 libriichi 规则操作与版本化结果，
@@ -139,6 +165,10 @@ Mortal model/report evidence provider：报告 schema、URL 校验、指纹与 m
 renderer/preload 不得启动进程、读取模型、知道 checkpoint 路径或接收 raw stdout/stderr。
 完整 owner、identity、候选双射和 spike 门见
 [Local Mortal Runtime 生产规格](../specs/2026-09-24-local-mortal-runtime-production-design.md)。
+
+2026-10-16 增加离线 Question Lab 组合入口及独立的规则构造进程。原生 ResearchBoard
+是固定 libriichi Board 的窄包装，绑定完整实体牌库存、点数与逐步动作校验，不是第二套规则。
+它不加载权重；已有规则与评分协议继续保持独立。构建回执包含同一兼容补丁的内容哈希。
 
 ### `@riichi-coach/reasoning`
 

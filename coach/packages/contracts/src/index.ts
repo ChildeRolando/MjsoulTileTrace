@@ -34,3 +34,7 @@ export * from "./libriichi-rules.js";
 export * from "./local-mortal-scoring.js";
 export * from "./blind-discard-arena.js";
 export * from "./automatic-comparison.js";
+export * from "./question-lab.js";
+
+export * from "./question-lab-pairs.js";
+export * from "./blind-discard-arena-applicability.js";

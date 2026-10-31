@@ -1,15 +1,26 @@
 import { Buffer } from "node:buffer";
+import { createHash } from "node:crypto";
 import {
   ArenaBatchScoreSchema,
   ArenaBlindObservationSchema,
   ArenaCaseRefSchema,
   ArenaOpaqueReferenceSchema,
   ArenaCoachSubmissionSchema,
+  ArenaRagApplicabilityFailureCodeSchema,
+  ArenaRagApplicabilityLimitsSchema,
+  ArenaRagApplicabilityReceiptSchema,
+  ArenaRagApplicabilityReflectionStatusSchema,
+  ArenaRagApplicabilityResultSchema,
   ArenaRagRequestSchema,
   ArenaRagResultSchema,
+  ARENA_RAG_APPLICABILITY_LIMITS_V1,
+  libriichiRuleCanonicalJson,
   LlmTokenUsageSchema,
   type ArenaBatchScore,
   type ArenaBlindObservation,
+  type ArenaRagApplicabilityLimits,
+  type ArenaRagApplicabilityReceipt,
+  type ArenaRagApplicabilityReflectionStatus,
   type ArenaScoringCaseInput,
   type ArenaToolBinding,
   type LlmTokenUsage,
@@ -90,6 +101,34 @@ export type ArenaToolReferences = Readonly<{
   sourceRefs: readonly string[];
 }>;
 
+/**
+ * Generic post-retrieval gate port (spec §4.6). The runner knows nothing about
+ * RAG: it only orders `execute -> parseOutput -> apply -> parseOutput -> references`.
+ */
+export type ArenaRunnerApplicabilityGate = Readonly<{
+  descriptor: Readonly<{
+    gateId: string;
+    gateVersion: string;
+    promptVersion: string;
+    /** Selector identity for the run record; absent when the gate cannot name one. */
+    selector?: Readonly<{ providerId: string; model: string }>;
+    /** Optional run-record budget echo; the gate still owns its own enforcement. */
+    limits?: ArenaRagApplicabilityLimits;
+  }>;
+  apply(input: Readonly<{
+    output: unknown;
+    observation: ArenaBlindObservation;
+    signal: AbortSignal;
+  }>): Promise<Readonly<{
+    output: unknown;
+    status: ArenaRagApplicabilityReflectionStatus;
+    failureCode?: string | null;
+    receipt?: unknown;
+    usage?: LlmTokenUsage | null;
+    elapsedMs: number;
+  }>>;
+}>;
+
 /** A run-local, allow-listed tool binding. Input and output parsers must be strict schemas. */
 export type ArenaRunnerTool = Readonly<{
   name: string;
@@ -99,6 +138,7 @@ export type ArenaRunnerTool = Readonly<{
   execute(input: unknown, context: { caseRef: string; signal: AbortSignal }): Promise<unknown>;
   parseOutput(raw: unknown): unknown;
   references(output: unknown): ArenaToolReferences;
+  applicabilityGate?: ArenaRunnerApplicabilityGate;
   dispose?(signal: AbortSignal): Promise<void>;
   forceDispose?(): void;
 }>;
@@ -126,6 +166,7 @@ const ArenaToolFailureCodeSchema = z.enum([
   "run_cancelled",
   "tool_budget_exhausted",
   "result_too_large",
+  "orphan_call",
 ]);
 export type ArenaToolFailureCode = z.infer<typeof ArenaToolFailureCodeSchema>;
 
@@ -141,6 +182,22 @@ const ArenaRunAttemptSchema = z.discriminatedUnion("status", [
   z.object({ status: z.literal("budget_exhausted") }).strict(),
 ]);
 
+/** Audit-only reflection record. It is never fed back into the model conversation. */
+export const ArenaRunReflectionSchema = z.object({
+  gateId: z.string().min(1).max(80),
+  gateVersion: z.string().min(1).max(40),
+  status: ArenaRagApplicabilityReflectionStatusSchema,
+  failureCode: ArenaRagApplicabilityFailureCodeSchema.nullable(),
+  candidateCount: z.number().int().nonnegative().max(5),
+  retainedCount: z.number().int().nonnegative().max(5),
+  droppedCount: z.number().int().nonnegative().max(5),
+  elapsedMs: z.number().int().nonnegative(),
+  usage: LlmTokenUsageSchema.nullable(),
+  receiptDigest: z.string().regex(/^[0-9a-f]{64}$/).nullable(),
+  receipt: ArenaRagApplicabilityReceiptSchema.nullable(),
+}).strict();
+export type ArenaRunReflection = z.infer<typeof ArenaRunReflectionSchema>;
+
 export const ArenaRunEventSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("run_started"),
@@ -155,6 +212,13 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     limits: ArenaRunLimitsSchema,
     toolNames: z.array(z.string().regex(TOOL_NAME)).max(16),
     observation: ArenaBlindObservationSchema.optional(),
+    applicability: z.object({
+      gateVersion: z.string().min(1).max(40),
+      promptVersion: z.string().min(1).max(80),
+      selectorProviderId: z.string().min(1).max(80),
+      selectorModel: z.string().min(1).max(200),
+      limits: ArenaRagApplicabilityLimitsSchema,
+    }).strict().optional(),
   }).strict(),
   z.object({
     type: z.literal("provider_turn"),
@@ -186,6 +250,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     code: ArenaToolFailureCodeSchema.optional(),
     result: z.unknown().optional(),
     elapsedMs: z.number().int().nonnegative().optional(),
+    reflection: ArenaRunReflectionSchema.optional(),
   }).strict(),
   z.object({
     type: z.literal("submission_locked"),
@@ -251,6 +316,20 @@ export const ArenaCoachRunResultSchema = z.object({
   toolFailureCount: z.number().int().nonnegative(),
   recoverableToolFailureCount: z.number().int().nonnegative(),
   providerUsage: ArenaProviderUsageSummarySchema,
+  /** Reflection totals are separate from generator `providerUsage`; never merged into one number. */
+  applicability: z.object({
+    gateVersion: z.string().min(1).max(40),
+    promptVersion: z.string().min(1).max(80),
+    callCount: z.number().int().nonnegative(),
+    appliedCount: z.number().int().nonnegative(),
+    degradedCount: z.number().int().nonnegative(),
+    failedCount: z.number().int().nonnegative(),
+    skippedCount: z.number().int().nonnegative(),
+    retainedPassageCount: z.number().int().nonnegative(),
+    droppedPassageCount: z.number().int().nonnegative(),
+    usage: z.object({ status: z.enum(["reported", "unknown"]) }).strict(),
+    elapsedMs: z.number().int().nonnegative(),
+  }).strict().optional(),
   events: z.array(ArenaRunEventSchema).max(64),
 }).strict();
 export type ArenaCoachRunResult = z.infer<typeof ArenaCoachRunResultSchema>;
@@ -425,6 +504,117 @@ function withToolTimeout<T>(input: {
   });
 }
 
+const ARENA_RAG_ORPHAN_SETTLE_GRACE_MS = 5_000;
+
+function sha256Hex(value: string): string {
+  return createHash("sha256").update(value, "utf8").digest("hex");
+}
+
+type ArenaGateApplication =
+  | Readonly<{ kind: "settled"; value: Awaited<ReturnType<ArenaRunnerApplicabilityGate["apply"]>> }>
+  /** The run aborted, but the call still settled inside the grace: keep its real outcome. */
+  | Readonly<{ kind: "aborted"; value: Awaited<ReturnType<ArenaRunnerApplicabilityGate["apply"]>> }>
+  | Readonly<{ kind: "orphan" }>;
+
+/**
+ * Runs one reflection through the gate. A run abort is reported only after the
+ * call settles (bounded grace); a call that never settles is an orphan, never a success.
+ * A late outcome is still returned so its real call/usage/elapsed is recorded even
+ * though the case keeps its cancelled/timeout terminal state.
+ */
+async function awaitApplicabilityGate(input: {
+  gate: ArenaRunnerApplicabilityGate;
+  output: unknown;
+  observation: ArenaBlindObservation;
+  signal: AbortSignal;
+  settleGraceMs: number;
+}): Promise<ArenaGateApplication> {
+  const operation = Promise.resolve().then(() => input.gate.apply({
+    output: input.output,
+    observation: input.observation,
+    signal: input.signal,
+  }));
+  const settled = operation.then((value) => ({ kind: "settled" as const, value }));
+  const aborted = new Promise<{ kind: "aborted" }>((resolve) => {
+    if (input.signal.aborted) {
+      resolve({ kind: "aborted" });
+      return;
+    }
+    input.signal.addEventListener("abort", () => resolve({ kind: "aborted" }), { once: true });
+  });
+  const first = await Promise.race([settled, aborted]);
+  if (first.kind === "settled") return first;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = await Promise.race([
+    settled,
+    new Promise<{ kind: "late" }>((resolve) => {
+      timer = setTimeout(() => resolve({ kind: "late" }), Math.max(0, input.settleGraceMs));
+    }),
+  ]);
+  if (timer !== undefined) clearTimeout(timer);
+  if (late.kind === "settled") return { kind: "aborted", value: late.value };
+  operation.catch(() => undefined);
+  return { kind: "orphan" };
+}
+
+type ApplicabilityTotals = {
+  callCount: number;
+  appliedCount: number;
+  degradedCount: number;
+  failedCount: number;
+  skippedCount: number;
+  retainedPassageCount: number;
+  droppedPassageCount: number;
+  usageReportedCount: number;
+  elapsedMs: number;
+};
+
+/** A degradation decided before the request (input overflow) is not a real reflection call. */
+function reflectionCalledProvider(value: {
+  status: ArenaRagApplicabilityReflectionStatus;
+  failureCode?: string | null;
+}): boolean {
+  if (value.status === "applied" || value.status === "failed") return true;
+  if (value.status === "degraded") return (value.failureCode ?? null) !== "input_too_large";
+  return false;
+}
+
+function reflectApplicability(input: {
+  gate: ArenaRunnerApplicabilityGate;
+  value: Awaited<ReturnType<ArenaRunnerApplicabilityGate["apply"]>>;
+  totals: ApplicabilityTotals;
+}): ArenaRunReflection {
+  const receipt: ArenaRagApplicabilityReceipt | null = input.value.receipt === undefined || input.value.receipt === null
+    ? null
+    : ArenaRagApplicabilityReceiptSchema.parse(input.value.receipt);
+  const reflection = ArenaRunReflectionSchema.parse({
+    gateId: input.gate.descriptor.gateId,
+    gateVersion: input.gate.descriptor.gateVersion,
+    status: input.value.status,
+    failureCode: input.value.failureCode ?? null,
+    candidateCount: receipt?.candidateCount ?? 0,
+    retainedCount: receipt?.retainedCount ?? 0,
+    droppedCount: receipt?.droppedCount ?? 0,
+    elapsedMs: Math.max(0, Math.trunc(input.value.elapsedMs)),
+    usage: input.value.usage ?? null,
+    receiptDigest: receipt === null ? null : sha256Hex(libriichiRuleCanonicalJson(receipt)),
+    receipt,
+  });
+  const totals = input.totals;
+  if (reflectionCalledProvider(reflection)) {
+    totals.callCount += 1;
+    if (reflection.usage !== null) totals.usageReportedCount += 1;
+  }
+  if (reflection.status === "applied") totals.appliedCount += 1;
+  else if (reflection.status === "degraded") totals.degradedCount += 1;
+  else if (reflection.status === "failed") totals.failedCount += 1;
+  else totals.skippedCount += 1;
+  totals.retainedPassageCount += reflection.retainedCount;
+  totals.droppedPassageCount += reflection.droppedCount;
+  totals.elapsedMs += reflection.elapsedMs;
+  return reflection;
+}
+
 function makeMcpRunnerTool(input: {
   client: ArenaMcpClient;
   caseRef: string;
@@ -505,7 +695,16 @@ export const ARENA_RAG_TOOL_PARAMETERS = {
 export function createArenaRagRunnerTool(input: {
   retriever: ArenaRagRetriever;
   caseRef: string;
+  /** Opt-in reflection gate; absent means the pre-existing behaviour is byte-identical. */
+  applicabilityGate?: ArenaRunnerApplicabilityGate;
 }): ArenaRunnerTool {
+  const parseOutput = (raw: unknown) => {
+    const result = input.applicabilityGate === undefined
+      ? ArenaRagResultSchema.parse(raw)
+      : ArenaRagApplicabilityResultSchema.or(ArenaRagResultSchema).parse(raw);
+    if (result.caseRef !== input.caseRef) throw new ArenaToolExecutionError("case_mismatch", true);
+    return result;
+  };
   return {
     name: "search_knowledge",
     description: "Search local Chinese teaching summaries about 进张计数 (effective tile counts) or 复合牌形 (overlapping shapes). Use a short Chinese concept query to check a general principle before citing it; this corpus contains no case answers. Off mode returns disabled.",
@@ -519,16 +718,12 @@ export function createArenaRagRunnerTool(input: {
       if (context.caseRef !== input.caseRef) throw new ArenaToolInputError("case_mismatch");
       return await input.retriever.query(raw);
     },
-    parseOutput(raw) {
-      const result = ArenaRagResultSchema.parse(raw);
-      if (result.caseRef !== input.caseRef) throw new ArenaToolExecutionError("case_mismatch", true);
-      return result;
-    },
+    parseOutput,
     references(raw) {
-      const result = ArenaRagResultSchema.parse(raw);
-      if (result.caseRef !== input.caseRef) throw new ArenaToolExecutionError("case_mismatch", true);
+      const result = parseOutput(raw);
       return { evidenceRefs: [], sourceRefs: result.sourceRefs };
     },
+    ...(input.applicabilityGate === undefined ? {} : { applicabilityGate: input.applicabilityGate }),
   };
 }
 
@@ -585,6 +780,12 @@ export async function runBlindCoachCase(input: {
   }
   if (toolMap.size > 16) throw new Error("arena_runner_tool_count_invalid");
 
+  const applicabilityGate = input.tools.find((tool) => tool.applicabilityGate !== undefined)?.applicabilityGate;
+  const applicabilityTotals: ApplicabilityTotals = {
+    callCount: 0, appliedCount: 0, degradedCount: 0, failedCount: 0, skippedCount: 0,
+    retainedPassageCount: 0, droppedPassageCount: 0, usageReportedCount: 0, elapsedMs: 0,
+  };
+
   const clock = input.clock ?? Date.now;
   const startedAtMs = clock();
   const runDeadlineAt = startedAtMs + limits.maxRunElapsedMs;
@@ -607,6 +808,7 @@ export async function runBlindCoachCase(input: {
   let terminalStatus: ArenaRunTerminalStatus = "budget_exhausted";
   let eventBudgetExceeded = false;
   let cleanupFailed = false;
+  let orphanCallRecorded = false;
   const disposalStarted = new WeakSet<ArenaRunnerTool>();
 
   const append = (raw: ArenaRunEvent): boolean => {
@@ -701,6 +903,15 @@ export async function runBlindCoachCase(input: {
     limits,
     toolNames: [...toolMap.keys()],
     observation,
+    ...(applicabilityGate === undefined ? {} : {
+      applicability: {
+        gateVersion: applicabilityGate.descriptor.gateVersion,
+        promptVersion: applicabilityGate.descriptor.promptVersion,
+        selectorProviderId: applicabilityGate.descriptor.selector?.providerId ?? provider.providerId,
+        selectorModel: applicabilityGate.descriptor.selector?.model ?? provider.model,
+        limits: applicabilityGate.descriptor.limits ?? ARENA_RAG_APPLICABILITY_LIMITS_V1,
+      },
+    }),
   });
   let finished = false;
   if (eventBudgetExceeded) {
@@ -930,6 +1141,7 @@ export async function runBlindCoachCase(input: {
 
       let parsedInput: unknown = null;
       let toolResult: unknown;
+      let reflection: ArenaRunReflection | undefined;
       let resultText: string;
       let failureCode: ArenaToolFailureCode | undefined;
       let fatalToolFailure = false;
@@ -961,6 +1173,31 @@ export async function runBlindCoachCase(input: {
           timeoutMs: limits.maxToolCallDurationMs,
         });
         toolResult = tool.parseOutput(output);
+        if (tool.applicabilityGate !== undefined) {
+          const gate = tool.applicabilityGate;
+          const application = await awaitApplicabilityGate({
+            gate,
+            output: toolResult,
+            observation,
+            signal: runController.signal,
+            settleGraceMs: Math.min(ARENA_RAG_ORPHAN_SETTLE_GRACE_MS, Math.max(0, runDeadlineAt - clock())),
+          });
+          if (application.kind === "orphan") {
+            orphanCallRecorded = true;
+            // A request was really issued; it simply never settled, so no reflection record exists.
+            applicabilityTotals.callCount += 1;
+            throw new ArenaToolExecutionError("orphan_call", true);
+          }
+          if (application.kind === "aborted") {
+            // The call really happened and settled: record it before the abort
+            // unwinds, but never hand its output to the generator.
+            reflection = reflectApplicability({ gate, value: application.value, totals: applicabilityTotals });
+            throw new ArenaRunAbort(abortStatus ?? "cancelled");
+          }
+          reflection = reflectApplicability({ gate, value: application.value, totals: applicabilityTotals });
+          // The replacement output must pass the tool's own strict parser again.
+          toolResult = tool.parseOutput(application.value.output);
+        }
         resultText = stableJson({ status: "ok", data: toolResult });
         if (Buffer.byteLength(resultText, "utf8") > limits.maxToolResultBytes) {
           toolResult = undefined;
@@ -975,7 +1212,7 @@ export async function runBlindCoachCase(input: {
         for (const ref of resultReferences.evidenceRefs) allowedEvidenceRefs.add(ref);
         for (const ref of resultReferences.sourceRefs) allowedSourceRefs.add(ref);
       } catch (error) {
-        if (runController.signal.aborted) {
+        if (runController.signal.aborted && !orphanCallRecorded) {
           const interrupted = (abortStatus as "timeout" | "cancelled" | null) ?? "cancelled";
           terminalStatus = interrupted;
           attempt = { status: interrupted };
@@ -989,6 +1226,9 @@ export async function runBlindCoachCase(input: {
             toolName: call.name,
             status: "error",
             code: interrupted === "timeout" ? "run_timeout" : "run_cancelled",
+            // A reflection that settled during the grace is real audit data even
+            // though the case still ends cancelled/timeout.
+            ...(reflection === undefined ? {} : { reflection }),
           });
           finished = true;
           break;
@@ -1025,6 +1265,7 @@ export async function runBlindCoachCase(input: {
         toolName: call.name,
         status: failureCode === undefined ? "ok" : "error",
         ...(failureCode === undefined ? { result: toolResult } : { code: failureCode }),
+        ...(reflection === undefined ? {} : { reflection }),
       });
       messages.push({ role: "tool", toolCallId: localCallId, content: resultText });
       if (fatalToolFailure) {
@@ -1050,7 +1291,7 @@ export async function runBlindCoachCase(input: {
       abortStatus = "timeout";
       runController.abort();
     }
-    if (runController.signal.aborted) {
+    if (runController.signal.aborted && !orphanCallRecorded) {
       const interrupted = abortStatus ?? "cancelled";
       terminalStatus = interrupted;
       attempt = { status: interrupted };
@@ -1102,6 +1343,24 @@ export async function runBlindCoachCase(input: {
     toolFailureCount,
     recoverableToolFailureCount,
     providerUsage: summarizeProviderUsage({ providerTurnCount, usages }),
+    ...(applicabilityGate === undefined ? {} : {
+      applicability: {
+        gateVersion: applicabilityGate.descriptor.gateVersion,
+        promptVersion: applicabilityGate.descriptor.promptVersion,
+        callCount: applicabilityTotals.callCount,
+        appliedCount: applicabilityTotals.appliedCount,
+        degradedCount: applicabilityTotals.degradedCount,
+        failedCount: applicabilityTotals.failedCount,
+        skippedCount: applicabilityTotals.skippedCount,
+        retainedPassageCount: applicabilityTotals.retainedPassageCount,
+        droppedPassageCount: applicabilityTotals.droppedPassageCount,
+        usage: {
+          status: applicabilityTotals.callCount > 0 &&
+            applicabilityTotals.usageReportedCount === applicabilityTotals.callCount ? "reported" : "unknown",
+        },
+        elapsedMs: applicabilityTotals.elapsedMs,
+      },
+    }),
     events,
   });
 }

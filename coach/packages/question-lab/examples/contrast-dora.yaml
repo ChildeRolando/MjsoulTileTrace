@@ -1,0 +1,20 @@
+schemaVersion: question-lab-config/v1
+name: 保留手牌改变宝牌
+seed: 20261019
+scene:
+  selfActor: { fixed: 0 }
+  round: { fixed: 0 }
+  turn: { fixed: 4 }
+  doraIndicators:
+    oneOf: [[1m], [4p], [7s]]
+experiment:
+  mode: contrast
+  strategy: scan
+  variantsPerGroup: 3
+  vary: [doraIndicators]
+  hold: [hand, draw, turn, players]
+budget:
+  count: 12
+  maxAttempts: 90
+  timeLimitSeconds: 120
+  refinementRounds: 0

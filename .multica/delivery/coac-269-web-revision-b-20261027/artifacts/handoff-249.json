@@ -1,0 +1,87 @@
+{
+  "schema": "coac269-to-coac249-handoff/1",
+  "ticket": "COAC-269",
+  "to": "COAC-249",
+  "recordedAt": "2026-10-27T09:42:14.481Z",
+  "modelCalls": 0,
+  "scope": "first independent semantic audit per candidate SHA; do not re-audit passed SHAs",
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-338-1",
+      "articleId": "archive01-section006",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/archive01-section006/source.json",
+      "notes": "The audit issue is a locator only; independently re-read 「場の安さ高さ」 in context. Produced wording follows the audit suggestion semantics (buying/expensive board evaluation), not its exact string.",
+      "targets": [
+        "modern-yabejp-ja:archive01-section006:b0518"
+      ],
+      "candidateSha256": "ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782",
+      "parentSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+      "parentAuditSha256": "6d41a520affd04f57c515e02d37ef58746e88794149f385d701a9814c0be5597",
+      "sourceSha256": "6438c449b1284be3a7be4fd5004bfcda10517716c7cbbbf8b09df2cc92722548",
+      "productionCall": [
+        {
+          "callId": "7b9806f0-3aed-4175-b454-b60a81abcd91",
+          "success": true,
+          "usage": {
+            "inputTokens": 12333,
+            "cachedInputTokens": 0,
+            "outputTokens": 315
+          },
+          "durationMs": 57547,
+          "rawArtifactPath": "raw-calls/7b9806f0-3aed-4175-b454-b60a81abcd91.json",
+          "rawArtifactSha256": "338e534912caa6266cf01a6ed5fe86484eaba06a8ad7d6157fec2ab584a3d63b",
+          "promptSha256": "8e8ac656a18ad81b286d3f15a3e1ba52ca45bace18c1148f59396b29ef4b8cff",
+          "semanticPromptSha256": "a03f356f49595fae9e31aa52b617fea57f91c2e5cedd1cfcc2520f83c0a2ebd4",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-f1238d307d0f2a4a.json"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-273-1",
+      "articleId": "chapter06-exercise002-02",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise002-02/source.json",
+      "notes": "b0263: model wrote 「立直与本方案相比…」 where the prior audit suggested a 「与切[3m]」 construction; verify faithfulness of the comparison object against the original 「リーチと待ち牌数は１枚しか変わらず」 and the inline 3m tile position. b0545 uses 「七对子一向听」.",
+      "targets": [
+        "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0545"
+      ],
+      "candidateSha256": "42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e",
+      "parentSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+      "parentAuditSha256": "3aa7dc1d73dbcf0caa710ca8a46799f69178435113c289ab53a8c4f44d9dd270",
+      "sourceSha256": "460025a88a0adcc545afa893594c6653d0b121f75fdcfd9512350f9292b984f4",
+      "productionCall": [
+        {
+          "callId": "2529e8f3-0b02-4c6c-ab05-3d24deaddb79",
+          "success": true,
+          "usage": {
+            "inputTokens": 12369,
+            "cachedInputTokens": 0,
+            "outputTokens": 813
+          },
+          "durationMs": 94392,
+          "rawArtifactPath": "raw-calls/2529e8f3-0b02-4c6c-ab05-3d24deaddb79.json",
+          "rawArtifactSha256": "5a41124fa320c736712ed6bd0b85585a730be5f379e46e03f2e8ce7a34d45444",
+          "promptSha256": "e60e91ac39c2d49abf8bb91e0ccbc65aa3738634e7d788d3950ab8da45e1b89c",
+          "semanticPromptSha256": "e86091b6d5259f3656fda4015c22b1505957048b738707ca9640cd438fb693c3",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-f1238d307d0f2a4a.json"
+    }
+  ]
+}

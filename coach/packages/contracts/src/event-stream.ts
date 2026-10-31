@@ -81,6 +81,7 @@ export const CanonicalSourceKindSchema = z.enum([
   "mjai",
   "user_asserted",
   "fixture",
+  "synthetic",
 ]);
 export type CanonicalSourceKind = z.infer<typeof CanonicalSourceKindSchema>;
 
@@ -261,8 +262,9 @@ const RoundDrawnEventSchema = z.object({
     "suukaikan",
     "sancha_hou",
     "nagashi_mangan",
+    "unknown",
   ]),
-  tenpaiActors: z.array(ActorSchema).max(4),
+  tenpaiActors: z.array(ActorSchema).max(4).nullable(),
 }).strict();
 
 const ScoresUpdatedEventSchema = z.object({
@@ -330,6 +332,7 @@ export const CanonicalGameEventSchema = CanonicalGameEventObjectSchema
   .superRefine((event, context) => {
     if (
       event.type === "round_drawn" &&
+      event.tenpaiActors !== null &&
       new Set(event.tenpaiActors).size !== event.tenpaiActors.length
     ) {
       context.addIssue({
@@ -562,6 +565,13 @@ export const CanonicalEventStreamSchema = z.object({
         path: ["ruleSet"],
       });
     }
+  }
+  if (stream.completeness.settlement === "complete") {
+    stream.events.forEach((event, index) => {
+      if (event.type === "round_drawn" && (event.reason === "unknown" || event.tenpaiActors === null)) {
+        context.addIssue({ code: z.ZodIssueCode.custom, message: "Unknown draw metadata requires partial settlement", path: ["events", index] });
+      }
+    });
   }
   if (stream.completeness.remainingDraws === "complete") {
     stream.events.forEach((event, index) => {

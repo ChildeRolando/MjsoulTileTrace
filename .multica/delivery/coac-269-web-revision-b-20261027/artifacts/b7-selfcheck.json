@@ -1,0 +1,135 @@
+{
+  "schema": "coac269-revision-selfcheck/1",
+  "ticket": "COAC-269",
+  "batch": "b7",
+  "recordedAt": "2026-10-27T11:54:13.194Z",
+  "modelCalls": 0,
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-089-1",
+      "candidateSha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
+      "parentSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+      "notesSha256": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9",
+      "sourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+        "parentSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+        "notesSha256": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter01-section031:b0042",
+          "modern-yabejp-ja:chapter01-section031:b0084",
+          "modern-yabejp-ja:chapter01-section031:b0102",
+          "modern-yabejp-ja:chapter01-section031:b0153"
+        ]
+      },
+      "productionCall": {
+        "callId": "42af685b-9eba-47ff-8758-70c121ea1a12",
+        "success": true,
+        "usage": {
+          "inputTokens": 15204,
+          "cachedInputTokens": 0,
+          "outputTokens": 493
+        },
+        "durationMs": 32505,
+        "rawArtifactPath": "raw-calls/42af685b-9eba-47ff-8758-70c121ea1a12.json",
+        "rawArtifactSha256": "36bf3470aff373808ce949f09afb433e9a4e8dd6b932c6e254dc6e91a704ce8d",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter01-section031:b0042",
+            "modern-yabejp-ja:chapter01-section031:b0084",
+            "modern-yabejp-ja:chapter01-section031:b0102",
+            "modern-yabejp-ja:chapter01-section031:b0153"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter01-section031:b0042",
+        "modern-yabejp-ja:chapter01-section031:b0084",
+        "modern-yabejp-ja:chapter01-section031:b0102",
+        "modern-yabejp-ja:chapter01-section031:b0153"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0042",
+          "before": "拆掉是值得考虑的选择。我认为，只有在没有其他宝牌，且点棒状况要求高分时，才需要追求三色。",
+          "after": "拆掉是有力选择。我认为，只在没有其他宝牌、且点棒状况需要高分时追求三色即可。"
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0084",
+          "before": "虽然尚未确定，但如果能兼顾两种三色，很多情况下兼顾两种路线是值得考虑的选择。",
+          "after": "虽然三色并不确定，但如果能兼顾两种三色，很多情况下兼顾两种路线是有力选择。"
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0102",
+          "before": "是值得考虑的选择。",
+          "after": "是有力选择。"
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0153",
+          "before": "是值得考虑的选择。",
+          "after": "是有力选择。"
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-060-1",
+      "candidateSha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
+      "parentSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+      "notesSha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7",
+      "sourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+        "parentSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+        "notesSha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter01-section021-06:b0027",
+          "modern-yabejp-ja:chapter01-section021-06:b0033"
+        ]
+      },
+      "productionCall": {
+        "callId": "0823a000-cd88-4c75-a2d2-a0b03fcf42b6",
+        "success": true,
+        "usage": {
+          "inputTokens": 15738,
+          "cachedInputTokens": 0,
+          "outputTokens": 947
+        },
+        "durationMs": 48412,
+        "rawArtifactPath": "raw-calls/0823a000-cd88-4c75-a2d2-a0b03fcf42b6.json",
+        "rawArtifactSha256": "49f40ac678bd73d7c77194b56be3b9adc69382b72b4116614c3ed0e95012f332",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter01-section021-06:b0027",
+            "modern-yabejp-ja:chapter01-section021-06:b0033"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter01-section021-06:b0027",
+        "modern-yabejp-ja:chapter01-section021-06:b0033"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section021-06:b0027",
+          "before": "切出后听三面。 *好形2,600点＞愚形5,200点* 这一选择的差距也很微妙，理由与上面第二项相同。不过，如果是两面立直宝牌1张与双碰立直宝牌2张（或宝牌3张）相比，则后者有利。 *好形2,600点＜愚形8,000点（4番）* *好形3,900点＞愚形8,000点* 立直后为3,900点的牌，通过一发、里宝牌提升打点的效率最高（平均和牌点数约为6,500点）。不过，",
+          "after": "切出后听三面。 *好形2,600点＞愚形5,200点* 这一选择也很微妙，但理由与往上数第二个比较（好形1,300点＞愚形2,600点）相同。不过，如果是两面立直宝牌1张与双碰立直宝牌2张（或宝牌3张）相比，则后者有利。 *好形2,600点＜愚形8,000点（4番）* *好形3,900点＞愚形8,000点* 立直后为3,900点的牌，通过一发、里宝牌提升打点的效率最高（平均和牌点数约为6,500点）。不过，"
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section021-06:b0033",
+          "before": "*好形1,000点＞愚形2,000点* 将1,000点提高到2,000点，对顺位期望值影响不大，因此重视好形。（这与只有平和时选择立直的意义不同。立直、平和由于有一发、里宝牌，平均和牌点数会达到约3,500点，而且和牌率也不会像从好形变为愚形那样下降。） *好形2,000点＞愚形3,900点* *好形2,000点＜愚形5,200点* *好形2,600点＜愚形5,200点* *好形3,900点＞愚形5,200点* *好形3,900点＜愚形8,000点* 不过，过了中盘后就难分优劣了。另外，如果是两面听的役牌加赤宝牌，与宝牌单骑的役牌加赤宝牌再加宝牌相比，由于和牌率会有很大差距，因此前者有利。2,600点与5,200点之间的选择也同样如此。 *好形5,200点＞愚形8,000点* *好形8,000点＞愚形12,000点* 如果选择愚形时听的是宝牌，和牌率还会进一步下降，因此，即使在上述例子中愚形有利的情况下，也会变成好形略微有利。  ",
+          "after": "*好形1,000点＞愚形2,000点* 将1,000点提高到2,000点，对顺位期望值影响不大，因此重视好形。（这与只有平和时选择立直的意义不同。立直、平和由于有一发、里宝牌，平均和牌点数会达到约3,500点，而且和牌率也不会像从好形变为愚形那样下降。） *好形2,000点＞愚形3,900点* *好形2,000点＜愚形5,200点* *好形2,600点＜愚形5,200点* *好形3,900点＞愚形5,200点* *好形3,900点＜愚形8,000点* 不过，过了中盘后，优劣就变得微妙了。另外，如果是两面听的役牌＋赤宝牌1张＋普通宝牌1张，与宝牌单骑的役牌＋赤宝牌1张＋普通宝牌2张相比，由于和牌率会有很大差距，因此前者有利。2,600点与5,200点之间的选择也同样如此。 *好形5,200点＞愚形8,000点* *好形8,000点＞愚形12,000点* 如果选择愚形时听的是宝牌，和牌率还会进一步下降，因此，即使在上述例子中愚形有利的情况下，也会变成好形略微有利。  "
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

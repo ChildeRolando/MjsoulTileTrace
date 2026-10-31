@@ -28,6 +28,17 @@ test('expanded development batches do not change the frozen three-case smoke com
   assert.deepEqual(parseArgs(['catalog']), { command: 'catalog' });
 });
 
+test('the applicability gate is an explicit opt-in local-only flag', () => {
+  const enabled = parseArgs(['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'local', '--rag-applicability', 'applicability-v1']);
+  assert.equal(enabled.ragApplicability, 'applicability-v1');
+  assert.equal(enabled.ragMode, 'local');
+  assert.equal(parseArgs(['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'local']).ragApplicability, null);
+  assert.throws(() => parseArgs(['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'off', '--rag-applicability', 'applicability-v1']),
+    /arena_rag_applicability_requires_local/);
+  assert.throws(() => parseArgs(['run', '--dataset', 'blind-discard-smoke-v1', '--rag', 'local', '--rag-applicability', 'applicability-v2']),
+    /arena_rag_applicability_invalid/);
+});
+
 test('flat and spatial pools partition visible scenarios before independent batching, without labels', () => {
   const state = (melds = [], status = 'none') => ({ melds, riichiStates: [
     { actor: 0, status: 'none' }, { actor: 1, status }, { actor: 2, status: 'none' }, { actor: 3, status: 'none' },

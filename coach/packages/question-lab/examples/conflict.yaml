@@ -1,0 +1,14 @@
+schemaVersion: question-lab-config/v1
+name: 有效牌与宝牌冲突
+seed: 20261017
+scene:
+  turn: { range: [3, 10] }
+experiment:
+  mode: conflict
+  requireHypotheses: [ukeire, dora]
+budget:
+  count: 100
+  maxAttempts: 5000
+  timeLimitSeconds: 600
+  refinementRounds: 3
+  refinementCount: 40

@@ -1,0 +1,37 @@
+{
+  "schema": "coac269-shared-claim-batch/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b5",
+  "recordedAt": "2026-10-27T11:33:54.716Z",
+  "modelCalls": 0,
+  "interface": {
+    "script": "parallel/slots.mjs",
+    "sharedDir": "parallel/claims",
+    "verification": "owner + candidateSha256 read back after claim"
+  },
+  "jointExclusion": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-33-54-678Z-e17cc5c1.json",
+    "sha256": "226a118ab07be54d0a90d6e7955b41206f1e7dcd7048881e7c7a9fe7013bdf54",
+    "recordedAt": "2026-10-27T11:33:54.678Z",
+    "ageSecondsAtClaim": 0
+  },
+  "registrationKind": "post-production-registration",
+  "claims": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "state": "refused-not-eligible"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "state": "refused-not-eligible"
+    }
+  ],
+  "errors": [
+    "nemata-jp-chapter-142-1:not_eligible_in_fresh_joint_exclusion",
+    "nemata-jp-chapter-127-1:not_eligible_in_fresh_joint_exclusion"
+  ],
+  "ok": false
+}

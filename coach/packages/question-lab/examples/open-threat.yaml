@@ -1,0 +1,21 @@
+schemaVersion: question-lab-config/v1
+name: 立直与副露背景
+seed: 20261018
+scene:
+  selfActor: { fixed: 0 }
+  round: { fixed: 0 }
+  turn: { fixed: 6 }
+  players:
+    - actor: 1
+      riichi: { fixed: true }
+    - actor: 2
+      melds:
+        fixed:
+          - kind: pon
+            tiles: [P, P, P]
+            target: 3
+budget:
+  count: 10
+  maxAttempts: 200
+  timeLimitSeconds: 120
+  refinementRounds: 0

@@ -1,0 +1,315 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "batch": "b8",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T12:42:09.269378+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "entry": "existing figure-targeted revision entry of the frozen web production runner (Chinese source: scope = parent-audit non-source-note issue targetIds)",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "retries": 0,
+    "spentBy249NotHere": "first independent audit per candidate sha"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "lane": "B",
+    "owner": "COAC-269 Ticket executor",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json"
+  },
+  "legacyLock": {
+    "acquired": false,
+    "before": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "rule": "COAC-244 dual-slot contract: old lock is not deleted, rewritten or bypassed; B capacity is maker-B.",
+    "after": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "unchanged": true
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-production-web-visual.py": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+  },
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "articleId": "cv1734739",
+      "state": "produced-awaiting-independent-audit",
+      "dispatchGuard": {
+        "ok": true,
+        "reasons": [],
+        "receipt": "web-production/v1/coac269-20261027/preflight/dispatch-guard-2026-10-27T12-42-10-193Z-0f2b1f59.json",
+        "joint": {
+          "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-42-10-148Z-aa42fe7f.json",
+          "sha256": "101d66b76a7018da6cf103b5462ecfd02f6e250d41e169ddd743eef09bb71417",
+          "recordedAt": "2026-10-27T12:42:10.148Z",
+          "ageSeconds": 0
+        },
+        "sharedClaim": {
+          "owner": "COAC-269 Ticket executor",
+          "sha": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+          "record": "parallel/claims/79-cn-chapter-128-14.json"
+        },
+        "exitCode": 0
+      },
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/79-bilibili-cn/articles/cv1734739/source.json --revision-from web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json --revision-notes audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json --variant coac269rev1 --reuse web-production/v1/reuse-maps/c903dad7b5a5a3d0460d614924a0b66ab9cd481801fc4a332e06331ca271b671.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T12:42:10.202555+00:00",
+      "jointExclusionAtDispatch": {
+        "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-42-10-148Z-aa42fe7f.json",
+        "sha256": "101d66b76a7018da6cf103b5462ecfd02f6e250d41e169ddd743eef09bb71417",
+        "recordedAt": "2026-10-27T12:42:10.148Z",
+        "ageSeconds": 0
+      },
+      "sharedClaimAtDispatch": {
+        "owner": "COAC-269 Ticket executor",
+        "sha": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+        "record": "parallel/claims/79-cn-chapter-128-14.json"
+      },
+      "durationSeconds": 101.5,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1734739\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\79-bilibili-cn\\\\cv1734739.coac269rev1.json\",\"textBlocks\":11,\"figures\":7,\"modelCalls\":1,\"usage\":{\"inputTokens\":16565,\"cachedInputTokens\":0,\"outputTokens\":267},\"candidateFileSha256\":\"c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "21f6e4f9-868e-4bcf-82ad-91d904d95cd6",
+          "startedAt": "2026-10-27T12:42:10.576Z",
+          "durationMs": 101056,
+          "success": true,
+          "usage": {
+            "inputTokens": 16565,
+            "cachedInputTokens": 0,
+            "outputTokens": 267
+          },
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/21f6e4f9-868e-4bcf-82ad-91d904d95cd6.json",
+          "rawArtifactSha256": "9ec9bf0e84c62185b2258294946371ac90918f0745248bdffbd77c6f095759f5",
+          "promptSha256": "cd1aeb50e20658171a43822a009d5e945430ce33600e58cca4d194d5d2ea2abf",
+          "semanticPromptSha256": "15b1da807cf320c5071b1c99a448b72cf214cc28f2b3039e8018d7d9225f5108",
+          "targets": {
+            "textIds": [],
+            "figureIds": [
+              "79-bilibili-cn:cv1734739:b0013"
+            ]
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+            "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+            "notesPath": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+            "notesSha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+            "figureIds": [
+              "79-bilibili-cn:cv1734739:b0013:figure"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json",
+        "sha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae"
+      },
+      "candidateRevision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+        "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+        "notesSha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+        "figureIds": [
+          "79-bilibili-cn:cv1734739:b0013:figure"
+        ]
+      },
+      "targetFigureChanged": {
+        "79-bilibili-cn:cv1734739:b0013:figure": "左侧标签：例5\n手牌（从左至右）：2m 2m 4m 5m 6m 2p 3p 3p 4p 6p 4s 5s 6s 7s\n手牌右侧标签：宝牌\n标签右侧牌：3p"
+      },
+      "finishedAt": "2026-10-27T12:43:51.664162+00:00"
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "articleId": "cv1744266",
+      "state": "produced-awaiting-independent-audit",
+      "dispatchGuard": {
+        "ok": true,
+        "reasons": [],
+        "receipt": "web-production/v1/coac269-20261027/preflight/dispatch-guard-2026-10-27T12-43-52-188Z-f8827b35.json",
+        "joint": {
+          "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-43-52-143Z-aa42fe7f.json",
+          "sha256": "ed5cf55d6f5e76e419580c9e13e2b3ec45e6e23dc3c9fe5f4e0057ee79d303c6",
+          "recordedAt": "2026-10-27T12:43:52.143Z",
+          "ageSeconds": 0
+        },
+        "sharedClaim": {
+          "owner": "COAC-269 Ticket executor",
+          "sha": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+          "record": "parallel/claims/79-cn-chapter-145-4.json"
+        },
+        "exitCode": 0
+      },
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/79-bilibili-cn/articles/cv1744266/source.json --revision-from web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json --revision-notes audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json --variant coac269rev1 --reuse web-production/v1/reuse-maps/c67b1441be160cb3440d72576a87e9913e79d6507adc6f8c4bb7305e232940d0.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T12:43:52.196909+00:00",
+      "jointExclusionAtDispatch": {
+        "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-43-52-143Z-aa42fe7f.json",
+        "sha256": "ed5cf55d6f5e76e419580c9e13e2b3ec45e6e23dc3c9fe5f4e0057ee79d303c6",
+        "recordedAt": "2026-10-27T12:43:52.143Z",
+        "ageSeconds": 0
+      },
+      "sharedClaimAtDispatch": {
+        "owner": "COAC-269 Ticket executor",
+        "sha": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+        "record": "parallel/claims/79-cn-chapter-145-4.json"
+      },
+      "durationSeconds": 30.8,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1744266\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\79-bilibili-cn\\\\cv1744266.coac269rev1.json\",\"textBlocks\":9,\"figures\":5,\"modelCalls\":1,\"usage\":{\"inputTokens\":15670,\"cachedInputTokens\":0,\"outputTokens\":515},\"candidateFileSha256\":\"07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "c1a7d02f-b322-48df-96f9-a80a1ea8a8cf",
+          "startedAt": "2026-10-27T12:43:52.571Z",
+          "durationMs": 30381,
+          "success": true,
+          "usage": {
+            "inputTokens": 15670,
+            "cachedInputTokens": 0,
+            "outputTokens": 515
+          },
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/c1a7d02f-b322-48df-96f9-a80a1ea8a8cf.json",
+          "rawArtifactSha256": "4b17b1c9cfa114eabcdffcb244ccb84e4f23181dc3c8b7528d0aa2b7fea25a82",
+          "promptSha256": "d085a598142744d4bd9612c55c2ed8a54fab1ecbc008515a53fab4e087160808",
+          "semanticPromptSha256": "7e90634635bea6fca482ef0dba510686388f4fc4e37d859cb249d36ee74aaa5b",
+          "targets": {
+            "textIds": [],
+            "figureIds": [
+              "79-bilibili-cn:cv1744266:b0005"
+            ]
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+            "parentSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+            "notesPath": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+            "notesSha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+            "figureIds": [
+              "79-bilibili-cn:cv1744266:b0005:figure"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json",
+        "sha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284"
+      },
+      "candidateRevision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+        "parentSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+        "notesSha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+        "figureIds": [
+          "79-bilibili-cn:cv1744266:b0005:figure"
+        ]
+      },
+      "targetFigureChanged": {
+        "79-bilibili-cn:cv1744266:b0005:figure": "例1\n手牌从左至右：2m 6m 2p 2p 4p 7p 5s 5s 5s 8s 9s 1z 7z\n手牌右侧：摸入 5s"
+      },
+      "finishedAt": "2026-10-27T12:44:22.979559+00:00"
+    }
+  ],
+  "preSlotJointExclusion": {
+    "tag": "pre-slot-capacity",
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-42-09-634Z-aa42fe7f.json",
+    "sha256": "d91f1ebe69f5e9a77db968c30abd3c9997bfda3bf163161741d8bd19e4777fcb",
+    "scriptVersion": 3,
+    "recordedAt": "2026-10-27T12:42:09.634Z",
+    "eligible": [
+      "nemata-jp-chapter-347-1",
+      "79-cn-chapter-311-18",
+      "79-cn-chapter-276-4",
+      "79-cn-chapter-256-18",
+      "79-cn-chapter-246-3",
+      "79-cn-chapter-242-3",
+      "79-cn-chapter-234-12",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "79-cn-chapter-222-5",
+      "nemata-jp-chapter-213-1",
+      "79-cn-chapter-208-4",
+      "79-cn-chapter-205-5",
+      "79-cn-chapter-193-4",
+      "nemata-jp-chapter-193-1",
+      "79-cn-chapter-182-5",
+      "79-cn-chapter-167-4",
+      "79-cn-chapter-162-3",
+      "79-cn-chapter-159-9",
+      "79-cn-chapter-157-11",
+      "79-cn-chapter-155-4",
+      "79-cn-chapter-145-4",
+      "79-cn-chapter-128-14",
+      "79-cn-chapter-109-4",
+      "nemata-jp-chapter-100-1",
+      "79-cn-chapter-090-6"
+    ],
+    "controlsOk": true
+  },
+  "makerSlot": {
+    "acquireExit": 0,
+    "acquireStdout": "{\"ok\":true,\"action\":\"acquire\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"record\":{\"schema\":\"coach-textbook-maker-slot/1\",\"slot\":\"maker-B\",\"lane\":\"B\",\"owner\":\"COAC-269 Ticket executor\",\"pid\":66920,\"claimedAt\":\"2026-10-27T12:42:09.715Z\",\"heartbeatAt\":\"2026-10-27T12:42:09.715Z\",\"ttlMinutes\":20}}",
+    "acquireStderr": "",
+    "acquiredAt": "2026-10-27T12:42:09.725305+00:00",
+    "releasedAt": "2026-10-27T12:44:23.083997+00:00",
+    "released": true,
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-B",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "pid": 66920,
+      "claimedAt": "2026-10-27T12:42:09.715Z",
+      "heartbeatAt": "2026-10-27T12:42:09.715Z",
+      "ttlMinutes": 20
+    },
+    "releaseExit": 0,
+    "releaseStdout": "{\"ok\":true,\"action\":\"release\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"released\":\"maker-B\"}",
+    "releaseStderr": ""
+  },
+  "heartbeats": [
+    {
+      "at": "2026-10-27T12:43:51.717641+00:00",
+      "exit": 0
+    },
+    {
+      "at": "2026-10-27T12:44:23.032487+00:00",
+      "exit": 0
+    }
+  ],
+  "result": "produced",
+  "finishedAt": "2026-10-27T12:44:23.083997+00:00",
+  "modelCalls": 2,
+  "usageTotal": {
+    "inputTokens": 32235,
+    "cachedInputTokens": 0,
+    "outputTokens": 782
+  },
+  "realModelCallOverlap": {
+    "productionCalls": [
+      {
+        "callId": "21f6e4f9-868e-4bcf-82ad-91d904d95cd6",
+        "articleId": "cv1734739",
+        "start": "2026-10-27T12:42:10.576000+00:00",
+        "end": "2026-10-27T12:43:51.632000+00:00"
+      },
+      {
+        "callId": "c1a7d02f-b322-48df-96f9-a80a1ea8a8cf",
+        "articleId": "cv1744266",
+        "start": "2026-10-27T12:43:52.571000+00:00",
+        "end": "2026-10-27T12:44:22.952000+00:00"
+      }
+    ],
+    "overlaps": []
+  }
+}

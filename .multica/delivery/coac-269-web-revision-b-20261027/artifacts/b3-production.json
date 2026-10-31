@@ -1,0 +1,199 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "batch": "b3",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T10:17:06.868614+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "budget": {
+    "productionCallsAllowed": 2,
+    "firstAuditCallsAllowed": 2,
+    "retries": 0
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "lane": "B",
+    "owner": "COAC-269 Ticket executor",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json"
+  },
+  "legacyLock": {
+    "acquired": false,
+    "before": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "rule": "COAC-244 dual-slot contract: old lock is not deleted, rewritten or bypassed; B capacity is maker-B.",
+    "after": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "unchanged": true
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-audit.mjs": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "articleId": "chapter03-section003",
+      "state": "produced-awaiting-independent-audit",
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json --revision-from web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json --revision-notes audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json --variant coac269rev1 --dictionary web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json --verified-assets audit/web/verified-assets/modern-ch01-s001-exact-42.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T10:17:06.937588+00:00",
+      "durationSeconds": 61.6,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"chapter03-section003\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter03-section003.coac269rev1.json\",\"textBlocks\":19,\"figures\":0,\"modelCalls\":1,\"usage\":{\"inputTokens\":12597,\"cachedInputTokens\":12416,\"outputTokens\":500},\"candidateFileSha256\":\"5083143622906fd318dfd9847c1a446f59deb78ff613a31adb44dd81df299ccd\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "35508223-36a6-4982-a382-aa5d6683c9a1",
+          "startedAt": "2026-10-27T10:17:06.997Z",
+          "durationMs": 61503,
+          "success": true,
+          "usage": {
+            "inputTokens": 12597,
+            "cachedInputTokens": 12416,
+            "outputTokens": 500
+          },
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/35508223-36a6-4982-a382-aa5d6683c9a1.json",
+          "rawArtifactSha256": "d6e2f1e913a0ea727fcdfca331ffed57f89ef7a0fd37f0f4cd8f69cc0cb8d8b8",
+          "promptSha256": "a42fe9f1ff994b0baa0cc0400d053a1e1eccb10b70023ed787c742a918b97fb4",
+          "semanticPromptSha256": "4b1600884f5198989b43f9ebc6b564016fd710013fc5994a95e64af03f30803c",
+          "targets": {
+            "textIds": [
+              "modern-yabejp-ja:chapter03-section003:b0018"
+            ],
+            "figureIds": []
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+            "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+            "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+            "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+            "figureIds": [],
+            "textBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0018"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.coac269rev1.json",
+        "sha256": "5083143622906fd318dfd9847c1a446f59deb78ff613a31adb44dd81df299ccd"
+      },
+      "finishedAt": "2026-10-27T10:18:08.530778+00:00"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-131-1",
+      "articleId": "chapter01-section049",
+      "state": "produced-awaiting-independent-audit",
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/modern-yabejp-ja/articles/chapter01-section049/source.v2.json --revision-from web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json --revision-notes audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json --variant coac269rev1 --dictionary web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json --verified-assets audit/web/verified-assets/modern-ch01-s001-exact-42.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T10:18:08.594706+00:00",
+      "durationSeconds": 26.9,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"chapter01-section049\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter01-section049.coac269rev1.json\",\"textBlocks\":96,\"figures\":70,\"modelCalls\":1,\"usage\":{\"inputTokens\":11751,\"cachedInputTokens\":0,\"outputTokens\":136},\"candidateFileSha256\":\"40da07ac8cac2acd378963d8e297d28be52d894d31b35712c1ce9f87c4995096\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "c045a2dc-bbca-4e75-ae8f-97b1c4d5110a",
+          "startedAt": "2026-10-27T10:18:08.675Z",
+          "durationMs": 26756,
+          "success": true,
+          "usage": {
+            "inputTokens": 11751,
+            "cachedInputTokens": 0,
+            "outputTokens": 136
+          },
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/c045a2dc-bbca-4e75-ae8f-97b1c4d5110a.json",
+          "rawArtifactSha256": "322bd851872bc8a6482742688b29157cf6059b04b53c997587f95d1c2fd7f883",
+          "promptSha256": "4b8dd7b4cf1823d460ef74c5b04ea6049c88cc6db6a49e200607ad883bf5dc6e",
+          "semanticPromptSha256": "d21562df8908c351c658d872aecca6f30b6a7120d22e2c8d14ef2c99f70d8675",
+          "targets": {
+            "textIds": [
+              "modern-yabejp-ja:chapter01-section049:b0123"
+            ],
+            "figureIds": []
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+            "parentSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+            "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+            "notesSha256": "8875bb9c2dec37ce1ca1dcc36edc24d7a04ec489ffe604d9dd610e04b77ba552",
+            "figureIds": [],
+            "textBlockIds": [
+              "modern-yabejp-ja:chapter01-section049:b0123"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.coac269rev1.json",
+        "sha256": "40da07ac8cac2acd378963d8e297d28be52d894d31b35712c1ce9f87c4995096"
+      },
+      "finishedAt": "2026-10-27T10:18:35.466233+00:00"
+    }
+  ],
+  "makerSlot": {
+    "acquireExit": 0,
+    "acquireStdout": "{\"ok\":true,\"action\":\"acquire\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"record\":{\"schema\":\"coach-textbook-maker-slot/1\",\"slot\":\"maker-B\",\"lane\":\"B\",\"owner\":\"COAC-269 Ticket executor\",\"pid\":47592,\"claimedAt\":\"2026-10-27T10:17:06.918Z\",\"heartbeatAt\":\"2026-10-27T10:17:06.918Z\",\"ttlMinutes\":20}}",
+    "acquireStderr": "",
+    "acquiredAt": "2026-10-27T10:17:06.929102+00:00",
+    "releasedAt": "2026-10-27T10:18:35.570101+00:00",
+    "released": true,
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-B",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "pid": 47592,
+      "claimedAt": "2026-10-27T10:17:06.918Z",
+      "heartbeatAt": "2026-10-27T10:17:06.918Z",
+      "ttlMinutes": 20
+    },
+    "releaseExit": 0,
+    "releaseStdout": "{\"ok\":true,\"action\":\"release\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"released\":\"maker-B\"}",
+    "releaseStderr": ""
+  },
+  "heartbeats": [
+    {
+      "at": "2026-10-27T10:18:08.585917+00:00",
+      "exit": 0
+    },
+    {
+      "at": "2026-10-27T10:18:35.517331+00:00",
+      "exit": 0
+    }
+  ],
+  "result": "produced",
+  "finishedAt": "2026-10-27T10:18:35.570101+00:00",
+  "modelCalls": 2,
+  "usageTotal": {
+    "inputTokens": 24348,
+    "cachedInputTokens": 12416,
+    "outputTokens": 636
+  },
+  "realModelCallOverlap": {
+    "productionCalls": [
+      {
+        "callId": "35508223-36a6-4982-a382-aa5d6683c9a1",
+        "articleId": "chapter03-section003",
+        "start": "2026-10-27T10:17:06.997000+00:00",
+        "end": "2026-10-27T10:18:08.500000+00:00"
+      },
+      {
+        "callId": "c045a2dc-bbca-4e75-ae8f-97b1c4d5110a",
+        "articleId": "chapter01-section049",
+        "start": "2026-10-27T10:18:08.675000+00:00",
+        "end": "2026-10-27T10:18:35.431000+00:00"
+      }
+    ],
+    "overlaps": []
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "schema": "coac269-dispatch-guard/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "review-fix-live",
+  "recordedAt": "2026-10-27T11:39:33.835Z",
+  "purpose": "per-dispatch gate: fresh three-source joint exclusion + shared-claim ownership + binding checks, zero model calls",
+  "chapterId": "nemata-jp-chapter-027-1",
+  "articleId": "chapter01-section010",
+  "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+  "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+  "joint": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-39-33-796Z-e17cc5c1.json",
+    "sha256": "4143a36996d25af8f4c9867d63096c2df2693547c4772dc28c68452899fbc398",
+    "recordedAt": "2026-10-27T11:39:33.796Z",
+    "ageSecondsAtUse": 0,
+    "pointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1"
+    ]
+  },
+  "activePreviewPointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+  "sharedClaim": null,
+  "ticketClaim": {
+    "path": "web-production/v1/coac269-20261027/claims/claim-b6-nemata-jp-chapter-027-1-7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+    "sha256": "9d58414d424b16e763c3b6be1de7e6cef70929d457dc5479bab134ad062e5b3c",
+    "chapterId": "nemata-jp-chapter-027-1",
+    "claimKey": "nemata-jp-chapter-027-1:7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+    "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+    "sharedClaimSha256": null
+  },
+  "held": null,
+  "outputExists": true,
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "verdict": {
+    "ok": false,
+    "reasons": [
+      "joint_eligible: nemata-jp-chapter-027-1 is not an eligible repair target in the fresh joint exclusion",
+      "shared_claim_present: no parallel/claims record for nemata-jp-chapter-027-1",
+      "output_absent: a candidate for this variant already exists"
+    ],
+    "checks": [
+      {
+        "name": "joint_receipt_fresh",
+        "ok": true,
+        "detail": "0s <= 900s, receipt 4143a36996d25af8"
+      },
+      {
+        "name": "pointer_stable",
+        "ok": true,
+        "detail": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+      },
+      {
+        "name": "joint_eligible",
+        "ok": false,
+        "detail": "nemata-jp-chapter-027-1 is not an eligible repair target in the fresh joint exclusion"
+      },
+      {
+        "name": "shared_claim_present",
+        "ok": false,
+        "detail": "no parallel/claims record for nemata-jp-chapter-027-1"
+      },
+      {
+        "name": "ticket_claim",
+        "ok": true,
+        "detail": "nemata-jp-chapter-027-1:7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b"
+      },
+      {
+        "name": "ticket_hold",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "name": "output_absent",
+        "ok": false,
+        "detail": "a candidate for this variant already exists"
+      }
+    ]
+  }
+}

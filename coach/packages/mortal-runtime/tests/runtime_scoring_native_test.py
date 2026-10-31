@@ -103,6 +103,18 @@ class NativeScoringTest(unittest.TestCase):
         self.assertEqual(response["status"], "error", response)
         self.assertEqual(engine.calls, 0)
 
+    def test_research_scores_the_complete_singleton_with_explicit_operation(self):
+        request = self.request(accepted("111222333m456p7z", "8s"), phase="accepted")
+        request["operation"] = "score_research_actions"
+        self.rehash(request)
+        engine = Scores()
+        response = runner.score_rules(request, self.native, engine)
+        self.assertEqual(response["status"], "ok", response)
+        self.assertEqual(engine.calls, 1)
+        self.assertEqual(len(response["candidates"]), 1)
+        self.assertEqual(response["candidates"][0]["runtimeAction"], {"index": 25, "variant": None})
+        self.assertEqual(response["candidates"][0]["qValue"], 25.0)
+
     def test_multiple_kans_preserve_two_stage_scores(self):
         request = self.request(start("11112222333m44p")+[draw("3m")])
         response = runner.score_rules(request, self.native, Scores())

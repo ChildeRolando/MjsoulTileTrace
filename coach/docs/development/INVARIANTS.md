@@ -414,11 +414,39 @@ Model/report evidence provider（模型/报告证据来源）
 - **Statement**：Arena Coach/provider、helper MCP 与 RAG 只能读显式白名单投影的决策时观察和完整合法切牌集合；Coach-visible 的 case、canonical event、evidence/source、MCP/RAG 与诊断引用必须使用 per-run opaque alias，原始 gameId/recordId 及 alias map 不得越过受信边界。Mortal 最终动作可由受信 grader 提前计算并私有封存，只能在 Coach submission 锁定后用于比较；Coach/provider、helper MCP 与 RAG 始终不可访问标签。实战动作及未来事件不得进入盲输入。Arena run 和 grader artifact 不进入生产 ReviewReport/ReviewSession。
 - **Why**：答案可从 case identity、工具结果、排序、路径或生产复盘 artifact 侧漏；混用生产生成/保存 seam 也会改变既有语义。
 - **Owner / boundary**：[Blind Discard Arena spec](../specs/2026-10-09-blind-discard-arena.md)；Arena 的本地 main/CLI 运行路径；生产 generation/persistence 仍由 INV-011/012 与 ADR-0005 拥有。
-- **Enforcement**：T1 desktop main boundary 严格解析 case/rule inputs，拒绝 actual/label 与 whole-stream rule identity，要求 prefix-bound native request；显式 allow-list 投影并以每次 run 的 alias vault 改写 Coach-visible source refs；独立 grader 在 submission 校验后映射现有 physical-realization 等价关系，并把每个纳入 case 计入主分母。T2 server 通过真实 MCP stdio 仅暴露 `analyze_candidates`，以绑定 case/action 与 strict schema 限制访问，调用既有 helper port 并验证结果，返回 per-run opaque refs；工具、helper、结果大小和 run 时长均受 v1 上限约束，错误不透传上游 prose，超时/断连关闭 helper。T4 `ArenaRagRetriever` 在配置为 off 时只返回 `disabled` 且不调用 corpus loader；local 模式才动态加载受 schema/数量/长度限制的静态种子，并返回 strict bounded passages、版本与 run-local opaque refs。RAG DTO 不含 case state、路径或工具权限，种子文本只作为数据返回。T3 runner 初始只发送 blind observation 与注册工具名，模型按需调用真实 MCP 或 RAG，不预取候选矩阵；source/evidence ref 必须来自观察或已验证工具结果，严格 submission 锁定后 scorer 才读取封存 label。工具/上下文/轮次/输出/时间/事件与取消均受 versioned budget 约束；断连、超时与错误只记录固定 code，provider content、secret 与 hidden CoT 不进入结果。Arena tool-call concrete adapter 只由 main-owned service 创建，独立于 production `generateReviewReport` seam。T3 事件轨迹仍只在内存，T5 archive/CLI 尚未实现。
-- **Executable tests**：T1 行为回归由 `blind-discard-arena-case.test.ts`（canary、alias、future/actual/action-order 稳定性、prefix rule request、allow-list、筛题、赤牌）与 `blind-discard-arena-scorer.test.ts`（failure denominator、label binding、physical equivalence、离线重算）保护；T2 由 `blind-discard-arena-mcp.test.ts` 通过真实 stdio MCP server/client 保护 helper direct parity、权限、unsupported dimension、原始路径拒绝、opaque refs、超时、断连、helper error 与超大结果拒绝；T4 由 `blind-discard-arena-rag.test.ts` 覆盖 off loader 零调用、no-hit/hit 分离、有界/有来源结果、每次 run opaque refs、过滤/limit、原样 passage、注入式文本无权限字段、来源/语料边界；T3 由 `blind-discard-arena-runner.test.ts` 覆盖真实 stdio MCP + local RAG 的按需工具循环、最终提交后评分、错误恢复、取消/超时/预算状态，`arena-tool-call-provider.test.ts` 与 architecture checker 覆盖 provider content/secret 边界及 main-only concrete adapter。helper schema/runtime 回归继续由 `fact-engine-client.test.ts` 与 `npm run test:fact-engine` 保护。生产回归继续由 `review-report.test.ts`、`automatic-report-scope.test.ts`、`coach-provider.test.ts` 和 `codex-coach-provider.test.ts` 保护。
+- **Enforcement**：T1 desktop main boundary 严格解析 case/rule inputs，拒绝 actual/label 与 whole-stream rule identity，要求 prefix-bound native request；显式 allow-list 投影并以每次 run 的 alias vault 改写 Coach-visible source refs；独立 grader 在 submission 校验后映射现有 physical-realization 等价关系，并把每个纳入 case 计入主分母。T2 server 通过真实 MCP stdio 仅暴露 `analyze_candidates`，以绑定 case/action 与 strict schema 限制访问，调用既有 helper port 并验证结果，返回 per-run opaque refs；工具、helper、结果大小和 run 时长均受 v1 上限约束，错误不透传上游 prose，超时/断连关闭 helper。T4 `ArenaRagRetriever` 在配置为 off 时只返回 `disabled` 且不调用 corpus loader；local 模式才动态加载受 schema/数量/长度限制的静态种子，并返回 strict bounded passages、版本与 run-local opaque refs。RAG DTO 不含 case state、路径或工具权限，种子文本只作为数据返回。T3 runner 初始只发送 blind observation 与注册工具名，模型按需调用真实 MCP 或 RAG，不预取候选矩阵；source/evidence ref 必须来自观察或已验证工具结果，严格 submission 锁定后 scorer 才读取封存 label。工具/上下文/轮次/输出/时间/事件与取消均受 versioned budget 约束；断连、超时与错误只记录固定 code，provider content、secret 与 hidden CoT 不进入结果。Arena tool-call concrete adapter 只由 main-owned service 创建，独立于 production `generateReviewReport` seam。T3 事件轨迹仍只在内存，T5 archive/CLI 尚未实现。T6 可选适用性门控（opt-in）在 `execute`→`parseOutput` 之后、`references` 之前运行：只按白名单投影事实、只允许候选片段身份域与可见证据引用域各自校验、只对可机械判定的情形逐条降级，语义理由不因无法机械证明而降级；门控输出必须再次通过工具 strict parser，回执、用量、耗时与失败码进入 `tool_result.reflection` 与 `applicability` 汇总。程序按 provider 报告的 completion tokens 执行冻结输出上限，超限降级并保留全部原片段与真实用量，未报告用量保持 unknown/null；run 取消/超时后在宽限期内 settle 的真实调用仍记入 `callCount`、耗时与已报告用量，但其输出不得交给生成器。未配置门控时不构造门控、不发额外请求、不写新字段。
+- **Executable tests**：T1 行为回归由 `blind-discard-arena-case.test.ts`（canary、alias、future/actual/action-order 稳定性、prefix rule request、allow-list、筛题、赤牌）与 `blind-discard-arena-scorer.test.ts`（failure denominator、label binding、physical equivalence、离线重算）保护；T2 由 `blind-discard-arena-mcp.test.ts` 通过真实 stdio MCP server/client 保护 helper direct parity、权限、unsupported dimension、原始路径拒绝、opaque refs、超时、断连、helper error 与超大结果拒绝；T4 由 `blind-discard-arena-rag.test.ts` 覆盖 off loader 零调用、no-hit/hit 分离、有界/有来源结果、每次 run opaque refs、过滤/limit、原样 passage、注入式文本无权限字段、来源/语料边界；T3 由 `blind-discard-arena-runner.test.ts` 覆盖真实 stdio MCP + local RAG 的按需工具循环、最终提交后评分、错误恢复、取消/超时/预算状态，`blind-discard-arena-rag-applicability.test.ts` 覆盖门控的 strict schema、digest 绑定、两个互不相交引用域、逐条降级与确定性特例、注入式文本、失败/预算/用量与标签 canary，`blind-discard-arena-runner.test.ts` 覆盖门控接线、未开启时事件不变与 orphan 终态。`arena-tool-call-provider.test.ts` 与 architecture checker 覆盖 provider content/secret 边界及 main-only concrete adapter。helper schema/runtime 回归继续由 `fact-engine-client.test.ts` 与 `npm run test:fact-engine` 保护。生产回归继续由 `review-report.test.ts`、`automatic-report-scope.test.ts`、`coach-provider.test.ts` 和 `codex-coach-provider.test.ts` 保护。
 - **Status**：T1/T2/T3/T4 边界已有 machine-enforced contract/tests；尚无真实模型运行，也没有 T5 run archive/CLI。
 
 ---
+
+## INV-014 研究局面、全知构造见证与模型标签分别绑定
+
+- **Statement**：Question Lab 的合成题必须有原生 libriichi 验证的构造历史，并停在未行动窗口；
+  模型请求、学习特征与题面只能消费决策时可见投影。暗手／未来牌山留在私有 witness；
+  Mortal 标签不进入特征。原始事实证据保存独立哈希，研究特征精度有版本；同源变体和手牌
+  同构按整组留出，已冻结测试来源不能进入补样训练。
+- **Why**：防止不可达局面、隐藏信息泄漏、答案泄漏或同构泄漏制造虚假的模式边界。
+- **Owner**：question-lab 的 projection/archive/groups/learning；原生动作权威仍为 ADR-0006。
+- **Enforcement**：strict contracts、native Board 动作验证、canonical 重放、完整规则／评分绑定、
+  白名单特征、逐题事实读回重建、冻结分组与测试来源碰撞拒绝。
+- **Executable tests**：`question-lab/tests/construction.test.ts`、`groups.test.ts`、`archive.test.ts`；
+  `COACH_QUESTION_LAB_NATIVE=1` 的 `native.test.ts`；独立 Python 的 `test_learn.py`。
+- **配对研究扩展**：v2 严格 E∩D=∅，未知普通弃牌事实失败关闭；E×D 全量配对和四差值
+  只由可见事实确定。扫描继承真实见证，复核声明固定项与实际联动变化；粗扫描完整后封存细化计划。
+  每轮补样使用封存模型；最终测试仅在主研究冻结后运行。`pair-features.test.ts`、
+  contracts 的 `question-lab-pairs.test.ts`、`pair-learning.test.ts`、Python `test_pair_learn.py`
+  保护配对、权重、标签隔离与拟合及序列化预测一致性；
+  原生 `pair-native.test.ts`、`pair-resume.test.ts`、`pair-scan-resume.test.ts` 保护合法扫描、完整 Q、
+  威胁时序、留出遮蔽和恢复不重复推理。旧 v1 冲突／SVM 档案语义不变。
+  `construction.test.ts` 保护前缀快照不可变及输入修改后失效；`pair-native.test.ts` 拒绝内容自洽
+  但生产者身份不符的事实／标签（含缓存命中）。`pair-report-budget.test.ts` 保护报告截止、
+  部分报告标记与科学记录保留，不能用缩短验证替代时限控制。
+- **Arena 消费**：生成题库保留 Question Lab 私有归档；浏览器目录只含既有盲测 DTO 和批次统计。
+  目录、样本与源清单分别做内容绑定；评测重新查询原生规则，候选变化失败关闭，不删除非弃牌行动。
+  以 `scripts/arena-question-bank.test.mjs` 的真实 native/Mortal、恢复、身份与可见性回归，
+  `scripts/arena-console.test.mjs` 的单任务/停止/恢复/凭据隔离保护。生产 desktop 不导入 Question Lab。
+- **Status**：machine-enforced；真实 native 与 Python 回归需要对应本地受管资源。
 
 ## 维护规则
 

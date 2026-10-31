@@ -1,0 +1,18 @@
+{
+  "schema": "coac269-to-coac249-notice/1",
+  "ticket": "COAC-269",
+  "to": "COAC-249",
+  "recordedAt": "2026-10-27T11:05:20.365Z",
+  "modelCalls": 0,
+  "kind": "do-not-audit",
+  "chapterId": "nemata-jp-chapter-183-1",
+  "articleId": "chapter03-section003",
+  "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.coac269rev1.json",
+  "candidateSha256": "5083143622906fd318dfd9847c1a446f59deb78ff613a31adb44dd81df299ccd",
+  "reason": "revision moved to pending adjudication; the member ruled it invalid and forbade any audit or replacement of the parent",
+  "authoritativeRecord": {
+    "path": "web-production/v1/coac269-20261027/adjudication/pending-adjudication-183-1-460acb6884fe73d8.json",
+    "sha256": "460acb6884fe73d8657d278f6cad66c6cf04891144fc4aa2c705f203892e0987"
+  },
+  "requestedAction": "do not dispatch or continue an independent audit for this candidate; no ingestion by COAC-250"
+}
