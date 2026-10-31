@@ -27,7 +27,7 @@ function tileImages(tiles, label) {
 }
 function observationView(observation) {
   const state = observation.visibleState;
-  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 供托 ${state.riichiSticks} · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p>${tileImages(sortedTiles(state.self.concealedTiles), '手牌（已理牌）')}<div class="visible-tiles">${tileImages(state.self.currentDraw ? [state.self.currentDraw.tile] : [], '当前摸牌')}${tileImages(state.doraIndicators, '宝牌指示')}</div>${publicTableView(observation)}<p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
+  return `<div class="observation-summary"><p><b>${esc(({ E: '东', S: '南', W: '西' })[state.roundWind])}${state.hand}局 · ${state.honba}本场</b> · 供托 ${state.riichiSticks} · 剩余摸牌 ${state.remainingDraws ?? '未知'}</p>${tileImages(sortedTiles(state.self.concealedTiles), '手牌')}<div class="visible-tiles">${tileImages(state.self.currentDraw ? [state.self.currentDraw.tile] : [], '当前摸牌')}${tileImages(state.doraIndicators, '宝牌指示')}</div>${publicTableView(observation)}<p class="field-hint">候选：${observation.candidates.map(candidate => esc(actionText(candidate.actionRef))).join(' / ')}</p></div>`;
 }
 const completenessText = value => ({ complete: '完整', partial: '部分', unknown: '未知', missing: '缺失' })[value] ?? value;
 function publicTableView(observation) {
@@ -35,14 +35,14 @@ function publicTableView(observation) {
   const wind = { E: '东', S: '南', W: '西', N: '北' };
   const relative = ['自家', '下家', '对家', '上家'];
   const meldNames = { chi: '吃', pon: '碰', daiminkan: '大明杠', ankan: '暗杠', kakan: '加杠' };
-  return `<section class="public-table" aria-label="四家公开场面"><h4>四家公开场面</h4><p class="field-hint">牌河按出牌顺序排列；↓ 为摸切，红色边框为立直宣言牌，取走标记表示该牌已被鸣走。</p><div class="table-players">${Array.from({ length: 4 }, (_, offset) => {
+  return `<section class="public-table" aria-label="四家公开场面"><div class="table-players">${Array.from({ length: 4 }, (_, offset) => {
     const actor = (self + offset) % 4, riichi = state.riichiStates.find(row => row.actor === actor);
     const melds = state.melds.filter(row => row.actor === actor);
     return `<article class="table-player ${riichi?.status !== 'none' ? 'has-riichi' : ''}"><h5>${relative[offset]} · ${wind[state.seatWinds[actor]] ?? '未知'}家 ${actor === state.dealer ? '· 庄' : ''}<span>${number(state.scores[actor])} 点 · ${riichi?.status === 'accepted' ? '立直成立' : riichi?.status === 'declared' ? '立直宣言' : riichi?.status === 'none' ? '未立直' : '立直状态未知'}</span></h5><div class="river-tiles" aria-label="${relative[offset]}牌河">${state.rivers[actor].map(discard => `<span class="river-tile ${discard.riichiDeclarationRef ? 'riichi-discard' : ''}"><img src="${tileAsset(discard.tile)}" alt="${esc(tileText(discard.tile))}${discard.discardMode === 'tsumogiri' ? '，摸切' : '，手切'}${discard.calledByRef ? '，已被鸣走' : ''}${discard.riichiDeclarationRef ? '，立直宣言牌' : ''}" width="24" height="32"><small>${discard.calledByRef ? '取走' : discard.discardMode === 'tsumogiri' ? '↓' : ''}</small></span>`).join('') || '<span class="field-hint">尚无弃牌</span>'}</div><div class="player-melds">${melds.map(meld => {
       const tiles = meld.kind === 'ankan' ? meld.tiles : [...meld.consumedTiles, meld.calledTile, ...(meld.kind === 'kakan' ? [meld.addedTile] : [])];
       return tileImages(tiles, meldNames[meld.kind]);
-    }).join('') || '<span class="field-hint">无副露／杠</span>'}</div></article>`;
-  }).join('')}</div><p class="field-hint">信息完整性：牌河 ${esc(completenessText(state.completeness.rivers))} · 鸣牌 ${esc(completenessText(state.completeness.melds))} · 分数 ${esc(completenessText(state.completeness.scores))}</p></section>`;
+    }).join('') || '<span class="field-hint">无副露</span>'}</div></article>`;
+  }).join('')}</div>${['rivers', 'melds', 'scores'].some(key => state.completeness[key] !== 'complete') ? `<p class="tool-warning">场面信息：牌河 ${esc(completenessText(state.completeness.rivers))} · 鸣牌 ${esc(completenessText(state.completeness.melds))} · 分数 ${esc(completenessText(state.completeness.scores))}</p>` : ''}<details class="board-legend"><summary>牌面说明</summary><p class="field-hint">牌河按出牌顺序排列；↓ 为摸切，红色边框为立直宣言牌，取走表示已被鸣走。手牌按花色与点数排列。</p></details></section>`;
 }
 function matchBadge(score) {
   return score?.status === 'matched' ? '<span class="match-badge is-match">Mortal 匹配</span>' : score?.status === 'not_matched' ? '<span class="match-badge is-mismatch">Mortal 不匹配</span>' : '<span class="match-badge">未评分</span>';
