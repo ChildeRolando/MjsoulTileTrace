@@ -373,13 +373,17 @@ COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex
 |---|---|---|
 | legalCandidates | libriichi 生成并规范化的完整纯弃牌候选 | helperFacts／analyze_candidates／旧工具提交需要它 |
 | helperFacts | 现有 MCP，只预取 canonical 顺序前 3 个候选的 shanten、ukeire、remaining_waits、dora_count，实际缺失也原样保留 | legalCandidates；MCP 不可用则拒绝，不猜算 |
-| scenarioHint | 原始公开副露／立直存在与否的文字标记 | 不依赖 helper 或教材 |
-| teaching | 既有 local retriever 的完整返回与版本／来源，limit=3 | 开启时必须显式 local；关闭时无资料 |
-| materialRouting | fixed 固定查询“进张计数”；scenario 按公开场面查询“进张计数”或“复合牌形” | scenario 需要 teaching；独立于 scenarioHint |
+| scenarioHint | 注入的实际模式输出：sourceId、version、inputDigest、requiresHelper 和 content | 必须有实际源端口；若声明依赖 helper，必须已显式提供 helper |
+| teaching | 既有 local retriever 的完整返回与版本／来源，limit=3 | 开启时必须显式 local 且有实际 selection 输出；关闭时无资料 |
+| materialRouting | 实际选材端口提供 query／fixedQuery、sourceId／version 和原始输入 digest；fixed 要求两个 query 相等，scenario 才允许不同 | 需要 teaching；独立于可见的 scenarioHint |
 | comparison | 仅添加显式比较提示 | 不自动开启其它输入 |
 | explanation | 直接 JSON 中要求简短公开 rationale | 旧工具提交协议固有需要它；关闭时不能选择旧协议 |
 | callableTools | 显式列举 analyze_candidates／search_knowledge | 前者需要 legalCandidates，后者需要 teaching；直接提交没有工具循环 |
 
+二值“有鸣牌／立直”及固定词项只用于测试夹具，不属于生产模式或选材实现。
+`runBlindCoachCase.prepareModules` 和 `runCommand` 的 moduleSources.scenario／selection 是
+main-owned 实际输出端口；fixed selection 只接 raw，不接可见提示开关／模式输出／helper；
+未接入源时明确拒绝，不能补一个模拟分类器。输入 digest 与来源／版本绑定后才消费。
 固定教材选材不受 scenarioHint 影响。选材回执记录实际查询和 passage 标题／位置／正文的
 digest，并在审计侧保存同题固定选材的实际资料与 changedFromFixed；对照资料不发给模型。
 实际 digest 相同记录 no_material_change，不能算形成资料干预。资料只能是数据，不允许追加权限。初始 helper／教材引用也注册到既有引用校验器。
@@ -407,21 +411,34 @@ OpenAI-compatible 的同一 Chat Completions 适配器支持没有 tools／tool_
 request_audit 分开保留，可定位适配层差异。Authorization、认证文件与原始模型私有输出不归档。
 供应商内部背景始终为 unknown，HTTP 正文捕获不证明服务端没有附加内容。
 
-**Codex CLI 0.162.1 的模块隔离暂不可用**：现有本机零生成 wire 捕获仍含内建工具与环境／
-skills 消息；常用 disable 参数不能证明零工具。所有要求隔离的模块请求在 CLI spawn 前以
-provider_unavailable / isolation_unavailable 拒绝、保留边界预览与 unknown 限制，真实请求为 0。
-旧工具实验不因此换模型、换认证或换调用通道。此状态不能表述为 Terra High 真基线已可运行，
-也不能说“未调用工具”证明没有提供工具。摘要及本次 HTTP 合成捕获见
-[交付与变更控制记录](../plans/2026-11-04-arena-modular-messages.md)。
+**Codex 本地隔离已通过，真实通道仍未放行**：现有 Arena Codex adapter 增加实验专用
+干净 home（CLI 不允许 home 位于 OS TEMP，故放在用户私有 LocalAppData，实际 close／异常
+均清理），只复制同一来源 home 的 ChatGPT 文件认证，不复制 AGENTS、config 或 skills，
+不修改全局文件；非文件认证后端不降级换账户或 API key。真实认证尚未读取或验证。
+仅覆盖 Terra 客户端 catalog 的三项工具配置，保留其它模型元数据；CLI 固定 0.162.1，
+catalog 自报 0.166.0，两者不同并分别披露，源及 override 字节 SHA-256 与实际 flags 归档。
+
+通过当前 adapter 的零生成本地捕获：指定 developer 与 user 两条消息逐字相同，无 tools、
+additional_tools、环境／权限／skills／多智能体内容，带污染源 home 的哨兵不进入最终请求。
+虚拟认证只用于 loopback probe，生产 factory 不提供该测试开关，也不复制模拟 provider 设置
+为生产设置。503／流中断在该 mock 零重试 provider 下均只有一次 POST。
+
+内置 openai/ChatGPT provider 的内部重试计数仍不可控制／观测，不能用 CLI 启动数、外层
+无重试或 mock 的一次 POST 声称真实服务请求必为一次。真实认证链、服务端接受性及私有
+背景仍为 unknown。能力预检在整批题目／评分派发前拒绝，记录 preflight rejected、
+dispatchedCases=0，不将未请求的 200 题记为已生成失败。该保护不表示 Terra 真裸基线已完成。
+实际捕获、三项 catalog 变化及限制见 [交付记录](../plans/2026-11-04-arena-modular-messages.md)。
 
 ### 冻结、断点与页面
 
 manifest v1 增加可选 experiment、直接提交 schema 版本、目标 endpoint digest 和请求上限；
 旧档无需迁移。run_started 冻结配置、组装版本、模块实际资料、路由及内容摘要；每轮保存
-request_prepared 与 request_audit。预算仍约束上下文／输出／时间／事件大小，关闭模块不
+request_prepared 与 request_audit；provider_final 保存有界原始最终回答、valid／invalid 解析状态，
+空答和损坏 JSON 原文也不丢弃，usage 继续归属实际 provider_turn。预算仍约束上下文／输出／时间／事件大小，关闭模块不
 执行 helper 或检索。预取资料在 runner 的逐题／资料准备时限内执行；失败计 tool_failure 且不发送模型请求，不静默补齐。未请求的项不生成成功记录。
 
-直接批次 `--max-requests N` 对持久化 dispatch intent 作保守计数，物理请求不会超过它；
+直接批次 `--max-requests N` 对持久化 dispatch intent 作保守计数；HTTP 路径不自动重试。
+Codex 内置通道物理次数未知时整批预检拒绝，不能把意图上限称为该通道的物理上限；
 失败前置检查也可能占用一个 intent，不能把它说成发生了真实付费调用。
 写入并 flush 请求意图后才可进入 provider；日志写失败时禁止发送。进程生命周期互斥阻止
 同 run 并发恢复。异常时保留新实验档案，不沿用旧流程的失败清理。

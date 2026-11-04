@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createHash } from "node:crypto";
 import type { ArenaRequestAudit } from "../blind-discard-arena-provider.js";
+import { prepareCodexArenaIsolation, type ArenaCodexIsolation } from "./codex-arena-isolation.js";
 import { arenaCodexTurnInstructions, ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
@@ -453,6 +454,7 @@ function parseEvent(
     reconnectCount?: number;
   },
   arenaStructuredOutput = false,
+  rawFinal = false,
 ): InternalFailure | null {
   if (state.turnCompleted || state.terminalFailure !== undefined) {
     return { errorCode: "connection_failed", retryable: false };
@@ -478,7 +480,7 @@ function parseEvent(
       }
       // Reasoning item payloads are deliberately never copied out of the event.
       if (event.type === "item.completed" && item.type === "agent_message") {
-        if ((!arenaStructuredOutput && state.finalText !== undefined) || typeof item.text !== "string" || item.text.length === 0) {
+        if ((!arenaStructuredOutput && state.finalText !== undefined) || typeof item.text !== "string" || (!rawFinal && item.text.length === 0)) {
           return { errorCode: "connection_failed", retryable: false, diagnosticCode: state.finalText !== undefined ? "cli_multiple_messages" : "cli_invalid_event" };
         }
         // Arena waits for turn.completed and validates only the final message;
@@ -521,6 +523,7 @@ function requestArgs(input: {
   reasoningEffort: string;
   cwd: string;
   schemaPath: string;
+  isolationArgs?: string[];
 }): string[] {
   const args = [
     "exec",
@@ -536,7 +539,8 @@ function requestArgs(input: {
     "--output-schema", input.schemaPath,
     "--cd", input.cwd,
   ];
-  disableToolFeatures(args);
+  if (input.isolationArgs) args.push(...input.isolationArgs);
+  else disableToolFeatures(args);
   args.push("-");
   return args;
 }
@@ -547,6 +551,7 @@ async function runExecAttempt(input: {
   request: Pick<LlmCoachRequest, "prompt">;
   outputSchema?: object;
   arenaStructuredOutput?: boolean;
+  isolation?: { options: ArenaCodexIsolation; instructions: string; onPrepared?: (metadata: Record<string, string>) => void };
   modelName: string;
   reasoningEffort: string;
   timeoutMs: number;
@@ -558,6 +563,7 @@ async function runExecAttempt(input: {
   let child: ChildProcessWithoutNullStreams | undefined;
   let processExit: (() => void) | undefined;
   let deferCwdCleanupUntilClose = false;
+  let isolated: Awaited<ReturnType<typeof prepareCodexArenaIsolation>> | undefined;
   try {
     const prompt = Buffer.from(input.request.prompt, "utf8");
     if (prompt.byteLength > MAX_PROMPT_BYTES || input.cancelled()) return failure("provider_unavailable");
@@ -565,6 +571,8 @@ async function runExecAttempt(input: {
     if (input.cancelled()) return failure("provider_unavailable");
     const schemaPath = join(cwd, "coach-reasoning-draft-v1.schema.json");
     await writeFile(schemaPath, JSON.stringify(input.outputSchema ?? CODEX_COACH_OUTPUT_SCHEMA), { encoding: "utf8", flag: "wx", mode: 0o600 });
+    isolated = input.isolation ? await prepareCodexArenaIsolation(cwd, input.isolation.instructions, input.isolation.options) : undefined;
+    if (isolated) input.isolation!.onPrepared?.(isolated.metadata);
     if (input.cancelled()) return failure("provider_unavailable");
 
     return await new Promise<ExecResult>((resolveResult) => {
@@ -671,7 +679,7 @@ async function runExecAttempt(input: {
           failAndKill({ errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_invalid_event" });
           return;
         }
-        const problem = parseEvent(event, state, input.arenaStructuredOutput);
+        const problem = parseEvent(event, state, input.arenaStructuredOutput, input.isolation !== undefined);
         if (problem !== null) {
           if (event.type === "turn.failed") {
             state.terminalFailure = problem;
@@ -710,9 +718,10 @@ async function runExecAttempt(input: {
           reasoningEffort: input.reasoningEffort,
           cwd: cwd!,
           schemaPath,
+          ...(isolated ? { isolationArgs: isolated.args } : {}),
         }), {
           cwd,
-          env: safeEnvironment(),
+          env: { ...safeEnvironment(), ...isolated?.environment },
           windowsHide: true,
           shell: false,
           stdio: ["pipe", "pipe", "pipe"],
@@ -723,6 +732,7 @@ async function runExecAttempt(input: {
       }
       processExit = () => {
         try { child?.kill(); } catch { /* best effort during process shutdown */ }
+        try { isolated?.disposeSync(); } catch { /* run-owned private home */ }
         input.port.removeTempDirectorySync(cwd!);
       };
       process.once("exit", processExit);
@@ -741,6 +751,7 @@ async function runExecAttempt(input: {
         input.signal?.removeEventListener("abort", onAbort);
         if (deferCwdCleanupUntilClose && cwd !== undefined) {
           void input.port.removeTempDirectory(cwd).catch(() => undefined);
+          void isolated?.dispose().catch(() => undefined);
         }
         finish(code);
       });
@@ -760,6 +771,7 @@ async function runExecAttempt(input: {
     return failure("provider_unavailable");
   } finally {
     if (!deferCwdCleanupUntilClose) {
+      await isolated?.dispose().catch(() => undefined);
       if (processExit !== undefined) process.removeListener("exit", processExit);
       if (cwd !== undefined) await input.port.removeTempDirectory(cwd).catch(() => undefined);
     }
@@ -775,17 +787,26 @@ async function runCodexStructuredTurn(input: {
   signal: AbortSignal;
   timeoutMs?: number;
   processPort?: CodexCoachProcessPort;
+  isolation?: { options: ArenaCodexIsolation; instructions: string; onPrepared?: (metadata: Record<string, string>) => void };
 }): Promise<ExecResult> {
   const port = input.processPort ?? defaultProcessPort;
   let executable: string | null;
   try { executable = port.findExecutable(); } catch { executable = null; }
   if (executable === null || input.signal.aborted) return failure("provider_unavailable");
+  if (input.isolation) {
+    const versionDir = await port.makeTempDirectory();
+    try {
+      const version = await runSmallCommand({ executable, args: ["--version"], cwd: versionDir, port, timeoutMs: DEFAULT_STATUS_TIMEOUT_MS, expected: { stdout: "codex-cli 0.162.1" } });
+      if (!version?.matchesExpected || version.exitCode !== 0 || version.timedOut) return failure("provider_unavailable");
+    } finally { await port.removeTempDirectory(versionDir); }
+  }
   return runExecAttempt({
     port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
     arenaStructuredOutput: true,
     modelName: input.modelName, reasoningEffort: input.reasoningEffort,
     timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
     maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
+    ...(input.isolation ? { isolation: input.isolation } : {}),
   });
 }
 
@@ -875,23 +896,37 @@ export function createCodexArenaToolCallProvider(input: {
   reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max";
   processPort?: CodexCoachProcessPort;
   timeoutMs?: number;
+  isolation?: ArenaCodexIsolation;
 }): ArenaToolCallProvider {
   return Object.freeze({
     descriptor: () => ({ providerId: "codex-cli", model: input.modelName, protocolVersion: "arena-function-call/v1" as const }),
+    preflight: async () => input.isolation?.loopbackProbe
+      ? { status: "ready" as const }
+      : { status: "unavailable" as const, reason: "builtin_physical_request_boundary_unknown" },
     async request(raw: ArenaProviderRequest, signal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult> {
       if (signal.aborted) return { status: "cancelled" };
       const parsed = ArenaProviderRequestSchema.safeParse(raw);
       if (!parsed.success) return { status: "provider_error" };
       const request = parsed.data;
       if (request.outputSchema !== undefined || request.requireIsolatedContext === true) {
-        // CLI 0.162.1 still injects built-in tools/environment. Never charge a
-        // supposedly raw run when this adapter cannot enforce its input contract.
+        if (input.isolation?.loopbackProbe && input.modelName === "gpt-6.1-terra" && input.reasoningEffort === "high" && request.outputSchema && request.messages.length === 2 && request.messages[0]?.role === "system" && request.messages[1]?.role === "user") {
+          const boundary = { instructions: request.messages[0].content, user: request.messages[1].content, outputSchema: request.outputSchema, tools: [] };
+          const result = await runCodexStructuredTurn({ prompt: request.messages[1].content, outputSchema: request.outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
+            signal, ...(input.processPort ? { processPort: input.processPort } : {}), ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
+            isolation: { options: input.isolation, instructions: request.messages[0].content, onPrepared: metadata => onAudit?.({ schemaVersion: "arena-request-audit/v1", surface: "cli_boundary", request: boundary,
+              digest: createHash("sha256").update(JSON.stringify(boundary)).digest("hex"), runtime: { adapter: "arena-codex-isolated/v1", ...metadata }, visibility: "unobservable", limitations: ["CLI wire is captured only by the local probe endpoint; production internal context unknown.", "Real authentication/server acceptance and builtin retry counts remain unverified."] }) } });
+          if (signal.aborted) return { status: "cancelled" };
+          if (result.kind === "failure") return { status: "provider_error", failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...(result.failure.usage ? { usage: result.failure.usage } : {}) };
+          return { status: "final", content: result.content, outputBytes: Buffer.byteLength(result.content), ...(result.usage ? { usage: result.usage } : {}) };
+        }
+        // Clean-home Terra isolation is tested locally. Builtin ChatGPT retry
+        // counts/authentication are still unverified, so production fails batch preflight.
         const boundary = { messages: request.messages, tools: request.tools, outputSchema: request.outputSchema };
         onAudit?.({ schemaVersion: "arena-request-audit/v1", surface: "cli_boundary", request: boundary,
           digest: createHash("sha256").update(JSON.stringify(boundary)).digest("hex"),
           runtime: { adapter: "arena-codex/v2", cliVersion: "not_started", isolationEvidenceCli: "0.162.1", model: input.modelName, reasoningEffort: input.reasoningEffort },
-          visibility: "unobservable", limitations: ["Request blocked before CLI spawn: CLI builtin tools and environment cannot be isolated.", "Supplier-internal context is unknown."] });
-        return { status: "provider_unavailable", failureCode: "isolation_unavailable" };
+          visibility: "unobservable", limitations: ["Batch capability rejected: builtin physical request counts and real authentication/server acceptance remain unverified.", "Local CLI clean-home isolation is verified only with synthetic authentication and a loopback provider.", "Supplier-internal context is unknown."] });
+        return { status: "provider_unavailable", failureCode: "request_boundary_unverified" };
       }
       const prompt = arenaCodexTurnInstructions(request.maxOutputTokens) + "\n" + JSON.stringify({ messages: request.messages, tools: request.tools });
       if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };

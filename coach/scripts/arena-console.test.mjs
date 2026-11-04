@@ -103,6 +103,9 @@ test('console freezes raw module config, exposes the direct schema and rejects c
   assert.match(info.modular.isolation, /unavailable/);
   assert.equal((await f.post('/api/start', { mode: 'local' })).status, 400);
   assert.equal((await f.post('/api/config', { experiment: { ...config, helperFacts: true } })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'off' })).status, 400);
+  assert.equal((await f.state()).job, null);
+  await f.post('/api/config', { experiment: config, provider: 'openai-compatible', model: 'synthetic', baseUrl: 'https://synthetic.test/v1', apiKey: 'SYNTHETIC_KEY' });
   assert.equal((await f.post('/api/start', { mode: 'off' })).status, 202);
   let args;
   for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(20); } }

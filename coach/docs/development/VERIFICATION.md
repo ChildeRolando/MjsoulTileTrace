@@ -23,13 +23,16 @@ Board、吃碰／三类杠／立直、指定副露后暗手、全候选 Mortal�
 
 ## Arena 模块与直接提交（COAC-271，2026-11-04）
 
+整合补充落实后的最终相关门禁为 229 通过／4 个 opt-in 跳过；显式真实 CLI loopback 回归
+另为 5 通过（成功、503、流中断各一次 POST，虚拟认证，零真实生成）。模式／选材改用
+实际版本化输出端口，未知真实请求边界在整批前拒绝；最终回答及解析失败原文进入归档。
+
 相关 Arena／provider／console 回归 222 项通过（1 个 opt-in native case 跳过），最后新增的
 严格 envelope 回归及原始模块共 26 项通过；typecheck、build、package import、架构检查与
 1440／800／390 浏览器检查通过。全量单 worker 的 3038 项断言通过，但两个未修改的
 Node 测试文件在 Vitest 下没有 suite，命令仍失败；改用其原生 Node runner 的 6 项通过。
 实际命令、捕获样例和各验收限制见
-[实施与变更控制记录](../plans/2026-11-04-arena-modular-messages.md)。Codex CLI 内建工具／
-环境无法隔离，模块请求在 spawn 前拒绝；没有真实模型研究或 Mortal 辅助决策，待独立评审。
+[实施与变更控制记录](../plans/2026-11-04-arena-modular-messages.md)。Codex CLI 本地隔离已捕获验证，真实认证和内部请求次数尚未核实，整批预检拒绝；没有真实模型研究或 Mortal 辅助决策，待独立评审。
 
 ## 日常门禁
 

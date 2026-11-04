@@ -1,0 +1,202 @@
+{
+  "realModelCalls": 0,
+  "cliVersion": "0.162.1",
+  "catalogClientVersion": "0.166.0",
+  "requests": [
+    {
+      "model": "gpt-6.1-terra",
+      "stream": true,
+      "input": [
+        {
+          "type": "message",
+          "id": "msg_fc8f97da-bc80-50cd-95dd-d9ef98a29985",
+          "role": "developer",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "选择要打出的牌。仅输出 tile 与 red。"
+            }
+          ]
+        },
+        {
+          "type": "message",
+          "id": "msg_01a1a5e1-efc1-7913-bd33-485004f924ae",
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "{\"局面\":\"中文逐字核对\",\"self\":{\"concealedTiles\":[{\"id\":\"1m\",\"red\":false}]}}"
+            }
+          ]
+        }
+      ],
+      "tool_choice": "auto",
+      "parallel_tool_calls": false,
+      "reasoning": {
+        "effort": "high",
+        "context": "all_turns"
+      },
+      "store": false,
+      "include": [
+        "reasoning.encrypted_content"
+      ],
+      "prompt_cache_key": "01a1a5e1-e57f-76d3-b877-6b2262a242cd",
+      "text": {
+        "verbosity": "low",
+        "format": {
+          "type": "json_schema",
+          "strict": true,
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "tile": {
+                "type": "string",
+                "enum": [
+                  "1m",
+                  "2m",
+                  "3m",
+                  "4m",
+                  "5m",
+                  "6m",
+                  "7m",
+                  "8m",
+                  "9m",
+                  "1p",
+                  "2p",
+                  "3p",
+                  "4p",
+                  "5p",
+                  "6p",
+                  "7p",
+                  "8p",
+                  "9p",
+                  "1s",
+                  "2s",
+                  "3s",
+                  "4s",
+                  "5s",
+                  "6s",
+                  "7s",
+                  "8s",
+                  "9s",
+                  "1z",
+                  "2z",
+                  "3z",
+                  "4z",
+                  "5z",
+                  "6z",
+                  "7z"
+                ]
+              },
+              "red": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "tile",
+              "red"
+            ]
+          },
+          "name": "codex_output_schema"
+        }
+      },
+      "client_metadata": {
+        "turn_id": "01a1a5e1-e5a3-7d10-850e-55e3208f2e53",
+        "x-codex-turn-metadata": "{\"installation_id\":\"4946541a-f25c-41c7-8b17-9a3794f29447\",\"session_id\":\"01a1a5e1-e57f-76d3-b877-6b2262a242cd\",\"thread_id\":\"01a1a5e1-e57f-76d3-b877-6b2262a242cd\",\"agent_name\":\"/root\",\"turn_id\":\"01a1a5e1-e5a3-7d10-850e-55e3208f2e53\",\"window_id\":\"01a1a5e1-e57f-76d3-b877-6b2262a242cd:0\",\"window_number\":0,\"context_window_id\":\"01a1a5e1-e583-7991-9af1-b194a4c6021f\",\"request_kind\":\"turn\",\"root_turn_id\":\"01a1a5e1-e5a3-7d10-850e-55e3208f2e53\",\"thread_source\":\"user\",\"turn_trigger\":\"exec\",\"sandbox\":\"none\",\"sandbox_mode\":\"read-only\",\"auto_review_enabled\":false,\"node_repl_auto_review_required\":true,\"node_repl_disabled\":false,\"turn_started_at_unix_ms\":1793784407474,\"analytics_enabled\":true,\"model\":\"gpt-6.1-terra\",\"reasoning_effort\":\"high\"}",
+        "x-codex-installation-id": "4946541a-f25c-41c7-8b17-9a3794f29447",
+        "session_id": "01a1a5e1-e57f-76d3-b877-6b2262a242cd",
+        "root_turn_id": "01a1a5e1-e5a3-7d10-850e-55e3208f2e53",
+        "thread_id": "01a1a5e1-e57f-76d3-b877-6b2262a242cd",
+        "x-codex-window-id": "01a1a5e1-e57f-76d3-b877-6b2262a242cd:0"
+      }
+    }
+  ],
+  "requestBodySha256": [
+    "1209076b7047913e0a2732e6853564823520f972cb0be8521aceb860ca556c84"
+  ],
+  "audits": [
+    {
+      "schemaVersion": "arena-request-audit/v1",
+      "surface": "cli_boundary",
+      "request": {
+        "instructions": "选择要打出的牌。仅输出 tile 与 red。",
+        "user": "{\"局面\":\"中文逐字核对\",\"self\":{\"concealedTiles\":[{\"id\":\"1m\",\"red\":false}]}}",
+        "outputSchema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tile": {
+              "type": "string",
+              "enum": [
+                "1m",
+                "2m",
+                "3m",
+                "4m",
+                "5m",
+                "6m",
+                "7m",
+                "8m",
+                "9m",
+                "1p",
+                "2p",
+                "3p",
+                "4p",
+                "5p",
+                "6p",
+                "7p",
+                "8p",
+                "9p",
+                "1s",
+                "2s",
+                "3s",
+                "4s",
+                "5s",
+                "6s",
+                "7s",
+                "8s",
+                "9s",
+                "1z",
+                "2z",
+                "3z",
+                "4z",
+                "5z",
+                "6z",
+                "7z"
+              ]
+            },
+            "red": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tile",
+            "red"
+          ]
+        },
+        "tools": []
+      },
+      "digest": "f5780eb830591be58b6f965d71ef48a6d57b9122700fcc5b06ee8750315e1c41",
+      "runtime": {
+        "adapter": "arena-codex-isolated/v1",
+        "cliVersion": "0.162.1",
+        "catalogClientVersion": "0.166.0",
+        "catalogSourceSha256": "d6f2c6db9c61818d07c88c4ce893d52daa9ec35f22f61a986abaa30ac89ba500",
+        "catalogOverrideSha256": "ed541e7c52592ce729f1ff2d21ed593df59934d4684a005e18c380cffcc727a6",
+        "clientFlags": "[\"--enable\",\"skip_host_skill_discovery\",\"--disable\",\"goals\",\"--disable\",\"view_image\",\"--disable\",\"code_mode_host\",\"--disable\",\"multi_agent_v2\",\"--disable\",\"multi_agent\",\"--disable\",\"sleep_tool\",\"--disable\",\"default_mode_request_user_input\",\"--disable\",\"memories\",\"--disable\",\"plugins\",\"--disable\",\"shell_tool\",\"--disable\",\"unified_exec\",\"--disable\",\"code_mode\",\"--disable\",\"apps\",\"--disable\",\"browser_use\",\"--disable\",\"computer_use\",\"-c\",\"agents.enabled=false\",\"-c\",\"tools.experimental_request_user_input.enabled=false\",\"-c\",\"skills.include_instructions=false\",\"-c\",\"skills.bundled.enabled=false\",\"-c\",\"include_environment_context=false\",\"-c\",\"include_permissions_instructions=false\",\"-c\",\"include_apps_instructions=false\",\"-c\",\"include_collaboration_mode_instructions=false\",\"-c\",\"developer_instructions=\\\"\\\"\",\"-c\",\"suppress_unstable_features_warning=true\",\"-c\",\"project_doc_max_bytes=0\",\"-c\",\"web_search=\\\"disabled\\\"\",\"-c\",\"model_catalog_json=\\\"C:\\\\\\\\Users\\\\\\\\Roland\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\multica-task-3389814399\\\\\\\\riichi-coach-codex-Vb14BU\\\\\\\\tool-less-catalog.json\\\"\",\"-c\",\"model_instructions_file=\\\"C:\\\\\\\\Users\\\\\\\\Roland\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\multica-task-3389814399\\\\\\\\riichi-coach-codex-Vb14BU\\\\\\\\arena-instructions.txt\\\"\",\"-c\",\"model_provider=\\\"arena_local_probe\\\"\",\"-c\",\"model_providers.arena_local_probe.name=\\\"arena_local_probe\\\"\",\"-c\",\"model_providers.arena_local_probe.wire_api=\\\"responses\\\"\",\"-c\",\"model_providers.arena_local_probe.env_key=\\\"ARENA_SYNTHETIC_PROBE_KEY\\\"\",\"-c\",\"model_providers.arena_local_probe.request_max_retries=0\",\"-c\",\"model_providers.arena_local_probe.stream_max_retries=0\",\"-c\",\"model_providers.arena_local_probe.base_url=\\\"http://127.0.0.1:16961/v1\\\"\"]",
+        "authReuse": "transient_copy_existing_chatgpt_file",
+        "authenticationValidated": "false",
+        "supplierContext": "unknown",
+        "physicalRequestBoundary": "loopback_counted_zero_retries"
+      },
+      "visibility": "unobservable",
+      "limitations": [
+        "CLI wire is captured only by the local probe endpoint; production internal context unknown.",
+        "Real authentication/server acceptance and builtin retry counts remain unverified."
+      ]
+    }
+  ],
+  "auth": "synthetic file only; real chain unverified",
+  "productionPhysicalRequests": "unknown; batch preflight rejects",
+  "capturedThroughExistingArenaAdapter": true
+}

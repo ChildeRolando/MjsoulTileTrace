@@ -79,7 +79,7 @@ export type ArenaRequestAudit = z.infer<typeof ArenaRequestAuditSchema>;
 export const ArenaProviderFailureCodeSchema = z.enum([
   "provider_unavailable", "connection_failed", "timeout", "rate_limited", "server_error", "network_reset",
   "cli_multiple_messages", "cli_unexpected_event", "cli_unexpected_item", "cli_invalid_event",
-  "cli_incomplete_turn", "cli_process_failed", "invalid_model_response", "isolation_unavailable",
+  "cli_incomplete_turn", "cli_process_failed", "invalid_model_response", "isolation_unavailable", "request_boundary_unverified",
 ]);
 export type ArenaProviderFailureCode = z.infer<typeof ArenaProviderFailureCodeSchema>;
 const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional(), reconnectCount: z.number().int().positive().max(100).optional() };
@@ -112,6 +112,7 @@ export type ArenaToolCallProviderDescriptor = Readonly<{
 /** Arena-only multi-turn provider contract; it never receives a credential or a grader label. */
 export interface ArenaToolCallProvider {
   descriptor(): ArenaToolCallProviderDescriptor;
+  preflight?(): Promise<{ status: "ready" } | { status: "unavailable"; reason: string }>;
   request(request: ArenaProviderRequest, signal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult>;
 }
 

@@ -424,7 +424,7 @@ Model/report evidence provider（模型/报告证据来源）
 
 新模块原始层不提供候选或 helper 派生事实；额外输入与能力必须显式配置且满足真实依赖。
 直接提交使用全局牌编码，只以 libriichi 既有规范等价类映射，不用评分消歧。
-应用预览不能充当最终 wire 证据；HTTP 捕获正文，CLI 限制保留 unknown 并在模块请求前拒绝。
+应用预览不能充当最终 wire 证据；HTTP 捕获正文，CLI 本地隔离已有真实捕获；真实通道内部重试／认证限制保留 unknown，整批预检拒绝。
 新检查由 `blind-discard-arena-experiment.test.ts`、`arena-dataset.test.mjs` 和
 `arena-console.test.mjs` 保护；已有 production 默认回归不变。细节归属 Arena spec。
 

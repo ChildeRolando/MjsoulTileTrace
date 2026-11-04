@@ -115,6 +115,8 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
     if (!['compare', 'off', 'local', 'fault', 'catalog', 'mortal-details', 'generate'].includes(mode)) throw fail('请选择实验模式。');
     const maintenance = ['catalog', 'mortal-details', 'generate'].includes(mode);
+    if (!maintenance && config.experiment && config.provider === 'codex-cli') throw fail('Codex 本地隔离捕获已验证，但真实认证及内置通道请求次数仍未知；整批未发送，不能启动实验。');
+    if (!maintenance && config.experiment && (config.experiment.scenarioHint || config.experiment.teaching === 'on')) throw fail('此配置需要接入带来源和版本的实际模块输出端口；未接入时整批拒绝。');
     if (!maintenance && config.experiment && (mode !== (config.experiment.teaching === 'on' ? 'local' : 'off'))) throw fail('模块实验请使用与教材配置一致的 Off 或 Local 单次运行。');
     if (mode === 'mortal-details' && (!UUID.test(selection.runId ?? '') || !(await runs()).some(r => r.id === selection.runId))) throw fail('找不到该实验。', 404);
     const experimentType = mode === 'generate' ? 'generated' : selection.experimentType ?? 'flat';
@@ -172,7 +174,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         ...(config.experiment ? { modular: { version: ARENA_ASSEMBLY_VERSION, prompt: arenaExperimentPrompt(config.experiment),
           schema: config.experiment.submission === 'tile-red' ? arenaDirectOutputSchema(config.experiment.explanation) : 'Case-bound submit_decision; inspect the run request.',
           tools: config.experiment.submission === 'tile-red' ? [] : [...config.experiment.callableTools, 'submit_decision'],
-          isolation: config.provider === 'codex-cli' ? 'unavailable: builtin tools/environment; modular requests are blocked before CLI spawn' : 'HTTP body captured; supplier internal context unknown' } } : {}),
+          isolation: config.provider === 'codex-cli' ? 'unavailable: real auth/server and builtin physical request boundary unverified; batch rejected before dispatch' : 'HTTP body captured; supplier internal context unknown' } } : {}),
         systemPrompt: ARENA_TOOL_CALL_PROMPT,
         codexInstructions: config.provider === 'codex-cli' ? arenaCodexTurnInstructions(config.maxProviderOutputTokens) : null,
         mcp: { name: 'analyze_candidates', transport: 'stdio', description: ARENA_MCP_TOOL_DESCRIPTION,

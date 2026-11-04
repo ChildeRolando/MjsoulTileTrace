@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import {
   ArenaBlindObservationSchema, ArenaDirectAnswerSchema, ArenaDirectSubmissionSchema,
   ArenaExperimentConfigSchema, ArenaRagResultSchema, TileIdSchema,
+  LIBRIICHI_RULE_NORMALIZATION_VERSION,
   type ArenaBlindObservation, type ArenaExperimentConfig,
 } from "@riichi-coach/contracts";
 import { z } from "zod";
@@ -55,11 +56,18 @@ export function projectArenaRawObservation(raw: ArenaBlindObservation) {
   };
 }
 
-export function arenaMaterialQuery(config: ArenaExperimentConfig, observation: ArenaBlindObservation) {
-  // Routing uses only observed calls/riichi; it never consults helper or labels.
-  const scenario = observation.visibleState.melds.length > 0 || observation.visibleState.riichiStates.some(r => r.status !== "none") ? "public_calls_or_riichi" : "no_calls_or_riichi";
-  return { scenario, query: config.materialRouting === "fixed" || scenario === "no_calls_or_riichi" ? "进张计数" : "复合牌形" };
-}
+/** Outputs of actual main-owned modules, not a replacement scene classifier. */
+export const ArenaScenarioModuleSchema = z.object({
+  sourceId: z.string().min(1).max(100), version: z.string().min(1).max(100),
+  inputDigest: z.string().regex(/^[a-f0-9]{64}$/), requiresHelper: z.boolean(),
+  content: z.record(z.unknown()),
+}).strict();
+export const ArenaMaterialSelectionSchema = z.object({
+  sourceId: z.string().min(1).max(100), version: z.string().min(1).max(100),
+  inputDigest: z.string().regex(/^[a-f0-9]{64}$/), mode: z.enum(["fixed", "scenario"]),
+  requiresHelper: z.boolean().optional(),
+  query: z.string().min(1).max(400), fixedQuery: z.string().min(1).max(400),
+}).strict();
 
 export const arenaContentDigest = (value: unknown): string => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 
@@ -75,40 +83,59 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
   tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; material?: unknown; materialBaseline?: unknown;
+  scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
   const observation = ArenaBlindObservationSchema.parse(input.observation);
-  const tools = [...(input.tools ?? [])];
+  const tools = structuredClone([...(input.tools ?? [])]);
   const actualTools = tools.map(t => t.function.name).sort();
   if (JSON.stringify(actualTools) !== JSON.stringify([...config.callableTools].sort())) throw new Error("arena_module_tool_mismatch");
   if (config.helperFacts !== (input.helper !== undefined)) throw new Error("arena_module_helper_mismatch");
   if ((config.teaching === "on") !== (input.material !== undefined)) throw new Error("arena_module_material_mismatch");
   if (config.teaching === "off" && input.materialBaseline !== undefined) throw new Error("arena_module_material_mismatch");
-  const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(input.helper);
+  const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(structuredClone(input.helper));
   const material = input.material === undefined ? undefined : ArenaRagResultSchema.parse(input.material);
   if (helper && (helper.caseRef !== observation.caseRef || helper.facts.some(f => f.caseRef !== observation.caseRef || !observation.candidates.some(c => c.actionRef === f.actionRef)))) throw new Error("arena_module_helper_binding_mismatch");
-  const route = arenaMaterialQuery(config, observation);
-  if (material && (material.caseRef !== observation.caseRef || material.mode !== "local" || material.retrieval.query !== route.query)) throw new Error("arena_module_material_binding_mismatch");
-  const baseline = input.materialBaseline === undefined ? (route.query === "进张计数" ? material : undefined) : ArenaRagResultSchema.parse(input.materialBaseline);
-  if (material && (!baseline || baseline.caseRef !== observation.caseRef || baseline.mode !== "local" || baseline.retrieval.query !== "进张计数" || baseline.corpusVersion !== material.corpusVersion)) throw new Error("arena_module_material_baseline_required");
+  const raw = projectArenaRawObservation(observation), rawDigest = arenaContentDigest(raw);
+  if (config.scenarioHint !== (input.scenario !== undefined)) throw new Error("arena_scenario_source_required");
+  const scenario = input.scenario === undefined ? undefined : ArenaScenarioModuleSchema.parse(structuredClone(input.scenario));
+  if (scenario && (scenario.requiresHelper && !helper || scenario.inputDigest !== arenaContentDigest(scenario.requiresHelper ? { raw, helper } : raw))) throw new Error("arena_scenario_dependency_mismatch");
+  if ((config.teaching === "on") !== (input.selection !== undefined)) throw new Error("arena_material_selection_required");
+  const selection = input.selection === undefined ? undefined : ArenaMaterialSelectionSchema.parse(input.selection);
+  if (selection && (selection.mode !== config.materialRouting || (selection.requiresHelper && !helper) ||
+      selection.inputDigest !== (selection.requiresHelper ? arenaContentDigest({ raw, helper }) : rawDigest) ||
+      (selection.mode === "fixed" && (selection.requiresHelper || selection.query !== selection.fixedQuery)))) throw new Error("arena_material_selection_mismatch");
+  if (material && (material.caseRef !== observation.caseRef || material.mode !== "local" || material.retrieval.query !== selection!.query)) throw new Error("arena_module_material_binding_mismatch");
+  const baseline = input.materialBaseline === undefined ? (selection?.query === selection?.fixedQuery ? material : undefined) : ArenaRagResultSchema.parse(input.materialBaseline);
+  if (material && (!baseline || baseline.caseRef !== observation.caseRef || baseline.mode !== "local" || baseline.retrieval.query !== selection!.fixedQuery || baseline.corpusVersion !== material.corpusVersion)) throw new Error("arena_module_material_baseline_required");
   const passageDigest = (result: NonNullable<typeof material>) => arenaContentDigest(result.passages.map(p => ({ title: p.sourceTitle, location: p.documentLocation, content: p.content })));
   const modules = {
-    raw: projectArenaRawObservation(observation),
+    raw,
     ...(config.legalCandidates ? { legalCandidates: observation.candidates } : {}),
     ...(helper ? { helper } : {}),
-    ...(config.scenarioHint ? { scenarioHint: route.scenario } : {}),
+    ...(scenario ? { scenarioHint: scenario } : {}),
     ...(material ? { material } : {}),
   };
   const version = observation.rawVisibleHistory === undefined ? ARENA_ASSEMBLY_VERSION : ARENA_HISTORY_ASSEMBLY_VERSION;
   const prompt = arenaExperimentPrompt(config, observation.rawVisibleHistory !== undefined);
   const messages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: JSON.stringify(modules) }];
-  return { version, config, modules, messages, tools,
+  const sources = {
+    raw: { sourceId: "arena-visible-observation", version: observation.schemaVersion,
+      ...(observation.rawVisibleHistory === undefined ? {} : { projectionVersion: version }) },
+    ...(config.legalCandidates ? { legalCandidates: { sourceId: "libriichi-canonical-candidates", version: LIBRIICHI_RULE_NORMALIZATION_VERSION } } : {}),
+    ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
+    ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
+    ...(material ? { material: { sourceId: "arena-local-retriever", version: material.retrieverVersion, corpusVersion: material.corpusVersion }, selection } : {}),
+    ...((config.comparison || config.explanation) ? { responseInstructions: { sourceId: "arena-experiment-prompt", version } } : {}),
+    ...(tools.length ? { tools: { sourceId: "arena-runner-tools", version: "arena-function-call/v1" } } : {}),
+  };
+  return { version, config, modules, messages, tools, sources,
     outputSchema: arenaDirectOutputSchema(config.explanation),
-    routing: material ? { mode: config.materialRouting, query: route.query,
+    routing: material ? { ...selection,
       passageDigest: passageDigest(material), fixedPassageDigest: passageDigest(baseline!),
       changedFromFixed: passageDigest(material) !== passageDigest(baseline!), fixedMaterial: baseline,
       mechanismTested: passageDigest(material) === passageDigest(baseline!) ? "no_material_change" as const : "material_changed" as const } : null,
-    digest: arenaContentDigest({ config, messages, tools }),
+    digest: arenaContentDigest({ config, messages, tools, sources }),
   };
 }
 

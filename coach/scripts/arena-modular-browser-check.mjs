@@ -56,7 +56,7 @@ try {
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
     await page.screenshot({ path: join(output, `request-${width}.png`), fullPage: true });
   }
-  await nextStep.click(); await nextStep.click();
+  await nextStep.click(); await nextStep.click(); await nextStep.click();
   assert.match(await page.locator('#detail-body').innerText(), /直接弃牌提交/);
   assert.deepEqual(errors, []);
   process.stdout.write('Arena modular UI: settings save/reload, schema, archived request/module content; 1440/800/390; no page errors.\n');
