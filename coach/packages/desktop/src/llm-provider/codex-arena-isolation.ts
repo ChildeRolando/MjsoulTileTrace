@@ -12,8 +12,9 @@ export type ArenaCodexIsolation = {
   expectedCatalogSourceSha256?: string;
   /** Internal process-port test seam; the production factory never supplies it. */
   loopbackProbe?: { baseUrl: string };
-  onDiagnostic?: (value: { status: string; failureCode?: string; rawFinal: string | null; truncated: boolean; stderrBytes: number; reconnectCount: number; events: string[]; usage?: object; physicalRequests: "unknown" }) => void;
+  onDiagnostic?: (value: { status: string; failureCode?: string; unexpectedItemKind?: UnexpectedItemKind; unexpectedItemPhase?: "item.started" | "item.updated" | "item.completed"; rawFinal: string | null; truncated: boolean; stderrBytes: number; reconnectCount: number; events: string[]; usage?: object; physicalRequests: "unknown" }) => void;
 };
+export type UnexpectedItemKind = "error" | "command_execution" | "file_change" | "mcp_tool_call" | "web_search" | "todo_list" | "collab_tool_call" | "other" | "missing";
 const hash = (bytes: string | Buffer) => createHash("sha256").update(bytes).digest("hex");
 export const ARENA_CLI_SHA256 = "dd13bdb162a184fa04039488b234a8258ef9b76f84e926c505d5742b19249a6a";
 export const ARENA_CATALOG_SHA256 = "40ca8034bb45cf3eb1cc40c497da6e6861b6146f56a7603594a93dfe47377766";
