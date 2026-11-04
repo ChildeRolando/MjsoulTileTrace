@@ -9,6 +9,7 @@ import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
 import type { ArenaProviderMessage, ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
 
 export const ARENA_ASSEMBLY_VERSION = "arena-modular-messages/v1";
+export const ARENA_HISTORY_ASSEMBLY_VERSION = "arena-modular-messages/v2-visible-history";
 export const ARENA_RAW_PROMPT = [
   "Choose one riichi-mahjong discard from the visible position. Return only JSON {\"tile\":\"1m\",\"red\":false}.",
   "Tile codes: 1m..9m man, 1p..9p pin, 1s..9s sou; 1z East, 2z South, 3z West, 4z North, 5z white, 6z green, 7z red dragon. Red fives use 5m/5p/5s and red=true.",
@@ -29,6 +30,7 @@ export function projectArenaRawObservation(raw: ArenaBlindObservation) {
   const observation = ArenaBlindObservationSchema.parse(raw), state = observation.visibleState;
   return {
     selfActor: observation.decision.selfActor, windowKind: observation.decision.windowKind,
+    ...(observation.rawVisibleHistory === undefined ? {} : { ruleSet: observation.ruleSet, visibleHistory: observation.rawVisibleHistory }),
     eventOrder: observation.rawEventOrder ?? null,
     roundWind: state.roundWind, hand: state.hand, honba: state.honba, riichiSticks: state.riichiSticks,
     dealer: state.dealer, scores: state.scores, seatWinds: state.seatWinds,
@@ -61,8 +63,9 @@ export function arenaMaterialQuery(config: ArenaExperimentConfig, observation: A
 
 export const arenaContentDigest = (value: unknown): string => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 
-export function arenaExperimentPrompt(config: ArenaExperimentConfig) {
+export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleHistory = false) {
   return [config.submission === "tool" ? ARENA_RAW_PROMPT.replace('Return only JSON {"tile":"1m","red":false}.', "Use the offered submission protocol.") : ARENA_RAW_PROMPT,
+    ...(hasVisibleHistory ? ["visibleHistory contains all current-round events through this decision in order; other players' draws have tile=null. Event references link calls and declarations. Rule fields may be unknown. Ankan tiles describe composition, not physical positions."] : []),
     ...(config.submission === "tool" ? ["Submit using submit_decision with an offered actionRef, observed references, public rationale, alternative and uncertainty."] : []),
     ...(config.comparison ? ["Compare the discard options before choosing."] : []),
     ...(config.explanation && config.submission === "tile-red" ? ["Also include a concise public rationale in the JSON."] : []),
@@ -96,9 +99,10 @@ export function assembleArenaExperiment(input: {
     ...(config.scenarioHint ? { scenarioHint: route.scenario } : {}),
     ...(material ? { material } : {}),
   };
-  const prompt = arenaExperimentPrompt(config);
+  const version = observation.rawVisibleHistory === undefined ? ARENA_ASSEMBLY_VERSION : ARENA_HISTORY_ASSEMBLY_VERSION;
+  const prompt = arenaExperimentPrompt(config, observation.rawVisibleHistory !== undefined);
   const messages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: JSON.stringify(modules) }];
-  return { version: ARENA_ASSEMBLY_VERSION, config, modules, messages, tools,
+  return { version, config, modules, messages, tools,
     outputSchema: arenaDirectOutputSchema(config.explanation),
     routing: material ? { mode: config.materialRouting, query: route.query,
       passageDigest: passageDigest(material), fixedPassageDigest: passageDigest(baseline!),

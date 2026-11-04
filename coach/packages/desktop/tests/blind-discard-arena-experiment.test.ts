@@ -217,3 +217,31 @@ describe("Arena raw baseline", () => {
     expect(calls).toBe(0); expect(run.status).toBe("budget_exhausted"); expect(run.experiment).toEqual(ARENA_RAW_BASELINE);
   });
 });
+
+it("only exposes explicitly visible current-round history and rules", () => {
+  const { observation, aliases } = makeArenaMcpCase();
+  const ref = aliases.reference("history-draw"), otherRef = aliases.reference("history-other");
+  const withHistory = { ...observation, rawVisibleHistory: [
+    { type: "draw", eventRef: ref, actor: observation.decision.selfActor, tile: { id: "5p", red: true }, from: "live_wall" },
+    { type: "draw", eventRef: otherRef, actor: (observation.decision.selfActor + 1) % 4, tile: null, from: "live_wall" },
+  ] };
+  const assembled = assembleArenaExperiment({ observation: withHistory as any, config: ARENA_RAW_BASELINE });
+  expect(assembled.version).toBe("arena-modular-messages/v2-visible-history");
+  expect(assembled.modules.raw).toMatchObject({ ruleSet: observation.ruleSet, visibleHistory: withHistory.rawVisibleHistory });
+  expect(() => assembleArenaExperiment({ observation: { ...withHistory, rawVisibleHistory: [{ ...withHistory.rawVisibleHistory[1], tile: { id: "1m", red: false } }] } as any, config: ARENA_RAW_BASELINE })).toThrow();
+  for (const key of ["label", "qValue", "futureEvent"]) {
+    expect(() => assembleArenaExperiment({ observation: { ...withHistory, rawVisibleHistory: [{ ...withHistory.rawVisibleHistory[0], [key]: 1 }] } as any, config: ARENA_RAW_BASELINE })).toThrow();
+  }
+});
+
+it("builds history from the frozen current-round canonical prefix", () => {
+  const { observation } = makeArenaMcpCase({ includeRawEventOrder: true, includeRawVisibleHistory: true });
+  const history = observation.rawVisibleHistory!;
+  expect(history).toHaveLength(9);
+  expect(history.filter(e => e.type === "draw" && e.actor === 0).map(e => e.type === "draw" ? e.tile : null)).toEqual([{id:"5p",red:false},{id:"6p",red:false}]);
+  expect(history.filter(e => e.type === "draw" && e.actor !== 0).every(e => e.type === "draw" && e.tile === null)).toBe(true);
+  expect(history.at(-1)).toMatchObject({ type:"draw", actor:0, tile:{id:"6p",red:false} });
+  const messages = JSON.stringify(assembleArenaExperiment({ observation, config: ARENA_RAW_BASELINE }).messages);
+  expect(messages).not.toContain("gameId-CANARY"); expect(messages).not.toContain("recordId-CANARY");
+  expect(messages).not.toContain("qValue");
+});

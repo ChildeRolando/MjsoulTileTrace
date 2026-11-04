@@ -1,6 +1,8 @@
 import { z } from "zod";
+import { createHash } from "node:crypto";
 import {
   ArenaBatchScoreSchema,
+  libriichiRuleCanonicalJson,
   ArenaExperimentConfigSchema,
   ArenaBlindObservationSchema,
   ArenaRagApplicabilityLimitsSchema,
@@ -24,7 +26,7 @@ export const ARENA_EXPERIMENTS = {
   flat: { datasetId: "blind-discard-flat-v1", label: "平面何切", description: "基础牌效场景：四家均无立直、副露。仍保留当时可见牌河与局况，并非只给手牌的纯平面测验。" },
   spatial: { datasetId: "blind-discard-spatial-v1", label: "立体何切", description: "四家中已有立直或副露的真实场面，结合牌河、分数、局况及公开鸣牌进行决策。" },
 } as const;
-export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1", "blind-discard-holdout-v1", "blind-discard-generated-v1"]);
+export const DatasetIdSchema = z.enum(["blind-discard-smoke-v1", "blind-discard-dev-v1", "blind-discard-flat-v1", "blind-discard-spatial-v1", "blind-discard-holdout-v1", "blind-discard-generated-v1", "blind-discard-public-replay-v1"]);
 export const ArenaGeneratedSourceSchema = z.object({
   kind: z.literal("question_lab"), bankId: z.string().uuid(),
   bankSha256: Sha256Schema, sourceRecordHash: SourceRecordHashSchema,
@@ -78,13 +80,20 @@ export const ArenaArchiveManifestSchema = z.object({
       kind: z.literal("sanitized_mahjong_soul_fixture"),
       fixtureSha256: Sha256Schema,
       sourceRecordHash: SourceRecordHashSchema,
-    }).strict(), ArenaGeneratedSourceSchema]),
+    }).strict(), ArenaGeneratedSourceSchema, z.object({
+      kind: z.literal("public_replay_corpus"), sampleManifestSha256: Sha256Schema,
+      batchManifestSha256: Sha256Schema, privateMappingSha256: Sha256Schema,
+    }).strict()]),
     inputCaseCount: z.number().int().nonnegative(),
     selected: z.array(DatasetCaseSchema).max(128),
     excluded: z.array(ExclusionSchema).max(1000),
   }).strict().superRefine((dataset, ctx) => {
     const generated = dataset.id === "blind-discard-generated-v1";
-    if (generated !== (dataset.source.kind === "question_lab") || generated !== (dataset.split.unit === "synthetic_source_group"))
+    const publicReplay = dataset.id === "blind-discard-public-replay-v1";
+    if (generated !== (dataset.source.kind === "question_lab") || generated !== (dataset.split.unit === "synthetic_source_group") ||
+        publicReplay !== (dataset.source.kind === "public_replay_corpus") ||
+        (publicReplay && (dataset.split.unit !== "complete_game" || dataset.split.status !== "development_only" ||
+          dataset.split.acceptanceGames !== 0 || dataset.split.developmentGames !== dataset.selected.length)))
       ctx.addIssue({ code: "custom", message: "arena_dataset_source_mismatch" });
   }),
   mortal: z.object({
@@ -126,6 +135,37 @@ export const ArenaArchiveManifestSchema = z.object({
 }).strict();
 export type ArenaArchiveManifest = z.infer<typeof ArenaArchiveManifestSchema>;
 
+/** Private, source-bound mapping for a single real replay batch. */
+export const ArenaPublicReplayPrivateMappingSchema = z.object({
+  version: z.literal("arena-public-replay-private-mapping/v1"),
+  sampleManifestSha256: Sha256Schema, batchManifestSha256: Sha256Schema,
+  cases: z.array(z.object({
+    caseOrdinal: z.number().int().min(0).max(127), canonicalDecisionOrder: z.number().int().nonnegative(),
+    candidateSetDigest: Sha256Schema, gameId: z.string().min(1), sourceSha256: Sha256Schema,
+    actor: z.number().int().min(0).max(3), sourceOrdinal: z.number().int().nonnegative(),
+    windowKind: z.enum(["self_turn", "post_call_discard"]), triggerEventRef: z.string().min(1),
+  }).strict()).min(1).max(128),
+}).strict();
+
+/** Verify the private file before combining a public batch with its source data. */
+export function verifyArenaPublicReplayPrivateMapping(rawManifest: unknown, rawMapping: unknown) {
+  const manifest = ArenaArchiveManifestSchema.parse(rawManifest);
+  const mapping = ArenaPublicReplayPrivateMappingSchema.parse(rawMapping);
+  const source = manifest.dataset.source;
+  const digest = createHash("sha256").update(libriichiRuleCanonicalJson(mapping)).digest("hex");
+  if (source.kind !== "public_replay_corpus" || digest !== source.privateMappingSha256 ||
+      source.sampleManifestSha256 !== mapping.sampleManifestSha256 || source.batchManifestSha256 !== mapping.batchManifestSha256 ||
+      mapping.cases.length !== manifest.dataset.selected.length ||
+      new Set(mapping.cases.map(row => row.gameId)).size !== mapping.cases.length ||
+      new Set(mapping.cases.map(row => row.sourceSha256)).size !== mapping.cases.length ||
+      mapping.cases.some((row, i) => row.caseOrdinal !== i ||
+        row.canonicalDecisionOrder !== manifest.dataset.selected[i]?.canonicalDecisionOrder ||
+        row.candidateSetDigest !== manifest.dataset.selected[i]?.candidateSetDigest)) {
+    throw new Error("arena_public_replay_mapping_mismatch");
+  }
+  return mapping;
+}
+
 /** At-most-once direct dispatch. An uncertain durable intent consumes the cap. */
 export function arenaDirectDispatchPlan(input: {
   caseCount: number; maxActualRequests: number;
@@ -150,7 +190,7 @@ export function arenaDirectDispatchPlan(input: {
 /** Label-free question catalog; it never carries Mortal answers or future game state. */
 export const ArenaCaseCatalogSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-catalog/v1"),
-  datasetId: DatasetIdSchema.exclude(["blind-discard-smoke-v1"]),
+  datasetId: DatasetIdSchema.exclude(["blind-discard-smoke-v1", "blind-discard-public-replay-v1"]),
   codeSha: z.string().regex(/^[0-9a-f]{40}$/),
   createdAt: z.string().datetime(),
   caseSetDigest: Sha256Schema,
@@ -174,7 +214,8 @@ export const ArenaArchiveEventSchema = z.discriminatedUnion("type", [
     type: z.literal("dataset_scan"),
     recordedAt: z.string().datetime(),
     datasetId: DatasetIdSchema,
-    sourceRecordHash: SourceRecordHashSchema,
+    sourceRecordHash: SourceRecordHashSchema.optional(),
+    publicReplayManifestSha256: Sha256Schema.optional(),
     inputCaseCount: z.number().int().nonnegative(),
     selected: z.array(z.object({
       caseOrdinal: z.number().int().nonnegative(),
@@ -346,7 +387,9 @@ export function summarizeArenaArchive(input: {
   }
   const scan = events[0];
   if (scan.type !== "dataset_scan" || scan.datasetId !== manifest.dataset.id ||
-      scan.sourceRecordHash !== manifest.dataset.source.sourceRecordHash ||
+      (manifest.dataset.source.kind === "public_replay_corpus"
+        ? scan.sourceRecordHash !== undefined || scan.publicReplayManifestSha256 !== manifest.dataset.source.batchManifestSha256
+        : scan.publicReplayManifestSha256 !== undefined || scan.sourceRecordHash !== manifest.dataset.source.sourceRecordHash) ||
       scan.inputCaseCount !== manifest.dataset.inputCaseCount ||
       scan.selected.length !== manifest.dataset.selected.length ||
       scan.excluded.length !== manifest.dataset.excluded.length) {

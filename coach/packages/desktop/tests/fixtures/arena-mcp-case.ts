@@ -76,7 +76,7 @@ function realPrefixFixture() {
   });
   const decision = replayCanonicalStream(stream)[1]!;
   const request = createArenaBlindRuleRequest(createLibriichiRuleProjector(stream, ruleIdentity)(decision));
-  return { decision, request };
+  return { decision, request, stream };
 }
 
 function discardRows(request: LibriichiRuleRequest) {
@@ -94,12 +94,12 @@ function discardRows(request: LibriichiRuleRequest) {
   return LibriichiRuleResponseSchema.parse({ ...content, resultId: digest(content) });
 }
 
-export function makeArenaMcpCase(options: { includeRawEventOrder?: boolean } = {}): {
+export function makeArenaMcpCase(options: { includeRawEventOrder?: boolean; includeRawVisibleHistory?: boolean } = {}): {
   authorizedCase: ArenaMcpAuthorizedCase;
   observation: ReturnType<typeof createArenaBlindObservation>;
   aliases: ArenaRunAliasVault;
 } {
-  const { decision, request } = realPrefixFixture();
+  const { decision, request, stream } = realPrefixFixture();
   const selected = screenArenaDecisions([{
     canonicalDecisionOrder: 0,
     decision: { decisionEventRef: decision.decisionEventRef, snapshot: decision.snapshot, facts: decision.facts },
@@ -112,6 +112,7 @@ export function makeArenaMcpCase(options: { includeRawEventOrder?: boolean } = {
     selected,
     aliases,
     ...(options.includeRawEventOrder ? { includeRawEventOrder: true } : {}),
+    ...(options.includeRawVisibleHistory ? { rawHistoryStream: stream } : {}),
     tools: {
       description: "Read-only candidate analysis and local knowledge search.",
       supportedCapabilities: ["analyze_candidates", "search_knowledge"],

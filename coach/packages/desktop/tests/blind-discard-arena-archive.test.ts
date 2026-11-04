@@ -1,12 +1,14 @@
 import { describe, expect, it } from "vitest";
+import { createHash } from "node:crypto";
 import {
   ARENA_RAG_APPLICABILITY_LIMITS_V1,
   canonicalActionRef,
+  libriichiRuleCanonicalJson,
   type ArenaCaseRef,
 } from "@riichi-coach/contracts";
 import { ARENA_RUN_LIMITS_V1, ArenaRunEventSchema } from "../src/blind-discard-arena-runner.js";
 import {
-  arenaMortalTopTen, visibleArenaMortalDetails,
+  arenaMortalTopTen, visibleArenaMortalDetails, verifyArenaPublicReplayPrivateMapping,
   ArenaArchiveEventSchema,
   ArenaArchiveManifestSchema,
   parseArenaArchiveEvents,
@@ -419,4 +421,35 @@ it("accepts the optional reflection and run applicability fields and still fails
     },
   });
   expect(started.type === "run_started" ? started.applicability?.selectorModel : undefined).toBe("gpt-6-luna");
+});
+
+it("archives real public replay batches without a fabricated single-game hash", () => {
+  const original = manifest(), batchHash = "1".repeat(64);
+  const dataset = { ...original.dataset, id: "blind-discard-public-replay-v1", inputCaseCount: 2, excluded: [],
+    split: { unit: "complete_game", developmentGames: 2, acceptanceGames: 0, status: "development_only" },
+    source: { kind: "public_replay_corpus", sampleManifestSha256: "2".repeat(64), batchManifestSha256: batchHash, privateMappingSha256: "3".repeat(64) } };
+  const publicManifest = ArenaArchiveManifestSchema.parse({ ...original, dataset });
+  const scan = { ...scanEvent(), datasetId: dataset.id, inputCaseCount: 2, excluded: [], publicReplayManifestSha256: batchHash } as any;
+  delete scan.sourceRecordHash;
+  expect(() => summarizeArenaArchive({ manifest: publicManifest, events: [scan] })).not.toThrow();
+  expect(() => summarizeArenaArchive({ manifest: publicManifest, events: [{ ...scan, sourceRecordHash: `sha256:${"4".repeat(64)}` }] })).toThrow();
+  expect(ArenaArchiveManifestSchema.safeParse({ ...original, dataset: { ...dataset, split: { ...dataset.split, status: "frozen_holdout" } } }).success).toBe(false);
+  expect(ArenaArchiveManifestSchema.safeParse({ ...original, dataset: { ...dataset, source: original.dataset.source } }).success).toBe(false);
+});
+
+it("binds each public batch case to its private real source mapping", () => {
+  const original = manifest(), selected = original.dataset.selected;
+  const mapping = { version: "arena-public-replay-private-mapping/v1", sampleManifestSha256: "2".repeat(64), batchManifestSha256: "1".repeat(64),
+    cases: selected.map((row, caseOrdinal) => ({ canonicalDecisionOrder: row.canonicalDecisionOrder, candidateSetDigest: row.candidateSetDigest, caseOrdinal, gameId: `game-${caseOrdinal}`,
+      sourceSha256: String(caseOrdinal + 4).repeat(64), actor: caseOrdinal, sourceOrdinal: caseOrdinal + 3,
+      windowKind: "self_turn", triggerEventRef: `event-${caseOrdinal}` })) };
+  const digest = createHash("sha256").update(libriichiRuleCanonicalJson(mapping)).digest("hex");
+  const dataset = { ...original.dataset, id: "blind-discard-public-replay-v1", inputCaseCount: 2, excluded: [],
+    split: { unit: "complete_game", developmentGames: 2, acceptanceGames: 0, status: "development_only" },
+    source: { kind: "public_replay_corpus", sampleManifestSha256: mapping.sampleManifestSha256,
+      batchManifestSha256: mapping.batchManifestSha256, privateMappingSha256: digest } };
+  const bound = ArenaArchiveManifestSchema.parse({ ...original, dataset });
+  expect(verifyArenaPublicReplayPrivateMapping(bound, mapping).cases).toHaveLength(2);
+  expect(() => verifyArenaPublicReplayPrivateMapping(bound, { ...mapping, cases: [...mapping.cases].reverse() })).toThrow();
+  expect(() => verifyArenaPublicReplayPrivateMapping(bound, { ...mapping, cases: [{ ...mapping.cases[0], actor: 3 }, mapping.cases[1]] })).toThrow();
 });

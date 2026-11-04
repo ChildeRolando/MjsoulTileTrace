@@ -22,6 +22,7 @@ import {
   type ArenaReferenceLabel,
   type ArenaToolBinding,
   type DecisionSnapshotV2,
+  type CanonicalEventStream,
   type KnownGameFacts,
   type LibriichiRuleRequest,
   type LibriichiRuleIdentity,
@@ -29,6 +30,7 @@ import {
 } from "@riichi-coach/contracts";
 import {
   bindLibriichiRuleResult,
+  freezeDecisionSnapshot,
   bindLocalMortalRuleScores,
   type LibriichiBoundAction,
 } from "@riichi-coach/reasoning";
@@ -284,6 +286,8 @@ export function createArenaBlindObservation(input: {
   readonly aliases: ArenaRunAliasVault;
   readonly tools?: ArenaToolDescription;
   readonly includeRawEventOrder?: boolean;
+  /** Explicit opt-in. The canonical stream is revalidated against the selected snapshot. */
+  readonly rawHistoryStream?: CanonicalEventStream;
 }): ArenaBlindObservation {
   const { snapshot } = input.selected;
   const caseRef = input.aliases.caseRef(`${snapshot.gameId}\u0000${snapshot.decisionEventRef}`);
@@ -365,8 +369,38 @@ export function createArenaBlindObservation(input: {
       ...publicState.melds.flatMap(m => [m.createdEventRef, m.latestEventRef]),
       ...publicState.riichiStates.flatMap(r => [r.declarationEventRef, r.acceptanceEventRef]),
     ]);
-    return ArenaBlindObservationSchema.parse({ ...observation,
-      rawEventOrder: publicState.appliedEventRefs.filter(ref => visibleRefs.has(ref)).map(ref => input.aliases.reference(ref)) });
+    Object.assign(observation, { rawEventOrder: publicState.appliedEventRefs.filter(ref => visibleRefs.has(ref)).map(ref => input.aliases.reference(ref)) });
+  }
+  if (input.rawHistoryStream !== undefined) {
+    const stream = input.rawHistoryStream;
+    const fresh = freezeDecisionSnapshot(stream, snapshot.privateState.decisionWindow);
+    if (libriichiRuleCanonicalJson(fresh) !== libriichiRuleCanonicalJson(snapshot)) throw new Error("arena_history_snapshot_mismatch");
+    const end = stream.events.findIndex(event => event.eventId === snapshot.decisionEventRef);
+    const start = stream.events.slice(0, end + 1).findLastIndex(event => event.type === "round_started");
+    if (end < 0 || start < 0) throw new Error("arena_history_incomplete");
+    const history = stream.events.slice(start + 1, end + 1).map(event => {
+      const eventRef = input.aliases.reference(event.eventId);
+      switch (event.type) {
+        case "tile_drawn": return { eventRef, type: "draw" as const, actor: event.actor,
+          tile: event.actor === stream.selfActor && event.tile.visibility === "visible" ? event.tile.tile : null, from: event.from };
+        case "tile_discarded": return { eventRef, type: "discard" as const, actor: event.actor, tile: event.tile, discardMode: event.discardMode };
+        case "chi_called": case "pon_called": case "daiminkan_called": return { eventRef,
+          type: event.type === "chi_called" ? "chi" as const : event.type === "pon_called" ? "pon" as const : "daiminkan" as const,
+          actor: event.actor, targetActor: event.targetActor, calledTile: event.calledTile,
+          consumedTiles: event.consumedTiles, calledDiscardRef: input.aliases.reference(event.calledDiscardEventRef) };
+        case "ankan_declared": return { eventRef, type: "ankan" as const, actor: event.actor,
+          tiles: event.tiles };
+        case "kakan_declared": return { eventRef, type: "kakan" as const, actor: event.actor, addedTile: event.addedTile,
+          upgradedPonRef: input.aliases.reference(event.upgradedPonEventRef) };
+        case "dora_revealed": return { eventRef, type: "dora" as const, indicator: event.indicator,
+          kanRef: event.kanEventRef === null ? null : input.aliases.reference(event.kanEventRef) };
+        case "riichi_declared": return { eventRef, type: "reach" as const, actor: event.actor };
+        case "riichi_accepted": return { eventRef, type: "reach_accepted" as const, actor: event.actor,
+          declarationRef: input.aliases.reference(event.declarationEventRef) };
+        default: throw new Error("arena_history_unexpected_event");
+      }
+    });
+    return ArenaBlindObservationSchema.parse({ ...observation, rawVisibleHistory: history });
   }
   return ArenaBlindObservationSchema.parse(observation);
 }

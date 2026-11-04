@@ -131,11 +131,25 @@ const ArenaObservationCompletenessSchema = z.object({
   furiten: FieldCompletenessSchema,
 }).strict();
 
+/** Current-round decision-time events; source identifiers are always aliased. */
+const HistoryBase = { eventRef: ArenaOpaqueReferenceSchema };
+export const ArenaVisibleHistoryEventSchema = z.discriminatedUnion("type", [
+  z.object({ ...HistoryBase, type: z.literal("draw"), actor: ActorSchema, tile: TileSchema.nullable(), from: z.enum(["live_wall", "rinshan"]) }).strict(),
+  z.object({ ...HistoryBase, type: z.literal("discard"), actor: ActorSchema, tile: TileSchema, discardMode: z.enum(["tsumogiri", "tedashi"]) }).strict(),
+  ...(["chi", "pon", "daiminkan"] as const).map(type => z.object({ ...HistoryBase, type: z.literal(type), actor: ActorSchema, targetActor: ActorSchema, calledTile: TileSchema, consumedTiles: z.array(TileSchema).min(2).max(3), calledDiscardRef: ArenaOpaqueReferenceSchema }).strict()),
+  z.object({ ...HistoryBase, type: z.literal("ankan"), actor: ActorSchema, tiles: z.array(TileSchema).length(4) }).strict(),
+  z.object({ ...HistoryBase, type: z.literal("kakan"), actor: ActorSchema, addedTile: TileSchema, upgradedPonRef: ArenaOpaqueReferenceSchema }).strict(),
+  z.object({ ...HistoryBase, type: z.literal("dora"), indicator: TileSchema, kanRef: ArenaOpaqueReferenceSchema.nullable() }).strict(),
+  z.object({ ...HistoryBase, type: z.literal("reach"), actor: ActorSchema }).strict(),
+  z.object({ ...HistoryBase, type: z.literal("reach_accepted"), actor: ActorSchema, declarationRef: ArenaOpaqueReferenceSchema }).strict(),
+]);
+
 /** Strict white-list DTO: never derive it by removing fields from a report. */
 export const ArenaBlindObservationSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-observation/v1"),
   caseRef: ArenaCaseRefSchema,
   rawEventOrder: z.array(ArenaOpaqueReferenceSchema).max(1000).optional(),
+  rawVisibleHistory: z.array(ArenaVisibleHistoryEventSchema).max(1000).optional(),
   ruleSet: RuleSetV2Schema,
   decision: z.object({
     selfActor: ActorSchema,
@@ -180,6 +194,12 @@ export const ArenaBlindObservationSchema = z.object({
     supportedCapabilities: z.array(z.string().min(1).max(80)).max(32),
   }).strict(),
 }).strict().superRefine((observation, context) => {
+  for (const [i, event] of (observation.rawVisibleHistory ?? []).entries()) {
+    if (event.type === "draw" && ((event.actor === observation.decision.selfActor) !== (event.tile !== null))) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["rawVisibleHistory", i], message: "arena_history_draw_visibility_invalid" });
+    }
+
+  }
   const refs = observation.candidates.map((candidate) => candidate.actionRef);
   if (new Set(refs).size !== refs.length) {
     context.addIssue({ code: z.ZodIssueCode.custom, path: ["candidates"], message: "arena_candidates_not_unique" });
