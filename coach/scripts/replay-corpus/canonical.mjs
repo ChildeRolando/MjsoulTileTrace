@@ -2,6 +2,7 @@ import { CanonicalEventStreamSchema, CANONICAL_EVENT_SCHEMA_VERSION, sortTilesCa
 import { mapTenhouRecord } from '@riichi-coach/tenhou-source';
 import { parseMjaiTile } from '@riichi-coach/mortal-source';
 import { parseMjai, mjaiIdentityProjection, sha256 } from './identity.mjs';
+import { JSONParser } from '@streamparser/json';
 
 export const MJAI_MAPPER_VERSION = 'public-mjai-mapper/v1';
 const quad = v => Array.isArray(v) && v.length === 4 && v.every(Number.isInteger);
@@ -14,6 +15,11 @@ export function mapMjaiRecord(raw, gameId, selfActor, ruleSet = unknownRules) {
   if (!Number.isInteger(selfActor) || selfActor < 0 || selfActor > 3) throw new Error('invalid_self_actor');
   const rows = parseMjai(raw);
   mjaiIdentityProjection(rows);
+  return mapMjaiRows(rows, sha256(raw), gameId, selfActor, ruleSet);
+}
+
+function mapMjaiRows(rows, sourceHash, gameId, selfActor, ruleSet = unknownRules) {
+  if (!Number.isInteger(selfActor) || selfActor < 0 || selfActor > 3) throw new Error('invalid_self_actor');
   const events = [], declares = new Map(), pons = new Map(), lastDraw = new Map();
   let round = -1, sourceOrdinal = 0, sub = 0, lastDiscard = null, lastKan = null, rinshan = false;
   let settled = null, initial = null, running = null, terminalRef = null, completeSettlement = true;
@@ -115,7 +121,7 @@ export function mapMjaiRecord(raw, gameId, selfActor, ruleSet = unknownRules) {
     }
   }
   const rulesComplete = !JSON.stringify(ruleSet).includes('unknown');
-  return CanonicalEventStreamSchema.parse({ schemaVersion: CANONICAL_EVENT_SCHEMA_VERSION, mapperVersion: MJAI_MAPPER_VERSION, gameId, sourceKind: 'mjai', sourceRecordHash: sha256(raw), playerCount: 4, selfActor, ruleSet,
+  return CanonicalEventStreamSchema.parse({ schemaVersion: CANONICAL_EVENT_SCHEMA_VERSION, mapperVersion: MJAI_MAPPER_VERSION, gameId, sourceKind: 'mjai', sourceRecordHash: sourceHash, playerCount: 4, selfActor, ruleSet,
     completeness: { eventSequence: 'complete', ruleSet: rulesComplete ? 'complete' : 'partial', scores: completeSettlement ? 'complete' : 'partial', doraIndicators: 'complete', rivers: 'complete', calledDiscardMarkers: 'complete', melds: 'complete', remainingDraws: 'complete', settlement: completeSettlement ? 'complete' : 'partial', responseOpportunities: 'complete' }, events });
 }
 
@@ -131,8 +137,35 @@ export function toCanonical(record, selfActor = 0, ruleSet) {
 // This is a trusted source adapter: evidence binds the exact decoded source to
 // this mapper's canonical output. It does not establish adapter honesty.
 export function mapMjaiDecisionPrefix(raw, gameId, selfActor, ruleSet, triggerRef) {
-  const rows = parseMjai(raw);
-  const stream = mapMjaiRecord(raw, gameId, selfActor, ruleSet);
+  const eventPrefix = `${gameId}/`;
+  if (!triggerRef.startsWith(eventPrefix)) throw new Error('decision_prefix_trigger_missing');
+  const parts = /^(0|[1-9]\d*)\/(0|[1-9]\d*)\/(0|[1-9]\d*)$/.exec(triggerRef.slice(eventPrefix.length));
+  if (!parts || !Number.isSafeInteger(Number(parts[2]))) throw new Error('decision_prefix_trigger_missing');
+  const ordinal = Number(parts[2]), text = (Buffer.isBuffer(raw) ? raw.toString('utf8') : raw).replace(/^\uFEFF/, '').trimStart();
+  let rows = [], structured = text.startsWith('[');
+  if (text.startsWith('{')) {
+    try { const first = JSON.parse(text.split(/\r?\n/, 1)[0]); structured = first.events !== undefined; }
+    catch { structured = true; }
+  }
+  if (structured) {
+    const parser = new JSONParser({ paths: ['$.*', '$.events.*'], keepStack: false });
+    parser.onValue = ({ value, key }) => {
+      if (typeof key === 'number') rows.push(value);
+      else if (key === 'events' && typeof value === 'string') {
+        rows = value.split(/\r?\n/).filter(s => s.trim()).slice(0, ordinal + 1).map(s => JSON.parse(s));
+      }
+    };
+    for (const character of text) { parser.write(character); if (rows.length > ordinal) break; }
+  } else {
+    for (const line of text.split(/\r?\n/)) {
+      if (!line.trim()) continue;
+      rows.push(JSON.parse(line));
+      if (rows.length > ordinal) break;
+    }
+  }
+  if (rows.length !== ordinal + 1 || rows[0]?.type !== 'start_game') throw new Error('decision_prefix_trigger_missing');
+  mjaiIdentityProjection(rows, { allowOpen: true });
+  const stream = mapMjaiRows(rows, sha256(raw), gameId, selfActor, ruleSet);
   const endIndex = stream.events.findIndex(e => e.eventId === triggerRef);
   if (endIndex < 0) throw new Error('decision_prefix_trigger_missing');
   let startIndex = endIndex;
