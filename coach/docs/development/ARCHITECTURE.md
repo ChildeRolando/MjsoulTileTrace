@@ -536,3 +536,15 @@ artifact 均不携带 raw material。缓存没有 TTL/LRU，只有显式清理�
 
 受管 Mortal 以完整响应、requestId、schema、identity 和候选全集决定返回，不附加
 20 ms 静默等待。迟到异常立即使当前 child 失效，不能作为下一次请求的成功响应。
+
+
+## Arena 模块输入与直接答复（2026-11-04）
+
+contracts 拥有严格模块依赖和 tile/red 锁定格式。现有 Arena 内的 experiment 组装器从
+盲观察重新投影原始字段，按配置加入候选、MCP 事实、场景标记与 local 教材；不会序列化
+整个 facts 或 observation。runner 继续拥有预算、引用、终态和私有离线评分。
+同一 provider port 支持零工具最终 JSON 与旧工具选择；HTTP 适配器从同一 body 捕获实际
+请求，CLI 隔离经当前 adapter 的真实本地捕获验证，真实通道内部重试／认证未核实则整批预检拒绝。
+归档事件分别记录应用请求与适配器证据，原详情页读回这些当次事件；不接入生产
+ReviewReport/ReviewSession。直接批次的请求意图先 flush 再派发，同一 run 互斥，恢复只派发
+没有请求记录的题。完整契约与限制见 [Arena spec](../specs/2026-10-09-blind-discard-arena.md)。

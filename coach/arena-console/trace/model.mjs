@@ -21,10 +21,16 @@ export function caseTrace(data, ordinal) {
           start: cursor, approximate: true, model: began?.provider.model };
         models.set(event.turn, span); spans.push(span);
       }
-      Object.assign(span, { end: event.elapsedMs, status: event.result === 'tool_call' ? 'done' : 'failed',
+      Object.assign(span, { end: event.elapsedMs, status: ['tool_call', 'final'].includes(event.result) ? 'done' : 'failed',
         inputBytes: event.inputBytes, outputBytes: event.outputBytes, usage: event.usage,
-        output: event.decisionSummary, toolName: event.toolName, error: event.result === 'tool_call' ? undefined : event.failureCode ?? event.result,
+        output: event.decisionSummary, toolName: event.toolName, error: ['tool_call', 'final'].includes(event.result) ? undefined : event.failureCode ?? event.result,
         reconnectCount: event.reconnectCount, raw: event });
+    } else if (event.type === 'request_prepared' || event.type === 'request_audit') {
+      const span = models.get(event.turn);
+      if (span) { if (event.type === 'request_prepared') span.input = event.request; else span.audit = event.audit; }
+    } else if (event.type === 'provider_final') {
+      const span = [...models.values()].at(-1);
+      if (span) { span.output = event.content; span.outputLabel = '原始最终回答'; span.final = event; }
     } else if (event.type === 'tool_call') {
       const span = { id: `tool-${event.ordinal}`, kind: 'tool', name: event.toolName, turn: event.turn,
         start: timed(event.elapsedMs) ? event.elapsedMs : null, input: event.request, raw: event };
@@ -42,6 +48,10 @@ export function caseTrace(data, ordinal) {
     if (timed(event.elapsedMs)) cursor = Math.max(cursor, event.elapsedMs);
   }
   for (const span of spans) {
+    if (span.kind === 'llm') {
+      span.input ??= records.find(e => e.type === 'request_prepared' && e.turn === span.turn)?.request;
+      span.audit ??= records.find(e => e.type === 'request_audit' && e.turn === span.turn)?.audit;
+    }
     if (!span.status) {
       span.status = live ? 'running' : 'unknown';
       // Missing completion is not evidence of failure, success, or a measured end.
@@ -60,12 +70,21 @@ export function caseTrace(data, ordinal) {
     hasApproximate: spans.some(s => s.approximate || s.start === null) };
 }
 
-export function liveElapsed(trace, now, receivedAt, connected = true) {
+export function liveElapsed(trace, now, receivedAt, frozenAt = null) {
   if (!trace.live) return trace.elapsed;
   const start = Date.parse(trace.startedAt);
   // Stop extending bars after a missed polling heartbeat. Do not depict an abandoned run as live.
-  const clock = connected ? Math.min(now, receivedAt + 6500) : receivedAt;
+  const clock = Math.min(frozenAt ?? now, receivedAt + 6500);
   return Number.isFinite(start) ? Math.max(trace.lastElapsed, clock - start) : trace.lastElapsed;
 }
 
 export const durationText = ms => ms === null || ms === undefined ? '耗时未知' : ms < 1000 ? `${Math.round(ms)} ms` : `${(ms / 1000).toFixed(2)} s`;
+
+// Only an owned active step can promise that a missing archive is still being prepared.
+export function missingRunState(job, runId, status) {
+  if (status !== 404) return { retry: true, message: '读取实验记录失败；将自动重试。' };
+  const step = job?.steps?.find(row => row.runId === runId);
+  if (step && ['running', 'stopping'].includes(step.status) && ['running', 'stopping'].includes(job.status))
+    return { retry: true, message: '正在准备实验记录；每 3 秒刷新。' };
+  return { retry: false, message: step ? `实验${step.status === 'stopped' ? '已停止' : '已结束'}，未生成可读取的记录。${step.error ?? ''}` : '找不到该实验记录；请检查链接或返回实验结果。' };
+}

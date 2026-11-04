@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { createServer as createMutexServer } from "node:net";
 import { appendFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { mkdtemp, mkdir, readFile, readdir, rm, stat, writeFile, appendFile, rename } from "node:fs/promises";
@@ -14,7 +15,9 @@ import {
   OpenAiCoachProviderConfigSchema,
   libriichiRuleCanonicalJson,
   resolveArenaRagApplicabilityLimits,
+  ARENA_RAW_BASELINE, ArenaExperimentConfigSchema,
 } from "@riichi-coach/contracts";
+import { ARENA_ASSEMBLY_VERSION, projectArenaRawObservation } from "@riichi-coach/desktop/blind-discard-arena-experiment";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
@@ -43,6 +46,7 @@ import {
   createArenaRagRunnerTool,
   runBlindCoachCase,
   ARENA_RUN_LIMITS_V1,
+  recoverInterruptedArenaRun,
 } from "@riichi-coach/desktop/blind-discard-arena-runner";
 import { projectArenaLocalMortalRuleScoring } from "@riichi-coach/desktop/blind-discard-arena-scorer";
 import { ArenaMcpClient } from "@riichi-coach/desktop/blind-discard-arena-mcp";
@@ -60,6 +64,8 @@ import {
   ArenaCaseCatalogSchema,
   ARENA_EXPERIMENTS,
   DatasetIdSchema,
+  parseArenaCaseTrace,
+  arenaDirectDispatchPlan,
 } from "@riichi-coach/desktop/blind-discard-arena-archive";
 
 import { GENERATED_DATASET, BankId, GenerationOptions, generateBank, loadGeneratedBank, prepareBankRuleInputs, pendingDecision, questionLabNativeReceipt } from "./arena-question-bank.mjs";
@@ -95,6 +101,19 @@ const MCP_SERVER_PATH = join(coachRoot, "bin/blind-discard-arena-mcp-server.mjs"
 const DEFAULT_BUDGET = Object.freeze({ maxProviderTurns: 4, maxToolCalls: 2, maxProviderOutputTokens: 512, maxRunElapsedMs: 120_000 });
 const DEFAULT_TOKEN_WARNING = 100_000_000;
 
+// Process-lifetime mutex: the OS releases it after a crash, so resume never
+// needs to delete a stale file or race another caller dispatching the same run.
+export async function acquireRunMutex(directory) {
+  const identity = process.platform === 'win32' ? resolve(directory).toLowerCase() : resolve(directory);
+  const port = 49152 + (createHash('sha256').update(identity).digest().readUInt16BE(0) % 16384);
+  const mutex = createMutexServer(socket => socket.destroy());
+  await new Promise((resolveLock, reject) => {
+    mutex.once('error', () => reject(new Error('arena_run_busy')));
+    mutex.listen({ host: '127.0.0.1', port, exclusive: true }, resolveLock);
+  });
+  return () => new Promise(resolveClose => mutex.close(resolveClose));
+}
+
 function usage() {
   return [
     "Blind Discard Arena local CLI",
@@ -116,6 +135,9 @@ function usage() {
     "  --max-cases <1..128>             development batch size, default 10",
     "  --case-offset <0..127>           start index among eligible development cases, default 0",
     "  --replay-run <runId> --replay-case <ordinal>  re-run one archived mistake at the original source decision",
+    "  --experiment raw|<JSON>         frozen modules; raw requires --rag off",
+    "  --max-requests <1..128>          direct-dispatch ceiling (including uncertain intents)",
+    "  --resume-run <runId>            same frozen direct run; never resend requested cases",
     "  --provider codex-cli             local ChatGPT subscription (no API key)",
     "  --reasoning-effort high          Codex reasoning effort (default high)",
     "  --token-warning-threshold <n>    cumulative reported tokens, default 100000000; warning only",
@@ -153,13 +175,13 @@ export function parseArgs(argv) {
     if (!key?.startsWith("--")) throw new Error("arena_option_invalid");
     const value = rest[index + 1];
     if (value === undefined || value.startsWith("--")) throw new Error("arena_option_value_missing");
-    if (["--bank", "--dataset", "--rag", "--rag-applicability", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort", "--replay-run"].includes(key)) {
+    if (["--bank", "--dataset", "--rag", "--rag-applicability", "--base-url", "--model", "--fault", "--provider", "--reasoning-effort", "--replay-run", "--experiment", "--resume-run"].includes(key)) {
       if (options[key] !== undefined) throw new Error("arena_option_duplicate");
       options[key] = value;
       index += 1;
       continue;
     }
-    if (["--max-cases", "--case-offset", "--max-provider-turns", "--max-provider-output-tokens", "--max-tool-calls", "--max-run-ms", "--token-warning-threshold", "--replay-case"].includes(key)) {
+    if (["--max-cases", "--case-offset", "--max-provider-turns", "--max-provider-output-tokens", "--max-tool-calls", "--max-run-ms", "--token-warning-threshold", "--replay-case", "--max-requests"].includes(key)) {
       if (options[key] !== undefined || !/^\d+$/u.test(value)) throw new Error("arena_budget_invalid");
       options[key] = Number(value);
       index += 1;
@@ -168,6 +190,12 @@ export function parseArgs(argv) {
     throw new Error("arena_option_unknown");
   }
   const datasetId = options["--dataset"];
+  let experiment;
+  if (options["--experiment"] !== undefined) {
+    try { experiment = ArenaExperimentConfigSchema.parse(options["--experiment"] === "raw" ? ARENA_RAW_BASELINE : JSON.parse(options["--experiment"])); }
+    catch { throw new Error("arena_experiment_invalid"); }
+    if (options["--rag"] !== (experiment.teaching === "on" ? "local" : "off") || options["--rag-applicability"] !== undefined || options["--fault"] !== undefined) throw new Error("arena_experiment_dependency_invalid");
+  }
   if (!DatasetIdSchema.safeParse(datasetId).success || !["off", "local"].includes(options["--rag"])) {
     throw new Error("arena_dataset_or_rag_invalid");
   }
@@ -183,6 +211,10 @@ export function parseArgs(argv) {
   const bankId = datasetId === GENERATED_DATASET && (!replayRunId || options["--bank"] !== undefined) ? BankId.parse(options["--bank"]) : undefined;
   if (datasetId !== GENERATED_DATASET && options["--bank"] !== undefined) throw new Error("arena_bank_not_applicable");
   const maxCases = replayRunId ? 1 : options["--max-cases"] ?? (datasetId === "blind-discard-smoke-v1" ? 3 : 10);
+  const resumeRunId = options["--resume-run"];
+  if (resumeRunId !== undefined && (!/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(resumeRunId) || experiment?.submission !== "tile-red" || replayRunId)) throw new Error("arena_resume_requires_direct_experiment");
+  const maxActualRequests = experiment?.submission === "tile-red" ? options["--max-requests"] ?? maxCases : undefined;
+  if (options["--max-requests"] !== undefined && (maxActualRequests === undefined || maxActualRequests < 1 || maxActualRequests > 128)) throw new Error("arena_request_limit_invalid");
   const caseOffset = options["--case-offset"] ?? 0;
   if (!Number.isSafeInteger(maxCases) || maxCases < 1 || maxCases > 128 || !Number.isSafeInteger(caseOffset) || caseOffset < 0 || caseOffset > 127
       || (datasetId === "blind-discard-smoke-v1" && !replayRunId && (maxCases !== 3 || caseOffset !== 0)) || (replayRunId && caseOffset !== 0)) throw new Error("arena_case_selection_invalid");
@@ -217,6 +249,8 @@ export function parseArgs(argv) {
   if (providerSettings !== null && !providerSettings.success) throw new Error("arena_provider_settings_invalid");
   return {
     command,
+    experiment,
+    resumeRunId, maxActualRequests,
     datasetId, maxCases, caseOffset, bankId, replayRunId, replayCaseOrdinal,
     ragMode: options["--rag"],
     ragApplicability: ragApplicabilityOption ?? null,
@@ -413,7 +447,7 @@ export async function finishDataset(runtime, options, { decisions, ruleInputs, s
   const byOrder = new Map(ruleInputs.map((input) => [input.canonicalDecisionOrder, input]));
   const labels = new Map();
   for (const selected of screening.selected) {
-    if (options.catalog) continue;
+    if (options.catalog || options.skipLabelOrders?.has(selected.canonicalDecisionOrder)) continue;
     const frozen = byOrder.get(selected.canonicalDecisionOrder);
     if (frozen === undefined || frozen.ruleResponse.status !== "ok") throw new Error("arena_selected_case_binding_invalid");
     try {
@@ -469,6 +503,7 @@ function providerFor(settings, credentials, arenaCodex) {
   if (adapter !== null) return adapter;
   return Object.freeze({
     descriptor: () => ({ providerId: "openai-compatible", model: "unconfigured", protocolVersion: "arena-function-call/v1" }),
+    preflight: async () => ({ status: "unavailable", reason: "provider_not_configured" }),
     request: async () => ({ status: "provider_unavailable" }),
   });
 }
@@ -516,21 +551,41 @@ async function writeJson(path, value) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8", mode: 0o600, flag: "wx" });
 }
 
-async function runCommand(options) {
+export async function runCommand(options, moduleSources) {
   const codeSha = requireCleanGitHead();
   const startedAt = new Date().toISOString();
   const requestedRunId = process.env.RIICHI_ARENA_RUN_ID;
   if (requestedRunId && !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(requestedRunId)) throw new Error("invalid_arena_run_id");
-  const runId = requestedRunId || randomUUID();
+  const runId = options.resumeRunId ?? requestedRunId ?? randomUUID();
   delete process.env.RIICHI_ARENA_RUN_ID;
   const runDirectory = join(ARCHIVE_ROOT, runId);
   await mkdir(ARCHIVE_ROOT, { recursive: true });
-  await mkdir(runDirectory);
+  if (!options.resumeRunId) await mkdir(runDirectory);
   let apiKey = process.env.RIICHI_COACH_API_KEY ?? null;
   delete process.env.RIICHI_COACH_API_KEY;
   let runtime;
   let archiveComplete = false;
+  let releaseRunMutex;
   try {
+    if (options.experiment?.submission === "tile-red") releaseRunMutex = await acquireRunMutex(runDirectory);
+    const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
+    const preflight = options.experiment ? await descriptorProvider.preflight?.() : undefined;
+    const sourceMissing = options.experiment && ((options.experiment.scenarioHint && typeof moduleSources?.scenario !== "function") || (options.experiment.teaching === "on" && typeof moduleSources?.selection !== "function"));
+    if (preflight?.status === "unavailable" || sourceMissing) {
+      await writeJson(join(runDirectory, "preflight.json"), { status: "rejected", reason: sourceMissing ? "arena_module_sources_unavailable" : preflight.reason, plannedCaseCount: options.maxCases, dispatchedCases: 0, modelRequests: 0 });
+      throw new Error(sourceMissing ? "arena_module_sources_unavailable" : "arena_provider_preflight_unavailable");
+    }
+    let previousManifest, previousEvents = [], previousTrace = [];
+    if (options.resumeRunId) {
+      previousManifest = ArenaArchiveManifestSchema.parse(JSON.parse(await readFile(join(runDirectory, "manifest.json"), "utf8")));
+      previousEvents = parseArenaArchiveEvents(await readFile(join(runDirectory, "events.jsonl"), "utf8"));
+      previousTrace = parseArenaCaseTrace(await readFile(join(runDirectory, "case-trace.jsonl"), "utf8").catch(error => { if (error.code === 'ENOENT') return ''; throw error; }));
+      summarizeArenaArchive({ manifest: previousManifest, events: previousEvents });
+      if (previousManifest.experiment?.submission !== "tile-red") throw new Error("arena_resume_requires_direct_experiment");
+      const requested = new Set(previousTrace.filter(row => row.event.type === "request_prepared").map(row => row.caseOrdinal));
+      const completed = new Set(previousEvents.filter(row => row.type === "case_run").map(row => row.caseOrdinal));
+      options.skipLabelOrders = new Set([...requested, ...completed].map(ordinal => previousManifest.dataset.selected[ordinal]?.canonicalDecisionOrder));
+    }
     const prepared = await createPinnedRuntime(options.datasetId === GENERATED_DATASET);
     runtime = prepared.runtime;
     if (options.replayRunId) {
@@ -555,7 +610,6 @@ async function runCommand(options) {
       throw new Error("arena_pinned_mortal_config_mismatch");
     }
     if (options.replayManifest && canonicalDigest(options.replayManifest.mortal) !== canonicalDigest({ runtimeIdentity: runtime.identity, ruleIdentity: runtime.ruleIdentity, runtimeConfigSha256: computedRuntimeConfigSha256 })) throw new Error("arena_replay_mortal_changed");
-    const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
     const descriptor = descriptorProvider.descriptor();
     let liveTraceAvailable = true;
     const ragCorpusVersion = options.ragMode === "local"
@@ -568,6 +622,7 @@ async function runCommand(options) {
     const manifest = ArenaArchiveManifestSchema.parse({
       schemaVersion: "blind-discard-arena-run-manifest/v1",
       runId,
+      ...(options.experiment ? { experiment: options.experiment } : {}),
       startedAt,
       codeSha,
       ...(options.replayManifest ? { replay: { kind: "mistake", sourceRunId: options.replayRunId, sourceCaseOrdinal: options.replayCaseOrdinal,
@@ -596,8 +651,9 @@ async function runCommand(options) {
         model: descriptor.model,
         ...(options.arenaCodex === undefined ? {} : { reasoningEffort: options.arenaCodex.reasoningEffort }),
         protocolVersion: descriptor.protocolVersion,
-        promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
-        submissionSchemaVersion: "blind-discard-arena-submission/v1",
+        promptVersion: options.experiment ? ARENA_ASSEMBLY_VERSION : ARENA_TOOL_CALL_PROMPT_VERSION,
+        submissionSchemaVersion: options.experiment?.submission === "tile-red" ? "tile-red/v1" : "blind-discard-arena-submission/v1",
+        ...(options.experiment && options.providerSettings ? { endpointSha256: canonicalDigest(options.providerSettings.baseUrl) } : {}),
         credentialStatus,
       },
       rag: {
@@ -615,8 +671,10 @@ async function runCommand(options) {
         }),
       },
       controlledFault: options.fault,
-      budget: { maxCases: options.maxCases, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold },
+      budget: { maxCases: options.maxCases, limits, selectionSeed: null, tokenWarningThreshold: options.tokenWarningThreshold,
+        ...(options.maxActualRequests === undefined ? {} : { maxActualRequests: options.maxActualRequests }) },
     });
+    if (previousManifest && canonicalDigest({ ...manifest, startedAt: previousManifest.startedAt }) !== canonicalDigest(previousManifest)) throw new Error("arena_resume_frozen_config_mismatch");
     const datasetScan = ArenaArchiveEventSchema.parse({
       schemaVersion: "blind-discard-arena-archive-event/v1",
       type: "dataset_scan",
@@ -634,15 +692,36 @@ async function runCommand(options) {
     });
     const manifestPath = join(runDirectory, "manifest.json");
     const eventsPath = join(runDirectory, "events.jsonl");
-    await writeJson(manifestPath, manifest);
-    await writeFile(eventsPath, `${JSON.stringify(datasetScan)}\n`, { encoding: "utf8", mode: 0o600, flag: "wx" });
+    if (!previousManifest) {
+      await writeJson(manifestPath, manifest);
+      await writeFile(eventsPath, `${JSON.stringify(datasetScan)}\n`, { encoding: "utf8", mode: 0o600, flag: "wx" });
+    }
+    const completedOrdinals = new Set(previousEvents.filter(e => e.type === "case_run").map(e => e.caseOrdinal));
+    const requestedOrdinals = new Set(previousTrace.filter(row => row.event.type === "request_prepared").map(row => row.caseOrdinal));
+    const dispatchPlan = options.experiment?.submission === "tile-red" ? arenaDirectDispatchPlan({ caseCount: manifest.dataset.selected.length, maxActualRequests: options.maxActualRequests, trace: previousTrace, completedOrdinals: [...completedOrdinals] }) : null;
+    let actualRequestCount = previousTrace.filter(row => row.event.type === "request_prepared").length;
 
-    const mortalDetails = { schemaVersion: "arena-mortal-details/v1", runId, caseSetDigest: manifest.dataset.caseSetDigest, createdAt: new Date().toISOString(), origin: "run", mortal: manifest.mortal, cases: [] };
+    let mortalDetails = { schemaVersion: "arena-mortal-details/v1", runId, caseSetDigest: manifest.dataset.caseSetDigest, createdAt: new Date().toISOString(), origin: "run", mortal: manifest.mortal, cases: [] };
+    if (previousManifest) {
+      try { mortalDetails = ArenaMortalDetailsSchema.parse(JSON.parse(await readFile(join(runDirectory, "mortal-details.json"), "utf8"))); }
+      catch (error) { if (error.code !== 'ENOENT') throw new Error("arena_resume_mortal_details_invalid"); }
+    }
     for (const entry of dataset.selected) {
+      if (completedOrdinals.has(entry.caseOrdinal)) continue;
+      if (requestedOrdinals.has(entry.caseOrdinal)) {
+        const events = previousTrace.filter(row => row.caseOrdinal === entry.caseOrdinal).map(row => row.event);
+        const start = [...events].reverse().find(e => e.type === "run_started");
+        const recovered = recoverInterruptedArenaRun({ events, binding: createArenaToolBinding({ caseRef: start.caseRef, selected: entry.selected }), reference: { status: "unavailable", reason: "mortal_error" } });
+        await appendFile(eventsPath, `${JSON.stringify(ArenaArchiveEventSchema.parse({ schemaVersion: "blind-discard-arena-archive-event/v1", type: "case_run", recordedAt: new Date().toISOString(), caseOrdinal: entry.caseOrdinal, ragMode: options.ragMode, result: recovered }))}\n`, { encoding: "utf8" });
+        continue;
+      }
+      if (dispatchPlan && !dispatchPlan.pending.includes(entry.caseOrdinal)) continue;
+      if (options.maxActualRequests !== undefined && actualRequestCount >= options.maxActualRequests) break;
       const aliases = new ArenaRunAliasVault();
       const observation = createArenaBlindObservation({
         selected: entry.selected,
         aliases,
+        ...(options.experiment ? { includeRawEventOrder: true } : {}),
         tools: { description: "Use targeted, bounded evidence queries and sourced local knowledge only when helpful.", supportedCapabilities: ["analyze_candidates", "search_knowledge"] },
       });
       const binding = createArenaToolBinding({ caseRef: observation.caseRef, selected: entry.selected });
@@ -650,7 +729,8 @@ async function runCommand(options) {
       const reference = savedLabel?.status === "available"
         ? { status: "available", label: createArenaReferenceLabel({ caseRef: observation.caseRef, boundScores: savedLabel.boundScores, runtimeManifest: prepared.runtimeManifest }) }
         : { status: "unavailable", reason: savedLabel?.reason ?? "mortal_error" };
-      const mcp = credentialStatus === "available"
+      const needsHelper = !options.experiment || options.experiment.helperFacts || options.experiment.callableTools.includes("analyze_candidates");
+      const mcp = credentialStatus === "available" && needsHelper
         ? await startMcpClient({ binding, facts: entry.selected.facts }, options.fault)
         : null;
       try {
@@ -663,25 +743,51 @@ async function runCommand(options) {
         const applicabilityGate = options.ragApplicability === null
           ? undefined
           : createArenaRagApplicabilityGate({ provider: descriptorProvider, caseRef: observation.caseRef });
-        tools.push(createArenaRagRunnerTool({
+        const ragTool = createArenaRagRunnerTool({
           retriever,
           caseRef: observation.caseRef,
           ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
-        }));
+        });
+        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
+          let helper, material, materialBaseline;
+          if (options.experiment.helperFacts) {
+            const source = tools.find(t => t.name === "analyze_candidates");
+            if (!source) throw new Error("arena_module_helper_unavailable");
+            const query = source.parseInput({ caseRef: observation.caseRef, actionRefs: observation.candidates.slice(0, 3).map(c => c.actionRef), dimensions: ["shanten", "ukeire", "remaining_waits", "dora_count"] });
+            helper = source.parseOutput(await source.execute(query, { caseRef: observation.caseRef, signal }));
+          }
+          const raw = projectArenaRawObservation(observation), outputs = {};
+          if (options.experiment.scenarioHint) outputs.scenario = await moduleSources.scenario({ raw, ...(helper ? { helper } : {}), signal });
+          // Fixed selection never receives the visible hint switch, its output, or helper.
+          if (options.experiment.teaching === "on") outputs.selection = await moduleSources.selection({ raw, mode: options.experiment.materialRouting,
+            ...(options.experiment.materialRouting === "scenario" && helper ? { helper } : {}), signal });
+          if (options.experiment.teaching === "on") {
+            if (!outputs.selection) throw new Error("arena_material_selection_required");
+            material = await retriever.query({ query: outputs.selection.query, limit: 3 });
+            materialBaseline = await retriever.query({ query: outputs.selection.fixedQuery, limit: 3 });
+          }
+          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
+        } : undefined;
+        if (!options.experiment || options.experiment.callableTools.includes("search_knowledge")) tools.push(ragTool);
+        const offeredTools = options.experiment ? tools.filter(t => options.experiment.callableTools.includes(t.name)) : tools;
         const result = await runBlindCoachCase({
           observation,
           grading: { binding, reference },
           provider: descriptorProvider,
-          tools,
+          tools: offeredTools,
+          ...(options.experiment ? { experiment: options.experiment, ...(prepareModules ? { prepareModules } : {}) } : {}),
           limits,
           onEvent(event) {
+            if (event.type === "request_prepared") actualRequestCount++;
+            if (options.experiment && !liveTraceAvailable) throw new Error("arena_dispatch_journal_unavailable");
             if (!liveTraceAvailable) return;
             try {
               appendFileSync(join(runDirectory, "case-trace.jsonl"), `${JSON.stringify({
                 schemaVersion: "blind-discard-arena-case-trace/v1", caseOrdinal: entry.caseOrdinal, event,
-              })}\n`, { encoding: "utf8", mode: 0o600 });
+              })}\n`, { encoding: "utf8", mode: 0o600, flush: options.experiment !== undefined });
             } catch {
               liveTraceAvailable = false;
+              if (options.experiment) throw new Error("arena_dispatch_journal_unavailable");
               process.stderr.write("arena_live_trace_unavailable\n");
             }
           },
@@ -712,9 +818,10 @@ async function runCommand(options) {
     archiveComplete = true;
     process.stdout.write(`${JSON.stringify({ runId, archive: `coach/reports/blind-discard-arena/${runId}`, summary, tokenBudget }, null, 2)}\n`);
   } finally {
-    if (!archiveComplete) await rm(runDirectory, { recursive: true, force: true }).catch(() => undefined);
+    if (!archiveComplete && !options.experiment) await rm(runDirectory, { recursive: true, force: true }).catch(() => undefined);
     apiKey = null;
     if (runtime !== undefined) await runtime.close().catch(() => undefined);
+    if (releaseRunMutex) await releaseRunMutex();
   }
 }
 

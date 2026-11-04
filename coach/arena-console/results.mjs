@@ -1,3 +1,4 @@
+import { missingRunState } from '/trace-model.mjs';
 import { tabs, compactContent, roomyLayout } from '/compact-view.mjs';
 import { api, $, esc, number, compact, rate, date, labels, message } from '/client.mjs';
 import { runMetrics, aggregateMetrics, experimentTypeForDataset, experimentLabels } from '/presentation.mjs';
@@ -31,7 +32,7 @@ function renderRuns() {
     return `<tr><td><div class="result-id">${esc(row.id.slice(0, 8))} ${m.replay ? '<span class="tag">错题重跑</span>' : ''}<span class="tag">${m.controlledFault !== 'none' ? '故障' : m.rag.mode === 'local' ? 'Local' : 'Off'}</span></div><div class="result-date">${date(m.startedAt)}</div></td><td class="model-column result-model">${esc(m.coach.model)}<div class="result-date">${esc(m.coach.reasoningEffort ?? m.coach.providerId)}</div></td><td><span>${!metrics ? '归档未完成' : rate(metrics.succeeded, metrics.selected)}</span>${metrics ? `<div class="result-date">${metrics.succeeded}/${metrics.selected} 执行成功</div>` : ''}${summary?.toolFailureCount ? `<div class="result-date tool-warning">${summary.toolFailureCount} 次工具失败</div>` : ''}</td><td>${metrics ? rate(metrics.matched, metrics.succeeded) : '—'}<div class="result-date">${summary ? `${metrics.matched}/${metrics.succeeded} 成功案例${metrics.missingLabels ? ` · ${metrics.missingLabels} 缺标签` : ''}` : '等待结果'}</div></td><td class="token-column">${tokenText(summary)}</td><td class="time-column">${summary ? `${(summary.elapsedMs / 1000).toFixed(1)}s` : '—'}</td><td><a class="text-button view-button" href="/results?run=${row.id}">查看 ↗</a></td></tr>`;
   }).join('')}</tbody></table>`;
 }
-function renderDetail(data) {
+function renderDetail(data, heartbeat = true) {
   const { manifest: m, summary: s, events, trace = [] } = data;
   const finalized = new Map(events.filter(item => item.type === 'case_run').map(item => [item.caseOrdinal, item.result]));
   const live = new Map(); for (const row of trace) { if (!live.has(row.caseOrdinal)) live.set(row.caseOrdinal, []); live.get(row.caseOrdinal).push(row.event); }
@@ -43,7 +44,7 @@ function renderDetail(data) {
   const waterfallFocus = waterfall?.host.contains(document.activeElement) ? document.activeElement : null;
   const signature = JSON.stringify(data);
   selectedResult = data;
-  if (detailSignature === signature) { waterfall?.update(data, detailCase, !auto); return; }
+  if (detailSignature === signature) { waterfall?.update(data, detailCase, !auto, heartbeat); return; }
   const nextWaterfallKey = `${data.id}:${detailCase}`;
   if (waterfall && waterfallKey !== nextWaterfallKey) { waterfall.dispose(); waterfall = undefined; }
   waterfall?.host.remove();
@@ -54,7 +55,7 @@ function renderDetail(data) {
     if (ordinal !== detailCase) return "";
     const result = finalized.get(ordinal), records = result?.events ?? live.get(ordinal) ?? [];
     const score = result?.score.cases[0];
-    return `<details class="case-detail" data-detail-key="case-${ordinal}" open><summary class="case-summary"><span class="case-title">案例 ${ordinal + 1}</span><span class="tag">${result ? esc(labels[result.status] ?? result.status) : records.length ? '尚无最终结果' : '尚无执行记录'}</span>${matchBadge(score)}<span class="case-chevron" aria-hidden="true">⌄</span></summary><div class="case-body"><div class="detail-meta"><span>${item.candidateCount} 个候选动作</span>${result ? `<span>${result.providerTurnCount} 轮模型调用 · ${result.toolCallCount} 次工具调用 · ${(result.elapsedMs / 1000).toFixed(1)}s</span>` : ''}</div><div class="case-workspace"><section class="case-board">${records.find(r => r.type === 'run_started')?.observation ? observationView(records.find(r => r.type === 'run_started').observation) : '<p>本记录未保存牌面。</p>'}</section><section class="case-scores">${mortalTable(data, ordinal, result)}</section><section class="case-process"><div class="case-waterfall"></div><details class="trace-event-log"><summary>逐条事件记录</summary>${records.length ? `<ol class="trace-list">${records.filter(row => row.type !== 'run_started').map((row, index) => traceEvent(row, index, ordinal, records)).join('')}</ol>` : '<p class="field-hint">尚未收到本题事件。</p>'}</details></section></div>${result && !records.some(row => row.type === 'submission_locked') && result.attempt.submission ? structured(`${ordinal}-legacy-answer`, '旧归档中的最终提交', result.attempt.submission) : ''}</div></details>`;
+    return `<details class="case-detail" data-detail-key="case-${ordinal}" open><summary class="case-summary"><span class="case-title">案例 ${ordinal + 1}</span><span class="tag">${result ? esc(labels[result.status] ?? result.status) : records.length ? '尚无最终结果' : '尚无执行记录'}</span>${matchBadge(score)}<span class="case-chevron" aria-hidden="true">⌄</span></summary><div class="case-body"><div class="detail-meta"><span>${item.candidateCount} 个候选动作</span>${result ? `<span>${result.providerTurnCount} 轮模型调用 · ${result.toolCallCount} 次工具调用 · ${(result.elapsedMs / 1000).toFixed(1)}s</span>` : ''}</div><div class="case-workspace"><section class="case-board">${records.find(r => r.type === 'run_started')?.observation ? observationView(records.find(r => r.type === 'run_started').observation) : '<p>本记录未保存牌面。</p>'}</section><section class="case-scores">${mortalTable(data, ordinal, result)}</section><section class="case-process">${records.find(row => row.type === "run_started")?.experiment ? structured(`${ordinal}-modules`, "查看冻结模块开关、实际内容与选材摘要", records.find(row => row.type === "run_started").experiment) : ""}<div class="case-waterfall"></div><details class="trace-event-log"><summary>逐条事件记录</summary>${records.length ? `<ol class="trace-list">${records.filter(row => row.type !== 'run_started').map((row, index) => traceEvent(row, index, ordinal, records)).join('')}</ol>` : '<p class="field-hint">尚未收到本题事件。</p>'}</details></section></div>${result && !records.some(row => row.type === 'submission_locked') && result.attempt.submission ? structured(`${ordinal}-legacy-answer`, '旧归档中的最终提交', result.attempt.submission) : ''}</div></details>`;
   }).join('')}${structured('archive', '查看运行元数据与汇总', { manifest: m, summary: s })}<button id="download-result" class="quiet-button">下载本次结果 JSON</button>`;
   const workspace = body.querySelector('.case-workspace');
   const context = document.createElement('aside'); context.className = 'result-context';
@@ -72,14 +73,14 @@ function renderDetail(data) {
   if (traceHost) {
     if (waterfall) traceHost.replaceWith(waterfall.host);
     else { waterfall = mountTrace(traceHost); waterfallKey = nextWaterfallKey; }
-    waterfall.update(data, detailCase, !auto);
+    waterfall.update(data, detailCase, !auto, heartbeat);
   }
   for (const node of body.querySelectorAll('details')) { if (node.dataset.detailKey && knownKeys.has(node.dataset.detailKey)) node.open = openKeys.has(node.dataset.detailKey); if (activeKey && activeKey === node.dataset.detailKey) node.querySelector('summary').focus({ preventScroll: true }); }
   if (focusedId && body.querySelector(`#${CSS.escape(focusedId)}`)) body.querySelector(`#${CSS.escape(focusedId)}`).focus({ preventScroll: true });
   if (waterfallFocus?.isConnected) waterfallFocus.focus({ preventScroll: true });
   body.scrollTop = scroll;
-  $('#detail-case')?.addEventListener('change', event => { detailCase = Number(event.target.value); const url=new URL(location.href); url.searchParams.set('case',detailCase); history.replaceState(null,'',url); detailSignature = ''; renderDetail(selectedResult); });
-  $('#trace-auto').addEventListener('change', event => { waterfall?.update(selectedResult, detailCase, !event.target.checked); });
+  $('#detail-case')?.addEventListener('change', event => { detailCase = Number(event.target.value); const url=new URL(location.href); url.searchParams.set('case',detailCase); history.replaceState(null,'',url); detailSignature = ''; renderDetail(selectedResult, false); });
+  $('#trace-auto').addEventListener('change', event => { waterfall?.update(selectedResult, detailCase, !event.target.checked, false); });
   $('#refresh-detail').addEventListener('click', () => refreshDetail().catch(() => { $('#trace-sync').textContent = '刷新失败，请重试'; }));
   $('#rebuild-mortal')?.addEventListener('click', async event => {
     const button = event.currentTarget; button.disabled = true;
@@ -116,9 +117,9 @@ $('#results-type').addEventListener('change',()=>{resultPage=0;render();});
 $('#prev-results').onclick=()=>{resultPage--;renderRuns();};$('#next-results').onclick=()=>{resultPage++;renderRuns();};
 for(const button of document.querySelectorAll('[data-filter]'))button.addEventListener('click',()=>{filter=button.dataset.filter;resultPage=0;for(const b of document.querySelectorAll('[data-filter]')){b.classList.toggle('selected',b===button);b.setAttribute('aria-pressed',b===button);}renderRuns();});
 const params=new URLSearchParams(location.search);
-let openingRun = false;
+let openingRun = false, missingRunTerminal = false;
 async function openRequestedRun() {
-  if (!params.get('run') || selectedResult || openingRun) return;
+  if (!params.get('run') || selectedResult || openingRun || missingRunTerminal) return;
   openingRun = true;
   try {
     const run = await api('/api/run/' + encodeURIComponent(params.get('run')));
@@ -128,7 +129,7 @@ async function openRequestedRun() {
     document.body.classList.add('result-detail-view');
     for (const d of $('#detail-body').querySelectorAll('.case-detail')) d.open = d.dataset.detailKey === `case-${detailCase}`;
     $('#detail-title').focus({preventScroll:true}); window.scrollTo(0,0); message('');
-  } catch (error) { message('等待实验记录；每 3 秒重试。' + error.message, true); }
+  } catch (error) { const status = missingRunState(state?.job, params.get('run'), error.status); missingRunTerminal = !status.retry; message(status.message + (status.retry && error.status !== 404 ? error.message : ''), true); }
   finally { openingRun = false; }
 }
 await refresh(); await openRequestedRun();

@@ -11,6 +11,9 @@ test("workspace packages import as emitted JavaScript", async () => {
   const arenaMcp = await import("@riichi-coach/desktop/blind-discard-arena-mcp");
   const arenaRag = await import("@riichi-coach/desktop/blind-discard-arena-rag");
   const arenaRagApplicability = await import("@riichi-coach/desktop/blind-discard-arena-rag-applicability");
+  const arenaExperiment = await import("@riichi-coach/desktop/blind-discard-arena-experiment");
+  assert.equal(arenaExperiment.ARENA_ASSEMBLY_VERSION, "arena-modular-messages/v1");
+  assert.deepEqual(arenaExperiment.arenaDirectOutputSchema().required, ["tile", "red"]);
   const questionLab = await import("@riichi-coach/question-lab");
   assert.equal(typeof questionLab.LabBatch.open,"function");
   assert.equal(typeof questionLab.readLabConfig,"function");

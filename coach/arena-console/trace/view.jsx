@@ -14,14 +14,14 @@ const count = value => value === undefined ? '未报告' : value.toLocaleString(
 const label = text => { const node = document.createElement('span'); node.textContent = text; return node; };
 const size = 10;
 
-function TraceView({ data, ordinal, receivedAt, connected, paused }) {
+function TraceView({ data, ordinal, receivedAt, connected, paused, frozenAt }) {
   const trace = caseTrace(data, ordinal);
   const [now, setNow] = useState(Date.now()), [selected, setSelected] = useState(null), [page, setPage] = useState(0);
   const [follow, setFollow] = useState(true), [filter, setFilter] = useState('all');
   const canvas = useRef(null), timeline = useRef(null), items = useRef(new DataSet()), groups = useRef(new DataSet());
   const range = useRef(10000), updateSelection = useRef(setSelected);
   const fresh = connected && !paused && now - receivedAt < 6500;
-  const elapsed = liveElapsed(trace, now, receivedAt, fresh);
+  const elapsed = liveElapsed(trace, now, receivedAt, frozenAt);
   const all = trace.spans.filter(s => filter === 'all' || (filter === 'failed' ? s.status === 'failed' || s.status === 'unknown' : s.kind === filter));
   const pageCount = Math.max(1, Math.ceil(all.length / size)), actualPage = Math.min(page, pageCount - 1);
   const rows = all.slice(actualPage * size, actualPage * size + size);
@@ -128,10 +128,12 @@ function SpanDetail({ span, live, elapsed, slowest }) {
       args={span.input} result={span.output} error={span.error} duration={duration ?? undefined}
       startedAt={span.status === 'running' && duration !== null ? Date.now() - duration : undefined} defaultOpen maxCodeHeight={100} /> : <>
       {span.error && <p className="trace-error-message">{span.error}</p>}
-      {span.output !== undefined && <details open><summary>{span.kind === 'llm' ? '公开决策摘要' : '返回内容'}</summary><pre>{show(span.output)}</pre></details>}
+      {span.output !== undefined && <details open><summary>{span.kind === 'llm' ? span.outputLabel ?? '公开决策摘要' : '返回内容'}</summary><pre>{show(span.output)}</pre></details>}
       {span.input !== undefined && <details><summary>调用参数</summary><pre>{show(span.input)}</pre></details>}
       {span.status === 'running' && <p className="trace-note">{live ? '等待响应…' : '刷新恢复后确认调用状态。'}</p>}
     </>}
+    {span.audit && <details><summary>实际请求审计</summary><pre>{show(span.audit)}</pre></details>}
+    {span.final && <details><summary>最终回答解析</summary><pre>{show(span.final)}</pre></details>}
     {span.reflection && <details><summary>RAG 筛选记录</summary><pre>{show(span.reflection)}</pre></details>}
     <details className="trace-raw"><summary>原始事件</summary><pre>{show(span.raw ?? { status: span.status, inputBytes: span.inputBytes })}</pre></details>
   </>;
@@ -140,7 +142,7 @@ function SpanDetail({ span, live, elapsed, slowest }) {
 export function mountTrace(host) {
   const root = createRoot(host);
   let payload;
-  return { host, update(data, ordinal, paused = false) { payload = { data, ordinal, receivedAt: Date.now(), connected: true, paused }; root.render(<TraceView {...payload} />); },
-    disconnected() { if (payload) { payload = { ...payload, connected: false }; root.render(<TraceView {...payload} />); } },
+  return { host, update(data, ordinal, paused = false, heartbeat = true) { const now = Date.now(); payload = { data, ordinal, receivedAt: heartbeat ? now : payload?.receivedAt ?? now, connected: heartbeat ? true : payload?.connected ?? true, paused, frozenAt: paused ? payload?.frozenAt ?? now : heartbeat ? null : payload?.frozenAt ?? null }; root.render(<TraceView {...payload} />); },
+    disconnected() { if (payload) { payload = { ...payload, connected: false, frozenAt: payload.frozenAt ?? Date.now() }; root.render(<TraceView {...payload} />); } },
     dispose() { root.unmount(); } };
 }

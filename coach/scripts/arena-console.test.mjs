@@ -49,7 +49,7 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await f.state()).catalogs.flat.ready, false);
   assert.equal((await fetch(f.url + '/api/run/not-a-run')).status, 404);
   assert.equal((await fetch(f.url + '/presentation.mjs')).status, 200);
-  for (const path of ['/mistakes', '/mistakes.mjs', '/case-view.mjs']) assert.equal((await fetch(f.url + path)).status, 200);
+  for (const path of ['/mistakes', '/mistakes.mjs', '/case-view.mjs', '/trace-model.mjs', '/trace.mjs', '/trace.css', '/trace.mjs.LEGAL.txt']) assert.equal((await fetch(f.url + path)).status, 200);
   const titles = ['实验控制台', '题库生成', '实验结果', '错题集', '模型与 API 配置', '模型运行配置'];
   for (const path of ['/', '/question-banks', '/results', '/mistakes', '/settings', '/model-info']) {
     const response = await fetch(f.url + path); assert.equal(response.status, 200);
@@ -93,6 +93,30 @@ test('console starts a real owned process once and stop waits for its exit', asy
   for (let i = 0; i < 100; i++) { job = (await f.state()).job; if (job.status === 'stopped') break; await setTimeout(50); }
   assert.equal(job.status, 'stopped'); assert.equal(job.steps.length, 1); assert.equal(job.steps[0].status, 'stopped');
   assert.equal((await f.post('/api/stop', {})).status, 409);
+});
+
+test('console freezes raw module config, exposes the direct schema and rejects contradictory run modes', async t => {
+  const f = await fixture(t);
+  assert.equal((await f.post('/api/config', { experiment: 'raw' })).status, 200);
+  const config = (await f.state()).config.experiment;
+  assert.equal(config.submission, 'tile-red');
+  const info = await fetch(f.url + '/api/model-info').then(r => r.json());
+  assert.deepEqual(info.modular.tools, []);
+  assert.deepEqual(info.modular.schema.required, ['tile', 'red']);
+  assert.match(info.modular.isolation, /unavailable/);
+  assert.equal((await f.post('/api/start', { mode: 'local' })).status, 400);
+  assert.equal((await f.post('/api/config', { experiment: { ...config, helperFacts: true } })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'off' })).status, 400);
+  assert.equal((await f.state()).job, null);
+  await f.post('/api/config', { experiment: config, provider: 'openai-compatible', model: 'synthetic', baseUrl: 'https://synthetic.test/v1', apiKey: 'SYNTHETIC_KEY' });
+  assert.equal((await f.post('/api/start', { mode: 'off' })).status, 202);
+  let args;
+  for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(20); } }
+  assert.deepEqual(JSON.parse(args[args.indexOf('--experiment') + 1]), config);
+  await f.post('/api/stop', {});
+  let job;
+  for (let i = 0; i < 100; i++) { job = (await f.state()).job; if (job.status === 'stopped') break; await setTimeout(20); }
+  assert.equal(job.status, 'stopped');
 });
 
 test('idle console shuts down through its same-origin lifecycle hook', async t => {
