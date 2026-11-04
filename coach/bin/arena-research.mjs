@@ -20,7 +20,7 @@ export function createResearchLibrary(configFile) {
   async function index(refresh=false) {
     if(cache && !refresh && Date.now()<expires) return cache;
     let roots=[];
-    try { roots=JSON.parse(await readFile(configFile,'utf8')).roots; if(!Array.isArray(roots)||!roots.every(p=>typeof p==='string'&&isAbsolute(p))) throw Error(); }
+    try { roots=JSON.parse((await readFile(configFile,'utf8')).replace(/^\uFEFF/,'')).roots; if(!Array.isArray(roots)||!roots.every(p=>typeof p==='string'&&isAbsolute(p))) throw Error(); }
     catch(e) { if(e.code!=='ENOENT') throw new Error('研究资料目录配置无效。'); }
     const studies=[], unavailable=[];
     for(const source of [...new Set(roots)]) {

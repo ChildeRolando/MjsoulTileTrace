@@ -1,8 +1,12 @@
 // Presentation only: archived events remain the authority for grading and usage.
 const timed = value => Number.isFinite(value) && value >= 0;
+export function caseRecords(data, ordinal) {
+  const result = data.events?.find(row => row.type === 'case_run' && row.caseOrdinal === ordinal)?.result;
+  return result?.events?.length ? result.events : data.trace?.filter(row => row.caseOrdinal === ordinal).map(row => row.event) ?? [];
+}
 export function caseTrace(data, ordinal) {
   const result = data.events?.find(row => row.type === 'case_run' && row.caseOrdinal === ordinal)?.result;
-  const records = result?.events ?? data.trace?.filter(row => row.caseOrdinal === ordinal).map(row => row.event) ?? [];
+  const records = caseRecords(data, ordinal);
   const terminal = records.find(row => row.type === 'run_terminal');
   const began = records.find(row => row.type === 'run_started');
   const live = Boolean(data.traceLive && began && !terminal && !result);
@@ -63,10 +67,10 @@ export function caseTrace(data, ordinal) {
   const callsComplete = spans.filter(s => s.kind !== 'submission').every(s => s.duration !== null && !s.approximate);
   const slowest = callsComplete ? measured.reduce((best, s) => !best || s.duration > best.duration ? s : best, null)?.id : undefined;
   return { spans, slowest, startedAt: began?.startedAt, live, lastElapsed: cursor,
-    elapsed: terminal?.elapsedMs ?? result?.elapsedMs ?? cursor,
-    status: terminal?.status ?? result?.status ?? (live ? 'running' : began ? 'incomplete' : 'pending'),
+    elapsed: result?.elapsedMs ?? terminal?.elapsedMs ?? cursor,
+    status: result?.status ?? terminal?.status ?? (live ? 'running' : began ? 'incomplete' : 'pending'),
     outcome: records.find(row => row.type === 'submission_locked')?.submission,
-    model: began?.provider.model ?? data.manifest?.coach.model,
+    model: began?.provider?.model ?? data.manifest?.coach?.model,
     hasApproximate: spans.some(s => s.approximate || s.start === null) };
 }
 

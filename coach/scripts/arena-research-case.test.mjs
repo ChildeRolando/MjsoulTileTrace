@@ -45,6 +45,13 @@ test('partial traces remain unfinished and summary-only studies explain missing 
  const d=await readResearchCase(f.root,f.group,f.summary);assert.equal(d.result,null);assert.equal(d.trace.length,1);assert.equal(d.traceLive,false);
  const empty=join(f.root,'summary-only');await mkdir(empty);assert.equal((await readResearchCase(empty,f.group,f.summary)).available,false);
 });
+test('separate process logs survive missing result files and empty inline events',async t=>{
+ const f=await fixture(t);await f.write(`${f.archive}/case-trace.jsonl`,f.events.map(event=>JSON.stringify({caseOrdinal:0,event})).join('\n'));
+ await rm(join(f.root,f.archive,'events.jsonl'));
+ const partial=await readResearchCase(f.root,f.group,f.summary);assert.equal(partial.available,true);assert.equal(partial.result,null);assert.equal(partial.trace.length,f.events.length);
+ await f.write(`${f.archive}/events.jsonl`,JSON.stringify({type:'case_run',caseOrdinal:0,result:{...f.result,events:[]}}));
+ const complete=await readResearchCase(f.root,f.group,f.summary);assert.equal(complete.trace.length,f.events.length);assert.deepEqual(complete.result.events,[]);assert.equal(complete.result.status,'failed');
+});
 test('textbook selection remains a separate recorded phase, bound to the same case',async t=>{
  const f=await fixture(t,'textbook'), group='basic_and_selected_textbook';
  const selector={slots:[{ordinal:0,caseId:f.summary.caseId,requestSha256:'request-0'}]};

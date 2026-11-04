@@ -33,3 +33,8 @@ test('execution receipts expose real attempts without inventing Mortal matches',
  const row=(await f.lib.list()).studies[0], detail=await f.lib.detail(row.id);
  assert.equal(row.hidden,false);assert.equal(detail.groups[0].cases.length,2);assert.equal(detail.groups[0].valid,1);assert.equal(detail.groups[0].matches,null);
 });
+test('Windows UTF-8 BOM source configuration discovers the same reports',async t=>{
+ const f=await fixture(t);await f.write('real-study','报告.md','# 实验结果');
+ await writeFile(f.config,'\uFEFF'+JSON.stringify({roots:[f.sources]}));
+ assert.equal((await f.lib.list()).studies[0].title,'实验结果');
+});

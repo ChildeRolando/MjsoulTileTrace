@@ -56,7 +56,9 @@ export async function readResearchCase(directory, group, summary) {
   const batch=await json(root,`${base}/${f.prefix}batch-${slot.batchId}.json`,manifest.dataset?.source?.batchManifestSha256);
   const bound=batch.cases?.find(c=>c.caseOrdinal===slot.batchCaseOrdinal);
   if(!bound?.caseRef || (batch.group && batch.group!==group))throw Error('研究场面映射缺失');
-  const events=await rowsForCase(root,`${archive}/events.jsonl`,slot.batchCaseOrdinal);
+  let events=[];
+  try {events=await rowsForCase(root,`${archive}/events.jsonl`,slot.batchCaseOrdinal);}
+  catch(e){if(e.code!=='ENOENT')throw e;}
   const finals=events.filter(e=>e.type==='case_run');
   if(finals.length>1)throw Error('研究案例存在重复终态，无法选择');
   const result=finals[0]?.result;

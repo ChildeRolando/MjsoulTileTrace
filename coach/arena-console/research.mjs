@@ -3,6 +3,7 @@ import {tabs} from '/compact-view.mjs';
 import {observationView,actionText,matchBadge,tileImages} from '/case-view.mjs';
 import {mountDocument,mountJson} from '/reader.mjs';
 import {mountTrace} from '/trace.mjs';
+import {caseRecords} from '/trace-model.mjs';
 let data, page=0, disposeDocument, disposeCase=()=>{}, loading=0, caseLoading=0;
 const size=()=>innerHeight>=950?10:innerHeight>=740?7:4;
 const groupNames={raw_position:'原始牌面',raw_plus_legal:'牌面 + 合法候选',raw_plus_legal_and_calculations:'牌面 + 合法候选 + 基础计算',basic_calculations:'基础计算',basic_and_structure:'基础计算 + 手牌结构',basic_and_improvements:'基础计算 + 改良',basic_and_defense:'基础计算 + 防守',basic_and_hand_structure:'基础计算 + 手牌结构',basic_calculations_compare:'基础计算 + 比较提示',basic_calculations_compare_explain:'基础计算 + 比较提示 + 公开解释',basic_and_selected_textbook:'基础计算 + 所选教材'};
@@ -49,7 +50,7 @@ async function openStudy(id) {
 }
 const eventNames={run_started:'开始案例',request_prepared:'模型请求：提示词与输入',request_audit:'请求审计',provider_turn_started:'开始模型调用',provider_turn:'模型响应与用量',provider_final:'最终回答原文',tool_call:'工具调用参数',tool_result:'工具返回结果',submission_locked:'最终决策',run_terminal:'结束案例',module_preparation:'资料准备'};
 function renderCase(host,d) {
- const cleanups=[], result=d.result, records=result?.events??d.trace?.map(r=>r.event)??[], start=records.find(e=>e.type==='run_started');
+ const cleanups=[], result=d.result, records=caseRecords(d,d.caseOrdinal), start=records.find(e=>e.type==='run_started');
  const details=d.preparation?[{type:'教材选择：实际请求',data:d.preparation.requests},{type:'教材选择：模型回答',data:d.preparation.responses},{type:'教材选择：执行记录与用量',data:d.preparation.journal},...records]:records;
  const choice=result?.attempt?.submission, score=result?.score?.cases?.find(c=>c.caseRef===result.caseRef);
  if(!d.available){host.innerHTML=`<p class="field-hint">${esc(d.reason)}</p><div class="research-summary-json"></div>`;cleanups.push(mountJson(host.querySelector('.research-summary-json'),d.summary));return ()=>cleanups.forEach(fn=>fn());}
