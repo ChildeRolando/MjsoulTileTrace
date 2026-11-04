@@ -6,9 +6,9 @@ and [remark-gfm](https://github.com/remarkjs/remark-gfm); JSON uses the read-onl
 [uiw react-json-view](https://github.com/uiwjs/react-json-view) component. All are
 MIT licensed, pinned in package-lock.json and bundled locally. License notices
 are available at `/reader.mjs.LEGAL.txt`. HTML is not executed, remote report
-images are not fetched, and source files remain unchanged. Download preserves
-the source text; malformed JSON remains an explicit error with the original text.
-The full-screen reader replaces chapter navigation; its exit toolbar remains visible
+images are not fetched, and source files remain unchanged. Malformed JSON remains an explicit error with the original text.
+The full-screen button shares the report selector row; format labels and file download
+actions are omitted. The reader replaces chapter navigation; its exit toolbar remains visible
 while the document scrolls, and Escape restores focus to the reading button.
 
 `arena-research-case.mjs` joins statistics to the existing frozen case/group
