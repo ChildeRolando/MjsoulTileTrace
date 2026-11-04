@@ -159,7 +159,7 @@ describe("Blind Discard Arena runner", () => {
     });
     expect(result.status).toBe("invalid_submission");
     expect(result.providerTurnCount).toBe(2);
-    expect(result.events).toContainEqual({ type: "submission_rejected", reason: "reference_not_observed" });
+    expect(result.events).toContainEqual({ type: "submission_rejected", reason: "reference_not_observed", elapsedMs: expect.any(Number) });
     expect(result.events.some(row => row.type === "submission_locked")).toBe(false);
   });
 
@@ -186,10 +186,15 @@ describe("Blind Discard Arena runner", () => {
 
   it("preserves reported tokens and a bounded diagnostic code on a failed model call", async () => {
     const testCase = makeArenaMcpCase();
+    const liveEvents: ArenaRunEvent[] = [];
     const result = await runBlindCoachCase({ observation: testCase.observation,
       grading: { binding: testCase.authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } },
       provider: { descriptor: () => ({ providerId: "test-provider", model: "failure-test", protocolVersion: "arena-function-call/v1" }),
-        async request() { return { status: "provider_error", failureCode: "invalid_model_response", usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } }; } },
+        async request() {
+          expect(liveEvents.at(-1)).toMatchObject({ type: "provider_turn_started", turn: 1 });
+          return { status: "provider_error", failureCode: "invalid_model_response", usage: { inputTokens: 10, outputTokens: 3, totalTokens: 13 } };
+        } },
+      onEvent: event => { liveEvents.push(event); },
       tools: [offRagTool(testCase.observation.caseRef)] });
     expect(result.status).toBe("provider_error");
     expect(result.providerUsage).toMatchObject({ status: "reported", tokens: { totalTokens: 13 }, providerTurnCount: 1 });

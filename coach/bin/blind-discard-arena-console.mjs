@@ -95,8 +95,9 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
     if (mode === 'generate') args.splice(0, args.length, cliPath, 'generate', snapshot.bankId, JSON.stringify(snapshot.generation));
     if (snapshot.replay) args.push('--replay-run', snapshot.replay.runId, '--replay-case', String(snapshot.replay.caseOrdinal));
     const step = { mode, status: 'running', startedAt: new Date().toISOString(), ...(snapshot.replay ? { questionId: snapshot.replay.questionId } : {}) }; job.steps.push(step);
+    if (['off', 'local', 'fault'].includes(mode)) step.runId = randomUUID();
     let stdout = '', stderr = '', exceeded = false;
-    const owned = spawn(process.execPath, args, { cwd: coachRoot, env: { ...process.env, RIICHI_COACH_API_KEY: key, RIICHI_ARENA_ARCHIVE_ROOT: archiveRoot },
+    const owned = spawn(process.execPath, args, { cwd: coachRoot, env: { ...process.env, RIICHI_COACH_API_KEY: key, RIICHI_ARENA_ARCHIVE_ROOT: archiveRoot, RIICHI_ARENA_RUN_ID: step.runId ?? '' },
       windowsHide: true, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
     child = owned;
     owned.stdout.on('data', data => { if (stdout.length + data.length > 1024 * 1024) { exceeded = true; terminate(); } else stdout += data; });
@@ -220,7 +221,9 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         try {
           mortalDetails = visibleArenaMortalDetails(JSON.parse(await readFile(join(archiveRoot, id, 'mortal-details.json'), 'utf8')), run.manifest, events);
         } catch { /* old runs can rebuild display evidence without changing the original archive */ }
-        return json(response, 200, { ...run, events, trace, mortalDetails });
+        const traceLive = Boolean(child && ['running', 'stopping'].includes(job?.status)
+          && job.steps.some(step => step.runId === id && step.status === 'running'));
+        return json(response, 200, { ...run, events, trace, mortalDetails, traceLive });
       }
       if (request.method === 'POST' && url.pathname === '/api/config') {
         const raw = await body(request), next = settings(raw);
@@ -244,7 +247,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         response.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600' });
         return response.end(svg);
       }
-      const file = { '/question-banks': ['question-banks.html', 'text/html; charset=utf-8'], '/question-banks.mjs': ['question-banks.mjs', 'text/javascript; charset=utf-8'], '/results': ['results.html', 'text/html; charset=utf-8'], '/results.mjs': ['results.mjs', 'text/javascript; charset=utf-8'], '/settings': ['settings.html', 'text/html; charset=utf-8'], '/settings.mjs': ['settings.mjs', 'text/javascript; charset=utf-8'], '/compact-view.mjs': ['compact-view.mjs', 'text/javascript; charset=utf-8'], '/client.mjs': ['client.mjs', 'text/javascript; charset=utf-8'], '/mistakes': ['mistakes.html', 'text/html; charset=utf-8'], '/mistakes.mjs': ['mistakes.mjs', 'text/javascript; charset=utf-8'], '/case-view.mjs': ['case-view.mjs', 'text/javascript; charset=utf-8'], '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/console-page.mjs': ['console-page.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/layout.css': ['layout.css', 'text/css; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
+      const file = { '/trace-model.mjs': ['trace/model.mjs', 'text/javascript; charset=utf-8'], '/trace.mjs.LEGAL.txt': ['dist/trace.mjs.LEGAL.txt', 'text/plain; charset=utf-8'], '/trace.mjs': ['dist/trace.mjs', 'text/javascript; charset=utf-8'], '/trace.css': ['dist/trace.css', 'text/css; charset=utf-8'], '/tool-call-card.css': ['dist/tool-call-card.css', 'text/css; charset=utf-8'], '/question-banks': ['question-banks.html', 'text/html; charset=utf-8'], '/question-banks.mjs': ['question-banks.mjs', 'text/javascript; charset=utf-8'], '/results': ['results.html', 'text/html; charset=utf-8'], '/results.mjs': ['results.mjs', 'text/javascript; charset=utf-8'], '/settings': ['settings.html', 'text/html; charset=utf-8'], '/settings.mjs': ['settings.mjs', 'text/javascript; charset=utf-8'], '/compact-view.mjs': ['compact-view.mjs', 'text/javascript; charset=utf-8'], '/client.mjs': ['client.mjs', 'text/javascript; charset=utf-8'], '/mistakes': ['mistakes.html', 'text/html; charset=utf-8'], '/mistakes.mjs': ['mistakes.mjs', 'text/javascript; charset=utf-8'], '/case-view.mjs': ['case-view.mjs', 'text/javascript; charset=utf-8'], '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/console-page.mjs': ['console-page.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/layout.css': ['layout.css', 'text/css; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
       if (request.method !== 'GET' || !file) throw fail('页面不存在。', 404);
       response.writeHead(200, { 'Content-Type': file[1], 'Cache-Control': 'no-cache' });
       const content = await readFile(join(assets, file[0]));

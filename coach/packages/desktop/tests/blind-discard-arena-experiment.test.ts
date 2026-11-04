@@ -197,7 +197,14 @@ describe("Arena raw baseline", () => {
       expect(recovered.status).toBe(run.status);
       expect(recovered.providerUsage).toEqual(run.providerUsage);
       expect(recovered.events).toContainEqual(run.events[finalIndex]);
-      expect(recovered.events).toContainEqual(run.events[finalIndex + 1]);
+      const original = run.events[finalIndex + 1];
+      const restored = recovered.events.find(e => e.type === original.type);
+      if (end > finalIndex + 1) expect(restored).toEqual(original);
+      else {
+        // Recovery recreates semantics, not a timestamp that was never persisted.
+        const { elapsedMs: _time, ...content } = original as typeof original & { elapsedMs?: number };
+        expect(restored).toEqual(content);
+      }
       expect(recoverInterruptedArenaRun({ events: recovered.events, binding: authorizedCase.binding, reference })).toMatchObject({ attempt: run.attempt, status: run.status });
     }
     expect(calls).toBe(1);
