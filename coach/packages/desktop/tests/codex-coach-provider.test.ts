@@ -1,7 +1,8 @@
 import { EventEmitter } from "node:events";
+import { createHash } from "node:crypto";
 import { spawn, type ChildProcessWithoutNullStreams, type SpawnOptions } from "node:child_process";
 import { readFileSync } from "node:fs";
-import { mkdtemp, rm, stat } from "node:fs/promises";
+import { mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { PassThrough } from "node:stream";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -254,6 +255,40 @@ function fakePort(options: {
     get executableLookups() { return executableLookups; },
   };
 }
+
+it.each([
+  ["error", "error", "item.completed"],
+  ["command_execution", "command_execution", "item.started"],
+  ["mcp_tool_call", "mcp_tool_call", "item.updated"],
+  ["file_change", "file_change", "item.completed"],
+  ["web_search", "web_search", "item.completed"],
+  ["todo_list", "todo_list", "item.completed"],
+  ["collab_tool_call", "collab_tool_call", "item.completed"],
+  ["CANARY_PRIVATE_UNKNOWN", "other", "item.completed"],
+  [undefined, "missing", "item.completed"],
+] as const)("records only sanitized unexpected item metadata for %s", async (kind, expected, phase) => {
+  const home = await mkdtemp(join(tmpdir(), "codex-diagnostic-synthetic-"));
+  try {
+    const token = `${Buffer.from('{"alg":"none"}').toString("base64url")}.${Buffer.from(JSON.stringify({ sub: "synthetic", exp: 4102444800, "https://api.openai.com/auth": { chatgpt_account_id: "synthetic-account" } })).toString("base64url")}.synthetic`;
+    const auth = { auth_mode: "chatgpt", tokens: { id_token: token, access_token: token, refresh_token: "SYNTHETIC_SECRET", account_id: "synthetic-account" }, last_refresh: new Date().toISOString() };
+    await writeFile(join(home, "auth.json"), JSON.stringify(auth));
+    const catalog = { client_version: "0.166.0", models: [{ slug: "gpt-6.1-terra", tool_mode: "code_mode_only", apply_patch_tool_type: "freeform", experimental_supported_tools: ["send_user_message_async", "clock"] }] };
+    await writeFile(join(home, "models_cache.json"), JSON.stringify(catalog));
+    const diagnostics: any[] = [];
+    const fake = fakePort({ version: "codex-cli 0.162.1\n", onExec: transcript([{ type: "thread.started" }, { type: "turn.started" },
+      { type: phase, item: { ...(kind === undefined ? {} : { type: kind }), text: "CANARY_PRIVATE_PAYLOAD", command: "CANARY_PRIVATE_COMMAND", arguments: "CANARY_PRIVATE_ARGUMENT" } }]) });
+    const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6.1-terra", reasoningEffort: "high", processPort: fake.port,
+      isolation: { sourceHome: home, expectedCatalogSourceSha256: createHash("sha256").update(JSON.stringify(catalog)).digest("hex"), loopbackProbe: { baseUrl: "http://127.0.0.1:1/v1" }, onDiagnostic: x => diagnostics.push(x) } });
+    const result = await provider.request({ messages: [{ role: "system", content: "test" }, { role: "user", content: "test" }], tools: [], outputSchema: { type: "object" }, requireIsolatedContext: true, maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 512 }, new AbortController().signal);
+    expect(result).toMatchObject({ status: "provider_error", failureCode: "cli_unexpected_item" });
+    expect(result).not.toHaveProperty("usage");
+    expect(fake.execCount).toBe(1);
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0]).toMatchObject({ unexpectedItemKind: expected, unexpectedItemPhase: phase, rawFinal: null, physicalRequests: "unknown" });
+    expect(diagnostics[0]).not.toHaveProperty("usage");
+    expect(JSON.stringify(diagnostics)).not.toMatch(/CANARY_PRIVATE|SYNTHETIC_SECRET/);
+  } finally { await rm(home, { recursive: true, force: true }); }
+});
 
 const featureDisabled = (args: string[], feature: string) => {
   const index = args.findIndex((value, current) => value === "--disable" && args[current + 1] === feature);

@@ -587,13 +587,14 @@ async function runExecAttempt(input: {
       } = { threadStarted: false, turnStarted: false, turnCompleted: false };
       let stderrBytes = 0;
       const events: string[] = [];
+      let unexpectedItem: { unexpectedItemKind: import("./codex-arena-isolation.js").UnexpectedItemKind; unexpectedItemPhase: "item.started" | "item.updated" | "item.completed" } | undefined;
       const resolvePromise = (result: ExecResult) => {
         if (input.isolation?.options.onDiagnostic) {
           const originalBytes = state.finalText === undefined ? undefined : Buffer.from(state.finalText, "utf8");
           const redactedBytes = state.finalText === undefined || !isolated ? undefined : Buffer.from(isolated.redact(state.finalText), "utf8");
           let rawFinal = redactedBytes === undefined ? null : redactedBytes.subarray(0, 16384).toString("utf8");
           while (rawFinal !== null && Buffer.byteLength(rawFinal, "utf8") > 16384) rawFinal = rawFinal.slice(0, -1);
-          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
+          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
         }
         const safeResult = result.kind === "success" && isolated ? { ...result, content: isolated.redact(result.content) } : result;
         resolveResult({ ...safeResult, ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
@@ -693,6 +694,14 @@ async function runExecAttempt(input: {
         if (events.length < 64 && typeof event.type === "string") events.push(["thread.started", "turn.started", "item.started", "item.updated", "item.completed", "turn.completed", "turn.failed", "error"].includes(event.type) ? event.type : "unknown");
         const problem = parseEvent(event, state, input.arenaStructuredOutput, input.isolation !== undefined);
         if (problem !== null) {
+          if ((event.type === "item.started" || event.type === "item.updated" || event.type === "item.completed") && state.threadStarted && state.turnStarted) {
+            const kind = isRecord(event.item) ? event.item.type : undefined;
+            if (!isRecord(event.item) || (kind !== "agent_message" && kind !== "reasoning")) {
+              const known = ["error", "command_execution", "file_change", "mcp_tool_call", "web_search", "todo_list", "collab_tool_call"] as const;
+              const unexpectedItemKind = kind === undefined || kind === null ? "missing" : known.find(value => value === kind) ?? "other";
+              unexpectedItem = { unexpectedItemKind, unexpectedItemPhase: event.type };
+            }
+          }
           if (event.type === "turn.failed") {
             state.terminalFailure = problem;
             kill();
