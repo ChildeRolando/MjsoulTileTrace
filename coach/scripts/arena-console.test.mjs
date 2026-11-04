@@ -51,7 +51,7 @@ test('console persists public settings, never returns or saves the API key, and 
   assert.equal((await fetch(f.url + '/presentation.mjs')).status, 200);
   for (const path of ['/mistakes', '/mistakes.mjs', '/case-view.mjs', '/trace-model.mjs', '/trace.mjs', '/trace.css', '/trace.mjs.LEGAL.txt']) assert.equal((await fetch(f.url + path)).status, 200);
   const titles = ['实验控制台', '题库生成', '实验结果', '错题集', '模型与 API 配置', '模型运行配置'];
-  for (const path of ['/', '/question-banks', '/results', '/mistakes', '/settings', '/model-info']) {
+  for (const path of ['/', '/question-banks', '/results', '/results/research', '/mistakes', '/settings', '/model-info']) {
     const response = await fetch(f.url + path); assert.equal(response.status, 200);
     const html = await response.text();
     const nav = html.match(/<nav aria-label="主导航">([\s\S]*?)<\/nav>/)[1];
@@ -60,6 +60,9 @@ test('console persists public settings, never returns or saves the API key, and 
     assert.equal(html.includes('<dialog'), false);
   }
   const mistakes = await fetch(f.url + '/api/mistakes').then(r => r.json());
+  assert.equal((await fetch(f.url + '/research.mjs')).status, 200);
+  assert.deepEqual((await fetch(f.url + '/api/research').then(r => r.json())).studies, []);
+  assert.equal((await fetch(f.url + '/api/research/unknown')).status, 404);
   assert.equal(mistakes.questions.length, 0);
   assert.equal(mistakes.totals.errors, 0);
   assert.equal((await fetch(f.url + '/api/mistakes?type=invalid')).status, 400);

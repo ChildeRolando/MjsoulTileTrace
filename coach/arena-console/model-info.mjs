@@ -1,15 +1,17 @@
-import { tabs, textPages, paginate, roomyLayout } from '/compact-view.mjs';
+import { tabs, fitTextPages } from '/compact-view.mjs';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const pre = value => `<pre>${esc(typeof value === 'string' ? value : JSON.stringify(value, null, 2))}</pre>`;
 const detail = (title, value) => `<details><summary>${esc(title)}</summary>${pre(value)}</details>`;
+let disposeReader;
 async function load() {
   const status = document.querySelector('#info-status'), button = document.querySelector('#reload-info'); button.disabled = true;
   try {
     const response = await fetch('/api/model-info'); if (!response.ok) throw new Error('读取配置失败，请重试。');
     const d = await response.json(), c = d.config;
+    disposeReader?.();
     if (d.modular) {
       document.querySelector('#info-content').innerHTML = `<section class="panel inspector-section"><h2>模块实验配置</h2><p>${esc(d.modular.isolation)}</p><p>每题实际内容、最终请求与模块摘要在<a href="/results">实验结果 → 案例过程</a>查看。</p>${detail('冻结模块开关', c.experiment)}${detail('系统提示词', d.modular.prompt)}${detail('提交 schema', d.modular.schema)}${detail('提供的工具', d.modular.tools)}<p>消息组装版本：${esc(d.modular.version)}</p></section>`;
-      status.textContent = ''; return;
+      disposeReader = fitTextPages(document.querySelector('#info-content')); status.textContent = ''; return;
     }
     document.querySelector('#info-content').innerHTML = `
       <section id="connection" class="panel inspector-section"><div class="panel-heading"><h2>连接与预算</h2></div><dl class="info-grid"><div><dt>模型</dt><dd>${esc(c.model)}</dd></div><div><dt>连接方式</dt><dd>${esc(c.provider)} · ${esc(c.reasoningEffort)}</dd></div><div><dt>单轮输出 Token</dt><dd>${c.maxProviderOutputTokens.toLocaleString()}</dd></div><div><dt>逐题时限</dt><dd>${c.maxRunMs / 1000} 秒</dd></div><div><dt>每题模型轮次 / 工具次数</dt><dd>${c.maxProviderTurns} / ${c.maxToolCalls}</dd></div><div><dt>累计预算报警线</dt><dd>${c.tokenWarningThreshold.toLocaleString()} tokens</dd></div></dl><p class="field-hint">${c.provider === 'codex-cli' ? '本机 Codex 订阅：输出 Token 是传入提示词的可见响应要求，并核验可获得的用量；不是 Codex 服务端强制上限。' : `API 地址：${esc(c.baseUrl)}；输出 Token 通过 max_tokens 传给接口，支持范围由所选模型决定。`} Arena 请求／响应大小另按字节限制，不能与整轮模型用量直接换算。</p>${detail('全部运行预算（含字节与时间限制）', d.limits)}</section>
@@ -18,8 +20,7 @@ async function load() {
       <section id="knowledge" class="panel inspector-section"><div class="panel-heading"><h2>RAG 本地知识库</h2><span class="tag">${d.rag.corpus.passages.length} 个片段</span></div><p>在控制台选择 Off / Local / 对照实验。Off 返回检索关闭；Local 使用本地教学摘要与词项检索，不调用在线向量服务。</p><p class="field-hint">语料版本 ${esc(d.rag.corpus.corpusVersion)} · 检索器 ${esc(d.rag.retrieverVersion)}</p>${detail('search_knowledge 参数契约', d.rag.parameters)}${detail('检索预算', d.rag.limits)}${d.rag.corpus.passages.map(p => `<details class="passage"><summary>${esc(p.sourceTitle)} · ${esc(p.id)}</summary><p>${esc(p.content)}</p><p class="field-hint">来源位置：${esc(p.localSourcePath)}<br>适用范围：${esc(p.applicableWhen.join(' / '))}<br>权利依据：${esc(p.rightsBasis)}</p>${detail('片段完整来源信息', p)}</details>`).join('')}</section>`;
     const root=document.querySelector('#info-content');
     tabs(root, [['connection','连接与预算'],['prompts','System prompt'],['tools','MCP 工具'],['knowledge','RAG 知识库']].map(([id,title])=>({title,node:root.querySelector('#'+id)})), 'runtime-sections');
-    const knowledge=root.querySelector('#knowledge'); paginate(knowledge,[...knowledge.querySelectorAll(':scope > .passage')],()=>roomyLayout()?6:3,'knowledge-passages','个片段');
-    textPages(root);
+    disposeReader = fitTextPages(root);
     status.textContent = '';
   } catch (error) { status.textContent = error.message; }
   finally { button.disabled = false; }

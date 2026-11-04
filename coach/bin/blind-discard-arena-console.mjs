@@ -1,3 +1,4 @@
+import { createResearchLibrary } from './arena-research.mjs';
 import { GENERATED_DATASET, GenerationOptions, listGeneratedBanks, readGeneratedCatalog } from "./arena-question-bank.mjs";
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
@@ -51,6 +52,7 @@ async function body(request) {
 export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('../', import.meta.url)), archiveRoot = join(coachRoot, 'reports/blind-discard-arena'), cliPath = join(coachRoot, 'bin/blind-discard-arena.mjs') } = {}) {
   await mkdir(archiveRoot, { recursive: true });
   const configPath = join(archiveRoot, 'console-settings.json');
+  const research = createResearchLibrary(join(archiveRoot, 'research-sources.json'));
   let config = { ...DEFAULTS }, apiKey = '', job = null, child = null, stopping = false;
   try { config = settings(JSON.parse(await readFile(configPath, 'utf8'))); } catch { /* first launch uses documented defaults */ }
   const publicConfig = () => ({ ...config, keyConfigured: apiKey.length > 0 });
@@ -185,6 +187,13 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         limits: { ...ARENA_RUN_LIMITS_V1, maxProviderOutputTokens: config.maxProviderOutputTokens,
           maxProviderTurns: config.maxProviderTurns, maxToolCalls: config.maxToolCalls, maxRunElapsedMs: config.maxRunMs }
       });
+      if (request.method === 'GET' && url.pathname === '/api/research') return json(response,200,await research.list(url.searchParams.get('refresh')==='1'));
+      if (request.method === 'GET' && url.pathname.startsWith('/api/research/')) {
+        const parts=url.pathname.split('/').slice(3);
+        if(parts.length===1) return json(response,200,await research.detail(parts[0]));
+        if(parts.length===3 && parts[1]==='documents') return json(response,200,await research.document(parts[0],parts[2]));
+        throw fail('研究资料不存在。',404);
+      }
       if (request.method === 'GET' && url.pathname === '/api/state') {
         const results = await runs(), bank = await catalog();
         const catalogs = {};
@@ -247,7 +256,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
         response.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600' });
         return response.end(svg);
       }
-      const file = { '/trace-model.mjs': ['trace/model.mjs', 'text/javascript; charset=utf-8'], '/trace.mjs.LEGAL.txt': ['dist/trace.mjs.LEGAL.txt', 'text/plain; charset=utf-8'], '/trace.mjs': ['dist/trace.mjs', 'text/javascript; charset=utf-8'], '/trace.css': ['dist/trace.css', 'text/css; charset=utf-8'], '/tool-call-card.css': ['dist/tool-call-card.css', 'text/css; charset=utf-8'], '/question-banks': ['question-banks.html', 'text/html; charset=utf-8'], '/question-banks.mjs': ['question-banks.mjs', 'text/javascript; charset=utf-8'], '/results': ['results.html', 'text/html; charset=utf-8'], '/results.mjs': ['results.mjs', 'text/javascript; charset=utf-8'], '/settings': ['settings.html', 'text/html; charset=utf-8'], '/settings.mjs': ['settings.mjs', 'text/javascript; charset=utf-8'], '/compact-view.mjs': ['compact-view.mjs', 'text/javascript; charset=utf-8'], '/client.mjs': ['client.mjs', 'text/javascript; charset=utf-8'], '/mistakes': ['mistakes.html', 'text/html; charset=utf-8'], '/mistakes.mjs': ['mistakes.mjs', 'text/javascript; charset=utf-8'], '/case-view.mjs': ['case-view.mjs', 'text/javascript; charset=utf-8'], '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/console-page.mjs': ['console-page.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/layout.css': ['layout.css', 'text/css; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
+      const file = { '/results/research': ['research.html', 'text/html; charset=utf-8'], '/research.mjs': ['research.mjs', 'text/javascript; charset=utf-8'], '/trace-model.mjs': ['trace/model.mjs', 'text/javascript; charset=utf-8'], '/trace.mjs.LEGAL.txt': ['dist/trace.mjs.LEGAL.txt', 'text/plain; charset=utf-8'], '/trace.mjs': ['dist/trace.mjs', 'text/javascript; charset=utf-8'], '/trace.css': ['dist/trace.css', 'text/css; charset=utf-8'], '/tool-call-card.css': ['dist/tool-call-card.css', 'text/css; charset=utf-8'], '/question-banks': ['question-banks.html', 'text/html; charset=utf-8'], '/question-banks.mjs': ['question-banks.mjs', 'text/javascript; charset=utf-8'], '/results': ['results.html', 'text/html; charset=utf-8'], '/results.mjs': ['results.mjs', 'text/javascript; charset=utf-8'], '/settings': ['settings.html', 'text/html; charset=utf-8'], '/settings.mjs': ['settings.mjs', 'text/javascript; charset=utf-8'], '/compact-view.mjs': ['compact-view.mjs', 'text/javascript; charset=utf-8'], '/client.mjs': ['client.mjs', 'text/javascript; charset=utf-8'], '/mistakes': ['mistakes.html', 'text/html; charset=utf-8'], '/mistakes.mjs': ['mistakes.mjs', 'text/javascript; charset=utf-8'], '/case-view.mjs': ['case-view.mjs', 'text/javascript; charset=utf-8'], '/model-info': ['model-info.html', 'text/html; charset=utf-8'], '/model-info.mjs': ['model-info.mjs', 'text/javascript; charset=utf-8'], '/': ['index.html', 'text/html; charset=utf-8'], '/console-page.mjs': ['console-page.mjs', 'text/javascript; charset=utf-8'], '/presentation.mjs': ['presentation.mjs', 'text/javascript; charset=utf-8'], '/layout.css': ['layout.css', 'text/css; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] }[url.pathname];
       if (request.method !== 'GET' || !file) throw fail('页面不存在。', 404);
       response.writeHead(200, { 'Content-Type': file[1], 'Cache-Control': 'no-cache' });
       const content = await readFile(join(assets, file[0]));
