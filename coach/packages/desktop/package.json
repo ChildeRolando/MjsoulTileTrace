@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./blind-discard-arena-defense": "./dist/blind-discard-arena-defense.js",
     "./blind-discard-arena-improvement": { "types": "./src/blind-discard-arena-improvement.ts", "import": "./dist/blind-discard-arena-improvement.js" },
     "./blind-discard-arena-hand-structure": { "types": "./src/blind-discard-arena-hand-structure.ts", "import": "./dist/blind-discard-arena-hand-structure.js" },
     "./blind-discard-arena-basic-calculations": {

@@ -28,6 +28,7 @@ export const ArenaExperimentConfigSchema = z.object({
   basicCalculations: z.boolean().optional(),
   handStructureFacts: z.boolean().optional(),
   improvementFacts: z.boolean().optional(),
+  defenseFacts: z.boolean().optional(),
   scenarioHint: z.boolean(),
   teaching: z.enum(["off", "on"]),
   materialRouting: z.enum(["fixed", "scenario"]),
@@ -41,6 +42,7 @@ export const ArenaExperimentConfigSchema = z.object({
   if (config.basicCalculations && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_basic_calculations_requires_candidates_and_no_tools");
   if (config.handStructureFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_hand_structure_requires_candidates_and_no_tools");
   if (config.improvementFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_improvement_requires_candidates_and_no_tools");
+  if (config.defenseFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length || config.handStructureFacts || config.improvementFacts || config.teaching === "on" || config.scenarioHint || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_defense_requires_candidates_and_no_other_interventions");
   if (config.submission === "tool" && (!config.legalCandidates || !config.explanation)) reject("arena_legacy_submission_requires_candidates_and_explanation");
   if (config.submission === "tile-red" && config.callableTools.length > 0) reject("arena_direct_submission_has_no_tool_loop");
   if (config.teaching === "off" && (config.materialRouting === "scenario" || config.callableTools.includes("search_knowledge"))) reject("arena_routing_requires_teaching");

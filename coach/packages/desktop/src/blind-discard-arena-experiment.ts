@@ -9,6 +9,7 @@ import { z } from "zod";
 import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
 import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
 import { ArenaHandStructureFactsSchema } from "./blind-discard-arena-hand-structure.js";
+import { ArenaDefenseFactsSchema } from "./blind-discard-arena-defense.js";
 import { ArenaImprovementFactsSchema } from "./blind-discard-arena-improvement.js";
 import type { ArenaProviderMessage, ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
 
@@ -85,7 +86,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -103,6 +104,14 @@ export function assembleArenaExperiment(input: {
   if (Boolean(config.improvementFacts) !== (input.improvementFacts !== undefined)) throw new Error("arena_improvement_mismatch");
   const improvementFacts = input.improvementFacts === undefined ? undefined : ArenaImprovementFactsSchema.parse(structuredClone(input.improvementFacts));
   if (improvementFacts && (improvementFacts.caseRef !== observation.caseRef || JSON.stringify(improvementFacts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_improvement_candidates_mismatch");
+  if (Boolean(config.defenseFacts) !== (input.defenseFacts !== undefined)) throw new Error("arena_defense_mismatch");
+  const defenseFacts = input.defenseFacts === undefined ? undefined : ArenaDefenseFactsSchema.parse(structuredClone(input.defenseFacts));
+  if (defenseFacts && (defenseFacts.caseRef !== observation.caseRef || JSON.stringify(defenseFacts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_defense_candidates_mismatch");
+  if (defenseFacts) {
+    const actual = defenseFacts.threats.filter(t => t.kind !== "user_marked_open").map(t => [t.actor, t.kind]);
+    const expected = observation.visibleState.riichiStates.filter(t => t.actor !== observation.decision.selfActor && t.status !== "none").map(t => [t.actor, t.status === "accepted" ? "riichi_accepted" : "riichi_declared"]);
+    if (JSON.stringify(actual) !== JSON.stringify(expected) || defenseFacts.threats.some(t => t.actor === observation.decision.selfActor)) throw new Error("arena_defense_threat_binding_mismatch");
+  }
   if ((config.teaching === "on") !== (input.material !== undefined)) throw new Error("arena_module_material_mismatch");
   if (config.teaching === "off" && input.materialBaseline !== undefined) throw new Error("arena_module_material_mismatch");
   const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(structuredClone(input.helper));
@@ -128,6 +137,7 @@ export function assembleArenaExperiment(input: {
     ...(basicCalculations ? { basicCalculations } : {}),
     ...(handStructureFacts ? { handStructureFacts } : {}),
     ...(improvementFacts ? { improvementFacts } : {}),
+    ...(defenseFacts ? { defenseFacts } : {}),
     ...(scenario ? { scenarioHint: scenario } : {}),
     ...(material ? { material } : {}),
   };
@@ -141,6 +151,7 @@ export function assembleArenaExperiment(input: {
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
     ...(basicCalculations ? { basicCalculations: { sourceId: "mahjong-helper-hand13", version: basicCalculations.version, producer: basicCalculations.producer } } : {}),
     ...(handStructureFacts ? { handStructureFacts: { sourceId: "mahjong-hand-structure", version: handStructureFacts.version, producer: handStructureFacts.producer } } : {}),
+    ...(defenseFacts ? { defenseFacts: { sourceId: "mahjong-helper-defense", version: defenseFacts.version, producer: defenseFacts.producer } } : {}),
     ...(improvementFacts ? { improvementFacts: { sourceId: "mahjong-helper-hand13-improves", version: improvementFacts.version, producer: improvementFacts.producer } } : {}),
     ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
     ...(material ? { material: { sourceId: "arena-local-retriever", version: material.retrieverVersion, corpusVersion: material.corpusVersion }, selection } : {}),

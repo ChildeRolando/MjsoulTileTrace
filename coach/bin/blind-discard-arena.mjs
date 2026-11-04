@@ -20,6 +20,7 @@ import {
 import { ARENA_ASSEMBLY_VERSION, projectArenaRawObservation } from "@riichi-coach/desktop/blind-discard-arena-experiment";
 import { calculateArenaBasicFacts } from "@riichi-coach/desktop/blind-discard-arena-basic-calculations";
 import { calculateArenaHandStructureFacts } from "@riichi-coach/desktop/blind-discard-arena-hand-structure";
+import { calculateArenaDefenseFacts } from "@riichi-coach/desktop/blind-discard-arena-defense";
 import { calculateArenaImprovementFacts } from "@riichi-coach/desktop/blind-discard-arena-improvement";
 import {
   loadMahjongSoulProtocolBundle,
@@ -753,14 +754,15 @@ export async function runCommand(options, moduleSources) {
           caseRef: observation.caseRef,
           ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
         });
-        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
-          let helper, basicCalculations, handStructureFacts, improvementFacts, material, materialBaseline;
-          if (options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts) {
+        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts || options.experiment.defenseFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
+          let helper, basicCalculations, handStructureFacts, improvementFacts, defenseFacts, material, materialBaseline;
+          if (options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts || options.experiment.defenseFacts) {
             const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(coachRoot, "resources")));
             try {
               if (options.experiment.basicCalculations) basicCalculations = await calculateArenaBasicFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
               if (options.experiment.handStructureFacts) handStructureFacts = await calculateArenaHandStructureFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
               if (options.experiment.improvementFacts) improvementFacts = await calculateArenaImprovementFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
+              if (options.experiment.defenseFacts) defenseFacts = await calculateArenaDefenseFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
             } finally { await engine.close(); }
           }
           if (options.experiment.helperFacts) {
@@ -779,7 +781,7 @@ export async function runCommand(options, moduleSources) {
             material = await retriever.query({ query: outputs.selection.query, limit: 3 });
             materialBaseline = await retriever.query({ query: outputs.selection.fixedQuery, limit: 3 });
           }
-          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(basicCalculations === undefined ? {} : { basicCalculations }), ...(handStructureFacts === undefined ? {} : { handStructureFacts }), ...(improvementFacts === undefined ? {} : { improvementFacts }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
+          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(basicCalculations === undefined ? {} : { basicCalculations }), ...(handStructureFacts === undefined ? {} : { handStructureFacts }), ...(improvementFacts === undefined ? {} : { improvementFacts }), ...(defenseFacts === undefined ? {} : { defenseFacts }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
         } : undefined;
         if (!options.experiment || options.experiment.callableTools.includes("search_knowledge")) tools.push(ragTool);
         const offeredTools = options.experiment ? tools.filter(t => options.experiment.callableTools.includes(t.name)) : tools;
