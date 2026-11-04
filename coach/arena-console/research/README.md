@@ -8,6 +8,8 @@ MIT licensed, pinned in package-lock.json and bundled locally. License notices
 are available at `/reader.mjs.LEGAL.txt`. HTML is not executed, remote report
 images are not fetched, and source files remain unchanged. Download preserves
 the source text; malformed JSON remains an explicit error with the original text.
+The full-screen reader replaces chapter navigation; its exit toolbar remains visible
+while the document scrolls, and Escape restores focus to the reading button.
 
 `arena-research-case.mjs` joins statistics to the existing frozen case/group
 mapping, batch manifest, and Arena events. It supports ordinary ablation batches,
@@ -29,6 +31,6 @@ preparation phase; they are not counted again as decision-phase waterfall calls.
 2026-11-05 validation: 17 focused Vitest tests plus 7 Node trace tests; UI bundle
 and architecture checks; 38 real first/last cases across all groups of seven
 recent experiments, including the second batch and textbook selector records.
-Browser checks cover Markdown tables/section navigation, JSON hierarchy,
+Browser checks cover Markdown tables, full-screen reading and Escape/button exit, JSON hierarchy,
 group/case changes, actual request events, four-player context at 1920×1080 and
 1366×768. No model calls or source archive mutations were made.
