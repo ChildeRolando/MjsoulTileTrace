@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "arena-cli-isolation-evidence/v2",
+  "cliVersion": "0.162.1",
+  "catalogClientVersion": "0.166.0",
+  "localCleanHomeIsolation": "passed through current Arena Codex adapter; polluted source home markers absent",
+  "clientCatalogChanges": [
+    "tool_mode -> direct",
+    "apply_patch_tool_type -> null",
+    "experimental_supported_tools -> []"
+  ],
+  "realAuthenticationRead": false,
+  "authenticationTest": "synthetic ChatGPT-shaped auth file; source bytes unchanged; transient home removed",
+  "realModelCalls": 0,
+  "localPOSTCounts": {
+    "success": 1,
+    "503": 1,
+    "drop": 1
+  },
+  "productionPhysicalRequestCount": "unknown: builtin openai provider retry controls are not equivalent to local mock",
+  "productionBatchBehavior": "preflight rejects the entire batch before any case generation/scoring dispatch",
+  "supplierInternalContext": "unknown"
+}

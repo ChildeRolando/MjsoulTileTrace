@@ -94,7 +94,7 @@ function discardRows(request: LibriichiRuleRequest) {
   return LibriichiRuleResponseSchema.parse({ ...content, resultId: digest(content) });
 }
 
-export function makeArenaMcpCase(): {
+export function makeArenaMcpCase(options: { includeRawEventOrder?: boolean } = {}): {
   authorizedCase: ArenaMcpAuthorizedCase;
   observation: ReturnType<typeof createArenaBlindObservation>;
   aliases: ArenaRunAliasVault;
@@ -111,6 +111,7 @@ export function makeArenaMcpCase(): {
   const observation = createArenaBlindObservation({
     selected,
     aliases,
+    ...(options.includeRawEventOrder ? { includeRawEventOrder: true } : {}),
     tools: {
       description: "Read-only candidate analysis and local knowledge search.",
       supportedCapabilities: ["analyze_candidates", "search_knowledge"],

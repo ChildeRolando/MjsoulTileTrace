@@ -52,8 +52,9 @@ function resolveCandidate(actionRef: string, candidates: ArenaScoringCaseInput["
 function observedAttemptStatus(entry: ArenaScoringCaseInput): ArenaScoringCaseInput["attempt"]["status"] {
   if (entry.attempt.status !== "submitted") return entry.attempt.status;
   const submission = entry.attempt.submission;
+  if ("format" in submission && !entry.candidates.some(c => c.actionRef === submission.actionRef && c.action.tile.id === submission.tile && c.action.tile.red === submission.red)) return "invalid_submission";
   if (submission.caseRef !== entry.caseRef || !entry.candidates.some((candidate) => candidate.actionRef === submission.actionRef) ||
-      (submission.mainAlternative !== null && !entry.candidates.some((candidate) => candidate.actionRef === submission.mainAlternative!.actionRef))) {
+      (submission.mainAlternative != null && !entry.candidates.some((candidate) => candidate.actionRef === submission.mainAlternative!.actionRef))) {
     return "invalid_submission";
   }
   return "submitted";

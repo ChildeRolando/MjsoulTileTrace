@@ -3,6 +3,7 @@ import {
   createOpenAiArenaToolCallProvider,
 } from "../src/llm-provider/arena-tool-call.js";
 import type { ArenaProviderRequest } from "../src/blind-discard-arena-provider.js";
+import { arenaDirectOutputSchema } from "../src/blind-discard-arena-experiment.js";
 
 const KEY = "sk-arena-test-secret";
 const SETTINGS = { baseUrl: "https://provider.example.test/v1", modelName: "tool-model-v1" };
@@ -52,6 +53,42 @@ function okResponse(input: { content?: string; usage?: unknown } = {}): Response
 }
 
 describe("Arena OpenAI-compatible tool-call provider", () => {
+  it.each([{ tool_calls: {} }, { function_call: {} }, { tool_calls: [{ function: { name: "unexpected" } }] }, { content: null }])("rejects unexpected tool/empty direct envelopes without retrying: %j", async extra => {
+    let calls = 0;
+    const provider = createOpenAiArenaToolCallProvider({ settings: SETTINGS, credentials: { readKey: async () => KEY }, fetchImpl: async () => {
+      calls++;
+      return new Response(JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: '{"tile":"1m","red":false}', ...extra } }] }), { status: 200 });
+    } });
+    expect(await provider.request(request({ tools: [], outputSchema: arenaDirectOutputSchema() }), new AbortController().signal)).toEqual({
+      status: "provider_error", failureCode: "invalid_model_response",
+      ...("content" in extra ? {} : { finalResponse: { content: '{"tile":"1m","red":false}', finishReason: "stop" } }),
+    });
+    expect(calls).toBe(1);
+  });
+  it.each([
+    { finishReason: "length", message: { content: '{"tile":"1m","red":' }, content: '{"tile":"1m","red":' },
+    { finishReason: "stop", message: { content: null, refusal: "Visible refusal" }, content: "Visible refusal" },
+    { finishReason: "stop", message: { content: '{"tile":"1m","red":false}', refusal: "Visible refusal" }, content: '{"tile":"1m","red":false}' },
+  ])("retains only visible failed direct text, finish reason and usage: $finishReason", async ({ finishReason, message, content }) => {
+    let calls = 0;
+    const provider = createOpenAiArenaToolCallProvider({ settings: SETTINGS, credentials: { readKey: async () => KEY }, fetchImpl: async () => {
+      calls++;
+      return new Response(JSON.stringify({ choices: [{ finish_reason: finishReason, message: { ...message, reasoning_content: "PRIVATE_REASONING" } }],
+        usage: { prompt_tokens: 20, completion_tokens: 5, total_tokens: 25 } }), { status: 200 });
+    } });
+    const result = await provider.request(request({ tools: [], outputSchema: arenaDirectOutputSchema() }), new AbortController().signal);
+    expect(result).toEqual({ status: "provider_error", failureCode: "invalid_model_response", finalResponse: { content, finishReason }, usage: { inputTokens: 20, outputTokens: 5, totalTokens: 25 } });
+    expect(JSON.stringify(result)).not.toContain("PRIVATE_REASONING");
+    expect(calls).toBe(1);
+  });
+  it.each([{ choices: [] }, { choices: [{ finish_reason: "stop", message: null }] }])("preserves reported usage even if the output envelope is invalid: %j", async ({ choices }) => {
+    const provider = createOpenAiArenaToolCallProvider({ settings: SETTINGS, credentials: { readKey: async () => KEY }, fetchImpl: async () =>
+      new Response(JSON.stringify({ choices, usage: { prompt_tokens: 20, completion_tokens: 5, total_tokens: 25 } }), { status: 200 }) });
+    const result = await provider.request(request({ tools: [], outputSchema: arenaDirectOutputSchema() }), new AbortController().signal);
+    expect(result.status).toBe("provider_error");
+    expect(result.usage).toEqual({ inputTokens: 20, outputTokens: 5, totalTokens: 25 });
+    expect(result).not.toHaveProperty("finalResponse");
+  });
   it("sends only the isolated function-call request and discards non-tool response content", async () => {
     let capturedUrl = "";
     let capturedInit: RequestInit | undefined;

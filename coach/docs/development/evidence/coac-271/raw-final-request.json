@@ -1,0 +1,177 @@
+{
+  "realModelCalls": 0,
+  "request": {
+    "model": "synthetic-local",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Choose one riichi-mahjong discard from the visible position. Return only JSON {\"tile\":\"1m\",\"red\":false}.\nTile codes: 1m..9m man, 1p..9p pin, 1s..9s sou; 1z East, 2z South, 3z West, 4z North, 5z white, 6z green, 7z red dragon. Red fives use 5m/5p/5s and red=true.\nActors and all four-entry arrays use absolute seats 0..3 in turn order; selfActor identifies your seat. Winds are E/S/W/N. concealedTiles excludes currentDraw. Rivers are ordered from earliest to latest; called discards remain in the river with calledByRef. eventOrder orders the referenced river/call/riichi/current-draw events across seats. References link public events, not tile values. Unknown raw fields are null."
+      },
+      {
+        "role": "user",
+        "content": "{\"raw\":{\"selfActor\":0,\"windowKind\":\"self_turn\",\"eventOrder\":[\"arena-ref:v1:125a2bb4-3c5e-4270-a164-2c5caa366573\",\"arena-ref:v1:ec2a03ca-831d-487f-90f8-4b38b1400935\",\"arena-ref:v1:ffb30902-743a-478d-bd2e-d3d6cb9d9407\",\"arena-ref:v1:e05e0214-82bc-4cd2-9a4c-2eff9308e51f\",\"arena-ref:v1:1628eeb7-6db1-4006-b290-f7f710b2ffd4\"],\"roundWind\":\"E\",\"hand\":1,\"honba\":0,\"riichiSticks\":0,\"dealer\":0,\"scores\":[25000,25000,25000,25000],\"seatWinds\":[\"E\",\"S\",\"W\",\"N\"],\"remainingDraws\":65,\"doraIndicators\":[{\"id\":\"1s\",\"red\":false}],\"rivers\":[[{\"sourceRef\":\"arena-ref:v1:125a2bb4-3c5e-4270-a164-2c5caa366573\",\"actor\":0,\"tile\":{\"id\":\"5p\",\"red\":false},\"discardMode\":\"tsumogiri\",\"riichiDeclarationRef\":null,\"calledByRef\":null}],[{\"sourceRef\":\"arena-ref:v1:ec2a03ca-831d-487f-90f8-4b38b1400935\",\"actor\":1,\"tile\":{\"id\":\"9s\",\"red\":false},\"discardMode\":\"tedashi\",\"riichiDeclarationRef\":null,\"calledByRef\":null}],[{\"sourceRef\":\"arena-ref:v1:ffb30902-743a-478d-bd2e-d3d6cb9d9407\",\"actor\":2,\"tile\":{\"id\":\"8s\",\"red\":false},\"discardMode\":\"tedashi\",\"riichiDeclarationRef\":null,\"calledByRef\":null}],[{\"sourceRef\":\"arena-ref:v1:e05e0214-82bc-4cd2-9a4c-2eff9308e51f\",\"actor\":3,\"tile\":{\"id\":\"7s\",\"red\":false},\"discardMode\":\"tedashi\",\"riichiDeclarationRef\":null,\"calledByRef\":null}]],\"melds\":[],\"riichiStates\":[{\"actor\":0,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null},{\"actor\":1,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null},{\"actor\":2,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null},{\"actor\":3,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null}],\"self\":{\"concealedTiles\":[{\"id\":\"1m\",\"red\":false},{\"id\":\"2m\",\"red\":false},{\"id\":\"3m\",\"red\":false},{\"id\":\"4m\",\"red\":false},{\"id\":\"5m\",\"red\":false},{\"id\":\"6m\",\"red\":false},{\"id\":\"7m\",\"red\":false},{\"id\":\"8m\",\"red\":false},{\"id\":\"9m\",\"red\":false},{\"id\":\"1p\",\"red\":false},{\"id\":\"2p\",\"red\":false},{\"id\":\"3p\",\"red\":false},{\"id\":\"4p\",\"red\":false}],\"currentDraw\":{\"tile\":{\"id\":\"6p\",\"red\":false},\"sourceRef\":\"arena-ref:v1:1628eeb7-6db1-4006-b290-f7f710b2ffd4\",\"from\":\"live_wall\"}}}}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "arena_discard",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tile": {
+              "type": "string",
+              "enum": [
+                "1m",
+                "2m",
+                "3m",
+                "4m",
+                "5m",
+                "6m",
+                "7m",
+                "8m",
+                "9m",
+                "1p",
+                "2p",
+                "3p",
+                "4p",
+                "5p",
+                "6p",
+                "7p",
+                "8p",
+                "9p",
+                "1s",
+                "2s",
+                "3s",
+                "4s",
+                "5s",
+                "6s",
+                "7s",
+                "8s",
+                "9s",
+                "1z",
+                "2z",
+                "3z",
+                "4z",
+                "5z",
+                "6z",
+                "7z"
+              ]
+            },
+            "red": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tile",
+            "red"
+          ]
+        }
+      }
+    },
+    "temperature": 0,
+    "max_tokens": 2048,
+    "stream": false
+  },
+  "audit": {
+    "type": "request_audit",
+    "turn": 1,
+    "audit": {
+      "schemaVersion": "arena-request-audit/v1",
+      "surface": "http_body",
+      "request": {
+        "model": "synthetic-local",
+        "messages": [
+          {
+            "role": "system",
+            "content": "Choose one riichi-mahjong discard from the visible position. Return only JSON {\"tile\":\"1m\",\"red\":false}.\nTile codes: 1m..9m man, 1p..9p pin, 1s..9s sou; 1z East, 2z South, 3z West, 4z North, 5z white, 6z green, 7z red dragon. Red fives use 5m/5p/5s and red=true.\nActors and all four-entry arrays use absolute seats 0..3 in turn order; selfActor identifies your seat. Winds are E/S/W/N. concealedTiles excludes currentDraw. Rivers are ordered from earliest to latest; called discards remain in the river with calledByRef. eventOrder orders the referenced river/call/riichi/current-draw events across seats. References link public events, not tile values. Unknown raw fields are null."
+          },
+          {
+            "role": "user",
+            "content": "{\"raw\":{\"selfActor\":0,\"windowKind\":\"self_turn\",\"eventOrder\":[\"arena-ref:v1:125a2bb4-3c5e-4270-a164-2c5caa366573\",\"arena-ref:v1:ec2a03ca-831d-487f-90f8-4b38b1400935\",\"arena-ref:v1:ffb30902-743a-478d-bd2e-d3d6cb9d9407\",\"arena-ref:v1:e05e0214-82bc-4cd2-9a4c-2eff9308e51f\",\"arena-ref:v1:1628eeb7-6db1-4006-b290-f7f710b2ffd4\"],\"roundWind\":\"E\",\"hand\":1,\"honba\":0,\"riichiSticks\":0,\"dealer\":0,\"scores\":[25000,25000,25000,25000],\"seatWinds\":[\"E\",\"S\",\"W\",\"N\"],\"remainingDraws\":65,\"doraIndicators\":[{\"id\":\"1s\",\"red\":false}],\"rivers\":[[{\"sourceRef\":\"arena-ref:v1:125a2bb4-3c5e-4270-a164-2c5caa366573\",\"actor\":0,\"tile\":{\"id\":\"5p\",\"red\":false},\"discardMode\":\"tsumogiri\",\"riichiDeclarationRef\":null,\"calledByRef\":null}],[{\"sourceRef\":\"arena-ref:v1:ec2a03ca-831d-487f-90f8-4b38b1400935\",\"actor\":1,\"tile\":{\"id\":\"9s\",\"red\":false},\"discardMode\":\"tedashi\",\"riichiDeclarationRef\":null,\"calledByRef\":null}],[{\"sourceRef\":\"arena-ref:v1:ffb30902-743a-478d-bd2e-d3d6cb9d9407\",\"actor\":2,\"tile\":{\"id\":\"8s\",\"red\":false},\"discardMode\":\"tedashi\",\"riichiDeclarationRef\":null,\"calledByRef\":null}],[{\"sourceRef\":\"arena-ref:v1:e05e0214-82bc-4cd2-9a4c-2eff9308e51f\",\"actor\":3,\"tile\":{\"id\":\"7s\",\"red\":false},\"discardMode\":\"tedashi\",\"riichiDeclarationRef\":null,\"calledByRef\":null}]],\"melds\":[],\"riichiStates\":[{\"actor\":0,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null},{\"actor\":1,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null},{\"actor\":2,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null},{\"actor\":3,\"status\":\"none\",\"declarationEventRef\":null,\"acceptanceEventRef\":null}],\"self\":{\"concealedTiles\":[{\"id\":\"1m\",\"red\":false},{\"id\":\"2m\",\"red\":false},{\"id\":\"3m\",\"red\":false},{\"id\":\"4m\",\"red\":false},{\"id\":\"5m\",\"red\":false},{\"id\":\"6m\",\"red\":false},{\"id\":\"7m\",\"red\":false},{\"id\":\"8m\",\"red\":false},{\"id\":\"9m\",\"red\":false},{\"id\":\"1p\",\"red\":false},{\"id\":\"2p\",\"red\":false},{\"id\":\"3p\",\"red\":false},{\"id\":\"4p\",\"red\":false}],\"currentDraw\":{\"tile\":{\"id\":\"6p\",\"red\":false},\"sourceRef\":\"arena-ref:v1:1628eeb7-6db1-4006-b290-f7f710b2ffd4\",\"from\":\"live_wall\"}}}}"
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "arena_discard",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "tile": {
+                  "type": "string",
+                  "enum": [
+                    "1m",
+                    "2m",
+                    "3m",
+                    "4m",
+                    "5m",
+                    "6m",
+                    "7m",
+                    "8m",
+                    "9m",
+                    "1p",
+                    "2p",
+                    "3p",
+                    "4p",
+                    "5p",
+                    "6p",
+                    "7p",
+                    "8p",
+                    "9p",
+                    "1s",
+                    "2s",
+                    "3s",
+                    "4s",
+                    "5s",
+                    "6s",
+                    "7s",
+                    "8s",
+                    "9s",
+                    "1z",
+                    "2z",
+                    "3z",
+                    "4z",
+                    "5z",
+                    "6z",
+                    "7z"
+                  ]
+                },
+                "red": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "tile",
+                "red"
+              ]
+            }
+          }
+        },
+        "temperature": 0,
+        "max_tokens": 2048,
+        "stream": false
+      },
+      "digest": "ee9fcbdf26aee751628c17318cd93c415dbf5e6ac9e6989afdb4de6ec0223518",
+      "runtime": {
+        "adapter": "arena-openai/v2",
+        "node": "24.15.0",
+        "model": "synthetic-local",
+        "reasoningEffort": "provider_default"
+      },
+      "visibility": "captured",
+      "limitations": [
+        "Supplier-internal context is unknown."
+      ]
+    }
+  },
+  "versions": {
+    "node": "24.15.0",
+    "adapter": "arena-openai/v2"
+  },
+  "provenance": "Synthetic fixture; production OpenAI-compatible Arena adapter; injected fetch delivers the unchanged HTTP body only to loopback. No remote provider was contacted."
+}

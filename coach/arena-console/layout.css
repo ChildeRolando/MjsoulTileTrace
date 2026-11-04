@@ -135,3 +135,8 @@ details[open]:not(.case-detail)>summary::before{transform:rotate(90deg)}
  .observation-hand{display:flex;flex-wrap:wrap;gap:0 32px;align-items:start}.observation-hand>p{flex:0 0 100%}.observation-hand>.tile-group,.observation-hand>.visible-tiles{flex:none}.observation-hand .mahjong-tile{width:40px}
  .snapshot-overview .choice-comparison article{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;align-items:center;padding:10px 14px}.snapshot-overview .choice-comparison article>span{grid-column:1}.snapshot-overview .choice-comparison strong{grid-column:1;margin:4px 0}.snapshot-overview .choice-comparison article>details,.snapshot-overview .choice-comparison article>p{grid-column:2;grid-row:1/3;max-width:200px;margin:0}.snapshot-overview .choice-comparison article>details[open]{grid-column:1/-1;grid-row:auto;max-width:none;margin-top:8px}.snapshot-overview .choice-comparison article>p{font-size:12px}
 }
+.experiment-config{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+.experiment-config h2{margin-bottom:16px}
+.experiment-config label{display:block}
+.experiment-config textarea{display:block;width:100%;margin-top:8px;min-height:200px;resize:vertical;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);font:13px/1.6 var(--mono);tab-size:2;caret-color:var(--brand)}
+.experiment-config .field-hint{margin:12px 0}

@@ -189,6 +189,7 @@ function providerStatusFailureCode(
   status: Exclude<ArenaToolCallProviderResult["status"], "ready">,
 ): ArenaRagApplicabilityFailureCode {
   switch (status) {
+    case "final": return "provider_error";
     case "provider_unavailable": return "provider_unavailable";
     case "provider_error": return "provider_error";
     case "timeout": return "timeout";
