@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/tenhou-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/mortal-runtime && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/question-lab && npm run build -w @riichi-coach/desktop",
+    "build": "npm run build -w @riichi-coach/contracts && npm run build -w @riichi-coach/mahjong-soul-source && npm run build -w @riichi-coach/tenhou-source && npm run build -w @riichi-coach/mortal-source && npm run build -w @riichi-coach/mortal-runtime && npm run build -w @riichi-coach/reasoning && npm run build -w @riichi-coach/question-lab && npm run build -w @riichi-coach/desktop && npm run build:arena-ui",
     "test": "npm run build && vitest run && npm run test:mahjong-soul-protocol-updater && npm run test:mahjong-soul-protocol-compatibility && npm run test:generate-mahjong-soul-real-fixtures && npm run check:architecture",
     "test:mahjong-soul-protocol-updater": "node --test scripts/update-mahjong-soul-protocol.test.mjs",
     "test:mahjong-soul-protocol-compatibility": "node --test scripts/mahjong-soul-protocol-compatibility.test.mjs",
@@ -43,15 +43,20 @@
     "test:question-lab": "vitest run packages/question-lab/tests packages/contracts/tests/question-lab.test.ts",
     "corpus": "node --use-env-proxy bin/replay-corpus.mjs",
     "test:corpus": "node --test scripts/replay-corpus/corpus.test.mjs",
-    "bench:corpus": "node scripts/replay-corpus/benchmark.mjs"
+    "bench:corpus": "node scripts/replay-corpus/benchmark.mjs",
+    "build:arena-ui": "node scripts/build-arena-ui.mjs"
   },
   "devDependencies": {
     "@types/node": "22.15.30",
+    "esbuild": "0.28.1",
     "hyparquet": "1.31.5",
     "hyparquet-compressors": "1.1.2",
     "protobufjs": "8.7.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "tar-stream": "3.2.2",
     "typescript": "5.9.2",
+    "vis-timeline": "8.5.6",
     "vitest": "3.2.7",
     "yauzl": "3.4.0"
   }

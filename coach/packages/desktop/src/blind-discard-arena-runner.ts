@@ -221,6 +221,12 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     }).strict().optional(),
   }).strict(),
   z.object({
+    type: z.literal("provider_turn_started"),
+    turn: z.number().int().positive(),
+    elapsedMs: z.number().int().nonnegative(),
+    inputBytes: z.number().int().nonnegative(),
+  }).strict(),
+  z.object({
     type: z.literal("provider_turn"),
     turn: z.number().int().positive(),
     elapsedMs: z.number().int().nonnegative(),
@@ -254,6 +260,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
   }).strict(),
   z.object({
     type: z.literal("submission_locked"),
+    elapsedMs: z.number().int().nonnegative().optional(),
     submission: z.object({
       caseRef: ArenaCaseRefSchema,
       actionRef: z.string().min(1).max(120),
@@ -269,6 +276,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
   }).strict(),
   z.object({
     type: z.literal("submission_rejected"),
+    elapsedMs: z.number().int().nonnegative().optional(),
     reason: z.enum(["schema_invalid", "case_mismatch", "action_not_offered", "alternative_not_offered", "reference_not_observed"]),
   }).strict(),
   z.object({
@@ -812,7 +820,7 @@ export async function runBlindCoachCase(input: {
   const disposalStarted = new WeakSet<ArenaRunnerTool>();
 
   const append = (raw: ArenaRunEvent): boolean => {
-    const event = ArenaRunEventSchema.parse(raw.type === "tool_call" || raw.type === "tool_result"
+    const event = ArenaRunEventSchema.parse(raw.type === "tool_call" || raw.type === "tool_result" || raw.type === "submission_locked" || raw.type === "submission_rejected"
       ? { ...raw, elapsedMs: Math.max(0, clock() - startedAtMs) } : raw);
     const serialized = serializeEvent(event);
     if (totalEventBytes + Buffer.byteLength(serialized, "utf8") > limits.maxRunEventBytes) {
@@ -961,6 +969,13 @@ export async function runBlindCoachCase(input: {
         break;
       }
       if (totalProviderOutputBytes >= limits.maxProviderOutputBytesPerRun) {
+        terminalStatus = "budget_exhausted";
+        attempt = { status: "budget_exhausted" };
+        finished = true;
+        break;
+      }
+      if (!append({ type: "provider_turn_started", turn,
+        elapsedMs: Math.max(0, clock() - startedAtMs), inputBytes: contextBytes })) {
         terminalStatus = "budget_exhausted";
         attempt = { status: "budget_exhausted" };
         finished = true;

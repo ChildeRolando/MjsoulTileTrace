@@ -11,7 +11,7 @@ async function fixture(t) {
   const cliPath = join(root, 'experiment.mjs');
   await mkdir(join(root, 'packages/desktop/src/renderer/tiles'), { recursive: true });
   await writeFile(join(root, 'packages/desktop/src/renderer/tiles/0p.svg'), '<svg xmlns="http://www.w3.org/2000/svg"/>');
-  await writeFile(cliPath, "import { writeFileSync } from 'node:fs'; writeFileSync('received-args.json', JSON.stringify(process.argv.slice(2))); setInterval(()=>{},1000);");
+  await writeFile(cliPath, "import { writeFileSync } from 'node:fs'; writeFileSync('received-args.json', JSON.stringify(process.argv.slice(2))); writeFileSync('received-run-id.txt', process.env.RIICHI_ARENA_RUN_ID ?? ''); setInterval(()=>{},1000);");
   const console = await createArenaConsole({ coachRoot: root, archiveRoot: join(root, 'archives'), cliPath });
   await new Promise(resolve => console.server.listen(0, '127.0.0.1', resolve));
   const url = `http://127.0.0.1:${console.server.address().port}`;
@@ -77,10 +77,13 @@ test('console starts a real owned process once and stop waits for its exit', asy
   assert.equal((await f.state()).job.maxCases, 25); assert.equal((await f.state()).job.caseOffset, 10);
   assert.equal((await f.post('/api/start', { mode: 'local' })).status, 409);
   assert.equal((await f.state()).job.status, 'running');
+  const liveId = (await f.state()).job.steps[0].runId;
+  assert.match(liveId, /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/);
   assert.equal((await f.post('/api/shutdown', {})).status, 409);
   let args;
   for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(50); } }
   assert.equal(args[args.indexOf('--dataset') + 1], 'blind-discard-spatial-v1');
+  assert.equal(await readFile(join(f.root, 'received-run-id.txt'), 'utf8'), liveId);
   assert.equal((await f.state()).job.experimentType, 'spatial');
   assert.equal(args[args.indexOf('--max-cases') + 1], '25');
   assert.equal(args[args.indexOf('--max-provider-output-tokens') + 1], '8192');

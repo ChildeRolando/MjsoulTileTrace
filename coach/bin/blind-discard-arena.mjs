@@ -519,9 +519,13 @@ async function writeJson(path, value) {
 async function runCommand(options) {
   const codeSha = requireCleanGitHead();
   const startedAt = new Date().toISOString();
-  const runId = randomUUID();
+  const requestedRunId = process.env.RIICHI_ARENA_RUN_ID;
+  if (requestedRunId && !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(requestedRunId)) throw new Error("invalid_arena_run_id");
+  const runId = requestedRunId || randomUUID();
+  delete process.env.RIICHI_ARENA_RUN_ID;
   const runDirectory = join(ARCHIVE_ROOT, runId);
-  await mkdir(runDirectory, { recursive: true });
+  await mkdir(ARCHIVE_ROOT, { recursive: true });
+  await mkdir(runDirectory);
   let apiKey = process.env.RIICHI_COACH_API_KEY ?? null;
   delete process.env.RIICHI_COACH_API_KEY;
   let runtime;
