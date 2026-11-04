@@ -9,6 +9,7 @@ import { z } from "zod";
 import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
 import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
 import { ArenaHandStructureFactsSchema } from "./blind-discard-arena-hand-structure.js";
+import { ArenaImprovementFactsSchema } from "./blind-discard-arena-improvement.js";
 import type { ArenaProviderMessage, ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
 
 export const ARENA_ASSEMBLY_VERSION = "arena-modular-messages/v1";
@@ -84,7 +85,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -99,6 +100,9 @@ export function assembleArenaExperiment(input: {
   if (Boolean(config.handStructureFacts) !== (input.handStructureFacts !== undefined)) throw new Error("arena_hand_structure_mismatch");
   const handStructureFacts = input.handStructureFacts === undefined ? undefined : ArenaHandStructureFactsSchema.parse(structuredClone(input.handStructureFacts));
   if (handStructureFacts && (handStructureFacts.caseRef !== observation.caseRef || JSON.stringify(handStructureFacts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_hand_structure_candidates_mismatch");
+  if (Boolean(config.improvementFacts) !== (input.improvementFacts !== undefined)) throw new Error("arena_improvement_mismatch");
+  const improvementFacts = input.improvementFacts === undefined ? undefined : ArenaImprovementFactsSchema.parse(structuredClone(input.improvementFacts));
+  if (improvementFacts && (improvementFacts.caseRef !== observation.caseRef || JSON.stringify(improvementFacts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_improvement_candidates_mismatch");
   if ((config.teaching === "on") !== (input.material !== undefined)) throw new Error("arena_module_material_mismatch");
   if (config.teaching === "off" && input.materialBaseline !== undefined) throw new Error("arena_module_material_mismatch");
   const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(structuredClone(input.helper));
@@ -123,6 +127,7 @@ export function assembleArenaExperiment(input: {
     ...(helper ? { helper } : {}),
     ...(basicCalculations ? { basicCalculations } : {}),
     ...(handStructureFacts ? { handStructureFacts } : {}),
+    ...(improvementFacts ? { improvementFacts } : {}),
     ...(scenario ? { scenarioHint: scenario } : {}),
     ...(material ? { material } : {}),
   };
@@ -136,6 +141,7 @@ export function assembleArenaExperiment(input: {
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
     ...(basicCalculations ? { basicCalculations: { sourceId: "mahjong-helper-hand13", version: basicCalculations.version, producer: basicCalculations.producer } } : {}),
     ...(handStructureFacts ? { handStructureFacts: { sourceId: "mahjong-hand-structure", version: handStructureFacts.version, producer: handStructureFacts.producer } } : {}),
+    ...(improvementFacts ? { improvementFacts: { sourceId: "mahjong-helper-hand13-improves", version: improvementFacts.version, producer: improvementFacts.producer } } : {}),
     ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
     ...(material ? { material: { sourceId: "arena-local-retriever", version: material.retrieverVersion, corpusVersion: material.corpusVersion }, selection } : {}),
     ...((config.comparison || config.explanation) ? { responseInstructions: { sourceId: "arena-experiment-prompt", version } } : {}),

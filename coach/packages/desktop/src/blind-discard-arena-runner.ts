@@ -796,7 +796,7 @@ export async function runBlindCoachCase(input: {
   moduleMaterialBaseline?: unknown;
   moduleScenario?: unknown;
   moduleSelection?: unknown;
-  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
+  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
   limits?: Partial<ArenaRunLimits>;
   signal?: AbortSignal;
   clock?: () => number;
