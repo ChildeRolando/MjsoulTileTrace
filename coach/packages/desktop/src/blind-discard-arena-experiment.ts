@@ -7,6 +7,7 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
+import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
 import type { ArenaProviderMessage, ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
 
 export const ARENA_ASSEMBLY_VERSION = "arena-modular-messages/v1";
@@ -82,7 +83,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -91,6 +92,9 @@ export function assembleArenaExperiment(input: {
   const actualTools = tools.map(t => t.function.name).sort();
   if (JSON.stringify(actualTools) !== JSON.stringify([...config.callableTools].sort())) throw new Error("arena_module_tool_mismatch");
   if (config.helperFacts !== (input.helper !== undefined)) throw new Error("arena_module_helper_mismatch");
+  if (Boolean(config.basicCalculations) !== (input.basicCalculations !== undefined)) throw new Error("arena_basic_calculations_mismatch");
+  const basicCalculations = input.basicCalculations === undefined ? undefined : ArenaBasicCalculationsSchema.parse(structuredClone(input.basicCalculations));
+  if (basicCalculations && (basicCalculations.caseRef !== observation.caseRef || JSON.stringify(basicCalculations.candidates.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_basic_calculations_candidates_mismatch");
   if ((config.teaching === "on") !== (input.material !== undefined)) throw new Error("arena_module_material_mismatch");
   if (config.teaching === "off" && input.materialBaseline !== undefined) throw new Error("arena_module_material_mismatch");
   const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(structuredClone(input.helper));
@@ -113,6 +117,7 @@ export function assembleArenaExperiment(input: {
     raw,
     ...(config.legalCandidates ? { legalCandidates: observation.candidates } : {}),
     ...(helper ? { helper } : {}),
+    ...(basicCalculations ? { basicCalculations } : {}),
     ...(scenario ? { scenarioHint: scenario } : {}),
     ...(material ? { material } : {}),
   };
@@ -124,6 +129,7 @@ export function assembleArenaExperiment(input: {
       ...(observation.rawVisibleHistory === undefined ? {} : { projectionVersion: version }) },
     ...(config.legalCandidates ? { legalCandidates: { sourceId: "libriichi-canonical-candidates", version: LIBRIICHI_RULE_NORMALIZATION_VERSION } } : {}),
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
+    ...(basicCalculations ? { basicCalculations: { sourceId: "mahjong-helper-hand13", version: basicCalculations.version, producer: basicCalculations.producer } } : {}),
     ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
     ...(material ? { material: { sourceId: "arena-local-retriever", version: material.retrieverVersion, corpusVersion: material.corpusVersion }, selection } : {}),
     ...((config.comparison || config.explanation) ? { responseInstructions: { sourceId: "arena-experiment-prompt", version } } : {}),

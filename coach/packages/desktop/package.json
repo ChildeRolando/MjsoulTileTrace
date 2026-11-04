@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./blind-discard-arena-basic-calculations": {
+      "types": "./src/blind-discard-arena-basic-calculations.ts",
+      "import": "./dist/blind-discard-arena-basic-calculations.js"
+    },
     "./blind-discard-arena-experiment": {
       "types": "./src/blind-discard-arena-experiment.ts",
       "import": "./dist/blind-discard-arena-experiment.js"
