@@ -92,6 +92,27 @@ test('console starts a real owned process once and stop waits for its exit', asy
   assert.equal((await f.post('/api/stop', {})).status, 409);
 });
 
+test('console freezes raw module config, exposes the direct schema and rejects contradictory run modes', async t => {
+  const f = await fixture(t);
+  assert.equal((await f.post('/api/config', { experiment: 'raw' })).status, 200);
+  const config = (await f.state()).config.experiment;
+  assert.equal(config.submission, 'tile-red');
+  const info = await fetch(f.url + '/api/model-info').then(r => r.json());
+  assert.deepEqual(info.modular.tools, []);
+  assert.deepEqual(info.modular.schema.required, ['tile', 'red']);
+  assert.match(info.modular.isolation, /unavailable/);
+  assert.equal((await f.post('/api/start', { mode: 'local' })).status, 400);
+  assert.equal((await f.post('/api/config', { experiment: { ...config, helperFacts: true } })).status, 400);
+  assert.equal((await f.post('/api/start', { mode: 'off' })).status, 202);
+  let args;
+  for (let i = 0; i < 100; i++) { try { args = JSON.parse(await readFile(join(f.root, 'received-args.json'), 'utf8')); break; } catch { await setTimeout(20); } }
+  assert.deepEqual(JSON.parse(args[args.indexOf('--experiment') + 1]), config);
+  await f.post('/api/stop', {});
+  let job;
+  for (let i = 0; i < 100; i++) { job = (await f.state()).job; if (job.status === 'stopped') break; await setTimeout(20); }
+  assert.equal(job.status, 'stopped');
+});
+
 test('idle console shuts down through its same-origin lifecycle hook', async t => {
   const f = await fixture(t);
   assert.equal((await f.post('/api/shutdown', {}, 'https://foreign.example')).status, 403);

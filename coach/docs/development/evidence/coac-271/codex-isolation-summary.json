@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "arena-cli-isolation-evidence/v1",
+  "cliVersion": "0.162.1",
+  "source": "Pre-ticket loopback capture supplied in COAC-271; not a new paid run or a claim that this change re-ran the old prototype.",
+  "sourceSha256": "8b53fb87b6ed2b4ee8c3310a6cedb754aeed9c30e4dcf19083c0100ff63ff108",
+  "realModelCalls": 0,
+  "tools": [
+    "request_user_input",
+    "view_image",
+    "get_goal",
+    "create_goal",
+    "update_goal"
+  ],
+  "inputRoles": [
+    "developer",
+    "developer",
+    "user",
+    "user"
+  ],
+  "injectedContext": [
+    "skills catalog",
+    "permissions/environment"
+  ],
+  "supplierInternalContext": "unknown",
+  "currentAdapterBehavior": "All modular requests fail with isolation_unavailable before CLI spawn; legacy tool flow stays unchanged."
+}

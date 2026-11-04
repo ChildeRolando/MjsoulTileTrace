@@ -5,7 +5,9 @@ import {
   ArenaBlindObservationSchema,
   ArenaCaseRefSchema,
   ArenaOpaqueReferenceSchema,
-  ArenaCoachSubmissionSchema,
+  ArenaLockedSubmissionSchema,
+  ArenaExperimentConfigSchema,
+  type ArenaExperimentConfig,
   ArenaRagApplicabilityFailureCodeSchema,
   ArenaRagApplicabilityLimitsSchema,
   ArenaRagApplicabilityReceiptSchema,
@@ -46,6 +48,8 @@ import {
   type ArenaToolCallProvider,
 } from "./blind-discard-arena-provider.js";
 import { combineReportedTokenUsage } from "./llm-provider/token-usage.js";
+import { assembleArenaExperiment, mapArenaDirectAnswer, projectArenaRawObservation, arenaContentDigest, ARENA_ASSEMBLY_VERSION } from "./blind-discard-arena-experiment.js";
+import { ArenaRequestAuditSchema } from "./blind-discard-arena-provider.js";
 
 const TOOL_NAME = /^[a-z][a-z0-9_]{0,63}$/;
 const FINAL_TOOL_NAME = "submit_decision";
@@ -171,7 +175,7 @@ const ArenaToolFailureCodeSchema = z.enum([
 export type ArenaToolFailureCode = z.infer<typeof ArenaToolFailureCodeSchema>;
 
 const ArenaRunAttemptSchema = z.discriminatedUnion("status", [
-  z.object({ status: z.literal("submitted"), submission: ArenaCoachSubmissionSchema }).strict(),
+  z.object({ status: z.literal("submitted"), submission: ArenaLockedSubmissionSchema }).strict(),
   z.object({ status: z.literal("invalid_submission") }).strict(),
   z.object({ status: z.literal("missing_submission") }).strict(),
   z.object({ status: z.literal("provider_unavailable") }).strict(),
@@ -199,6 +203,9 @@ export const ArenaRunReflectionSchema = z.object({
 export type ArenaRunReflection = z.infer<typeof ArenaRunReflectionSchema>;
 
 export const ArenaRunEventSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("module_preparation"), status: z.enum(["ready", "failed"]) }).strict(),
+  z.object({ type: z.literal("request_prepared"), turn: z.number().int().positive(), request: ArenaProviderRequestSchema }).strict(),
+  z.object({ type: z.literal("request_audit"), turn: z.number().int().positive(), audit: ArenaRequestAuditSchema }).strict(),
   z.object({
     type: z.literal("run_started"),
     caseRef: ArenaCaseRefSchema,
@@ -212,6 +219,8 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     limits: ArenaRunLimitsSchema,
     toolNames: z.array(z.string().regex(TOOL_NAME)).max(16),
     observation: ArenaBlindObservationSchema.optional(),
+    experiment: z.object({ config: ArenaExperimentConfigSchema, version: z.string(), modules: z.record(z.unknown()),
+      routing: z.record(z.unknown()).nullable(), digest: z.string().regex(/^[a-f0-9]{64}$/) }).strict().optional(),
     applicability: z.object({
       gateVersion: z.string().min(1).max(40),
       promptVersion: z.string().min(1).max(80),
@@ -225,7 +234,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     turn: z.number().int().positive(),
     elapsedMs: z.number().int().nonnegative(),
     inputBytes: z.number().int().nonnegative(),
-    result: z.enum(["tool_call", "provider_unavailable", "provider_error", "timeout", "cancelled", "input_too_large", "output_too_large", "token_budget_exhausted"]),
+    result: z.enum(["tool_call", "final", "provider_unavailable", "provider_error", "timeout", "cancelled", "input_too_large", "output_too_large", "token_budget_exhausted"]),
     outputBytes: z.number().int().nonnegative().optional(),
     toolName: z.string().regex(TOOL_NAME).optional(),
     usage: LlmTokenUsageSchema.optional(),
@@ -254,18 +263,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
   }).strict(),
   z.object({
     type: z.literal("submission_locked"),
-    submission: z.object({
-      caseRef: ArenaCaseRefSchema,
-      actionRef: z.string().min(1).max(120),
-      rationale: z.string().min(1).max(2000),
-      evidenceRefs: z.array(ArenaOpaqueReferenceSchema).max(64),
-      sourceRefs: z.array(ArenaOpaqueReferenceSchema).max(64),
-      mainAlternative: z.object({
-        actionRef: z.string().min(1).max(120),
-        reasonNotChosen: z.string().min(1).max(500),
-      }).strict().nullable(),
-      uncertainty: z.string().max(1000),
-    }).strict(),
+    submission: ArenaLockedSubmissionSchema,
   }).strict(),
   z.object({
     type: z.literal("submission_rejected"),
@@ -316,6 +314,7 @@ export const ArenaCoachRunResultSchema = z.object({
   toolFailureCount: z.number().int().nonnegative(),
   recoverableToolFailureCount: z.number().int().nonnegative(),
   providerUsage: ArenaProviderUsageSummarySchema,
+  experiment: ArenaExperimentConfigSchema.optional(),
   /** Reflection totals are separate from generator `providerUsage`; never merged into one number. */
   applicability: z.object({
     gateVersion: z.string().min(1).max(40),
@@ -746,6 +745,38 @@ function serializeEvent(event: ArenaRunEvent): string {
   return stableJson(ArenaRunEventSchema.parse(event));
 }
 
+/** A durable dispatch intent with no terminal result is uncertain, never safe to resend. */
+export function recoverInterruptedArenaRun(input: {
+  events: readonly ArenaRunEvent[];
+  binding: ArenaToolBinding;
+  reference: ArenaScoringCaseInput["reference"];
+}): ArenaCoachRunResult {
+  const parsedEvents = input.events.map(e => ArenaRunEventSchema.parse(e));
+  const requestIndex = parsedEvents.findIndex(e => e.type === "request_prepared");
+  let startIndex = requestIndex;
+  while (startIndex >= 0 && parsedEvents[startIndex]?.type !== "run_started") startIndex--;
+  const events = parsedEvents.slice(Math.max(0, startIndex));
+  const start = events.find(e => e.type === "run_started");
+  if (!start?.observation || start.experiment?.config.submission !== "tile-red") throw new Error("arena_recovery_invalid");
+  const providerTurnCount = events.filter(e => e.type === "request_prepared").length;
+  if (providerTurnCount !== 1) throw new Error("arena_recovery_invalid");
+  const terminal = events.find(e => e.type === "run_terminal");
+  const locked = events.find(e => e.type === "submission_locked");
+  const attempt = ArenaRunAttemptSchema.parse(locked && (terminal === undefined || terminal.attemptStatus === "submitted")
+    ? { status: "submitted", submission: locked.submission } : { status: terminal?.attemptStatus ?? "cancelled" });
+  const status = terminal?.status ?? (locked ? "completed" : "cancelled");
+  const endedAt = new Date().toISOString(), elapsedMs = Math.max(0, Date.parse(endedAt) - Date.parse(start.startedAt));
+  const score = scoreArenaBatch([createArenaScoringCaseInput({ observation: start.observation, toolBinding: input.binding, reference: input.reference, attempt })]);
+  const usages = events.flatMap(e => e.type === "provider_turn" && e.usage ? [e.usage] : []);
+  return ArenaCoachRunResultSchema.parse({ schemaVersion: "blind-discard-arena-run-result/v1", caseRef: start.caseRef,
+    status, attempt, score, startedAt: start.startedAt, endedAt, elapsedMs, provider: start.provider,
+    promptVersion: start.promptVersion, limits: start.limits, providerTurnCount, toolCallCount: 0, toolFailureCount: 0, recoverableToolFailureCount: 0,
+    providerUsage: summarizeProviderUsage({ providerTurnCount, usages }),
+    experiment: start.experiment.config,
+    events: terminal ? events : [...events, { type: "run_terminal", status, attemptStatus: attempt.status, elapsedMs }],
+  });
+}
+
 /**
  * Executes one isolated case. Grading data remains in this closure and is only
  * consumed after the model has stopped and any valid submission is locked.
@@ -758,6 +789,11 @@ export async function runBlindCoachCase(input: {
   };
   provider: ArenaToolCallProvider;
   tools: readonly ArenaRunnerTool[];
+  experiment?: ArenaExperimentConfig;
+  moduleHelper?: unknown;
+  moduleMaterial?: unknown;
+  moduleMaterialBaseline?: unknown;
+  prepareModules?: (context: { signal: AbortSignal }) => Promise<{ helper?: unknown; material?: unknown; materialBaseline?: unknown }>;
   limits?: Partial<ArenaRunLimits>;
   signal?: AbortSignal;
   clock?: () => number;
@@ -779,6 +815,10 @@ export async function runBlindCoachCase(input: {
     toolMap.set(tool.name, tool);
   }
   if (toolMap.size > 16) throw new Error("arena_runner_tool_count_invalid");
+  const experimentConfig = input.experiment === undefined ? undefined : ArenaExperimentConfigSchema.parse(input.experiment);
+  let assembly: ReturnType<typeof assembleArenaExperiment> | undefined;
+  let preparationFailed = false;
+  const direct = experimentConfig?.submission === "tile-red";
 
   const applicabilityGate = input.tools.find((tool) => tool.applicabilityGate !== undefined)?.applicabilityGate;
   const applicabilityTotals: ApplicabilityTotals = {
@@ -821,7 +861,12 @@ export async function runBlindCoachCase(input: {
     }
     totalEventBytes += Buffer.byteLength(serialized, "utf8");
     events.push(event);
-    input.onEvent?.(structuredClone(event));
+    try { input.onEvent?.(structuredClone(event)); }
+    catch (error) {
+      if (experimentConfig === undefined) throw error;
+      eventBudgetExceeded = true;
+      return false;
+    }
     return true;
   };
 
@@ -894,15 +939,34 @@ export async function runBlindCoachCase(input: {
     runController.abort();
   }, limits.maxRunElapsedMs);
 
+  if (experimentConfig) {
+    try {
+      const prepared = input.prepareModules === undefined ? {} : await withToolTimeout({ operation: signal => input.prepareModules!({ signal }), runSignal: runController.signal, timeoutMs: limits.maxToolCallDurationMs });
+      assembly = assembleArenaExperiment({ observation, config: experimentConfig, tools: [...toolMap.values()].map(providerTool),
+        ...(input.moduleHelper === undefined ? {} : { helper: input.moduleHelper }),
+        ...(input.moduleMaterial === undefined ? {} : { material: input.moduleMaterial }),
+        ...(input.moduleMaterialBaseline === undefined ? {} : { materialBaseline: input.moduleMaterialBaseline }),
+        ...prepared });
+      if (assembly.modules.helper) {
+        const helper = ArenaMcpResultSchema.parse(assembly.modules.helper);
+        for (const fact of helper.facts) { fact.evidenceRefs.forEach(ref => allowedEvidenceRefs.add(ref)); allowedSourceRefs.add(fact.sourceRef); }
+      }
+      if (assembly.modules.material) ArenaRagResultSchema.parse(assembly.modules.material).sourceRefs.forEach(ref => allowedSourceRefs.add(ref));
+    } catch { preparationFailed = true; }
+  }
+
   append({
     type: "run_started",
     caseRef: observation.caseRef,
     startedAt,
     provider,
-    promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
+    promptVersion: experimentConfig === undefined ? ARENA_TOOL_CALL_PROMPT_VERSION : ARENA_ASSEMBLY_VERSION,
     limits,
     toolNames: [...toolMap.keys()],
     observation,
+    ...(experimentConfig === undefined ? {} : { experiment: { config: experimentConfig, version: ARENA_ASSEMBLY_VERSION,
+      modules: assembly?.modules ?? { raw: projectArenaRawObservation(observation), preparation: "failed" },
+      routing: assembly?.routing ?? null, digest: assembly?.digest ?? arenaContentDigest({ config: experimentConfig, preparation: "failed" }) } }),
     ...(applicabilityGate === undefined ? {} : {
       applicability: {
         gateVersion: applicabilityGate.descriptor.gateVersion,
@@ -914,6 +978,10 @@ export async function runBlindCoachCase(input: {
     }),
   });
   let finished = false;
+  if (preparationFailed) {
+    append({ type: "module_preparation", status: "failed" });
+    terminalStatus = "tool_failure"; attempt = { status: "tool_failure" }; finished = true;
+  } else if (input.prepareModules) append({ type: "module_preparation", status: "ready" });
   if (eventBudgetExceeded) {
     terminalStatus = "budget_exhausted";
     attempt = { status: "budget_exhausted" };
@@ -927,7 +995,7 @@ export async function runBlindCoachCase(input: {
       supportedCapabilities: [...toolMap.keys()],
     },
   });
-  const messages: ArenaProviderMessage[] = [
+  const messages: ArenaProviderMessage[] = assembly?.messages ?? [
     { role: "system", content: ARENA_TOOL_CALL_PROMPT },
     { role: "user", content: `Blind observation JSON:\n${stableJson(modelObservation)}` },
   ];
@@ -952,7 +1020,7 @@ export async function runBlindCoachCase(input: {
         finished = true;
         break;
       }
-      const tools = [...toolDefinitions, finalDefinition()];
+      const tools = direct ? [] : [...toolDefinitions, finalDefinition()];
       const contextBytes = byteLength({ messages, tools });
       if (contextBytes > limits.maxContextInputBytes) {
         terminalStatus = "budget_exhausted";
@@ -972,6 +1040,8 @@ export async function runBlindCoachCase(input: {
         const providerRequest = ArenaProviderRequestSchema.parse({
           messages,
           tools,
+          ...(assembly === undefined ? {} : { requireIsolatedContext: true }),
+          ...(direct ? { outputSchema: assembly!.outputSchema } : {}),
           maxOutputTokens: limits.maxProviderOutputTokens,
           maxInputBytes: limits.maxContextInputBytes,
           maxOutputBytes: Math.min(
@@ -979,8 +1049,13 @@ export async function runBlindCoachCase(input: {
             limits.maxProviderOutputBytesPerRun - totalProviderOutputBytes,
           ),
         });
+        if (assembly !== undefined && !append({ type: "request_prepared", turn, request: providerRequest })) {
+          terminalStatus = "budget_exhausted"; attempt = { status: "budget_exhausted" }; finished = true; break;
+        }
         response = ArenaToolCallProviderResultSchema.parse(await awaitWithAbort(
-          input.provider.request(providerRequest, runController.signal),
+          input.provider.request(providerRequest, runController.signal, assembly === undefined ? undefined : audit => {
+            if (!append({ type: "request_audit", turn, audit })) throw new Error("arena_audit_budget_exceeded");
+          }),
           runController.signal,
           () => abortStatus ?? "cancelled",
         ));
@@ -1018,7 +1093,7 @@ export async function runBlindCoachCase(input: {
         finished = true;
         break;
       }
-      const outputBytes = response.status === "ready"
+      const outputBytes = response.status === "ready" || response.status === "final"
         ? Math.max(response.outputBytes, byteLength(response))
         : byteLength(response);
       totalProviderOutputBytes += outputBytes;
@@ -1031,7 +1106,7 @@ export async function runBlindCoachCase(input: {
         break;
       }
       if (response.usage !== undefined) usages.push(response.usage);
-      if (response.status === "ready" && response.usage?.outputTokens !== undefined &&
+      if ((response.status === "ready" || response.status === "final") && response.usage?.outputTokens !== undefined &&
           response.usage.outputTokens > limits.maxProviderOutputTokens) {
         terminalStatus = "budget_exhausted";
         attempt = { status: "budget_exhausted" };
@@ -1042,7 +1117,7 @@ export async function runBlindCoachCase(input: {
           inputBytes: contextBytes,
           result: "token_budget_exhausted",
           outputBytes,
-          toolName: response.call.name,
+          ...(response.status === "ready" ? { toolName: response.call.name } : {}),
           usage: response.usage,
         });
         finished = true;
@@ -1053,12 +1128,12 @@ export async function runBlindCoachCase(input: {
         turn,
         elapsedMs: Math.max(0, clock() - startedAtMs),
         inputBytes: contextBytes,
-        ...(response.status === "ready" ? { outputBytes } : {}),
+        ...(response.status === "ready" || response.status === "final" ? { outputBytes } : {}),
         result: response.status === "ready" ? "tool_call" : response.status,
         ...(response.status === "ready" ? { toolName: response.call.name } : {}),
         ...(response.usage !== undefined ? { usage: response.usage } : {}),
-        ...(response.status !== "ready" && response.failureCode !== undefined ? { failureCode: response.failureCode } : {}),
-        ...(response.reconnectCount !== undefined ? { reconnectCount: response.reconnectCount } : {}),
+        ...(response.status !== "ready" && response.status !== "final" && response.failureCode !== undefined ? { failureCode: response.failureCode } : {}),
+        ...("reconnectCount" in response && response.reconnectCount !== undefined ? { reconnectCount: response.reconnectCount } : {}),
         ...(response.status === "ready" && response.decisionSummary !== undefined ? { decisionSummary: response.decisionSummary } : {}),
       });
       if (eventBudgetExceeded) {
@@ -1066,6 +1141,21 @@ export async function runBlindCoachCase(input: {
         attempt = { status: "budget_exhausted" };
         finished = true;
         break;
+      }
+      if (direct && response.status === "final") {
+        const validation = mapArenaDirectAnswer(parseJson(response.content), observation, assembly!.config.explanation);
+        if (validation.status === "valid") {
+          attempt = { status: "submitted", submission: validation.submission }; terminalStatus = "completed";
+          append({ type: "submission_locked", submission: validation.submission });
+        } else {
+          attempt = { status: "invalid_submission" }; terminalStatus = "invalid_submission";
+          append({ type: "submission_rejected", reason: validation.reason });
+        }
+        if (eventBudgetExceeded) { terminalStatus = "budget_exhausted"; attempt = { status: "budget_exhausted" }; }
+        finished = true; break;
+      }
+      if (response.status === "final" || (direct && response.status === "ready")) {
+        terminalStatus = "invalid_submission"; attempt = { status: "invalid_submission" }; finished = true; break;
       }
       if (response.status !== "ready") {
         if (response.status === "provider_unavailable") {
@@ -1336,13 +1426,14 @@ export async function runBlindCoachCase(input: {
     endedAt,
     elapsedMs,
     provider,
-    promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
+    promptVersion: experimentConfig === undefined ? ARENA_TOOL_CALL_PROMPT_VERSION : ARENA_ASSEMBLY_VERSION,
     limits,
     providerTurnCount,
     toolCallCount,
     toolFailureCount,
     recoverableToolFailureCount,
     providerUsage: summarizeProviderUsage({ providerTurnCount, usages }),
+    ...(experimentConfig === undefined ? {} : { experiment: experimentConfig }),
     ...(applicabilityGate === undefined ? {} : {
       applicability: {
         gateVersion: applicabilityGate.descriptor.gateVersion,

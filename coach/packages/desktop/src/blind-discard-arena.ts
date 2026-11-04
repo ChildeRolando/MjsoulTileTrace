@@ -283,6 +283,7 @@ export function createArenaBlindObservation(input: {
   readonly selected: ArenaSelectedDecision;
   readonly aliases: ArenaRunAliasVault;
   readonly tools?: ArenaToolDescription;
+  readonly includeRawEventOrder?: boolean;
 }): ArenaBlindObservation {
   const { snapshot } = input.selected;
   const caseRef = input.aliases.caseRef(`${snapshot.gameId}\u0000${snapshot.decisionEventRef}`);
@@ -357,6 +358,16 @@ export function createArenaBlindObservation(input: {
       supportedCapabilities: [...(input.tools?.supportedCapabilities ?? [])],
     },
   };
+  if (input.includeRawEventOrder) {
+    const visibleRefs = new Set([
+      privateState.currentDraw?.eventRef,
+      ...publicState.rivers.flatMap(r => r.flatMap(d => [d.eventRef, d.riichiDeclarationEventRef, d.calledByEventRef])),
+      ...publicState.melds.flatMap(m => [m.createdEventRef, m.latestEventRef]),
+      ...publicState.riichiStates.flatMap(r => [r.declarationEventRef, r.acceptanceEventRef]),
+    ]);
+    return ArenaBlindObservationSchema.parse({ ...observation,
+      rawEventOrder: publicState.appliedEventRefs.filter(ref => visibleRefs.has(ref)).map(ref => input.aliases.reference(ref)) });
+  }
   return ArenaBlindObservationSchema.parse(observation);
 }
 

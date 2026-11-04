@@ -4,6 +4,7 @@ import {
   type LlmTokenUsage,
 } from "@riichi-coach/contracts";
 import { z } from "zod";
+import { createHash } from "node:crypto";
 import type { ProviderCredentials } from "./credentials.js";
 import { normalizeTokenUsage } from "./token-usage.js";
 import {
@@ -12,6 +13,7 @@ import {
   ArenaProviderRequestSchema,
   ArenaToolCallProviderResultSchema,
   type ArenaProviderRequest,
+  type ArenaRequestAudit,
   type ArenaToolCallProvider,
   type ArenaToolCallProviderResult,
 } from "../blind-discard-arena-provider.js";
@@ -88,7 +90,7 @@ export function createOpenAiArenaToolCallProvider(input: {
       model: settings?.modelName ?? "unconfigured",
       protocolVersion: "arena-function-call/v1" as const,
     }),
-    async request(rawRequest: ArenaProviderRequest, parentSignal: AbortSignal): Promise<ArenaToolCallProviderResult> {
+    async request(rawRequest: ArenaProviderRequest, parentSignal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult> {
       const checked = ArenaProviderRequestSchema.safeParse(rawRequest);
       if (!checked.success) return { status: "provider_error" };
       if (settings === null) return { status: "provider_unavailable" };
@@ -112,9 +114,9 @@ export function createOpenAiArenaToolCallProvider(input: {
           }
           return { role: message.role, content: message.content };
         }),
-        tools: checked.data.tools,
-        tool_choice: "required",
-        parallel_tool_calls: false,
+        ...(checked.data.outputSchema === undefined ? {
+          tools: checked.data.tools, tool_choice: "required", parallel_tool_calls: false,
+        } : { response_format: { type: "json_schema", json_schema: { name: "arena_discard", strict: true, schema: checked.data.outputSchema } } }),
         temperature: 0,
         max_tokens: checked.data.maxOutputTokens,
         stream: false,
@@ -142,6 +144,10 @@ export function createOpenAiArenaToolCallProvider(input: {
       });
       const send = async (): Promise<ArenaToolCallProviderResult> => {
         try {
+          onAudit?.({ schemaVersion: "arena-request-audit/v1", surface: "http_body", request: requestBody,
+            digest: createHash("sha256").update(body).digest("hex"),
+            runtime: { adapter: "arena-openai/v2", node: process.versions.node, model: settings.modelName, reasoningEffort: "provider_default" },
+            visibility: "captured", limitations: ["Supplier-internal context is unknown."] });
           const response = await input.fetchImpl(`${settings.baseUrl.replace(/\/$/, "")}/chat/completions`, {
             method: "POST",
             redirect: "error",
@@ -163,6 +169,14 @@ export function createOpenAiArenaToolCallProvider(input: {
           }
           const choice = choices[0] as Record<string, unknown>;
           const message = choice.message;
+          if (checked.data.outputSchema !== undefined) {
+            if (choice.finish_reason !== "stop" || message === null || typeof message !== "object") return { status: "provider_error" };
+            const fields = message as Record<string, unknown>;
+            if (typeof fields.content !== "string" || fields.function_call != null ||
+                (fields.tool_calls != null && (!Array.isArray(fields.tool_calls) || fields.tool_calls.length > 0))) return { status: "provider_error" };
+            const usage = mapUsage(envelope.usage);
+            return { status: "final", content: fields.content, outputBytes: decoded.byteLength, ...(usage === undefined ? {} : { usage }) };
+          }
           if (choice.finish_reason !== "tool_calls" || message === null || typeof message !== "object") {
             return { status: "provider_error" };
           }

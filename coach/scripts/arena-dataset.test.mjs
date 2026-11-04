@@ -1,7 +1,30 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { parseArgs, selectDatasetBatch, selectExperimentPool, arenaDatasetSource, selectReplayCase } from '../bin/blind-discard-arena.mjs';
+import { parseArgs, selectDatasetBatch, selectExperimentPool, arenaDatasetSource, selectReplayCase, acquireRunMutex } from '../bin/blind-discard-arena.mjs';
 import { createHash } from 'node:crypto';
+import { randomUUID } from 'node:crypto';
+
+test('run mutex prevents concurrent resume and releases with its foreground owner', async () => {
+  const identity = `arena-mutex-${randomUUID()}`;
+  const release = await acquireRunMutex(identity);
+  try { await assert.rejects(acquireRunMutex(identity), /arena_run_busy/); }
+  finally { await release(); }
+  const again = await acquireRunMutex(identity); await again();
+});
+
+test('raw experiment flags freeze direct protocol, request ceiling and explicit dependencies', () => {
+  const args = ['run', '--dataset', 'blind-discard-dev-v1', '--rag', 'off', '--experiment', 'raw', '--max-cases', '5', '--max-requests', '3'];
+  const parsed = parseArgs(args);
+  assert.equal(parsed.experiment.submission, 'tile-red');
+  assert.equal(parsed.experiment.helperFacts, false);
+  assert.deepEqual(parsed.experiment.callableTools, []);
+  assert.equal(parsed.maxActualRequests, 3);
+  assert.equal(parseArgs([...args, '--resume-run', '00000000-0000-4000-8000-000000000001']).resumeRunId, '00000000-0000-4000-8000-000000000001');
+  assert.throws(() => parseArgs([...args, '--rag-applicability', 'applicability-v1']), /arena_experiment_dependency_invalid/);
+  assert.throws(() => parseArgs(args.map(value => value === 'off' ? 'local' : value)), /arena_experiment_dependency_invalid/);
+  assert.throws(() => parseArgs(args.map(value => value === 'raw' ? JSON.stringify({ ...parsed.experiment, helperFacts: true }) : value)), /arena_experiment_invalid/);
+  assert.throws(() => parseArgs(args.map(value => value === '3' ? '0' : value)), /arena_request_limit_invalid/);
+});
 
 test('mistake replay selects the original decision rather than a batch-local offset, rejecting changed candidates', () => {
   const pool = { selected: [0, 12, 43].map(order => ({ canonicalDecisionOrder: order, candidates: [{ actionRef: 'a' }, { actionRef: 'b' }] })), excluded: [] };

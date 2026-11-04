@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { TileIdSchema } from "./tiles.js";
+
 import { canonicalActionRef } from "./action-codec.js";
 import { RiichiActionSchema } from "./actions.js";
 import { ActionRefSchema } from "./comparison.js";
@@ -17,6 +19,37 @@ import {
 import { RuleSetV2Schema } from "./event-stream.js";
 import { TileSchema } from "./tiles.js";
 
+/** Independent inputs; dependencies describe protocol needs, never silently enable facts. */
+export const ArenaExperimentConfigSchema = z.object({
+  schemaVersion: z.literal("arena-experiment/v1"),
+  submission: z.enum(["tool", "tile-red"]),
+  legalCandidates: z.boolean(),
+  helperFacts: z.boolean(),
+  scenarioHint: z.boolean(),
+  teaching: z.enum(["off", "on"]),
+  materialRouting: z.enum(["fixed", "scenario"]),
+  comparison: z.boolean(),
+  explanation: z.boolean(),
+  callableTools: z.array(z.enum(["analyze_candidates", "search_knowledge"])).max(2),
+}).strict().superRefine((config, context) => {
+  const reject = (message: string) => context.addIssue({ code: z.ZodIssueCode.custom, message });
+  if (new Set(config.callableTools).size !== config.callableTools.length) reject("arena_duplicate_capability");
+  if ((config.helperFacts || config.callableTools.includes("analyze_candidates")) && !config.legalCandidates) reject("arena_helper_requires_candidates");
+  if (config.submission === "tool" && (!config.legalCandidates || !config.explanation)) reject("arena_legacy_submission_requires_candidates_and_explanation");
+  if (config.submission === "tile-red" && config.callableTools.length > 0) reject("arena_direct_submission_has_no_tool_loop");
+  if (config.teaching === "off" && (config.materialRouting === "scenario" || config.callableTools.includes("search_knowledge"))) reject("arena_routing_requires_teaching");
+});
+export type ArenaExperimentConfig = z.infer<typeof ArenaExperimentConfigSchema>;
+export const ARENA_RAW_BASELINE: ArenaExperimentConfig = Object.freeze({
+  schemaVersion: "arena-experiment/v1", submission: "tile-red", legalCandidates: false,
+  helperFacts: false, scenarioHint: false, teaching: "off", materialRouting: "fixed",
+  comparison: false, explanation: false, callableTools: [],
+});
+Object.freeze(ARENA_RAW_BASELINE.callableTools);
+export const ArenaDirectAnswerSchema = z.object({ tile: TileIdSchema, red: z.boolean() }).strict()
+  .superRefine((answer, context) => {
+    if (answer.red && !["5m", "5p", "5s"].includes(answer.tile)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_red_only_five" });
+  });
 const ActorSchema = z.number().int().min(0).max(3);
 const Sha256Schema = z.string().regex(/^[a-f0-9]{64}$/);
 const OpaqueUuid = "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
@@ -102,6 +135,7 @@ const ArenaObservationCompletenessSchema = z.object({
 export const ArenaBlindObservationSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-observation/v1"),
   caseRef: ArenaCaseRefSchema,
+  rawEventOrder: z.array(ArenaOpaqueReferenceSchema).max(1000).optional(),
   ruleSet: RuleSetV2Schema,
   decision: z.object({
     selfActor: ActorSchema,
@@ -161,6 +195,18 @@ export const ArenaBlindObservationSchema = z.object({
         context.addIssue({ code: z.ZodIssueCode.custom, path: ["visibleState", "rivers", actor, index, "actor"], message: "arena_river_actor_mismatch" });
       }
     });
+  }
+  if (observation.rawEventOrder) {
+    const state = observation.visibleState;
+    const visible = new Set([
+      state.self.currentDraw?.sourceRef,
+      ...state.rivers.flatMap(river => river.flatMap(row => [row.sourceRef, row.riichiDeclarationRef, row.calledByRef])),
+      ...state.melds.flatMap(meld => [meld.createdEventRef, meld.latestEventRef]),
+      ...state.riichiStates.flatMap(row => [row.declarationEventRef, row.acceptanceEventRef]),
+    ]);
+    if (new Set(observation.rawEventOrder).size !== observation.rawEventOrder.length || observation.rawEventOrder.some(ref => !visible.has(ref))) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["rawEventOrder"], message: "arena_raw_event_not_visible" });
+    }
   }
 });
 export type ArenaBlindObservation = z.infer<typeof ArenaBlindObservationSchema>;
@@ -245,6 +291,16 @@ export const ArenaCoachSubmissionSchema = z.object({
 });
 export type ArenaCoachSubmission = z.infer<typeof ArenaCoachSubmissionSchema>;
 
+/** Backend legal mapping, explicitly distinct from a model-authored rationale. */
+export const ArenaDirectSubmissionSchema = z.object({
+  format: z.literal("tile-red/v1"), caseRef: ArenaCaseRefSchema, actionRef: ActionRefSchema,
+  tile: TileIdSchema, red: z.boolean(),
+  rationale: z.string().min(1).max(2000).optional(),
+  evidenceRefs: z.never().optional(), sourceRefs: z.never().optional(),
+  mainAlternative: z.never().optional(), uncertainty: z.never().optional(),
+}).strict();
+export const ArenaLockedSubmissionSchema = z.union([ArenaCoachSubmissionSchema, ArenaDirectSubmissionSchema]);
+
 export const ArenaSubmissionStatusSchema = z.enum([
   "submitted", "invalid_submission", "missing_submission", "provider_unavailable",
   "provider_error", "timeout", "cancelled", "tool_failure", "budget_exhausted",
@@ -274,7 +330,7 @@ export const ArenaScoringCaseInputSchema = z.object({
     z.object({ status: z.literal("binding_failure"), reason: ArenaLabelBindingFailureReasonSchema }).strict(),
   ]),
   attempt: z.discriminatedUnion("status", [
-    z.object({ status: z.literal("submitted"), submission: ArenaCoachSubmissionSchema }).strict(),
+    z.object({ status: z.literal("submitted"), submission: ArenaLockedSubmissionSchema }).strict(),
     z.object({ status: z.literal("invalid_submission") }).strict(),
     z.object({ status: z.literal("missing_submission") }).strict(),
     z.object({ status: z.literal("provider_unavailable") }).strict(),

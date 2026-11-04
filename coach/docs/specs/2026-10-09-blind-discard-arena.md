@@ -348,3 +348,90 @@ COAC-224 的真实模型入口补充（2026-10-15 用户授权）：本机 Codex
 错题可在题目详情直接重跑，也可在实验控制台选择错题集为题库按范围批量重跑。选择冻结于作业启动，当前模型/预算用于新运行；CLI 从原错误的 runId/caseOrdinal 重建原局决策，核对来源、候选 digest 和 Mortal 身份。旧答案与评分不进入模型。每次结果追加独立归档，原错误计数保留；有效评分分母增长后重新计算错误率，所有运行历史（包括匹配与失败）均可查看快照。重跑结果的 manifest.replay 记录来源，旧档案无需迁移。
 
 本机控制台采用五个独立页面：实验控制台 `/`、实验结果 `/results`、错题集 `/mistakes`、模型与 API 配置 `/settings`、模型运行配置 `/model-info`。导航统一由 `bin/arena-pages.mjs` 渲染，结果详情与配置内嵌于对应页面，不用弹窗或面板内滚动。变更边界及实际验证见 [重跑与页面记录](../development/2026-10-16-arena-replay-pages.md)。
+
+
+## COAC-271：模块输入与直接提交修订（2026-11-04）
+
+本节拥有新实验契约；上文旧 Off/Local 是工具实验，不能称为真裸基线，也不能据配置名称
+推断干预成立。未提供 experiment 时旧工具请求、默认模型、认证与生产复盘语义不变。
+不引入 HTTP/Responses 客户端、转发器或另一套执行／归档／评分链路。
+
+### 输入与依赖
+
+严格配置 `arena-experiment/v1` 由 contracts 拥有，消息组装版本为
+`arena-modular-messages/v1`。原始层总是从已验证的 Arena 观察逐字段重新投影：自家暗手与
+独立摸牌、四家牌河及摸切／手切／被鸣标记、副露（含赤牌、对象和三类杠）、立直声明／成立、
+场风／局数／庄家／座风／点数／本场／供托／宝牌指示牌／剩余摸牌。
+事件顺序只包含此观察中公开牌河、鸣牌、立直和自家当前摸牌引用；不加入隐藏摸牌／未来事件。
+座位采用 0..3 绝对座位及同序四家数组，暗手不包含独立 currentDraw；旧观察缺少跨座位事件
+顺序时明确为 null，不从身份字符串猜时序。源引用仍是 run-local opaque alias。
+
+原始层不序列化 facts、completeness、furiten、ippatsuAlive、tools 描述或任何候选。
+以下输入各自有显式开关和内容来源；关闭后不能从另一层默认为它补资料：
+
+| 配置 | 来源与行为 | 真实依赖 |
+|---|---|---|
+| legalCandidates | libriichi 生成并规范化的完整纯弃牌候选 | helperFacts／analyze_candidates／旧工具提交需要它 |
+| helperFacts | 现有 MCP，只预取 canonical 顺序前 3 个候选的 shanten、ukeire、remaining_waits、dora_count，实际缺失也原样保留 | legalCandidates；MCP 不可用则拒绝，不猜算 |
+| scenarioHint | 原始公开副露／立直存在与否的文字标记 | 不依赖 helper 或教材 |
+| teaching | 既有 local retriever 的完整返回与版本／来源，limit=3 | 开启时必须显式 local；关闭时无资料 |
+| materialRouting | fixed 固定查询“进张计数”；scenario 按公开场面查询“进张计数”或“复合牌形” | scenario 需要 teaching；独立于 scenarioHint |
+| comparison | 仅添加显式比较提示 | 不自动开启其它输入 |
+| explanation | 直接 JSON 中要求简短公开 rationale | 旧工具提交协议固有需要它；关闭时不能选择旧协议 |
+| callableTools | 显式列举 analyze_candidates／search_knowledge | 前者需要 legalCandidates，后者需要 teaching；直接提交没有工具循环 |
+
+固定教材选材不受 scenarioHint 影响。选材回执记录实际查询和 passage 标题／位置／正文的
+digest，并在审计侧保存同题固定选材的实际资料与 changedFromFixed；对照资料不发给模型。
+实际 digest 相同记录 no_material_change，不能算形成资料干预。资料只能是数据，不允许追加权限。初始 helper／教材引用也注册到既有引用校验器。
+
+### 真裸预设与输出
+
+`--experiment raw --rag off` 使用 `ARENA_RAW_BASELINE`：直接 tile/red、其余能力／输入全部
+关闭。不显示合法候选表、不提供分析／检索／提交工具、不要求解释／总结／证据／备选。
+输出 JSON Schema 只含 tile、red，tile 是固定全局 34 种牌编码，不能从当前候选生成 enum。
+赤五固定编码 5m/5p/5s 加 red=true。后台仅在完整规范候选中精确匹配 tile+red：同牌面的
+摸切／手切使用既有 libriichi physical-realization 等价类代表；不同赤标识分别匹配。
+若仍命中多个规范类则拒绝，绝不借用 Mortal 分数消歧。
+
+新锁定格式 `tile-red/v1` 保存 tile、red、caseRef 及后台映射的 actionRef；不伪造模型理由。
+旧完整工具 submission 仍读写兼容。未知牌、赤标识错误、非法牌、空字符串、损坏 JSON、
+额外字段或错误协议均保留失败；一次直接输出就终止，不自动纠正或再问一次。
+筛题仍由 libriichi 保证纯弃牌且至少两个规范候选。Mortal 仅属于私有离线评分。
+
+### 提供方、请求证据与明确限制
+
+复用现有 `createArenaToolCallProvider`、凭据 owner、runner、archive 和 scorer。
+OpenAI-compatible 的同一 Chat Completions 适配器支持没有 tools／tool_choice 的最终 JSON，
+发送 response_format.json_schema；实际发送前捕获同一个序列化 HTTP 正文及 SHA-256，
+包括消息、模型、输出约束与 adapter／Node 版本。应用组装 request_prepared 与实际正文
+request_audit 分开保留，可定位适配层差异。Authorization、认证文件与原始模型私有输出不归档。
+供应商内部背景始终为 unknown，HTTP 正文捕获不证明服务端没有附加内容。
+
+**Codex CLI 0.162.1 的模块隔离暂不可用**：现有本机零生成 wire 捕获仍含内建工具与环境／
+skills 消息；常用 disable 参数不能证明零工具。所有要求隔离的模块请求在 CLI spawn 前以
+provider_unavailable / isolation_unavailable 拒绝、保留边界预览与 unknown 限制，真实请求为 0。
+旧工具实验不因此换模型、换认证或换调用通道。此状态不能表述为 Terra High 真基线已可运行，
+也不能说“未调用工具”证明没有提供工具。摘要及本次 HTTP 合成捕获见
+[交付与变更控制记录](../plans/2026-11-04-arena-modular-messages.md)。
+
+### 冻结、断点与页面
+
+manifest v1 增加可选 experiment、直接提交 schema 版本、目标 endpoint digest 和请求上限；
+旧档无需迁移。run_started 冻结配置、组装版本、模块实际资料、路由及内容摘要；每轮保存
+request_prepared 与 request_audit。预算仍约束上下文／输出／时间／事件大小，关闭模块不
+执行 helper 或检索。预取资料在 runner 的逐题／资料准备时限内执行；失败计 tool_failure 且不发送模型请求，不静默补齐。未请求的项不生成成功记录。
+
+直接批次 `--max-requests N` 对持久化 dispatch intent 作保守计数，物理请求不会超过它；
+失败前置检查也可能占用一个 intent，不能把它说成发生了真实付费调用。
+写入并 flush 请求意图后才可进入 provider；日志写失败时禁止发送。进程生命周期互斥阻止
+同 run 并发恢复。异常时保留新实验档案，不沿用旧流程的失败清理。
+`--resume-run <runId>` 要求相同代码、配置、题集、预算、模型与 endpoint 身份；
+已完成题跳过，有意图但无完整结果的题从既有事件恢复（无答案则 cancelled、用量 unknown），
+绝不重发；仅派发从未记录请求意图且未超上限的题。已写入有效答案则保留该答案。
+中断丢失的私有评分标为 unavailable，不为它重新请求模型或猜标签。
+
+沿用 `/settings` 的模块配置、`/model-info` 的当前预览和 `/results?run=<id>` 的案例详情：
+“模型与工具过程”可展开冻结配置／实际资料、应用请求、实际 HTTP 正文／CLI 不可观测限制、
+工具列表、提交 schema 和版本。显示内容来自当次归档，不能拿当前模板替换历史。
+本票只执行本地合成／捕获验收，不启动 200 题付费实验、不重跑历史实验、不切换教材库，
+不调用 Mortal 或蒸馏策略帮助作答。

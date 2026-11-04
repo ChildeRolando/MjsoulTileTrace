@@ -7,6 +7,10 @@ async function load() {
   try {
     const response = await fetch('/api/model-info'); if (!response.ok) throw new Error('读取配置失败，请重试。');
     const d = await response.json(), c = d.config;
+    if (d.modular) {
+      document.querySelector('#info-content').innerHTML = `<section class="panel inspector-section"><h2>模块实验配置</h2><p>${esc(d.modular.isolation)}</p><p>每题实际内容、最终请求与模块摘要在<a href="/results">实验结果 → 案例过程</a>查看。</p>${detail('冻结模块开关', c.experiment)}${detail('系统提示词', d.modular.prompt)}${detail('提交 schema', d.modular.schema)}${detail('提供的工具', d.modular.tools)}<p>消息组装版本：${esc(d.modular.version)}</p></section>`;
+      status.textContent = ''; return;
+    }
     document.querySelector('#info-content').innerHTML = `
       <section id="connection" class="panel inspector-section"><div class="panel-heading"><h2>连接与预算</h2></div><dl class="info-grid"><div><dt>模型</dt><dd>${esc(c.model)}</dd></div><div><dt>连接方式</dt><dd>${esc(c.provider)} · ${esc(c.reasoningEffort)}</dd></div><div><dt>单轮输出 Token</dt><dd>${c.maxProviderOutputTokens.toLocaleString()}</dd></div><div><dt>逐题时限</dt><dd>${c.maxRunMs / 1000} 秒</dd></div><div><dt>每题模型轮次 / 工具次数</dt><dd>${c.maxProviderTurns} / ${c.maxToolCalls}</dd></div><div><dt>累计预算报警线</dt><dd>${c.tokenWarningThreshold.toLocaleString()} tokens</dd></div></dl><p class="field-hint">${c.provider === 'codex-cli' ? '本机 Codex 订阅：输出 Token 是传入提示词的可见响应要求，并核验可获得的用量；不是 Codex 服务端强制上限。' : `API 地址：${esc(c.baseUrl)}；输出 Token 通过 max_tokens 传给接口，支持范围由所选模型决定。`} Arena 请求／响应大小另按字节限制，不能与整轮模型用量直接换算。</p>${detail('全部运行预算（含字节与时间限制）', d.limits)}</section>
       <section id="prompts" class="panel inspector-section"><div class="panel-heading"><h2>System prompt</h2><span class="tag">${esc(d.promptVersion)}</span></div><p class="field-hint">以下文本直接来自运行代码。每题另外附加当时可见牌面、合法候选动作，以及各轮真实工具结果。</p>${pre(d.systemPrompt)}${d.codexInstructions ? detail('本机 Codex 订阅适配指令（完整前缀）', d.codexInstructions) : ''}<p class="field-hint">submit_decision 的候选与证据引用约束随案例、轮次生成。Mortal 标签与 Q 评分不进入作答上下文。本页不读取 Codex 内部提示词或私有推理。</p></section>

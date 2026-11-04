@@ -54,21 +54,38 @@ export type ArenaProviderMessage = z.infer<typeof ArenaProviderMessageSchema>;
 
 export const ArenaProviderRequestSchema = z.object({
   messages: z.array(ArenaProviderMessageSchema).min(2).max(MAX_REQUEST_MESSAGES),
-  tools: z.array(ArenaProviderToolDefinitionSchema).min(1).max(17),
+  tools: z.array(ArenaProviderToolDefinitionSchema).max(17),
+  outputSchema: JsonObjectSchema.optional(),
+  requireIsolatedContext: z.boolean().optional(),
   maxOutputTokens: z.number().int().positive().safe(),
   maxInputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_INPUT_BYTES),
   maxOutputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
-}).strict();
+}).strict().superRefine((request, context) => {
+  if ((request.tools.length === 0) !== (request.outputSchema !== undefined)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_output_protocol_mismatch" });
+});
 export type ArenaProviderRequest = z.infer<typeof ArenaProviderRequestSchema>;
+
+export const ArenaRequestAuditSchema = z.object({
+  schemaVersion: z.literal("arena-request-audit/v1"),
+  surface: z.enum(["http_body", "cli_boundary"]),
+  request: JsonObjectSchema,
+  digest: z.string().regex(/^[a-f0-9]{64}$/),
+  runtime: z.record(z.string()),
+  visibility: z.enum(["captured", "unobservable"]),
+  limitations: z.array(z.string().max(300)).max(10),
+}).strict();
+export type ArenaRequestAudit = z.infer<typeof ArenaRequestAuditSchema>;
 
 export const ArenaProviderFailureCodeSchema = z.enum([
   "provider_unavailable", "connection_failed", "timeout", "rate_limited", "server_error", "network_reset",
   "cli_multiple_messages", "cli_unexpected_event", "cli_unexpected_item", "cli_invalid_event",
-  "cli_incomplete_turn", "cli_process_failed", "invalid_model_response",
+  "cli_incomplete_turn", "cli_process_failed", "invalid_model_response", "isolation_unavailable",
 ]);
 export type ArenaProviderFailureCode = z.infer<typeof ArenaProviderFailureCodeSchema>;
 const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional(), reconnectCount: z.number().int().positive().max(100).optional() };
 export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", [
+  z.object({ status: z.literal("final"), content: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
+    outputBytes: z.number().int().nonnegative(), usage: LlmTokenUsageSchema.optional() }).strict(),
   z.object({
     status: z.literal("ready"),
     call: z.object({ name: z.string().regex(TOOL_NAME), arguments: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES) }).strict(),
@@ -95,7 +112,7 @@ export type ArenaToolCallProviderDescriptor = Readonly<{
 /** Arena-only multi-turn provider contract; it never receives a credential or a grader label. */
 export interface ArenaToolCallProvider {
   descriptor(): ArenaToolCallProviderDescriptor;
-  request(request: ArenaProviderRequest, signal: AbortSignal): Promise<ArenaToolCallProviderResult>;
+  request(request: ArenaProviderRequest, signal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult>;
 }
 
 /** Actual subscription adapter instructions, before the per-turn conversation JSON. */

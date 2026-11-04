@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { createHash } from "node:crypto";
+import type { ArenaRequestAudit } from "../blind-discard-arena-provider.js";
 import { arenaCodexTurnInstructions, ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
@@ -876,11 +878,21 @@ export function createCodexArenaToolCallProvider(input: {
 }): ArenaToolCallProvider {
   return Object.freeze({
     descriptor: () => ({ providerId: "codex-cli", model: input.modelName, protocolVersion: "arena-function-call/v1" as const }),
-    async request(raw: ArenaProviderRequest, signal: AbortSignal): Promise<ArenaToolCallProviderResult> {
+    async request(raw: ArenaProviderRequest, signal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult> {
       if (signal.aborted) return { status: "cancelled" };
       const parsed = ArenaProviderRequestSchema.safeParse(raw);
       if (!parsed.success) return { status: "provider_error" };
       const request = parsed.data;
+      if (request.outputSchema !== undefined || request.requireIsolatedContext === true) {
+        // CLI 0.162.1 still injects built-in tools/environment. Never charge a
+        // supposedly raw run when this adapter cannot enforce its input contract.
+        const boundary = { messages: request.messages, tools: request.tools, outputSchema: request.outputSchema };
+        onAudit?.({ schemaVersion: "arena-request-audit/v1", surface: "cli_boundary", request: boundary,
+          digest: createHash("sha256").update(JSON.stringify(boundary)).digest("hex"),
+          runtime: { adapter: "arena-codex/v2", cliVersion: "not_started", isolationEvidenceCli: "0.162.1", model: input.modelName, reasoningEffort: input.reasoningEffort },
+          visibility: "unobservable", limitations: ["Request blocked before CLI spawn: CLI builtin tools and environment cannot be isolated.", "Supplier-internal context is unknown."] });
+        return { status: "provider_unavailable", failureCode: "isolation_unavailable" };
+      }
       const prompt = arenaCodexTurnInstructions(request.maxOutputTokens) + "\n" + JSON.stringify({ messages: request.messages, tools: request.tools });
       if (Buffer.byteLength(prompt, "utf8") > request.maxInputBytes) return { status: "input_too_large" };
       // Strict arguments must reach the decoder as an object: a JSON string
@@ -900,6 +912,11 @@ export function createCodexArenaToolCallProvider(input: {
         },
         required: ["call", "decisionSummary"],
       };
+      const boundary = { prompt, outputSchema, tools: request.tools };
+      onAudit?.({ schemaVersion: "arena-request-audit/v1", surface: "cli_boundary", request: boundary,
+        digest: createHash("sha256").update(JSON.stringify(boundary)).digest("hex"),
+        runtime: { adapter: "arena-codex/v2", cliVersion: "unknown", model: input.modelName, reasoningEffort: input.reasoningEffort },
+        visibility: "unobservable", limitations: ["CLI may append environment, skills and built-in tools. Final wire is unobservable in production.", "Supplier-internal context is unknown."] });
       const result = await runCodexStructuredTurn({
         prompt, outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
         signal, ...(input.processPort === undefined ? {} : { processPort: input.processPort }),

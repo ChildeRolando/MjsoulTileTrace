@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   ArenaBatchScoreSchema,
+  ArenaExperimentConfigSchema,
   ArenaBlindObservationSchema,
   ArenaRagApplicabilityLimitsSchema,
   ArenaFailureCountsSchema,
@@ -50,6 +51,7 @@ const ExclusionSchema = z.object({
 export const ArenaArchiveManifestSchema = z.object({
   schemaVersion: z.literal("blind-discard-arena-run-manifest/v1"),
   runId: z.string().uuid(),
+  experiment: ArenaExperimentConfigSchema.optional(),
   startedAt: z.string().datetime(),
   codeSha: z.string().regex(/^[0-9a-f]{40}$/),
   replay: z.object({ kind: z.literal("mistake"), sourceRunId: z.string().uuid(), sourceCaseOrdinal: z.number().int().min(0).max(127),
@@ -96,7 +98,8 @@ export const ArenaArchiveManifestSchema = z.object({
     reasoningEffort: z.enum(["low", "medium", "high", "xhigh", "max"]).optional(),
     protocolVersion: z.string().min(1).max(80),
     promptVersion: z.string().min(1).max(80),
-    submissionSchemaVersion: z.literal("blind-discard-arena-submission/v1"),
+    submissionSchemaVersion: z.enum(["blind-discard-arena-submission/v1", "tile-red/v1"]),
+    endpointSha256: Sha256Schema.optional(),
     credentialStatus: z.enum(["available", "missing", "not_configured"]),
   }).strict(),
   rag: z.object({
@@ -115,12 +118,34 @@ export const ArenaArchiveManifestSchema = z.object({
   controlledFault: z.enum(["none", "first-helper-timeout"]),
   budget: z.object({
     maxCases: z.number().int().min(1).max(128),
+    maxActualRequests: z.number().int().min(1).max(1536).optional(),
     limits: ArenaCoachRunResultSchema.shape.limits,
     selectionSeed: z.null(),
     tokenWarningThreshold: z.number().int().positive().safe().optional(),
   }).strict(),
 }).strict();
 export type ArenaArchiveManifest = z.infer<typeof ArenaArchiveManifestSchema>;
+
+/** At-most-once direct dispatch. An uncertain durable intent consumes the cap. */
+export function arenaDirectDispatchPlan(input: {
+  caseCount: number; maxActualRequests: number;
+  trace: readonly z.infer<typeof ArenaCaseTraceSchema>[];
+  completedOrdinals: readonly number[];
+}) {
+  if (!Number.isInteger(input.caseCount) || input.caseCount < 1 || input.caseCount > 128 ||
+      !Number.isInteger(input.maxActualRequests) || input.maxActualRequests < 1 || input.maxActualRequests > 128) throw new Error("arena_dispatch_plan_invalid");
+  const rows = input.trace.map(row => ArenaCaseTraceSchema.parse(row));
+  const intents = rows.filter(row => row.event.type === "request_prepared");
+  const requested = new Set(intents.map(row => row.caseOrdinal)), completed = new Set(input.completedOrdinals);
+  if (requested.size !== intents.length || intents.some(row => row.event.type === "request_prepared" && row.event.turn !== 1) ||
+      [...requested, ...completed].some(ordinal => !Number.isInteger(ordinal) || ordinal < 0 || ordinal >= input.caseCount) || intents.length > input.maxActualRequests) throw new Error("arena_dispatch_journal_invalid");
+  const unrequested = Array.from({ length: input.caseCount }, (_, ordinal) => ordinal).filter(ordinal => !requested.has(ordinal) && !completed.has(ordinal));
+  return { reservedRequestCount: intents.length,
+    interrupted: [...requested].filter(ordinal => !completed.has(ordinal)),
+    pending: unrequested.slice(0, Math.max(0, input.maxActualRequests - intents.length)),
+    deferredByCap: unrequested.slice(Math.max(0, input.maxActualRequests - intents.length)),
+  };
+}
 
 /** Label-free question catalog; it never carries Mortal answers or future game state. */
 export const ArenaCaseCatalogSchema = z.object({
@@ -375,6 +400,8 @@ export function summarizeArenaArchive(input: {
   for (const event of runs) {
     if (event.type !== "case_run") continue;
     const result = event.result;
+    const experiment = result.experiment ?? result.events.find(e => e.type === "run_started")?.experiment?.config;
+    if (JSON.stringify(experiment) !== JSON.stringify(manifest.experiment)) throw new Error("arena_archive_experiment_mismatch");
     terminalStatuses[result.status] += 1;
     for (const key of Object.keys(failures) as Array<keyof typeof failures>) {
       failures[key] += result.score.failures[key];

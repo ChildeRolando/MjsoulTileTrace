@@ -3,6 +3,7 @@ import {
   createOpenAiArenaToolCallProvider,
 } from "../src/llm-provider/arena-tool-call.js";
 import type { ArenaProviderRequest } from "../src/blind-discard-arena-provider.js";
+import { arenaDirectOutputSchema } from "../src/blind-discard-arena-experiment.js";
 
 const KEY = "sk-arena-test-secret";
 const SETTINGS = { baseUrl: "https://provider.example.test/v1", modelName: "tool-model-v1" };
@@ -52,6 +53,15 @@ function okResponse(input: { content?: string; usage?: unknown } = {}): Response
 }
 
 describe("Arena OpenAI-compatible tool-call provider", () => {
+  it.each([{ tool_calls: {} }, { function_call: {} }, { tool_calls: [{ function: { name: "unexpected" } }] }, { content: null }])("rejects unexpected tool/empty direct envelopes without retrying: %j", async extra => {
+    let calls = 0;
+    const provider = createOpenAiArenaToolCallProvider({ settings: SETTINGS, credentials: { readKey: async () => KEY }, fetchImpl: async () => {
+      calls++;
+      return new Response(JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: '{"tile":"1m","red":false}', ...extra } }] }), { status: 200 });
+    } });
+    expect(await provider.request(request({ tools: [], outputSchema: arenaDirectOutputSchema() }), new AbortController().signal)).toEqual({ status: "provider_error" });
+    expect(calls).toBe(1);
+  });
   it("sends only the isolated function-call request and discards non-tool response content", async () => {
     let capturedUrl = "";
     let capturedInit: RequestInit | undefined;

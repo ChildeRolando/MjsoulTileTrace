@@ -5,6 +5,8 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
+import { ArenaExperimentConfigSchema, ARENA_RAW_BASELINE } from '@riichi-coach/contracts';
+import { arenaExperimentPrompt, arenaDirectOutputSchema, ARENA_ASSEMBLY_VERSION } from '@riichi-coach/desktop/blind-discard-arena-experiment';
 import { readArenaMistakes } from './arena-mistakes.mjs';
 import { arenaPage } from './arena-pages.mjs';
 import { visibleArenaMortalDetails, ArenaArchiveManifestSchema, ArenaArchiveSummarySchema, ArenaCaseCatalogSchema, parseArenaArchiveEvents, parseArenaCaseTrace, arenaTokenBudget, ARENA_EXPERIMENTS } from '@riichi-coach/desktop/blind-discard-arena-archive';
@@ -16,6 +18,7 @@ import { ARENA_RAG_LIMITS_V1, ARENA_RAG_RETRIEVER_VERSION } from '@riichi-coach/
 import { BLIND_DISCARD_ARENA_RAG_SEED_CORPUS } from '@riichi-coach/desktop/blind-discard-arena-rag-seed';
 
 const DEFAULTS = { provider: 'codex-cli', model: 'gpt-6-luna', reasoningEffort: 'high', baseUrl: '',
+  experiment: null,
   tokenWarningThreshold: 100_000_000, maxProviderTurns: 6, maxToolCalls: 4, maxProviderOutputTokens: 2048, maxRunMs: 300000 };
 const UUID = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/;
 const assets = fileURLToPath(new URL('../arena-console/', import.meta.url));
@@ -24,6 +27,10 @@ const fail = (code, status = 400) => Object.assign(new Error(code), { status });
 
 function settings(raw) {
   const value = { ...DEFAULTS, ...raw };
+  if (value.experiment === 'raw') value.experiment = ARENA_RAW_BASELINE;
+  if (value.experiment === '') value.experiment = null;
+  if (typeof value.experiment === 'string') { try { value.experiment = JSON.parse(value.experiment); } catch { throw fail('实验模块配置不是有效 JSON。'); } }
+  if (value.experiment !== null) { try { value.experiment = ArenaExperimentConfigSchema.parse(value.experiment); } catch { throw fail('实验模块配置或依赖不满足。'); } }
   if (!['codex-cli', 'openai-compatible'].includes(value.provider) || typeof value.model !== 'string' || !value.model.trim() || value.model.length > 200
     || !['low', 'medium', 'high', 'xhigh', 'max'].includes(value.reasoningEffort)) throw fail('请检查服务类型、模型名称和推理强度。');
   if (typeof value.baseUrl !== 'string') throw fail('接口地址格式不正确。');
@@ -80,6 +87,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
       '--token-warning-threshold', String(snapshot.tokenWarningThreshold), '--max-provider-turns', String(snapshot.maxProviderTurns),
       '--max-tool-calls', String(snapshot.maxToolCalls), '--max-provider-output-tokens', String(snapshot.maxProviderOutputTokens), '--max-run-ms', String(snapshot.maxRunMs)];
     if (snapshot.bankId) args.push('--bank', snapshot.bankId);
+    if (snapshot.experiment) args.push('--experiment', JSON.stringify(snapshot.experiment));
     if (snapshot.provider === 'openai-compatible') args.push('--base-url', snapshot.baseUrl);
     if (mode === 'fault') args.push('--fault', 'first-helper-timeout');
     if (mode === 'mortal-details') args.splice(0, args.length, cliPath, 'mortal-details', snapshot.runId);
@@ -107,6 +115,7 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
     if (job?.status === 'running' || job?.status === 'stopping') throw fail('已有实验正在运行，请先停止或等待完成。', 409);
     if (!['compare', 'off', 'local', 'fault', 'catalog', 'mortal-details', 'generate'].includes(mode)) throw fail('请选择实验模式。');
     const maintenance = ['catalog', 'mortal-details', 'generate'].includes(mode);
+    if (!maintenance && config.experiment && (mode !== (config.experiment.teaching === 'on' ? 'local' : 'off'))) throw fail('模块实验请使用与教材配置一致的 Off 或 Local 单次运行。');
     if (mode === 'mortal-details' && (!UUID.test(selection.runId ?? '') || !(await runs()).some(r => r.id === selection.runId))) throw fail('找不到该实验。', 404);
     const experimentType = mode === 'generate' ? 'generated' : selection.experimentType ?? 'flat';
     if (typeof experimentType !== 'string' || !['generated', 'mistakes'].includes(experimentType) && !Object.hasOwn(ARENA_EXPERIMENTS, experimentType)) throw fail('请选择有效题库。');
@@ -160,6 +169,10 @@ export async function createArenaConsole({ coachRoot = fileURLToPath(new URL('..
       if (request.method === 'POST' && request.headers.origin !== `http://${host}`) throw fail('请从本机控制台提交操作。', 403);
       if (request.method === 'GET' && url.pathname === '/api/model-info') return json(response, 200, {
         scope: 'current', config: publicConfig(), promptVersion: ARENA_TOOL_CALL_PROMPT_VERSION,
+        ...(config.experiment ? { modular: { version: ARENA_ASSEMBLY_VERSION, prompt: arenaExperimentPrompt(config.experiment),
+          schema: config.experiment.submission === 'tile-red' ? arenaDirectOutputSchema(config.experiment.explanation) : 'Case-bound submit_decision; inspect the run request.',
+          tools: config.experiment.submission === 'tile-red' ? [] : [...config.experiment.callableTools, 'submit_decision'],
+          isolation: config.provider === 'codex-cli' ? 'unavailable: builtin tools/environment; modular requests are blocked before CLI spawn' : 'HTTP body captured; supplier internal context unknown' } } : {}),
         systemPrompt: ARENA_TOOL_CALL_PROMPT,
         codexInstructions: config.provider === 'codex-cli' ? arenaCodexTurnInstructions(config.maxProviderOutputTokens) : null,
         mcp: { name: 'analyze_candidates', transport: 'stdio', description: ARENA_MCP_TOOL_DESCRIPTION,
