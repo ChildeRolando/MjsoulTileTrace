@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { resolve } from "node:path";
-import { ARENA_RAW_BASELINE, ArenaExperimentConfigSchema } from "@riichi-coach/contracts";
+import { ARENA_RAW_BASELINE, ArenaExperimentConfigSchema, ArenaBlindObservationSchema, canonicalActionRef } from "@riichi-coach/contracts";
 import { JsonlFactEngineClient, ManagedFactEngineTransport, projectCandidate, validateHandStructureResult } from "@riichi-coach/reasoning";
 import { calculateArenaHandStructureFacts, mapArenaHandStructureResult, ArenaHandStructureFactsSchema } from "../src/blind-discard-arena-hand-structure.js";
 import { assembleArenaExperiment } from "../src/blind-discard-arena-experiment.js";
@@ -15,13 +15,14 @@ describe("Arena static hand structure", () => {
     try {
       const actionRefs = observation.candidates.map(c => c.actionRef);
       const packet = await calculateArenaHandStructureFacts({ ...authorizedCase, actionRefs, engine });
-      expect(packet.candidateRefs).toEqual(actionRefs);
+      expect(packet.rows.map(row => row.actionRef)).toEqual(actionRefs);
       const capped = ["ok", [["applicable", 1], ["applicable", 2], ["applicable", 4]], "calculated", 65, true, Array(64).fill("standard"), [["pair_candidate", [0,0]], ["pair_candidate", [0,0]]], [["floating", [1], [0]], ["floating", [1], [0,1]]]];
-      expect(ArenaHandStructureFactsSchema.safeParse({ ...packet, rows: [capped, ["error"]] }).success).toBe(true);
-      expect(ArenaHandStructureFactsSchema.safeParse({ ...packet, rows: [[...capped.slice(0,4), false, ...capped.slice(5)], ["error"]] }).success).toBe(false);
-      expect(ArenaHandStructureFactsSchema.safeParse({ ...packet, rows: [[...capped.slice(0,7), [["floating", [1], [64]]]], ["error"]] }).success).toBe(false);
+      const wrap = (facts: unknown, i: number) => ({ actionRef: actionRefs[i], facts });
+      expect(ArenaHandStructureFactsSchema.safeParse({ ...packet, rows: [wrap(capped, 0), wrap(["error"], 1)] }).success).toBe(true);
+      expect(ArenaHandStructureFactsSchema.safeParse({ ...packet, rows: [wrap([...capped.slice(0,4), false, ...capped.slice(5)], 0), wrap(["error"], 1)] }).success).toBe(false);
+      expect(ArenaHandStructureFactsSchema.safeParse({ ...packet, rows: [wrap([...capped.slice(0,7), [["floating", [1], [64]]]], 0), wrap(["error"], 1)] }).success).toBe(false);
       for (let i = 0; i < actionRefs.length; i++) {
-        const c = authorizedCase.binding.candidates[i]!, row = packet.rows[i]!;
+        const c = authorizedCase.binding.candidates[i]!, row = packet.rows[i]!.facts;
         expect(row[0]).toBe("ok"); if (row[0] !== "ok") throw new Error("unexpected failure");
         const p = projectCandidate({ actionRef: c.actionRef, action: c.action, origins: ["model"] }, authorizedCase.facts);
         if (p.status !== "ready" || !p.handStructureRequest) throw new Error("projection");
@@ -48,7 +49,12 @@ describe("Arena static hand structure", () => {
       const full = assembleArenaExperiment({ observation, config: { ...config, handStructureFacts: true }, handStructureFacts: packet });
       expect(full.modules.raw).toEqual(base.modules.raw); expect(full.modules.legalCandidates).toEqual(base.modules.legalCandidates);
       expect(full.messages[0]).toEqual(base.messages[0]); expect(full.outputSchema).toEqual(base.outputSchema); expect(full.tools).toEqual([]);
-      expect(() => assembleArenaExperiment({ observation, config: { ...config, handStructureFacts: true }, handStructureFacts: { ...packet, candidateRefs: [...packet.candidateRefs].reverse() } })).toThrow("arena_hand_structure_candidates_mismatch");
+      expect(() => assembleArenaExperiment({ observation, config: { ...config, handStructureFacts: true }, handStructureFacts: { ...packet, rows: [...packet.rows].reverse() } })).toThrow("arena_hand_structure_candidates_mismatch");
+      const redCandidates = [false, true].map(red => { const action = { kind: "discard" as const, tile: { id: "5p" as const, red }, discardMode: "tedashi" as const }; return { actionRef: canonicalActionRef(action), tile: action.tile, discardMode: action.discardMode }; });
+      const redObservation = ArenaBlindObservationSchema.parse({ ...observation, candidates: redCandidates });
+      const redPacket = { ...packet, rows: packet.rows.map((row, i) => ({ ...row, actionRef: redCandidates[i]!.actionRef })) };
+      expect(() => assembleArenaExperiment({ observation: redObservation, config: { ...config, handStructureFacts: true }, handStructureFacts: redPacket })).not.toThrow();
+      expect(() => assembleArenaExperiment({ observation: redObservation, config: { ...config, handStructureFacts: true }, handStructureFacts: { ...redPacket, rows: [...redPacket.rows].reverse() } })).toThrow("arena_hand_structure_candidates_mismatch");
       expect(() => assembleArenaExperiment({ observation, config: { ...config, handStructureFacts: true }, handStructureFacts: { ...packet, rows: packet.rows.slice(1) } })).toThrow();
       expect(() => assembleArenaExperiment({ observation, config: { ...config, handStructureFacts: true }, handStructureFacts: { ...packet, rows: [...packet.rows, packet.rows[0]] } })).toThrow();
       expect(() => assembleArenaExperiment({ observation, config: { ...config, handStructureFacts: true }, handStructureFacts: { ...packet, caseRef: "arena-case:v1:00000000-0000-4000-8000-000000000999" } })).toThrow("arena_hand_structure_candidates_mismatch");
@@ -58,9 +64,9 @@ describe("Arena static hand structure", () => {
       const changed = await calculateArenaHandStructureFacts({ ...future.authorizedCase, actionRefs: future.observation.candidates.map(c => c.actionRef), engine });
       expect(changed.rows).toEqual(packet.rows);
       const broken = await calculateArenaHandStructureFacts({ ...authorizedCase, actionRefs, engine: { ...engine, identity: async () => { throw new Error("failure"); } } as unknown as typeof engine });
-      expect(broken.rows.every(r => r[0] === "error")).toBe(true);
+      expect(broken.rows.every(r => r.facts[0] === "error")).toBe(true);
       const wrongResult = await calculateArenaHandStructureFacts({ ...authorizedCase, actionRefs, engine: { identity: () => engine.identity(), analyzeHandStructure: async (request: Parameters<typeof engine.analyzeHandStructure>[0]) => ({ ...await engine.analyzeHandStructure(request), stateHash: "incorrect" }) } as unknown as typeof engine });
-      expect(wrongResult.rows.every(r => r[0] === "error")).toBe(true);
+      expect(wrongResult.rows.every(r => r.facts[0] === "error")).toBe(true);
       await expect(calculateArenaHandStructureFacts({ ...authorizedCase, facts: { ...authorizedCase.facts, opponentHiddenHand: ["CANARY"] } as typeof authorizedCase.facts, actionRefs, engine })).rejects.toThrow();
       await expect(calculateArenaHandStructureFacts({ ...authorizedCase, facts: { ...authorizedCase.facts, actor: (authorizedCase.facts.actor + 1) % 4 } as typeof authorizedCase.facts, actionRefs, engine })).rejects.toThrow();
       await expect(calculateArenaHandStructureFacts({ ...authorizedCase, actionRefs: actionRefs.slice(1), engine })).rejects.toThrow("arena_structure_candidate_binding_mismatch");

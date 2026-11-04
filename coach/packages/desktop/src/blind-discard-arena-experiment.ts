@@ -98,7 +98,7 @@ export function assembleArenaExperiment(input: {
   if (basicCalculations && (basicCalculations.caseRef !== observation.caseRef || JSON.stringify(basicCalculations.candidates.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_basic_calculations_candidates_mismatch");
   if (Boolean(config.handStructureFacts) !== (input.handStructureFacts !== undefined)) throw new Error("arena_hand_structure_mismatch");
   const handStructureFacts = input.handStructureFacts === undefined ? undefined : ArenaHandStructureFactsSchema.parse(structuredClone(input.handStructureFacts));
-  if (handStructureFacts && (handStructureFacts.caseRef !== observation.caseRef || JSON.stringify(handStructureFacts.candidateRefs) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_hand_structure_candidates_mismatch");
+  if (handStructureFacts && (handStructureFacts.caseRef !== observation.caseRef || JSON.stringify(handStructureFacts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_hand_structure_candidates_mismatch");
   if ((config.teaching === "on") !== (input.material !== undefined)) throw new Error("arena_module_material_mismatch");
   if (config.teaching === "off" && input.materialBaseline !== undefined) throw new Error("arena_module_material_mismatch");
   const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(structuredClone(input.helper));
