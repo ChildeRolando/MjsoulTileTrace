@@ -1152,7 +1152,7 @@ export async function runBlindCoachCase(input: {
         break;
       }
       if (direct && response.status === "final") {
-        const validation = mapArenaDirectAnswer(parseJson(response.content), observation, assembly!.config.explanation);
+        const validation = mapArenaDirectAnswer(parseJson(response.content), observation, assembly!.config.explanation, Boolean(assembly!.config.structuredBrief));
         append({ type: "provider_final", content: response.content, parseStatus: validation.status });
         if (validation.status === "valid") {
           attempt = { status: "submitted", submission: validation.submission }; terminalStatus = "completed";

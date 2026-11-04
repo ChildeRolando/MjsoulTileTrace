@@ -31,6 +31,8 @@ export const ArenaExperimentConfigSchema = z.object({
   defenseFacts: z.boolean().optional(),
   textbookInputBudget: z.boolean().optional(),
   wholeUnitFacts: z.boolean().optional(),
+  fiveAxisFramework: z.boolean().optional(),
+  structuredBrief: z.boolean().optional(),
   scenarioHint: z.boolean(),
   teaching: z.enum(["off", "on"]),
   materialRouting: z.enum(["fixed", "scenario"]),
@@ -47,6 +49,7 @@ export const ArenaExperimentConfigSchema = z.object({
   if (config.defenseFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length || config.handStructureFacts || config.improvementFacts || config.teaching === "on" || config.scenarioHint || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_defense_requires_candidates_and_no_other_interventions");
   if ((config.textbookInputBudget || config.wholeUnitFacts) && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_textbook_intervention_invalid");
   if (config.wholeUnitFacts && !config.textbookInputBudget) reject("arena_textbook_budget_required");
+  if ((config.fiveAxisFramework || config.structuredBrief) && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_five_axis_intervention_invalid");
   if (config.submission === "tool" && (!config.legalCandidates || !config.explanation)) reject("arena_legacy_submission_requires_candidates_and_explanation");
   if (config.submission === "tile-red" && config.callableTools.length > 0) reject("arena_direct_submission_has_no_tool_loop");
   if (config.teaching === "off" && (config.materialRouting === "scenario" || config.callableTools.includes("search_knowledge"))) reject("arena_routing_requires_teaching");
@@ -323,11 +326,23 @@ export const ArenaCoachSubmissionSchema = z.object({
 });
 export type ArenaCoachSubmission = z.infer<typeof ArenaCoachSubmissionSchema>;
 
+/** Public, checkable summary only; it is not private reasoning. */
+const briefText = (maximum: number) => z.string().refine(value => { const n = [...value].length; return n >= 1 && n <= maximum; });
+export const ArenaDecisionBriefSchema = z.object({
+  observations: z.array(briefText(120)).max(3),
+  alternatives: z.array(z.object({ tile: TileIdSchema, red: z.boolean(), benefit: briefText(120), cost: briefText(120) }).strict()).min(2).max(3),
+  tradeoff: briefText(240), uncertainty: briefText(160),
+}).strict();
+export const ArenaStructuredBriefAnswerSchema = z.object({ decisionBrief: ArenaDecisionBriefSchema, tile: TileIdSchema, red: z.boolean() }).strict();
+export const ArenaDecisionBriefQualitySchema = z.object({ duplicateAlternatives: z.number().int().nonnegative(), illegalAlternatives: z.number().int().nonnegative(), claimsGrounding: z.literal("not_evaluated") }).strict();
+
 /** Backend legal mapping, explicitly distinct from a model-authored rationale. */
 export const ArenaDirectSubmissionSchema = z.object({
   format: z.literal("tile-red/v1"), caseRef: ArenaCaseRefSchema, actionRef: ActionRefSchema,
   tile: TileIdSchema, red: z.boolean(),
   rationale: z.string().min(1).max(2000).optional(),
+  decisionBrief: ArenaDecisionBriefSchema.optional(),
+  decisionBriefQuality: ArenaDecisionBriefQualitySchema.optional(),
   evidenceRefs: z.never().optional(), sourceRefs: z.never().optional(),
   mainAlternative: z.never().optional(), uncertainty: z.never().optional(),
 }).strict();
