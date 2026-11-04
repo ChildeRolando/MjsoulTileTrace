@@ -18,6 +18,7 @@ import {
   ARENA_RAW_BASELINE, ArenaExperimentConfigSchema,
 } from "@riichi-coach/contracts";
 import { ARENA_ASSEMBLY_VERSION, projectArenaRawObservation } from "@riichi-coach/desktop/blind-discard-arena-experiment";
+import { calculateArenaBasicFacts } from "@riichi-coach/desktop/blind-discard-arena-basic-calculations";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
@@ -27,6 +28,8 @@ import {
   bindLocalMortalRuleScores,
   createLibriichiRuleProjector,
   replayCanonicalStream,
+  JsonlFactEngineClient,
+  ManagedFactEngineTransport,
 } from "@riichi-coach/reasoning";
 import {
   createManagedMortalRuntimeFromAssets,
@@ -748,8 +751,14 @@ export async function runCommand(options, moduleSources) {
           caseRef: observation.caseRef,
           ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
         });
-        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
-          let helper, material, materialBaseline;
+        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
+          let helper, basicCalculations, material, materialBaseline;
+          if (options.experiment.basicCalculations) {
+            const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(coachRoot, "resources")));
+            try {
+              basicCalculations = await calculateArenaBasicFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
+            } finally { await engine.close(); }
+          }
           if (options.experiment.helperFacts) {
             const source = tools.find(t => t.name === "analyze_candidates");
             if (!source) throw new Error("arena_module_helper_unavailable");
@@ -766,7 +775,7 @@ export async function runCommand(options, moduleSources) {
             material = await retriever.query({ query: outputs.selection.query, limit: 3 });
             materialBaseline = await retriever.query({ query: outputs.selection.fixedQuery, limit: 3 });
           }
-          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
+          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(basicCalculations === undefined ? {} : { basicCalculations }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
         } : undefined;
         if (!options.experiment || options.experiment.callableTools.includes("search_knowledge")) tools.push(ragTool);
         const offeredTools = options.experiment ? tools.filter(t => options.experiment.callableTools.includes(t.name)) : tools;
