@@ -38,3 +38,4 @@ export * from "./question-lab.js";
 
 export * from "./question-lab-pairs.js";
 export * from "./blind-discard-arena-applicability.js";
+export * from "./decision-prefix.js";

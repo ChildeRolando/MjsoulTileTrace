@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import {
   LIBRIICHI_RULE_PROTOCOL_VERSION,
+  DecisionPrefixEvidenceSchema,
+  type DecisionPrefixEvidence,
   LibriichiRuleRequestSchema,
   LibriichiRuleResponseSchema,
   libriichiRuleCanonicalJson,
@@ -26,6 +28,16 @@ const digest = (value: unknown): string => createHash("sha256").update(libriichi
 
 /** Freeze one canonical stream once; no report, actual choice, helper or model input. */
 export function createLibriichiRuleProjector(rawStream: CanonicalEventStream, identity: LibriichiRuleIdentity, streamContext?: DecisionStreamContext) {
+  return createProjector(rawStream, identity, streamContext);
+}
+
+/** Explicit opt-in: evidence must come from a trusted source adapter. Hashes do
+ * not authenticate a malicious adapter. This never changes the full stream. */
+export function createLibriichiDecisionPrefixProjector(rawStream: CanonicalEventStream, identity: LibriichiRuleIdentity, evidence: DecisionPrefixEvidence, streamContext?: DecisionStreamContext) {
+  return createProjector(rawStream, identity, streamContext, DecisionPrefixEvidenceSchema.parse(evidence));
+}
+
+function createProjector(rawStream: CanonicalEventStream, identity: LibriichiRuleIdentity, streamContext?: DecisionStreamContext, evidence?: DecisionPrefixEvidence) {
   const context = useDecisionStreamContext(rawStream, streamContext);
   const stream = context.stream;
   // Unlike the public report fingerprint this includes private draws, rules,
@@ -41,19 +53,36 @@ export function createLibriichiRuleProjector(rawStream: CanonicalEventStream, id
     if (libriichiRuleCanonicalJson(decision.facts) !== libriichiRuleCanonicalJson(freshFacts)) throw new Error("rules_input_incomplete");
     const requiredStreamFields = ["eventSequence", "scores", "doraIndicators", "rivers", "calledDiscardMarkers", "melds", "remainingDraws", "responseOpportunities"] as const;
     const requiredPublicFields = ["roundContext", "scores", "doraIndicators", "rivers", "calledDiscardMarkers", "melds", "remainingDraws"] as const;
-    if (requiredStreamFields.some(field => stream.completeness[field] !== "complete") ||
-        requiredPublicFields.some(field => fresh.publicState.fields[field] !== "complete") ||
+    if (requiredStreamFields.some(field => field !== "scores" || !evidence ? stream.completeness[field] !== "complete" : false) ||
+        requiredPublicFields.some(field => field !== "scores" || !evidence ? fresh.publicState.fields[field] !== "complete" : false) ||
         fresh.privateState.fields.concealedTiles !== "complete" ||
         fresh.privateState.fields.currentDraw !== "complete" ||
         fresh.privateState.fields.responseOpportunities !== "complete" ||
         fresh.publicState.remainingDraws === null) throw new Error("rules_input_incomplete");
     const triggerIndex = stream.events.findIndex(event => event.eventId === decision.decisionEventRef);
     if (triggerIndex < 0) throw new Error("rules_input_incomplete");
-    const prefix = stream.events.slice(0, triggerIndex + 1);
+    let prefix = stream.events.slice(0, triggerIndex + 1);
     const roundStart = prefix.findLast(event => event.type === "round_started");
     if (roundStart?.type !== "round_started" || roundStart.remainingDraws !== 70) {
       // Native starts from a full wall. A mid-round snapshot is not a replay.
       throw new Error("rules_input_incomplete");
+    }
+    if (evidence) {
+      const startIndex = prefix.findLastIndex(event => event.type === "round_started");
+      const current = prefix.slice(startIndex);
+      const start = current[0];
+      if (start?.type !== "round_started" || evidence.sourceHash !== stream.sourceRecordHash || evidence.streamHash !== digest(stream) ||
+          evidence.actor !== stream.selfActor || evidence.triggerRef !== decision.decisionEventRef || evidence.roundStartRef !== start.eventId ||
+          evidence.canonicalPrefixHash !== digest(current) ||
+          !matchDecisionPrefixReferences(current.map(event => event.eventId), evidence.positions, evidence.roundStartOrdinal, evidence.triggerOrdinal) ||
+          libriichiRuleCanonicalJson(start.scores) !== libriichiRuleCanonicalJson(evidence.initialScores) || start.riichiSticks !== evidence.initialRiichiSticks) throw new Error("rules_input_incomplete");
+      const scores = [...evidence.initialScores]; let sticks = evidence.initialRiichiSticks;
+      for (const event of current.slice(1)) {
+        if (event.type === "riichi_accepted") { scores[event.actor] = scores[event.actor]! - 1000; sticks++; }
+        else if (["scores_updated","round_ended","game_ended","win_declared","round_drawn","round_started"].includes(event.type)) throw new Error("rules_input_incomplete");
+      }
+      if (libriichiRuleCanonicalJson(scores) !== libriichiRuleCanonicalJson(fresh.publicState.scores) || sticks !== fresh.publicState.riichiSticks) throw new Error("rules_input_incomplete");
+      prefix = [stream.events[0]!, ...current];
     }
     const events = prefix.flatMap(event => {
       const projected = projectLocalMortalEvent(stream, event);
@@ -93,6 +122,12 @@ function actionFacts(decision: Pick<ReplayedDecision, "snapshot">): KnownActionF
         ? [meld.calledTile, ...meld.consumedTiles, meld.addedTile] : [meld.calledTile, ...meld.consumedTiles],
     })),
   };
+}
+
+/** Source-independent binding; event references are opaque. */
+export function matchDecisionPrefixReferences(eventRefs: readonly string[], positions: readonly {ordinal: number; eventRef: string}[], start: number, end: number): boolean {
+  return end >= start && eventRefs.length === end-start+1 && positions.length === eventRefs.length &&
+    positions.every((position,i) => position.ordinal === start+i && position.eventRef === eventRefs[i]);
 }
 
 /** Encoding correspondence only. No shape/wait/yaku eligibility inference. */

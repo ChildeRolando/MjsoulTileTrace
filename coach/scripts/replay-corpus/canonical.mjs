@@ -1,4 +1,4 @@
-import { CanonicalEventStreamSchema, CANONICAL_EVENT_SCHEMA_VERSION, sortTilesCanonical } from '@riichi-coach/contracts';
+import { CanonicalEventStreamSchema, CANONICAL_EVENT_SCHEMA_VERSION, sortTilesCanonical, DecisionPrefixEvidenceSchema, libriichiRuleCanonicalJson } from '@riichi-coach/contracts';
 import { mapTenhouRecord } from '@riichi-coach/tenhou-source';
 import { parseMjaiTile } from '@riichi-coach/mortal-source';
 import { parseMjai, mjaiIdentityProjection, sha256 } from './identity.mjs';
@@ -126,4 +126,31 @@ export function toCanonical(record, selfActor = 0, ruleSet) {
     return result.stream;
   }
   return mapMjaiRecord(record.raw, record.game_id, selfActor, ruleSet);
+}
+
+// This is a trusted source adapter: evidence binds the exact decoded source to
+// this mapper's canonical output. It does not establish adapter honesty.
+export function mapMjaiDecisionPrefix(raw, gameId, selfActor, ruleSet, triggerRef) {
+  const rows = parseMjai(raw);
+  const stream = mapMjaiRecord(raw, gameId, selfActor, ruleSet);
+  const endIndex = stream.events.findIndex(e => e.eventId === triggerRef);
+  if (endIndex < 0) throw new Error('decision_prefix_trigger_missing');
+  let startIndex = endIndex;
+  while (startIndex >= 0 && stream.events[startIndex].type !== 'round_started') startIndex--;
+  if (startIndex < 0) throw new Error('decision_prefix_round_missing');
+  const events = stream.events.slice(startIndex,endIndex+1), start = events[0];
+  const getOrdinal = e => {
+    const prefix = `${gameId}:mjai:`;
+    if (!e.sourceRecordRef.startsWith(prefix)) throw new Error('decision_prefix_source_ref');
+    const value = e.sourceRecordRef.slice(prefix.length);
+    if (!/^(0|[1-9]\d*)$/.test(value)) throw new Error('decision_prefix_source_ref');
+    return Number(value);
+  };
+  const a = getOrdinal(start), b = getOrdinal(events.at(-1));
+  if (events.length !== b-a+1 || events.some((e,i) => getOrdinal(e)!==a+i)) throw new Error('decision_prefix_source_gap');
+  const initial=rows[a];
+  if (initial?.type !== 'start_kyoku' || !quad(initial.scores) || JSON.stringify(initial.scores)!==JSON.stringify(start.scores) || initial.kyotaku!==start.riichiSticks) throw new Error('decision_prefix_source_scores');
+  const digest = v => sha256(libriichiRuleCanonicalJson(v));
+  const evidence = DecisionPrefixEvidenceSchema.parse({version:'decision-prefix-evidence/v1',sourceHash:sha256(raw),streamHash:digest(stream),sourcePrefixHash:digest(rows.slice(a,b+1)),canonicalPrefixHash:digest(events),roundStartRef:start.eventId,triggerRef,roundStartOrdinal:a,triggerOrdinal:b,positions:events.map((e,i)=>({ordinal:a+i,eventRef:e.eventId})),actor:selfActor,initialScores:initial.scores,initialRiichiSticks:initial.kyotaku});
+  return {stream,evidence};
 }
