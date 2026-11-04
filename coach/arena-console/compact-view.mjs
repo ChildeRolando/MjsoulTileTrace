@@ -114,3 +114,66 @@ export function compactContent(root, key) {
   }
   textPages(root);
 }
+
+
+// Configuration/report readers fit the rendered viewport, not a character quota.
+export function fitTextPages(root) {
+  const readers = [...root.querySelectorAll('pre')].map(pre => {
+    const full = pre.textContent, chars = Array.from(full), wrap = document.createElement('div');
+    wrap.className = 'text-reader fit-reader'; pre.before(wrap); wrap.append(pre);
+    const nav = document.createElement('nav'); nav.className = 'compact-pager'; nav.setAttribute('aria-label', '全文翻页');
+    const prev = document.createElement('button'), next = document.createElement('button'), count = document.createElement('span'), download = document.createElement('button');
+    prev.textContent = '上一页'; next.textContent = '下一页'; download.textContent = '下载全文';
+    for (const b of [prev, next, download]) { b.type = 'button'; b.className = 'quiet-button'; }
+    count.setAttribute('role', 'status'); nav.append(prev, count, next, download); wrap.append(nav); nav.hidden = true;
+    const reader = { pre, full, chars, wrap, nav, pages: [full], page: 0, offset: 0, end: chars.length };
+    reader.appendPage = () => {
+      const start=reader.end; let low=start+1, high=Math.min(chars.length,start+256), best=low;
+      // Probe exponentially, then measure the boundary. Work is bounded by one visible page.
+      while(high<chars.length){pre.textContent=chars.slice(start,high).join('');if(pre.getBoundingClientRect().height>reader.target+1)break;high=Math.min(chars.length,start+(high-start)*2);}
+      while(low<=high){const middle=Math.floor((low+high)/2);pre.textContent=chars.slice(start,middle).join('');if(pre.getBoundingClientRect().height<=reader.target+1){best=middle;low=middle+1;}else high=middle-1;}
+      reader.pages.push(chars.slice(start,best).join(''));reader.end=best;
+    };
+    reader.show = () => { pre.textContent = reader.pages[reader.page]; nav.hidden = reader.pages.length < 2 && reader.end >= chars.length;
+      count.textContent = reader.end < chars.length ? `第 ${reader.page + 1} 页` : `${reader.page + 1} / ${reader.pages.length} 页`; prev.disabled = !reader.page; next.disabled = reader.page >= reader.pages.length - 1 && reader.end >= chars.length; };
+    prev.onclick = () => { reader.page--; reader.show(); }; next.onclick = () => { if(reader.page===reader.pages.length-1 && reader.end<chars.length) reader.appendPage(); reader.page++; reader.show(); };
+    download.onclick = () => { const url = URL.createObjectURL(new Blob([full], {type:'text/plain;charset=utf-8'})); const a = document.createElement('a'); a.href = url; a.download = 'arena-full-text.txt'; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000); };
+    return reader;
+  });
+  let frame, width, disposed = false;
+  function layout() {
+    frame = null; if (!root.isConnected) return;
+    const visible = readers.filter(r => r.pre.getClientRects().length && !r.pre.closest('[hidden]') && ![...r.pre.closest('.inspector-section').querySelectorAll('details:not([open])')].some(d => d.contains(r.pre)));
+    const panels = new Map();
+    for (const r of visible) {
+      r.offset = r.pages.slice(0,r.page).join('').length; r.pre.textContent = r.full; r.nav.hidden = true;
+      const panel = r.pre.closest('.inspector-section'); if (!panels.has(panel)) panels.set(panel, []); panels.get(panel).push(r);
+    }
+    for (const [panel, list] of panels) {
+      const rect = panel.getBoundingClientRect();
+      const heights = list.map(r => r.pre.getBoundingClientRect().height);
+      const available = Math.max(96 * list.length, innerHeight - 24 - rect.top - (rect.height - heights.reduce((a,b)=>a+b,0)));
+      // Water-fill: short blocks keep their natural height, long blocks share the remainder.
+      let budget = available, pending = [...list.keys()], limits = [];
+      while (pending.length) {
+        const share = budget / pending.length, small = pending.filter(i => heights[i] <= share);
+        if (!small.length) { for (const i of pending) limits[i] = share; break; }
+        for (const i of small) { limits[i] = heights[i]; budget -= heights[i]; }
+        pending = pending.filter(i => !small.includes(i));
+      }
+      list.forEach((r,i) => {
+        if (heights[i] <= limits[i] + 1) { r.pages = [r.full]; r.page = 0; r.end=r.chars.length; r.show(); return; }
+        r.nav.hidden = false; const target = Math.max(48, limits[i] - r.nav.getBoundingClientRect().height - 12);
+        r.target=target;r.pages=[];r.end=0;
+        do { r.appendPage(); } while(r.pages.join('').length<=r.offset && r.end<r.chars.length);
+        r.page=r.pages.length-1;
+        r.show();
+      });
+    }
+  }
+  const schedule = () => { if (!disposed && !frame) frame = requestAnimationFrame(layout); };
+  const click = event => { if (event.target.closest('[role=tab]')) schedule(); };
+  const observer = new ResizeObserver(entries => { const next=entries[0]?.contentRect.width; if(next!==width){width=next;schedule();} });
+  observer.observe(root); root.addEventListener('toggle',schedule,true); root.addEventListener('click',click); root.addEventListener('keydown',click); window.addEventListener('resize',schedule); document.fonts?.ready.then(schedule); schedule();
+  return () => { if(disposed)return; disposed=true; observer.disconnect(); cancelAnimationFrame(frame); root.removeEventListener('toggle',schedule,true); root.removeEventListener('click',click); root.removeEventListener('keydown',click); window.removeEventListener('resize',schedule); for(const r of readers){r.pre.textContent=r.full;r.wrap.replaceWith(r.pre);} };
+}

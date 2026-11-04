@@ -1,8 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { caseTrace, liveElapsed, missingRunState } from '../arena-console/trace/model.mjs';
+import { caseTrace, caseRecords, liveElapsed, missingRunState } from '../arena-console/trace/model.mjs';
 const start = { type: 'run_started', startedAt: '2026-11-04T00:00:00Z', provider: { model: 'test-model' } };
 const run = (events, extra = {}) => ({ events: [], traceLive: true, trace: events.map(event => ({ caseOrdinal: 0, event })), ...extra });
+
+test('empty inline events fall back to the same-case trace without overriding the archived outcome', () => {
+  const records=[start,{type:'provider_turn',turn:1,result:'final',elapsedMs:20},{type:'run_terminal',status:'completed',elapsedMs:20}];
+  const data=run(records,{events:[{type:'case_run',caseOrdinal:0,result:{events:[],status:'invalid_submission',elapsedMs:30}}]});
+  data.trace.push({caseOrdinal:1,event:{type:'provider_turn',turn:9,result:'final',elapsedMs:900}});
+  assert.deepEqual(caseRecords(data,0),records);
+  const trace=caseTrace(data,0);assert.equal(trace.spans.length,1);assert.equal(trace.status,'invalid_submission');assert.equal(trace.elapsed,30);assert.equal(trace.live,false);
+});
 
 test('pairs provider and tool spans without counting cached input twice or inventing usage', () => {
   const trace = caseTrace(run([start,

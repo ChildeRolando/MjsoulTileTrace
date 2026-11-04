@@ -198,6 +198,7 @@ describe("Arena raw baseline", () => {
       expect(recovered.providerUsage).toEqual(run.providerUsage);
       expect(recovered.events).toContainEqual(run.events[finalIndex]);
       const original = run.events[finalIndex + 1];
+      if (!original) throw new Error("Expected the recorded event after provider_final");
       const restored = recovered.events.find(e => e.type === original.type);
       if (end > finalIndex + 1) expect(restored).toEqual(original);
       else {
