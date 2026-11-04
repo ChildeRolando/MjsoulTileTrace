@@ -10,13 +10,13 @@ Invariants：INV-013 的输入白名单／标签隔离与现有 physical equival
 
 Traceability：可见资料只来自原始观察、libriichi 候选、现有 helper MCP 与版本化 local retriever；没有新增判断权威。模块版本／实际内容／路由 digest／应用请求／实际正文 digest 可追溯同一 run。请求审计不保存认证头。Mortal 评分保持在模型边界外。
 
-Replaceability：仍通过已有 Arena provider port；直接最终答复是同一 port 的新增结果，HTTP 与 CLI 都不改变认证 owner。CLI 无法隔离时明确拒绝，不替换供应商。
+Replaceability：仍通过已有 Arena provider port；直接最终答复是同一 port 的新增结果，HTTP 与 CLI 都不改变认证 owner。CLI 本地隔离已有当前适配器捕获；真实通道请求边界未知时整批预检拒绝，不替换供应商。
 
 Recoverability：原始投影、配置或提交错误先由 focused regression 失败；日志失败先于发送。恢复只处理已有事件与未请求项，无法确认的在途结果不会重复付费。日志与 manifest 损坏失败关闭。
 
 Semantic Load：没有新架构层。组装职责折入现有 Arena。`request_prepared` 区分应用实际输入与适配器正文，防止把预览当最终 wire；`request_audit` 在同一事件档案保存实际正文或明确不可观测限制，避免建立另一套存储／控制台。
 
-提供方限制：本机 CLI 是 0.162.1；旧适配器的生产验证声明仍为 0.155.1，本票不修改生产认证／模型或冒充重新验证。Codex 模块请求目前在 spawn 前被拒绝。相关设置的官方说明见 [OpenAI 配置参考](https://learn.chatgpt.com/docs/config-file/config-reference)；是否隔离以实际捕获为准，配置名称不是证据。
+提供方限制：本机 CLI 是 0.162.1；旧适配器的生产验证声明仍为 0.155.1，本票不修改生产认证／模型或冒充重新验证。Codex 实验干净 home 与三项客户端 catalog 工具设置在当前 adapter 中实现。真实认证／内置重试次数尚未验证，生产批次在派发前拒绝。相关设置的官方说明见 [OpenAI 配置参考](https://learn.chatgpt.com/docs/config-file/config-reference)；是否隔离以实际捕获为准，配置名称不是证据。
 
 ## 实际验证
 
@@ -24,7 +24,7 @@ Semantic Load：没有新架构层。组装职责折入现有 Arena。`request_p
 |---|---|
 | `npm run typecheck` | 全 workspace 通过；最终 desktop 修改亦经单独 tsc 复核 |
 | `npm run test:package-import` | build 及 2 项通过；新增实验 public export 又以 `node --test smoke/package-import-smoke.mjs` 复核通过 |
-| `npm run check:architecture` | 8 packages、614 files、3148 imports，0 violations |
+| `npm run check:architecture` | 8 packages、616 files、3165 imports，0 violations |
 | `npx vitest run packages/desktop/tests/blind-discard-arena packages/desktop/tests/arena-tool-call-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts packages/desktop/tests/coach-provider.test.ts scripts/arena- --maxWorkers=1 --no-file-parallelism` | 222 通过、1 个 opt-in native case 跳过；旧 MCP、RAG、scorer、archive、工具流程与生产 provider 覆盖在内 |
 | `npx vitest run packages/desktop/tests/arena-tool-call-provider.test.ts packages/desktop/tests/blind-discard-arena-experiment.test.ts --maxWorkers=1 --no-file-parallelism` | 最后补充的 envelope 严格拒绝回归后 26 通过（19 原始／模块用例、7 provider 用例） |
 | `npm run test:mahjong-soul-protocol-updater` / `test:mahjong-soul-protocol-compatibility` / `test:generate-mahjong-soul-real-fixtures` | 分别 26／4／6 通过 |
@@ -52,12 +52,30 @@ Vitest 报 “No test suite found”。它们以上述 Node 命令 6 项全部�
 
 | 验收 | 作者验证结果 |
 |---|---|
-| 原始最终输入无候选 enum／派生字段／教材／工具／额外解释／历史；可见场面完整且标签隔离 | HTTP 合成本地 E2E 通过；Codex CLI 无法提供该保证，明确阻断而不发送污染请求 |
+| 原始最终输入无候选 enum／派生字段／教材／工具／额外解释／历史；可见场面完整且标签隔离 | HTTP 合成本地 E2E 通过；当前 Codex adapter + 真实 CLI 0.162.1 本地 wire 捕获通过，无工具／环境／技能污染；真实通道边界仍预检阻断 |
 | 模块开关与依赖；固定选材不暗变；路由实际内容变化可见 | 通过；回执分别记录 material_changed／no_material_change，固定对照只作审计 |
 | tile/red、赤五、既有摸切／手切规范等价、非法／空／损坏 JSON、无二次问答及中断恢复 | 通过；未知在途保守记失败，已有答案不丢失，请求意图消耗上限且不会重发 |
 | 旧工具、旧归档、生产默认回归；升级 spec、样例、版本与原页面入口 | 相关回归／构建／架构／浏览器通过；完整 Vitest 命令存在上面列明的两个既有 runner 不兼容文件 |
 | 工程改造及零真实研究调用边界 | 未启动付费 200 题或历史重跑、未切教材库、未以 Mortal／蒸馏策略辅助作答；未作独立 PASS |
 
-Codex 原始模块请求仍不可用，Terra High 真基线不能据此启动。其恢复需要现有 CLI 提供可验证
-的输入／工具隔离能力，再在同一 Arena 适配器中以零真实调用捕获复验；本票没有替换实现。
-编码交付状态为已实现并自验、待独立评审，不能把排队或本地自验写成独立 PASS。
+## 执行期间整合补充的落实
+
+在交付前回读到维护者 2026-11-04 08:33:56Z 的整合补充后，原 PR 继续修订：
+
+- 二值场景／写死查询已移出生产实现，测试中明确标为 fixture。实际模式与选材使用带 sourceId、version、inputDigest 的注入端口；helper 依赖声明不满足即拒绝。未接源的控制台组合在整批前拒绝，不能伪称实现了现有模式。
+- `runBlindCoachCase.prepareModules` 消费实际源输出；main-owned `runCommand(options, moduleSources)` 分别通过 scenario／selection 端口注入现有实现；固定 selection 只接 raw，不能读可见提示开关、模式输出或 helper。既有 local retriever 消费实际输出的 query／fixedQuery。固定资料不由可见模式提示改变，对照资料只作审计。
+- provider_final 保存最终回答原文及解析状态，非法／空／损坏 JSON 也保留；没有自动重问或择优替换。
+- 当前 Arena Codex adapter 的实验 clean-home 分支已执行真实 CLI 零生成捕获，污染源中的 AGENTS／config／skill 哨兵均未进入请求；只临时复制虚拟 ChatGPT 认证，真实认证没有被读取。catalog 源／override 字节摘要、客户端 flags、CLI 与 catalog 版本绑定，除 Terra 三项客户端工具配置外保留全部元数据。
+- 内置 openai provider 的物理请求重试仍 unknown；不采用不等价的 OpenAI alias，也不新增 Responses 通道或转发器。生产批次预检拒绝、派发 0 题；不能把 CLI 进程数当物理请求数或将 200 个未请求项计为生成失败。
+
+补充后的最终相关回归为 **229 通过、4 跳过**（3 个外部 CLI capture 和 1 个 opt-in native）；随后显式设置
+COACH_ARENA_ISOLATION_CLI／COACH_ARENA_CATALOG，执行 `npx vitest run
+packages/desktop/tests/codex-arena-isolation.test.ts --maxWorkers=1 --no-file-parallelism`，
+**5 项通过**：包括真实本机 CLI 的 success／503／流中断三种 loopback 捕获，各恰好 1 POST。
+这些零重试设置仅属于模拟 provider，不能迁移为内置通道的计数证明。
+
+真实认证链、服务端接受性、真实通道物理请求边界和供应商私有背景仍未核实，因此 Terra High
+真基线仍不能启动。工程提供本地可核查实现与拒绝边界，待独立评审；不宣称研究目标已完成，
+不把本地自验或排队写成独立 PASS。
+
+最终收口复核：runner／原始模块 48 项通过，CLI／console／请求边界 66 项通过；外部源包后续变异不改变已冻结模块，实际请求字节 SHA-256 在 loopback 接收端直接计算。

@@ -17,7 +17,7 @@ import {
   resolveArenaRagApplicabilityLimits,
   ARENA_RAW_BASELINE, ArenaExperimentConfigSchema,
 } from "@riichi-coach/contracts";
-import { ARENA_ASSEMBLY_VERSION, arenaMaterialQuery } from "@riichi-coach/desktop/blind-discard-arena-experiment";
+import { ARENA_ASSEMBLY_VERSION, projectArenaRawObservation } from "@riichi-coach/desktop/blind-discard-arena-experiment";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
@@ -503,6 +503,7 @@ function providerFor(settings, credentials, arenaCodex) {
   if (adapter !== null) return adapter;
   return Object.freeze({
     descriptor: () => ({ providerId: "openai-compatible", model: "unconfigured", protocolVersion: "arena-function-call/v1" }),
+    preflight: async () => ({ status: "unavailable", reason: "provider_not_configured" }),
     request: async () => ({ status: "provider_unavailable" }),
   });
 }
@@ -550,7 +551,7 @@ async function writeJson(path, value) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8", mode: 0o600, flag: "wx" });
 }
 
-async function runCommand(options) {
+export async function runCommand(options, moduleSources) {
   const codeSha = requireCleanGitHead();
   const startedAt = new Date().toISOString();
   const runId = options.resumeRunId ?? randomUUID();
@@ -563,6 +564,13 @@ async function runCommand(options) {
   let releaseRunMutex;
   try {
     if (options.experiment?.submission === "tile-red") releaseRunMutex = await acquireRunMutex(runDirectory);
+    const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
+    const preflight = options.experiment ? await descriptorProvider.preflight?.() : undefined;
+    const sourceMissing = options.experiment && ((options.experiment.scenarioHint && typeof moduleSources?.scenario !== "function") || (options.experiment.teaching === "on" && typeof moduleSources?.selection !== "function"));
+    if (preflight?.status === "unavailable" || sourceMissing) {
+      await writeJson(join(runDirectory, "preflight.json"), { status: "rejected", reason: sourceMissing ? "arena_module_sources_unavailable" : preflight.reason, plannedCaseCount: options.maxCases, dispatchedCases: 0, modelRequests: 0 });
+      throw new Error(sourceMissing ? "arena_module_sources_unavailable" : "arena_provider_preflight_unavailable");
+    }
     let previousManifest, previousEvents = [], previousTrace = [];
     if (options.resumeRunId) {
       previousManifest = ArenaArchiveManifestSchema.parse(JSON.parse(await readFile(join(runDirectory, "manifest.json"), "utf8")));
@@ -598,7 +606,6 @@ async function runCommand(options) {
       throw new Error("arena_pinned_mortal_config_mismatch");
     }
     if (options.replayManifest && canonicalDigest(options.replayManifest.mortal) !== canonicalDigest({ runtimeIdentity: runtime.identity, ruleIdentity: runtime.ruleIdentity, runtimeConfigSha256: computedRuntimeConfigSha256 })) throw new Error("arena_replay_mortal_changed");
-    const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
     const descriptor = descriptorProvider.descriptor();
     let liveTraceAvailable = true;
     const ragCorpusVersion = options.ragMode === "local"
@@ -737,7 +744,7 @@ async function runCommand(options) {
           caseRef: observation.caseRef,
           ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
         });
-        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.teaching === "on") ? async ({ signal }) => {
+        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
           let helper, material, materialBaseline;
           if (options.experiment.helperFacts) {
             const source = tools.find(t => t.name === "analyze_candidates");
@@ -745,9 +752,17 @@ async function runCommand(options) {
             const query = source.parseInput({ caseRef: observation.caseRef, actionRefs: observation.candidates.slice(0, 3).map(c => c.actionRef), dimensions: ["shanten", "ukeire", "remaining_waits", "dora_count"] });
             helper = source.parseOutput(await source.execute(query, { caseRef: observation.caseRef, signal }));
           }
-          if (options.experiment.teaching === "on") material = await retriever.query({ query: arenaMaterialQuery(options.experiment, observation).query, limit: 3 });
-          if (options.experiment.teaching === "on" && options.experiment.materialRouting === "scenario") materialBaseline = await retriever.query({ query: "进张计数", limit: 3 });
-          return { ...(helper === undefined ? {} : { helper }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
+          const raw = projectArenaRawObservation(observation), outputs = {};
+          if (options.experiment.scenarioHint) outputs.scenario = await moduleSources.scenario({ raw, ...(helper ? { helper } : {}), signal });
+          // Fixed selection never receives the visible hint switch, its output, or helper.
+          if (options.experiment.teaching === "on") outputs.selection = await moduleSources.selection({ raw, mode: options.experiment.materialRouting,
+            ...(options.experiment.materialRouting === "scenario" && helper ? { helper } : {}), signal });
+          if (options.experiment.teaching === "on") {
+            if (!outputs.selection) throw new Error("arena_material_selection_required");
+            material = await retriever.query({ query: outputs.selection.query, limit: 3 });
+            materialBaseline = await retriever.query({ query: outputs.selection.fixedQuery, limit: 3 });
+          }
+          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
         } : undefined;
         if (!options.experiment || options.experiment.callableTools.includes("search_knowledge")) tools.push(ragTool);
         const offeredTools = options.experiment ? tools.filter(t => options.experiment.callableTools.includes(t.name)) : tools;

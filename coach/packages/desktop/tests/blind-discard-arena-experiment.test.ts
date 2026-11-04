@@ -10,9 +10,12 @@ import { canonicalActionRef, ArenaBlindObservationSchema } from "@riichi-coach/c
 import { runBlindCoachCase, recoverInterruptedArenaRun, ArenaCoachRunResultSchema } from "../src/blind-discard-arena-runner.js";
 import { createOpenAiArenaToolCallProvider } from "../src/llm-provider/arena-tool-call.js";
 import { createCodexArenaToolCallProvider } from "../src/llm-provider/codex-cli.js";
-import { arenaContentDigest, arenaMaterialQuery } from "../src/blind-discard-arena-experiment.js";
+import { arenaContentDigest, projectArenaRawObservation } from "../src/blind-discard-arena-experiment.js";
 import { createArenaRagRetriever } from "../src/blind-discard-arena-rag.js";
 import { arenaDirectDispatchPlan } from "../src/blind-discard-arena-archive.js";
+
+const selectionFor = (observation: any, mode = "fixed", query = "进张计数") => ({ sourceId: "synthetic-selection-port", version: "fixture/v1", inputDigest: arenaContentDigest(projectArenaRawObservation(observation)), mode, query, fixedQuery: "进张计数" });
+const scenarioFor = (observation: any) => ({ sourceId: "synthetic-pattern-port", version: "fixture/v1", inputDigest: arenaContentDigest(projectArenaRawObservation(observation)), requiresHelper: false, content: { matches: [{ patternId: "fixture-pattern", applicableWhen: "synthetic", hint: "夹具模式提示" }] } });
 
 describe("Arena raw baseline", () => {
   it("projects only raw visible fields and a global output schema", () => {
@@ -59,9 +62,9 @@ describe("Arena raw baseline", () => {
     expect(candidates.modules.legalCandidates).toEqual(observation.candidates);
     const retriever = createArenaRagRetriever({ mode: "local", caseRef: observation.caseRef, aliases });
     const config = { ...ARENA_RAW_BASELINE, teaching: "on" as const };
-    const material = await retriever.query({ query: arenaMaterialQuery(config, observation).query, limit: 3 });
-    const off = assembleArenaExperiment({ observation, config, material });
-    const on = assembleArenaExperiment({ observation, config: { ...config, scenarioHint: true }, material });
+    const material = await retriever.query({ query: selectionFor(observation).query, limit: 3 });
+    const off = assembleArenaExperiment({ observation, config, material, selection: selectionFor(observation) });
+    const on = assembleArenaExperiment({ observation, config: { ...config, scenarioHint: true }, material, selection: selectionFor(observation), scenario: scenarioFor(observation) });
     expect(on.modules.material).toEqual(off.modules.material);
     expect(on.routing).toEqual(off.routing);
     expect(on.modules.raw).toEqual(off.modules.raw);
@@ -72,6 +75,10 @@ describe("Arena raw baseline", () => {
     const explain = assembleArenaExperiment({ observation, config: { ...ARENA_RAW_BASELINE, explanation: true } });
     expect(explain.outputSchema.required).toContain("rationale");
     expect(base.outputSchema.required).not.toContain("rationale");
+    const packet = scenarioFor(observation);
+    const frozen = assembleArenaExperiment({ observation, config: { ...ARENA_RAW_BASELINE, scenarioHint: true }, scenario: packet });
+    packet.content.matches[0]!.hint = "mutated-after-freeze";
+    expect(JSON.stringify(frozen.modules)).not.toContain("mutated-after-freeze");
     expect(() => assembleArenaExperiment({ observation, config: ARENA_RAW_BASELINE, material })).toThrow("arena_module_material_mismatch");
     expect(() => assembleArenaExperiment({ observation, config: { ...ARENA_RAW_BASELINE, helperFacts: true, legalCandidates: true } })).toThrow("arena_module_helper_mismatch");
   });
@@ -82,17 +89,17 @@ describe("Arena raw baseline", () => {
     scenario.visibleState.riichiStates[1] = { actor: 1, status: "accepted", declarationEventRef: ref, acceptanceEventRef: ref, ippatsuAlive: false };
     const config = { ...ARENA_RAW_BASELINE, teaching: "on" as const, materialRouting: "scenario" as const };
     const retriever = createArenaRagRetriever({ mode: "local", caseRef: observation.caseRef, aliases });
-    const aQuery = arenaMaterialQuery(config, observation).query, bQuery = arenaMaterialQuery(config, scenario).query;
+    const aQuery = "进张计数", bQuery = "复合牌形";
     expect(aQuery).not.toBe(bQuery);
-    const a = assembleArenaExperiment({ observation, config, material: await retriever.query({ query: aQuery, limit: 3 }) });
-    const b = assembleArenaExperiment({ observation: scenario, config, material: await retriever.query({ query: bQuery, limit: 3 }), materialBaseline: a.modules.material });
+    const a = assembleArenaExperiment({ observation, config, material: await retriever.query({ query: aQuery, limit: 3 }), selection: selectionFor(observation, "scenario", aQuery) });
+    const b = assembleArenaExperiment({ observation: scenario, config, material: await retriever.query({ query: bQuery, limit: 3 }), materialBaseline: a.modules.material, selection: selectionFor(scenario, "scenario", bQuery) });
     expect(a.modules.material?.passages.length).toBeGreaterThan(0);
     expect(a.routing?.passageDigest).not.toBe(b.routing?.passageDigest);
     expect(a.routing?.changedFromFixed).toBe(false); expect(b.routing?.changedFromFixed).toBe(true);
     const fixed = { ...config, materialRouting: "fixed" as const };
-    expect(arenaMaterialQuery(fixed, observation).query).toBe(arenaMaterialQuery(fixed, scenario).query);
+    expect(selectionFor(observation).query).toBe(selectionFor(scenario).query);
     // A route that returns identical material is recorded as identical, not a successful intervention.
-    const same = assembleArenaExperiment({ observation, config: { ...fixed, scenarioHint: true }, material: a.modules.material });
+    const same = assembleArenaExperiment({ observation, config: { ...fixed, scenarioHint: true }, material: a.modules.material, selection: selectionFor(observation), scenario: scenarioFor(observation) });
     expect(same.routing?.passageDigest).toBe(a.routing?.passageDigest);
   });
   it("isolates helper data from raw state and rejects cross-case facts", () => {
@@ -179,15 +186,16 @@ describe("Arena raw baseline", () => {
     const { observation, authorizedCase } = makeArenaMcpCase(); let calls = 0;
     const run = await runBlindCoachCase({ observation, grading: { binding: authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } }, tools: [], experiment: ARENA_RAW_BASELINE,
       provider: { descriptor: () => ({ providerId: "synthetic", model: "local", protocolVersion: "arena-function-call/v1" }), request: async () => { calls++; return { status: "final", content, outputBytes: Buffer.byteLength(content) }; } } });
+    expect(run.events).toContainEqual({ type: "provider_final", content, parseStatus: "invalid" });
     expect(run.status).toBe("invalid_submission"); expect(run.score.failures.invalidSubmission).toBe(1); expect(calls).toBe(1);
   });
-  it("refuses known CLI isolation failure before spawn rather than charging for a contaminated raw baseline", async () => {
+  it("refuses an unverified real request boundary before spawn rather than charging a raw baseline", async () => {
     const { observation, authorizedCase } = makeArenaMcpCase();
     const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6.1-terra", reasoningEffort: "high",
       processPort: { findExecutable: () => { throw new Error("must_not_spawn"); } } as any });
     const run = await runBlindCoachCase({ observation, grading: { binding: authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } }, provider, tools: [], experiment: ARENA_RAW_BASELINE });
     expect(run.status).toBe("provider_unavailable");
-    expect(run.events).toContainEqual(expect.objectContaining({ type: "provider_turn", failureCode: "isolation_unavailable" }));
+    expect(run.events).toContainEqual(expect.objectContaining({ type: "provider_turn", failureCode: "request_boundary_unverified" }));
     expect(run.events).toContainEqual(expect.objectContaining({ type: "request_audit", audit: expect.objectContaining({ visibility: "unobservable" }) }));
   });
   it.each(["error", "timeout"])("accounts for module preparation %s without sending an incomplete prompt", async mode => {
@@ -215,5 +223,19 @@ describe("Arena raw baseline", () => {
     const run = await runBlindCoachCase({ observation, grading: { binding: authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } }, tools: [], experiment: ARENA_RAW_BASELINE, limits: { maxRunEventBytes: 1 },
       provider: { descriptor: () => ({ providerId: "synthetic", model: "local", protocolVersion: "arena-function-call/v1" }), request: async () => { calls++; return { status: "provider_error" }; } } });
     expect(calls).toBe(0); expect(run.status).toBe("budget_exhausted"); expect(run.experiment).toEqual(ARENA_RAW_BASELINE);
+  });
+  it("injects actual versioned pattern output through a raw-only source port", async () => {
+    const { observation, authorizedCase } = makeArenaMcpCase(); let sent: any;
+    const run = await runBlindCoachCase({ observation, grading: { binding: authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } }, tools: [], experiment: { ...ARENA_RAW_BASELINE, scenarioHint: true },
+      prepareModules: async context => {
+        expect(context).not.toHaveProperty("observation"); expect(context).not.toHaveProperty("facts"); expect(context.candidates).toEqual([]);
+        expect(context.raw.self).not.toHaveProperty("furiten");
+        return { scenario: { sourceId: "real-module-port-fixture", version: "test/v2", requiresHelper: false, inputDigest: arenaContentDigest(context.raw), content: { matches: ["explicit-fixture-output"] } } };
+      },
+      provider: { descriptor: () => ({ providerId: "synthetic", model: "local", protocolVersion: "arena-function-call/v1" }), request: async request => { sent = request; return { status: "final", content: '{"tile":"1m","red":false}', outputBytes: 25 }; } } });
+    expect(run.status).toBe("completed");
+    expect(JSON.stringify(sent)).toContain("explicit-fixture-output"); expect(JSON.stringify(sent)).not.toContain("furiten");
+    const start = run.events.find(event => event.type === "run_started");
+    expect(start?.experiment?.sources?.scenario).toMatchObject({ sourceId: "real-module-port-fixture", version: "test/v2" });
   });
 });

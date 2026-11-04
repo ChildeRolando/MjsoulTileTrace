@@ -203,6 +203,7 @@ export const ArenaRunReflectionSchema = z.object({
 export type ArenaRunReflection = z.infer<typeof ArenaRunReflectionSchema>;
 
 export const ArenaRunEventSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("provider_final"), content: z.string().max(16 * 1024), parseStatus: z.enum(["valid", "invalid"]) }).strict(),
   z.object({ type: z.literal("module_preparation"), status: z.enum(["ready", "failed"]) }).strict(),
   z.object({ type: z.literal("request_prepared"), turn: z.number().int().positive(), request: ArenaProviderRequestSchema }).strict(),
   z.object({ type: z.literal("request_audit"), turn: z.number().int().positive(), audit: ArenaRequestAuditSchema }).strict(),
@@ -220,7 +221,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     toolNames: z.array(z.string().regex(TOOL_NAME)).max(16),
     observation: ArenaBlindObservationSchema.optional(),
     experiment: z.object({ config: ArenaExperimentConfigSchema, version: z.string(), modules: z.record(z.unknown()),
-      routing: z.record(z.unknown()).nullable(), digest: z.string().regex(/^[a-f0-9]{64}$/) }).strict().optional(),
+      sources: z.record(z.unknown()).optional(), routing: z.record(z.unknown()).nullable(), digest: z.string().regex(/^[a-f0-9]{64}$/) }).strict().optional(),
     applicability: z.object({
       gateVersion: z.string().min(1).max(40),
       promptVersion: z.string().min(1).max(80),
@@ -793,7 +794,9 @@ export async function runBlindCoachCase(input: {
   moduleHelper?: unknown;
   moduleMaterial?: unknown;
   moduleMaterialBaseline?: unknown;
-  prepareModules?: (context: { signal: AbortSignal }) => Promise<{ helper?: unknown; material?: unknown; materialBaseline?: unknown }>;
+  moduleScenario?: unknown;
+  moduleSelection?: unknown;
+  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
   limits?: Partial<ArenaRunLimits>;
   signal?: AbortSignal;
   clock?: () => number;
@@ -941,11 +944,13 @@ export async function runBlindCoachCase(input: {
 
   if (experimentConfig) {
     try {
-      const prepared = input.prepareModules === undefined ? {} : await withToolTimeout({ operation: signal => input.prepareModules!({ signal }), runSignal: runController.signal, timeoutMs: limits.maxToolCallDurationMs });
+      const prepared = input.prepareModules === undefined ? {} : await withToolTimeout({ operation: signal => input.prepareModules!({ signal, raw: projectArenaRawObservation(observation), candidates: experimentConfig.legalCandidates ? structuredClone(observation.candidates) : [] }), runSignal: runController.signal, timeoutMs: limits.maxToolCallDurationMs });
       assembly = assembleArenaExperiment({ observation, config: experimentConfig, tools: [...toolMap.values()].map(providerTool),
         ...(input.moduleHelper === undefined ? {} : { helper: input.moduleHelper }),
         ...(input.moduleMaterial === undefined ? {} : { material: input.moduleMaterial }),
         ...(input.moduleMaterialBaseline === undefined ? {} : { materialBaseline: input.moduleMaterialBaseline }),
+        ...(input.moduleScenario === undefined ? {} : { scenario: input.moduleScenario }),
+        ...(input.moduleSelection === undefined ? {} : { selection: input.moduleSelection }),
         ...prepared });
       if (assembly.modules.helper) {
         const helper = ArenaMcpResultSchema.parse(assembly.modules.helper);
@@ -966,6 +971,7 @@ export async function runBlindCoachCase(input: {
     observation,
     ...(experimentConfig === undefined ? {} : { experiment: { config: experimentConfig, version: ARENA_ASSEMBLY_VERSION,
       modules: assembly?.modules ?? { raw: projectArenaRawObservation(observation), preparation: "failed" },
+      ...(assembly ? { sources: assembly.sources } : {}),
       routing: assembly?.routing ?? null, digest: assembly?.digest ?? arenaContentDigest({ config: experimentConfig, preparation: "failed" }) } }),
     ...(applicabilityGate === undefined ? {} : {
       applicability: {
@@ -1000,7 +1006,7 @@ export async function runBlindCoachCase(input: {
     { role: "user", content: `Blind observation JSON:\n${stableJson(modelObservation)}` },
   ];
 
-  const toolDefinitions = [...toolMap.values()].map(providerTool);
+  const toolDefinitions = assembly?.tools ?? [...toolMap.values()].map(providerTool);
   const finalDefinition = () => finalSubmissionTool({ observation, evidenceRefs: allowedEvidenceRefs, sourceRefs: allowedSourceRefs });
   try {
     for (let turn = 1; turn <= limits.maxProviderTurns; turn += 1) {
@@ -1144,6 +1150,7 @@ export async function runBlindCoachCase(input: {
       }
       if (direct && response.status === "final") {
         const validation = mapArenaDirectAnswer(parseJson(response.content), observation, assembly!.config.explanation);
+        append({ type: "provider_final", content: response.content, parseStatus: validation.status });
         if (validation.status === "valid") {
           attempt = { status: "submitted", submission: validation.submission }; terminalStatus = "completed";
           append({ type: "submission_locked", submission: validation.submission });

@@ -90,6 +90,11 @@ export function createOpenAiArenaToolCallProvider(input: {
       model: settings?.modelName ?? "unconfigured",
       protocolVersion: "arena-function-call/v1" as const,
     }),
+    async preflight() {
+      if (!settings) return { status: "unavailable" as const, reason: "provider_not_configured" };
+      try { const key = await input.credentials.readKey(); return key?.trim() ? { status: "ready" as const } : { status: "unavailable" as const, reason: "credentials_missing" }; }
+      catch { return { status: "unavailable" as const, reason: "credentials_unavailable" }; }
+    },
     async request(rawRequest: ArenaProviderRequest, parentSignal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult> {
       const checked = ArenaProviderRequestSchema.safeParse(rawRequest);
       if (!checked.success) return { status: "provider_error" };
