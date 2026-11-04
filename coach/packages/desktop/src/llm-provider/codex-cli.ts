@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createHash } from "node:crypto";
 import type { ArenaRequestAudit } from "../blind-discard-arena-provider.js";
-import { prepareCodexArenaIsolation, type ArenaCodexIsolation } from "./codex-arena-isolation.js";
+import { prepareCodexArenaIsolation, verifyArenaRuntimePin, type ArenaCodexIsolation } from "./codex-arena-isolation.js";
 import { arenaCodexTurnInstructions, ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
@@ -585,8 +585,19 @@ async function runExecAttempt(input: {
         terminalFailure?: InternalFailure;
         reconnectCount?: number;
       } = { threadStarted: false, turnStarted: false, turnCompleted: false };
-      const resolvePromise = (result: ExecResult) => resolveResult({ ...result,
-        ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
+      let stderrBytes = 0;
+      const events: string[] = [];
+      const resolvePromise = (result: ExecResult) => {
+        if (input.isolation?.options.onDiagnostic) {
+          const originalBytes = state.finalText === undefined ? undefined : Buffer.from(state.finalText, "utf8");
+          const redactedBytes = state.finalText === undefined || !isolated ? undefined : Buffer.from(isolated.redact(state.finalText), "utf8");
+          let rawFinal = redactedBytes === undefined ? null : redactedBytes.subarray(0, 16384).toString("utf8");
+          while (rawFinal !== null && Buffer.byteLength(rawFinal, "utf8") > 16384) rawFinal = rawFinal.slice(0, -1);
+          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
+        }
+        const safeResult = result.kind === "success" && isolated ? { ...result, content: isolated.redact(result.content) } : result;
+        resolveResult({ ...safeResult, ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
+      };
       let settled = false;
       let forcedFailure: InternalFailure | undefined;
       let totalBytes = 0;
@@ -679,6 +690,7 @@ async function runExecAttempt(input: {
           failAndKill({ errorCode: "connection_failed", retryable: false, diagnosticCode: "cli_invalid_event" });
           return;
         }
+        if (events.length < 64 && typeof event.type === "string") events.push(["thread.started", "turn.started", "item.started", "item.updated", "item.completed", "turn.completed", "turn.failed", "error"].includes(event.type) ? event.type : "unknown");
         const problem = parseEvent(event, state, input.arenaStructuredOutput, input.isolation !== undefined);
         if (problem !== null) {
           if (event.type === "turn.failed") {
@@ -709,6 +721,7 @@ async function runExecAttempt(input: {
       };
       const onStderr = (chunk: Buffer | string | Uint8Array) => {
         if (forcedFailure !== undefined || state.terminalFailure !== undefined || settled) return;
+        stderrBytes += asBuffer(chunk).byteLength;
         totalBytes += asBuffer(chunk).byteLength;
         if (totalBytes > input.maxOutputBytes) failAndKill({ errorCode: "connection_failed", retryable: false });
       };
@@ -791,7 +804,10 @@ async function runCodexStructuredTurn(input: {
 }): Promise<ExecResult> {
   const port = input.processPort ?? defaultProcessPort;
   let executable: string | null;
-  try { executable = port.findExecutable(); } catch { executable = null; }
+  try {
+    if (input.isolation?.options.runtimePin) { await verifyArenaRuntimePin(input.isolation.options); executable = input.isolation.options.runtimePin.executablePath; }
+    else executable = port.findExecutable();
+  } catch { executable = null; }
   if (executable === null || input.signal.aborted) return failure("provider_unavailable");
   if (input.isolation) {
     const versionDir = await port.makeTempDirectory();
@@ -804,7 +820,7 @@ async function runCodexStructuredTurn(input: {
     port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
     arenaStructuredOutput: true,
     modelName: input.modelName, reasoningEffort: input.reasoningEffort,
-    timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
+    timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? (input.isolation ? 300_000 : DEFAULT_TURN_TIMEOUT_MS), input.isolation ? 300_000 : DEFAULT_TURN_TIMEOUT_MS)),
     maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
     ...(input.isolation ? { isolation: input.isolation } : {}),
   });
@@ -900,24 +916,30 @@ export function createCodexArenaToolCallProvider(input: {
 }): ArenaToolCallProvider {
   return Object.freeze({
     descriptor: () => ({ providerId: "codex-cli", model: input.modelName, protocolVersion: "arena-function-call/v1" as const }),
-    preflight: async () => input.isolation?.loopbackProbe
-      ? { status: "ready" as const }
-      : { status: "unavailable" as const, reason: "builtin_physical_request_boundary_unknown" },
+    preflight: async () => {
+      if (input.isolation?.loopbackProbe) return { status: "ready" as const };
+      if (!input.isolation) return { status: "unavailable" as const, reason: "builtin_physical_request_boundary_unknown" };
+      if (!input.isolation?.runtimePin || input.modelName !== "gpt-6.1-terra" || input.reasoningEffort !== "high") return { status: "unavailable" as const, reason: "arena_runtime_pin_required" };
+      try { await verifyArenaRuntimePin(input.isolation); return { status: "ready" as const }; }
+      catch { return { status: "unavailable" as const, reason: "arena_runtime_pin_drift" }; }
+    },
     async request(raw: ArenaProviderRequest, signal: AbortSignal, onAudit?: (audit: ArenaRequestAudit) => void): Promise<ArenaToolCallProviderResult> {
       if (signal.aborted) return { status: "cancelled" };
       const parsed = ArenaProviderRequestSchema.safeParse(raw);
       if (!parsed.success) return { status: "provider_error" };
       const request = parsed.data;
       if (request.outputSchema !== undefined || request.requireIsolatedContext === true) {
-        if (input.isolation?.loopbackProbe && input.modelName === "gpt-6.1-terra" && input.reasoningEffort === "high" && request.outputSchema && request.messages.length === 2 && request.messages[0]?.role === "system" && request.messages[1]?.role === "user") {
+        if (input.isolation && (input.isolation.loopbackProbe || input.isolation.runtimePin) && input.modelName === "gpt-6.1-terra" && input.reasoningEffort === "high" && request.outputSchema && request.messages.length === 2 && request.messages[0]?.role === "system" && request.messages[1]?.role === "user") {
           const boundary = { instructions: request.messages[0].content, user: request.messages[1].content, outputSchema: request.outputSchema, tools: [] };
           const result = await runCodexStructuredTurn({ prompt: request.messages[1].content, outputSchema: request.outputSchema, modelName: input.modelName, reasoningEffort: input.reasoningEffort,
             signal, ...(input.processPort ? { processPort: input.processPort } : {}), ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
             isolation: { options: input.isolation, instructions: request.messages[0].content, onPrepared: metadata => onAudit?.({ schemaVersion: "arena-request-audit/v1", surface: "cli_boundary", request: boundary,
-              digest: createHash("sha256").update(JSON.stringify(boundary)).digest("hex"), runtime: { adapter: "arena-codex-isolated/v1", ...metadata }, visibility: "unobservable", limitations: ["CLI wire is captured only by the local probe endpoint; production internal context unknown.", "Real authentication/server acceptance and builtin retry counts remain unverified."] }) } });
+              digest: createHash("sha256").update(JSON.stringify(boundary)).digest("hex"), runtime: { adapter: "arena-codex-isolated/v1", ...metadata }, visibility: "unobservable", limitations: ["CLI wire is captured only by the local probe endpoint; production internal context unknown.", "Real authentication/server acceptance and physical request counts remain unverified.", "32768 output tokens is a local usage threshold, not a CLI-enforced limit."] }) } });
           if (signal.aborted) return { status: "cancelled" };
-          if (result.kind === "failure") return { status: "provider_error", failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...(result.failure.usage ? { usage: result.failure.usage } : {}) };
-          return { status: "final", content: result.content, outputBytes: Buffer.byteLength(result.content), ...(result.usage ? { usage: result.usage } : {}) };
+          if (result.kind === "failure") return { status: result.failure.errorCode === "timeout" ? "timeout" : "provider_error", failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...(result.reconnectCount ? { reconnectCount: result.reconnectCount } : {}), ...(result.failure.usage ? { usage: result.failure.usage } : {}) };
+          const outputBytes = Buffer.byteLength(result.content, "utf8");
+          if (outputBytes > request.maxOutputBytes) return { status: "output_too_large", ...(result.usage ? { usage: result.usage } : {}) };
+          return { status: "final", content: result.content, outputBytes, ...(result.usage ? { usage: result.usage } : {}) };
         }
         // Clean-home Terra isolation is tested locally. Builtin ChatGPT retry
         // counts/authentication are still unverified, so production fails batch preflight.

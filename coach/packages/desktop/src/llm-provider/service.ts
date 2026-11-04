@@ -12,6 +12,9 @@ import { createOpenAiCoachProvider } from "./openai-compatible.js";
 import { createOpenAiArenaToolCallProvider } from "./arena-tool-call.js";
 import type { ArenaToolCallProvider } from "../blind-discard-arena-provider.js";
 import { createCodexArenaToolCallProvider, createCodexCoachProvider, getCodexCoachAvailability } from "./codex-cli.js";
+import type { CodexCoachProcessPort } from "./codex-cli.js";
+import type { ArenaCodexIsolation } from "./codex-arena-isolation.js";
+export type { ArenaCodexIsolation } from "./codex-arena-isolation.js";
 import { createFixedReviewController } from "../fixed-review-controller.js";
 import type { ReviewSessionRepository, ReviewSessionSummary } from "../review-session-repository.js";
 import type { ReviewSessionSummaryDto } from "@riichi-coach/contracts";
@@ -28,7 +31,7 @@ export function createPackageReferenceReader(userData: string) {
 /** Main-owned factory for the isolated Arena loop; it does not alter report generation. */
 export function createArenaToolCallProvider(input: {
   settings: CoachProviderConfig | null;
-  arenaCodex?: { modelName: string; reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max" };
+  arenaCodex?: { modelName: string; reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max"; isolation?: ArenaCodexIsolation; processPort?: CodexCoachProcessPort; timeoutMs?: number };
   credentials: Pick<ProviderCredentials, "readKey">;
   fetchImpl: typeof fetch;
 }): ArenaToolCallProvider | null {

@@ -1,22 +1,18 @@
 {
-  "schemaVersion": "arena-cli-isolation-evidence/v2",
+  "schemaVersion": "arena-cli-isolation-evidence/v3",
+  "baseCommit": "29ae810e65c8057b368c4948cd3c5f31d0044a0b",
   "cliVersion": "0.162.1",
+  "cliSha256": "dd13bdb162a184fa04039488b234a8258ef9b76f84e926c505d5742b19249a6a",
   "catalogClientVersion": "0.166.0",
-  "localCleanHomeIsolation": "passed through current Arena Codex adapter; polluted source home markers absent",
-  "clientCatalogChanges": [
-    "tool_mode -> direct",
-    "apply_patch_tool_type -> null",
-    "experimental_supported_tools -> []"
-  ],
-  "realAuthenticationRead": false,
-  "authenticationTest": "synthetic ChatGPT-shaped auth file; source bytes unchanged; transient home removed",
+  "catalogSourceSha256": "40ca8034bb45cf3eb1cc40c497da6e6861b6146f56a7603594a93dfe47377766",
+  "catalogToolLessSha256": "4dcb705161c765f55bdc0fb7490d52466ca7dfe9fe048e0169e4c6eedcb7a4ba",
+  "catalogNote": "The per-run compact serialization has its own recorded SHA256; semantic equality with the pinned tool-less catalog is checked.",
+  "authenticationTest": "Synthetic ChatGPT-shaped auth in a polluted source home; exact known-token redaction, conflict rejection, and transient-home cleanup verified locally.",
   "realModelCalls": 0,
-  "localPOSTCounts": {
-    "success": 1,
-    "503": 1,
-    "drop": 1
-  },
-  "productionPhysicalRequestCount": "unknown: builtin openai provider retry controls are not equivalent to local mock",
-  "productionBatchBehavior": "preflight rejects the entire batch before any case generation/scoring dispatch",
-  "supplierInternalContext": "unknown"
+  "localPOSTCounts": { "success": 1, "invalid": 1, "secret": 1, "503": 1, "drop": 1 },
+  "productionPhysicalRequestCount": "unknown; independent authentication recovery and transport behavior are not represented by reconnectCount",
+  "productionBatchBehavior": "Only explicit pinned isolated configuration can pass preflight; a caller must enforce one logical submission per case and preserve failure/unknown counts.",
+  "supplierInternalContext": "unknown",
+  "realAuthenticationAndServerAcceptance": "unverified",
+  "modelWeights": "not frozen by client runtime pin"
 }
