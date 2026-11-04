@@ -23,6 +23,14 @@ Board、吃碰／三类杠／立直、指定副露后暗手、全候选 Mortal�
 
 ## Arena 模块与直接提交（COAC-271，2026-11-04）
 
+PR #78 独立评审的 R1／R2 修复：恢复覆盖 provider_final 到锁定／拒绝／terminal 的每个
+持久化前缀；截断／拒绝／协议失败保留可见原文、结束原因与已报告 usage，完整 JSON 遇到
+length 仍失败且不重问。既有 experiment／provider 测试 owner 新增回归在旧 head 上 7 项
+失败，修复后 focused 39 项通过；相关 Arena／旧工具／归档／生产 provider／console 回归
+241 项通过、4 项 opt-in 跳过。`npm run build`、`npm run typecheck`、
+`npm run check:architecture`（0 violations）、`node --test smoke/package-import-smoke.mjs`
+（2 项）和 `git diff --check` 通过。本轮只做零真实模型请求验证，待新 head 独立复审。
+
 整合补充落实后的最终相关门禁为 229 通过／4 个 opt-in 跳过；显式真实 CLI loopback 回归
 另为 5 通过（成功、503、流中断各一次 POST，虚拟认证，零真实生成）。模式／选材改用
 实际版本化输出端口，未知真实请求边界在整批前拒绝；最终回答及解析失败原文进入归档。

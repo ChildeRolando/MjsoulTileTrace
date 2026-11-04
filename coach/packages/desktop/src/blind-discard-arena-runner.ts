@@ -203,7 +203,8 @@ export const ArenaRunReflectionSchema = z.object({
 export type ArenaRunReflection = z.infer<typeof ArenaRunReflectionSchema>;
 
 export const ArenaRunEventSchema = z.discriminatedUnion("type", [
-  z.object({ type: z.literal("provider_final"), content: z.string().max(16 * 1024), parseStatus: z.enum(["valid", "invalid"]) }).strict(),
+  z.object({ type: z.literal("provider_final"), content: z.string().max(16 * 1024), parseStatus: z.enum(["valid", "invalid"]),
+    finishReason: z.string().max(80).optional(), failureCode: ArenaProviderFailureCodeSchema.optional() }).strict(),
   z.object({ type: z.literal("module_preparation"), status: z.enum(["ready", "failed"]) }).strict(),
   z.object({ type: z.literal("request_prepared"), turn: z.number().int().positive(), request: ArenaProviderRequestSchema }).strict(),
   z.object({ type: z.literal("request_audit"), turn: z.number().int().positive(), audit: ArenaRequestAuditSchema }).strict(),
@@ -762,10 +763,28 @@ export function recoverInterruptedArenaRun(input: {
   const providerTurnCount = events.filter(e => e.type === "request_prepared").length;
   if (providerTurnCount !== 1) throw new Error("arena_recovery_invalid");
   const terminal = events.find(e => e.type === "run_terminal");
-  const locked = events.find(e => e.type === "submission_locked");
+  let locked = events.find(e => e.type === "submission_locked");
+  const final = events.find(e => e.type === "provider_final");
+  let recoveredStatus: "invalid_submission" | "provider_error" | undefined;
+  if (!terminal && !locked && final) {
+    if (final.failureCode !== undefined) {
+      recoveredStatus = "provider_error";
+    } else {
+      // Revalidate original bytes against the frozen case/config, never labels
+      // or current templates. A crash between final and lock must not lose it.
+      const validation = mapArenaDirectAnswer(parseJson(final.content), start.observation, start.experiment.config.explanation);
+      if (validation.status === "valid") {
+        locked = { type: "submission_locked", submission: validation.submission };
+        events.push(locked);
+      } else {
+        recoveredStatus = "invalid_submission";
+        if (!events.some(e => e.type === "submission_rejected")) events.push({ type: "submission_rejected", reason: validation.reason });
+      }
+    }
+  }
   const attempt = ArenaRunAttemptSchema.parse(locked && (terminal === undefined || terminal.attemptStatus === "submitted")
-    ? { status: "submitted", submission: locked.submission } : { status: terminal?.attemptStatus ?? "cancelled" });
-  const status = terminal?.status ?? (locked ? "completed" : "cancelled");
+    ? { status: "submitted", submission: locked.submission } : { status: terminal?.attemptStatus ?? recoveredStatus ?? "cancelled" });
+  const status = terminal?.status ?? (locked ? "completed" : recoveredStatus ?? "cancelled");
   const endedAt = new Date().toISOString(), elapsedMs = Math.max(0, Date.parse(endedAt) - Date.parse(start.startedAt));
   const score = scoreArenaBatch([createArenaScoringCaseInput({ observation: start.observation, toolBinding: input.binding, reference: input.reference, attempt })]);
   const usages = events.flatMap(e => e.type === "provider_turn" && e.usage ? [e.usage] : []);
@@ -1147,6 +1166,10 @@ export async function runBlindCoachCase(input: {
         attempt = { status: "budget_exhausted" };
         finished = true;
         break;
+      }
+      if (direct && response.status !== "ready" && response.status !== "final" && response.finalResponse !== undefined) {
+        append({ type: "provider_final", ...response.finalResponse, parseStatus: "invalid", failureCode: response.failureCode ?? "invalid_model_response" });
+        if (eventBudgetExceeded) { terminalStatus = "budget_exhausted"; attempt = { status: "budget_exhausted" }; finished = true; break; }
       }
       if (direct && response.status === "final") {
         const validation = mapArenaDirectAnswer(parseJson(response.content), observation, assembly!.config.explanation);

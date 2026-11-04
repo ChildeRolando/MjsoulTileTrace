@@ -68,8 +68,8 @@ function mapUsage(raw: unknown): LlmTokenUsage | undefined {
 
 /**
  * Uses the existing OpenAI-compatible settings and encrypted credential owner,
- * but a separate function-call protocol. There are no automatic retries and
- * non-tool response content (including hidden reasoning) is discarded.
+ * with the Arena output protocol. There are no automatic retries. Direct mode
+ * retains visible final text; tool mode discards non-tool response content.
  */
 export function createOpenAiArenaToolCallProvider(input: {
   settings: CoachProviderConfig | null;
@@ -168,37 +168,41 @@ export function createOpenAiArenaToolCallProvider(input: {
           const raw = decoded.value;
           if (raw === null || typeof raw !== "object" || Array.isArray(raw)) return { status: "provider_error" };
           const envelope = raw as Record<string, unknown>;
+          const usage = mapUsage(envelope.usage);
+          const failure = { status: "provider_error" as const, ...(usage === undefined ? {} : { usage }) };
           const choices = envelope.choices;
           if (!Array.isArray(choices) || choices.length !== 1 || choices[0] === null || typeof choices[0] !== "object") {
-            return { status: "provider_error" };
+            return failure;
           }
           const choice = choices[0] as Record<string, unknown>;
           const message = choice.message;
           if (checked.data.outputSchema !== undefined) {
-            if (choice.finish_reason !== "stop" || message === null || typeof message !== "object") return { status: "provider_error" };
-            const fields = message as Record<string, unknown>;
-            if (typeof fields.content !== "string" || fields.function_call != null ||
-                (fields.tool_calls != null && (!Array.isArray(fields.tool_calls) || fields.tool_calls.length > 0))) return { status: "provider_error" };
-            const usage = mapUsage(envelope.usage);
+            const fields = message !== null && typeof message === "object" && !Array.isArray(message) ? message as Record<string, unknown> : {};
+            if (choice.finish_reason !== "stop" || typeof fields.content !== "string" || fields.refusal != null || fields.function_call != null ||
+                (fields.tool_calls != null && (!Array.isArray(fields.tool_calls) || fields.tool_calls.length > 0))) {
+              const content = typeof fields.content === "string" ? fields.content : typeof fields.refusal === "string" ? fields.refusal : undefined;
+              return { ...failure, failureCode: "invalid_model_response", ...(content === undefined ? {} : {
+                finalResponse: { content, ...(typeof choice.finish_reason === "string" ? { finishReason: choice.finish_reason.slice(0, 80) } : {}) },
+              }) };
+            }
             return { status: "final", content: fields.content, outputBytes: decoded.byteLength, ...(usage === undefined ? {} : { usage }) };
           }
           if (choice.finish_reason !== "tool_calls" || message === null || typeof message !== "object") {
-            return { status: "provider_error" };
+            return failure;
           }
           const calls = (message as Record<string, unknown>).tool_calls;
           if (!Array.isArray(calls) || calls.length !== 1 || calls[0] === null || typeof calls[0] !== "object") {
-            return { status: "provider_error" };
+            return failure;
           }
           const fn = (calls[0] as Record<string, unknown>).function;
-          if (fn === null || typeof fn !== "object") return { status: "provider_error" };
+          if (fn === null || typeof fn !== "object") return failure;
           const functionFields = fn as Record<string, unknown>;
           if (typeof functionFields.name !== "string" || typeof functionFields.arguments !== "string") {
-            return { status: "provider_error" };
+            return failure;
           }
           const call = { name: functionFields.name, arguments: functionFields.arguments };
           const validCall = z.object({ name: z.string().regex(TOOL_NAME), arguments: z.string().max(Math.min(checked.data.maxOutputBytes, ARENA_PROVIDER_MAX_OUTPUT_BYTES)) }).strict().safeParse(call);
-          if (!validCall.success) return { status: "output_too_large" };
-          const usage = mapUsage(envelope.usage);
+          if (!validCall.success) return { ...failure, status: "output_too_large" };
           return usage === undefined
             ? { status: "ready", call: validCall.data, outputBytes: decoded.byteLength }
             : { status: "ready", call: validCall.data, outputBytes: decoded.byteLength, usage };

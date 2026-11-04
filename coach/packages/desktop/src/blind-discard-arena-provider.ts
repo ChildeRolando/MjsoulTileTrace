@@ -82,7 +82,14 @@ export const ArenaProviderFailureCodeSchema = z.enum([
   "cli_incomplete_turn", "cli_process_failed", "invalid_model_response", "isolation_unavailable", "request_boundary_unverified",
 ]);
 export type ArenaProviderFailureCode = z.infer<typeof ArenaProviderFailureCodeSchema>;
-const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional(), reconnectCount: z.number().int().positive().max(100).optional() };
+const failureFields = {
+  failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional(),
+  reconnectCount: z.number().int().positive().max(100).optional(),
+  finalResponse: z.object({
+    content: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
+    finishReason: z.string().max(80).optional(),
+  }).strict().optional(),
+};
 export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", [
   z.object({ status: z.literal("final"), content: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
     outputBytes: z.number().int().nonnegative(), usage: LlmTokenUsageSchema.optional() }).strict(),

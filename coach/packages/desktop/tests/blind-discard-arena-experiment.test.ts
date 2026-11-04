@@ -169,7 +169,7 @@ describe("Arena raw baseline", () => {
         await mkdir(dirname(process.env.RIICHI_ARENA_CAPTURE), { recursive: true });
         await writeFile(process.env.RIICHI_ARENA_CAPTURE, JSON.stringify({ realModelCalls: 0, request: captured, audit, run, assemblyDigest: arenaContentDigest(captured), versions: { node: process.versions.node, adapter: "arena-openai/v2" } }, null, 2));
       }
-      const interruptedEvents = run.events.filter(e => e.type !== "run_terminal" && e.type !== "submission_locked" && e.type !== "provider_turn");
+      const interruptedEvents = run.events.slice(0, run.events.findIndex(e => e.type === "provider_turn"));
       const trace = run.events.map(event => ({ schemaVersion: "blind-discard-arena-case-trace/v1" as const, caseOrdinal: 0, event }));
       const plan = arenaDirectDispatchPlan({ caseCount: 3, maxActualRequests: 2, trace, completedOrdinals: [] });
       expect(plan).toEqual({ reservedRequestCount: 1, interrupted: [0], pending: [1], deferredByCap: [2] });
@@ -181,6 +181,52 @@ describe("Arena raw baseline", () => {
       const completed = recoverInterruptedArenaRun({ events: run.events, binding: authorizedCase.binding, reference: { status: "unavailable", reason: "mortal_unavailable" } });
       expect(completed.attempt).toEqual(run.attempt); expect(calls).toBe(1);
     } finally { await new Promise<void>(resolve => server.close(() => resolve())); }
+  });
+  it.each(['{"tile":"1m","red":false}', "", "broken JSON", '{"tile":"9s","red":false}'])("recovers persisted direct answer %j at every finalization boundary without another request", async content => {
+    const { observation, authorizedCase } = makeArenaMcpCase();
+    const reference = { status: "unavailable", reason: "mortal_unavailable" } as const;
+    let calls = 0;
+    const run = await runBlindCoachCase({ observation, grading: { binding: authorizedCase.binding, reference }, tools: [], experiment: ARENA_RAW_BASELINE,
+      provider: { descriptor: () => ({ providerId: "synthetic", model: "local", protocolVersion: "arena-function-call/v1" }), request: async () => {
+        calls++; return { status: "final", content, outputBytes: Buffer.byteLength(content), usage: { inputTokens: 20, outputTokens: 5, totalTokens: 25 } };
+      } } });
+    const finalIndex = run.events.findIndex(e => e.type === "provider_final");
+    for (let end = finalIndex + 1; end <= run.events.length; end++) {
+      const recovered = recoverInterruptedArenaRun({ events: run.events.slice(0, end), binding: authorizedCase.binding, reference });
+      expect(recovered.attempt).toEqual(run.attempt);
+      expect(recovered.status).toBe(run.status);
+      expect(recovered.providerUsage).toEqual(run.providerUsage);
+      expect(recovered.events).toContainEqual(run.events[finalIndex]);
+      expect(recovered.events).toContainEqual(run.events[finalIndex + 1]);
+      expect(recoverInterruptedArenaRun({ events: recovered.events, binding: authorizedCase.binding, reference })).toMatchObject({ attempt: run.attempt, status: run.status });
+    }
+    expect(calls).toBe(1);
+  });
+  it.each([
+    { finishReason: "length", content: '{"tile":"1m","red":' },
+    { finishReason: "length", content: '{"tile":"1m","red":false}' },
+    { finishReason: "content_filter", content: "" },
+  ])("archives failed HTTP direct output and reported usage: $finishReason $content", async ({ finishReason, content }) => {
+    const { observation, authorizedCase } = makeArenaMcpCase();
+    const reference = { status: "unavailable", reason: "mortal_unavailable" } as const;
+    let calls = 0;
+    const provider = createOpenAiArenaToolCallProvider({ settings: { baseUrl: "https://synthetic.test/v1", modelName: "synthetic" }, credentials: { readKey: async () => "synthetic" }, fetchImpl: async () => {
+      calls++;
+      return new Response(JSON.stringify({ choices: [{ finish_reason: finishReason, message: { content } }], usage: { prompt_tokens: 20, completion_tokens: 5, total_tokens: 25 } }), { status: 200 });
+    } });
+    const run = await runBlindCoachCase({ observation, grading: { binding: authorizedCase.binding, reference }, provider, tools: [], experiment: ARENA_RAW_BASELINE });
+    expect(calls).toBe(1);
+    expect(run.status).toBe("provider_error");
+    expect(run.attempt).toEqual({ status: "provider_error" });
+    expect(run.providerUsage).toEqual({ status: "reported", tokens: { inputTokens: 20, outputTokens: 5, totalTokens: 25 }, providerTurnCount: 1 });
+    expect(run.events).toContainEqual(expect.objectContaining({ type: "provider_final", content, parseStatus: "invalid", finishReason, failureCode: "invalid_model_response" }));
+    expect(ArenaCoachRunResultSchema.parse(JSON.parse(JSON.stringify(run)))).toEqual(run);
+    const finalIndex = run.events.findIndex(e => e.type === "provider_final");
+    const recovered = recoverInterruptedArenaRun({ events: run.events.slice(0, finalIndex + 1), binding: authorizedCase.binding, reference });
+    expect(recovered.status).toBe("provider_error");
+    expect(recovered.attempt).toEqual(run.attempt);
+    expect(recovered.providerUsage).toEqual(run.providerUsage);
+    expect(calls).toBe(1);
   });
   it.each(["", "{}", "broken JSON", '{"tile":"9s","red":false}', '{"tile":"1m","red":false,"rationale":"extra"}'])("never repairs or re-asks invalid direct output %j", async content => {
     const { observation, authorizedCase } = makeArenaMcpCase(); let calls = 0;

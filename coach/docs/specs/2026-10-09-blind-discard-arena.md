@@ -437,6 +437,12 @@ request_prepared 与 request_audit；provider_final 保存有界原始最终回�
 空答和损坏 JSON 原文也不丢弃，usage 继续归属实际 provider_turn。预算仍约束上下文／输出／时间／事件大小，关闭模块不
 执行 helper 或检索。预取资料在 runner 的逐题／资料准备时限内执行；失败计 tool_failure 且不发送模型请求，不静默补齐。未请求的项不生成成功记录。
 
+HTTP 直接输出的结束原因或协议不合格时，仍先提取已报告 usage；有界可见 content
+（无 content 时的可见 refusal）通过 provider 失败结果的可选 finalResponse 留存，
+落为 provider_final 的 invalid、failureCode 与可选 finishReason。length 即使带完整合法
+JSON 也保持 provider_error，不自动重问或转为成功；不归档 reasoning 字段、工具模式的
+非工具 prose 或认证信息。可选字段兼容旧事件／档案读取。
+
 直接批次 `--max-requests N` 对持久化 dispatch intent 作保守计数；HTTP 路径不自动重试。
 Codex 内置通道物理次数未知时整批预检拒绝，不能把意图上限称为该通道的物理上限；
 失败前置检查也可能占用一个 intent，不能把它说成发生了真实付费调用。
@@ -445,6 +451,11 @@ Codex 内置通道物理次数未知时整批预检拒绝，不能把意图上�
 `--resume-run <runId>` 要求相同代码、配置、题集、预算、模型与 endpoint 身份；
 已完成题跳过，有意图但无完整结果的题从既有事件恢复（无答案则 cancelled、用量 unknown），
 绝不重发；仅派发从未记录请求意图且未超上限的题。已写入有效答案则保留该答案。
+若中断发生于 provider_final flush 后、submission_locked／submission_rejected 之前，
+使用 run_started 的冻结 observation 和 explanation 配置对原文执行相同 tile/red 校验，
+补齐锁定／拒绝事件与终态；非法、空答和损坏 JSON 仍为 invalid_submission。带 provider
+失败码的最终原文仍恢复为 provider_error，即使其 JSON 合法也不能成为提交。已有 terminal
+优先，已有 provider_turn usage 保留；没有回答和用量时才记 cancelled／unknown。
 中断丢失的私有评分标为 unavailable，不为它重新请求模型或猜标签。
 
 沿用 `/settings` 的模块配置、`/model-info` 的当前预览和 `/results?run=<id>` 的案例详情：

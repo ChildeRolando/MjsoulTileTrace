@@ -79,3 +79,33 @@ packages/desktop/tests/codex-arena-isolation.test.ts --maxWorkers=1 --no-file-pa
 不把本地自验或排队写成独立 PASS。
 
 最终收口复核：runner／原始模块 48 项通过，CLI／console／请求边界 66 项通过；外部源包后续变异不改变已冻结模块，实际请求字节 SHA-256 在 loopback 接收端直接计算。
+
+## PR #78 独立评审 R1／R2 修复
+
+本轮只处理两项 P2。R1 在 provider_final 已 flush、锁定事件尚未写入时，用冻结观察与
+配置重新校验原始 tile/red，补齐锁定／拒绝和 terminal；空答、损坏 JSON、非法牌保持
+invalid_submission，已有 terminal 优先，已报告用量保留，不重新请求模型。原先模拟
+“没有回答”的用例改为真实请求前缀，避免删掉 provider_turn 却仍留下最终回答。
+
+R2 在结束原因与协议校验前提取 usage，失败结果可选 finalResponse 仅保留有界可见
+content／refusal 与 finishReason；runner 归档带 failureCode 的 invalid provider_final。
+length 即使带完整合法 JSON 也保持 provider_error，恢复亦不将它改成成功。旧工具分支
+继续丢弃非工具 prose／隐藏推理；新事件字段均可选，旧档案可读。
+
+回归 owner 为既有 `blind-discard-arena-experiment.test.ts` 与
+`arena-tool-call-provider.test.ts`。先运行 experiment：旧实现 **7 failed／20 passed**，
+分别命中恢复错误和已报告用量丢失；修复后两个 suite **39 passed**。最终相关命令：
+
+```text
+npx --no-install vitest run packages/desktop/tests/blind-discard-arena packages/desktop/tests/arena-tool-call-provider.test.ts packages/desktop/tests/codex-coach-provider.test.ts packages/desktop/tests/coach-provider.test.ts packages/desktop/tests/codex-arena-isolation.test.ts scripts/arena- --maxWorkers=1 --no-file-parallelism
+```
+
+结果 **241 passed／4 skipped**，包含旧工具、归档、生产 provider 与控制台。3 个外部 CLI
+捕获和 1 个 native 用例保持 opt-in，本轮未重复显式真实 CLI 捕获。`npm run build`、
+`npm run typecheck`、`npm run check:architecture`（8 packages／616 files／3166 imports／
+0 violations）、`node --test smoke/package-import-smoke.mjs`（2 项）及 `git diff --check`
+通过。首次 typecheck 指出新增参数化夹具将数组展开为参数，改成对象行后 provider 12 项
+复测及完整 typecheck 均通过。
+全部请求均为本地／
+合成，真实模型调用 0；真实认证与服务端／物理重试边界仍未知，Terra 真实批次继续预检
+拒绝。此处为作者自验；修复 head 仍须登记 Multica 独立复审。
