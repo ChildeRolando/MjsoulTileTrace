@@ -19,6 +19,7 @@ import {
 } from "@riichi-coach/contracts";
 import { ARENA_ASSEMBLY_VERSION, projectArenaRawObservation } from "@riichi-coach/desktop/blind-discard-arena-experiment";
 import { calculateArenaBasicFacts } from "@riichi-coach/desktop/blind-discard-arena-basic-calculations";
+import { calculateArenaHandStructureFacts } from "@riichi-coach/desktop/blind-discard-arena-hand-structure";
 import {
   loadMahjongSoulProtocolBundle,
   mapMahjongSoulRecord,
@@ -751,12 +752,13 @@ export async function runCommand(options, moduleSources) {
           caseRef: observation.caseRef,
           ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
         });
-        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
-          let helper, basicCalculations, material, materialBaseline;
-          if (options.experiment.basicCalculations) {
+        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
+          let helper, basicCalculations, handStructureFacts, material, materialBaseline;
+          if (options.experiment.basicCalculations || options.experiment.handStructureFacts) {
             const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(coachRoot, "resources")));
             try {
-              basicCalculations = await calculateArenaBasicFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
+              if (options.experiment.basicCalculations) basicCalculations = await calculateArenaBasicFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
+              if (options.experiment.handStructureFacts) handStructureFacts = await calculateArenaHandStructureFacts({ binding, facts: entry.selected.facts, actionRefs: observation.candidates.map(c => c.actionRef), engine, signal });
             } finally { await engine.close(); }
           }
           if (options.experiment.helperFacts) {
@@ -775,7 +777,7 @@ export async function runCommand(options, moduleSources) {
             material = await retriever.query({ query: outputs.selection.query, limit: 3 });
             materialBaseline = await retriever.query({ query: outputs.selection.fixedQuery, limit: 3 });
           }
-          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(basicCalculations === undefined ? {} : { basicCalculations }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
+          return { ...outputs, ...(helper === undefined ? {} : { helper }), ...(basicCalculations === undefined ? {} : { basicCalculations }), ...(handStructureFacts === undefined ? {} : { handStructureFacts }), ...(material === undefined ? {} : { material }), ...(materialBaseline === undefined ? {} : { materialBaseline }) };
         } : undefined;
         if (!options.experiment || options.experiment.callableTools.includes("search_knowledge")) tools.push(ragTool);
         const offeredTools = options.experiment ? tools.filter(t => options.experiment.callableTools.includes(t.name)) : tools;
