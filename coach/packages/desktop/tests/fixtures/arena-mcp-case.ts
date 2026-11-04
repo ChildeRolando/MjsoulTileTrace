@@ -34,7 +34,7 @@ const tile = (id: Tile["id"], red = false): Tile => ({ id, red });
 const digest = (value: unknown) =>
   createHash("sha256").update(libriichiRuleCanonicalJson(value)).digest("hex");
 
-function realPrefixFixture() {
+function realPrefixFixture(changeFuture = false) {
   const events: CanonicalGameEvent[] = [
     { type: "game_started", eventId: `${gameIdCanary}/0/0/0`, sourceRecordRef: `${recordIdCanary}/0` },
     {
@@ -55,12 +55,17 @@ function realPrefixFixture() {
     { type: "tile_drawn", eventId: `${gameIdCanary}/0/10/0`, sourceRecordRef: `${recordIdCanary}/10`, actor: 0, tile: { visibility: "visible", tile: tile("6p") }, from: "live_wall" },
     { type: "tile_discarded", eventId: `${gameIdCanary}/0/11/0`, sourceRecordRef: `${recordIdCanary}/11`, actor: 0, tile: tile("6m"), discardMode: "tedashi", riichiDeclarationEventRef: null },
   ];
+  if (changeFuture) {
+    const future = events.at(-1)!;
+    if (future.type !== "tile_discarded") throw new Error("invalid_fixture");
+    future.tile = tile("1m");
+  }
   const stream: CanonicalEventStream = CanonicalEventStreamSchema.parse({
     schemaVersion: CANONICAL_EVENT_SCHEMA_VERSION,
     mapperVersion: "blind-arena-runner-test/v1",
     gameId: gameIdCanary,
     sourceKind: "fixture",
-    sourceRecordHash: `sha256:${"a".repeat(64)}`,
+    sourceRecordHash: `sha256:${(changeFuture ? "b" : "a").repeat(64)}`,
     playerCount: 4,
     selfActor: 0,
     completeness: {
@@ -94,12 +99,12 @@ function discardRows(request: LibriichiRuleRequest) {
   return LibriichiRuleResponseSchema.parse({ ...content, resultId: digest(content) });
 }
 
-export function makeArenaMcpCase(options: { includeRawEventOrder?: boolean; includeRawVisibleHistory?: boolean } = {}): {
+export function makeArenaMcpCase(options: { includeRawEventOrder?: boolean; includeRawVisibleHistory?: boolean; changeFuture?: boolean } = {}): {
   authorizedCase: ArenaMcpAuthorizedCase;
   observation: ReturnType<typeof createArenaBlindObservation>;
   aliases: ArenaRunAliasVault;
 } {
-  const { decision, request, stream } = realPrefixFixture();
+  const { decision, request, stream } = realPrefixFixture(options.changeFuture);
   const selected = screenArenaDecisions([{
     canonicalDecisionOrder: 0,
     decision: { decisionEventRef: decision.decisionEventRef, snapshot: decision.snapshot, facts: decision.facts },

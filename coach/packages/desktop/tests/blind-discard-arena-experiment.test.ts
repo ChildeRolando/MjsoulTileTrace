@@ -245,3 +245,14 @@ it("builds history from the frozen current-round canonical prefix", () => {
   expect(messages).not.toContain("gameId-CANARY"); expect(messages).not.toContain("recordId-CANARY");
   expect(messages).not.toContain("qValue");
 });
+
+it("future source mutations do not enter the visible history", () => {
+  const options = { includeRawEventOrder: true, includeRawVisibleHistory: true };
+  const a = makeArenaMcpCase(options).observation;
+  const b = makeArenaMcpCase({ ...options, changeFuture: true }).observation;
+  const normalized = (value: unknown) => JSON.stringify(value, (_key, item) =>
+    typeof item === "string" && item.startsWith("arena-ref:v1:") ? "opaque-reference" : item);
+  const first = assembleArenaExperiment({ observation:a, config:ARENA_RAW_BASELINE });
+  const second = assembleArenaExperiment({ observation:b, config:ARENA_RAW_BASELINE });
+  expect(normalized(first.modules.raw)).toEqual(normalized(second.modules.raw));
+});
