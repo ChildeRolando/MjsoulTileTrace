@@ -190,6 +190,9 @@ export function parseArgs(argv) {
     throw new Error("arena_option_unknown");
   }
   const datasetId = options["--dataset"];
+  // Public replay batches have a separate source-bound research composition;
+  // this fixture-oriented CLI must never silently relabel its default source.
+  if (datasetId === "blind-discard-public-replay-v1") throw new Error("arena_public_replay_cli_not_wired");
   let experiment;
   if (options["--experiment"] !== undefined) {
     try { experiment = ArenaExperimentConfigSchema.parse(options["--experiment"] === "raw" ? ARENA_RAW_BASELINE : JSON.parse(options["--experiment"])); }
@@ -378,6 +381,7 @@ export function selectExperimentPool(pool, datasetId) {
 }
 
 async function makeFrozenDataset(runtime, options = { datasetId: "blind-discard-smoke-v1", maxCases: 3, caseOffset: 0 }) {
+  if (options.datasetId === "blind-discard-public-replay-v1") throw new Error("arena_public_replay_cli_not_wired");
   if (options.datasetId === GENERATED_DATASET) return makeGeneratedDataset(runtime, options);
   const source = arenaDatasetSource(options.datasetId);
   const fixtureBytes = await readFile(source.fixturePath);
