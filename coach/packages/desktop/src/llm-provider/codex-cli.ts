@@ -937,6 +937,7 @@ export function createCodexArenaToolCallProvider(input: {
       const parsed = ArenaProviderRequestSchema.safeParse(raw);
       if (!parsed.success) return { status: "provider_error" };
       const request = parsed.data;
+      if (Buffer.byteLength(JSON.stringify({ messages: request.messages, tools: request.tools }), "utf8") > request.maxInputBytes) return { status: "input_too_large" };
       if (request.outputSchema !== undefined || request.requireIsolatedContext === true) {
         if (input.isolation && (input.isolation.loopbackProbe || input.isolation.runtimePin) && input.modelName === "gpt-6.1-terra" && input.reasoningEffort === "high" && request.outputSchema && request.messages.length === 2 && request.messages[0]?.role === "system" && request.messages[1]?.role === "user") {
           const boundary = { instructions: request.messages[0].content, user: request.messages[1].content, outputSchema: request.outputSchema, tools: [] };

@@ -345,10 +345,11 @@ class ArenaRunAbort extends Error {
   constructor(readonly status: "timeout" | "cancelled" | "tool_timeout") { super(status); }
 }
 
-function resolveRunLimits(raw: Partial<ArenaRunLimits> | undefined): ArenaRunLimits {
+function resolveRunLimits(raw: Partial<ArenaRunLimits> | undefined, textbookBudget = false): ArenaRunLimits {
   const limits = ArenaRunLimitsSchema.parse({ ...ARENA_RUN_LIMITS_V1, ...raw });
   for (const key of Object.keys(ARENA_RUN_LIMITS_V1) as Array<keyof ArenaRunLimits>) {
     if (key === "schemaVersion" || key === "maxProviderOutputTokens") continue;
+    if (key === "maxContextInputBytes" && textbookBudget && limits[key] <= 256 * 1024) continue;
     if (limits[key] > ARENA_RUN_LIMITS_V1[key]) throw new Error("arena_run_limit_exceeds_v1_maximum");
   }
   return limits;
@@ -796,7 +797,7 @@ export async function runBlindCoachCase(input: {
   moduleMaterialBaseline?: unknown;
   moduleScenario?: unknown;
   moduleSelection?: unknown;
-  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
+  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
   limits?: Partial<ArenaRunLimits>;
   signal?: AbortSignal;
   clock?: () => number;
@@ -804,7 +805,9 @@ export async function runBlindCoachCase(input: {
   onEvent?: (event: ArenaRunEvent) => void;
 }): Promise<ArenaCoachRunResult> {
   const observation = ArenaBlindObservationSchema.parse(input.observation);
-  const limits = resolveRunLimits(input.limits);
+  const experimentConfig = input.experiment === undefined ? undefined : ArenaExperimentConfigSchema.parse(input.experiment);
+  const limits = resolveRunLimits(input.limits, Boolean(experimentConfig?.textbookInputBudget));
+  if (experimentConfig?.textbookInputBudget && limits.maxContextInputBytes !== 256 * 1024) throw new Error("arena_textbook_budget_mismatch");
   if (input.grading.binding.caseRef !== observation.caseRef ||
       input.grading.binding.candidates.length !== observation.candidates.length ||
       input.grading.binding.candidates.some((candidate, index) => candidate.actionRef !== observation.candidates[index]?.actionRef)) {
@@ -818,7 +821,6 @@ export async function runBlindCoachCase(input: {
     toolMap.set(tool.name, tool);
   }
   if (toolMap.size > 16) throw new Error("arena_runner_tool_count_invalid");
-  const experimentConfig = input.experiment === undefined ? undefined : ArenaExperimentConfigSchema.parse(input.experiment);
   let assembly: ReturnType<typeof assembleArenaExperiment> | undefined;
   let preparationFailed = false;
   const direct = experimentConfig?.submission === "tile-red";
@@ -1050,6 +1052,7 @@ export async function runBlindCoachCase(input: {
           ...(direct ? { outputSchema: assembly!.outputSchema } : {}),
           maxOutputTokens: limits.maxProviderOutputTokens,
           maxInputBytes: limits.maxContextInputBytes,
+          ...(experimentConfig?.textbookInputBudget ? { inputProfile: "textbook-decision-v1" as const } : {}),
           maxOutputBytes: Math.min(
             limits.maxProviderOutputBytesPerTurn,
             limits.maxProviderOutputBytesPerRun - totalProviderOutputBytes,

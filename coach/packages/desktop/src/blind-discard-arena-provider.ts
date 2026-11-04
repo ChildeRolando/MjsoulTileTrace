@@ -7,6 +7,7 @@ import { z } from "zod";
 const TOOL_NAME = /^[a-z][a-z0-9_]{0,63}$/;
 const MAX_REQUEST_MESSAGES = 64;
 export const ARENA_PROVIDER_MAX_INPUT_BYTES = 64 * 1024;
+export const ARENA_TEXTBOOK_MAX_INPUT_BYTES = 256 * 1024;
 export const ARENA_PROVIDER_MAX_OUTPUT_BYTES = 16 * 1024;
 
 export const ARENA_TOOL_CALL_PROMPT_VERSION = "blind-discard-arena-method/v2";
@@ -41,8 +42,8 @@ const ArenaProviderToolCallSchema = z.object({
 export type ArenaProviderToolCall = z.infer<typeof ArenaProviderToolCallSchema>;
 
 export const ArenaProviderMessageSchema = z.discriminatedUnion("role", [
-  z.object({ role: z.literal("system"), content: z.string().min(1).max(ARENA_PROVIDER_MAX_INPUT_BYTES) }).strict(),
-  z.object({ role: z.literal("user"), content: z.string().min(1).max(ARENA_PROVIDER_MAX_INPUT_BYTES) }).strict(),
+  z.object({ role: z.literal("system"), content: z.string().min(1).max(ARENA_TEXTBOOK_MAX_INPUT_BYTES) }).strict(),
+  z.object({ role: z.literal("user"), content: z.string().min(1).max(ARENA_TEXTBOOK_MAX_INPUT_BYTES) }).strict(),
   z.object({ role: z.literal("assistant"), toolCalls: z.array(ArenaProviderToolCallSchema).min(1).max(1) }).strict(),
   z.object({
     role: z.literal("tool"),
@@ -58,9 +59,13 @@ export const ArenaProviderRequestSchema = z.object({
   outputSchema: JsonObjectSchema.optional(),
   requireIsolatedContext: z.boolean().optional(),
   maxOutputTokens: z.number().int().positive().safe(),
-  maxInputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_INPUT_BYTES),
+  maxInputBytes: z.number().int().min(1).max(ARENA_TEXTBOOK_MAX_INPUT_BYTES),
+  inputProfile: z.enum(["textbook-selector-v1", "textbook-decision-v1"]).optional(),
   maxOutputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
 }).strict().superRefine((request, context) => {
+  const ceiling = request.inputProfile === "textbook-selector-v1" ? 128 * 1024 : request.inputProfile === "textbook-decision-v1" ? ARENA_TEXTBOOK_MAX_INPUT_BYTES : ARENA_PROVIDER_MAX_INPUT_BYTES;
+  if (request.maxInputBytes > ceiling || request.messages.some(message => (message.role === "system" || message.role === "user") && message.content.length > ceiling)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_input_profile_limit" });
+  if (request.inputProfile && (request.tools.length !== 0 || !request.outputSchema || request.requireIsolatedContext !== true)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_textbook_profile_requires_isolation" });
   if ((request.tools.length === 0) !== (request.outputSchema !== undefined)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_output_protocol_mismatch" });
 });
 export type ArenaProviderRequest = z.infer<typeof ArenaProviderRequestSchema>;

@@ -8,7 +8,6 @@ import { createHash } from "node:crypto";
 import type { ProviderCredentials } from "./credentials.js";
 import { normalizeTokenUsage } from "./token-usage.js";
 import {
-  ARENA_PROVIDER_MAX_INPUT_BYTES,
   ARENA_PROVIDER_MAX_OUTPUT_BYTES,
   ArenaProviderRequestSchema,
   ArenaToolCallProviderResultSchema,
@@ -127,7 +126,7 @@ export function createOpenAiArenaToolCallProvider(input: {
         stream: false,
       };
       const body = JSON.stringify(requestBody);
-      if (Buffer.byteLength(body, "utf8") > checked.data.maxInputBytes || checked.data.maxInputBytes > ARENA_PROVIDER_MAX_INPUT_BYTES) return { status: "input_too_large" };
+      if (Buffer.byteLength(body, "utf8") > checked.data.maxInputBytes) return { status: "input_too_large" };
 
       let key: string | null;
       try { key = await input.credentials.readKey(); } catch { key = null; }

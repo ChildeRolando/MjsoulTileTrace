@@ -576,7 +576,7 @@ export async function runCommand(options, moduleSources) {
     if (options.experiment?.submission === "tile-red") releaseRunMutex = await acquireRunMutex(runDirectory);
     const descriptorProvider = providerFor(options.providerSettings, { readKey: async () => apiKey }, options.arenaCodex);
     const preflight = options.experiment ? await descriptorProvider.preflight?.() : undefined;
-    const sourceMissing = options.experiment && ((options.experiment.scenarioHint && typeof moduleSources?.scenario !== "function") || (options.experiment.teaching === "on" && typeof moduleSources?.selection !== "function"));
+    const sourceMissing = options.experiment && ((options.experiment.wholeUnitFacts && typeof moduleSources?.wholeUnit !== "function") || (options.experiment.scenarioHint && typeof moduleSources?.scenario !== "function") || (options.experiment.teaching === "on" && typeof moduleSources?.selection !== "function"));
     if (preflight?.status === "unavailable" || sourceMissing) {
       await writeJson(join(runDirectory, "preflight.json"), { status: "rejected", reason: sourceMissing ? "arena_module_sources_unavailable" : preflight.reason, plannedCaseCount: options.maxCases, dispatchedCases: 0, modelRequests: 0 });
       throw new Error(sourceMissing ? "arena_module_sources_unavailable" : "arena_provider_preflight_unavailable");
@@ -625,6 +625,7 @@ export async function runCommand(options, moduleSources) {
       ? "not_configured"
       : apiKey === null || apiKey.trim().length === 0 ? "missing" : "available";
     const limits = getRunLimits(options.budget);
+    if (options.experiment?.textbookInputBudget) limits.maxContextInputBytes = 256 * 1024;
     const manifest = ArenaArchiveManifestSchema.parse({
       schemaVersion: "blind-discard-arena-run-manifest/v1",
       runId,
@@ -754,7 +755,7 @@ export async function runCommand(options, moduleSources) {
           caseRef: observation.caseRef,
           ...(applicabilityGate === undefined ? {} : { applicabilityGate }),
         });
-        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts || options.experiment.defenseFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
+        const prepareModules = options.experiment && (options.experiment.helperFacts || options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts || options.experiment.defenseFacts || options.experiment.wholeUnitFacts || options.experiment.teaching === "on" || options.experiment.scenarioHint) ? async ({ signal }) => {
           let helper, basicCalculations, handStructureFacts, improvementFacts, defenseFacts, material, materialBaseline;
           if (options.experiment.basicCalculations || options.experiment.handStructureFacts || options.experiment.improvementFacts || options.experiment.defenseFacts) {
             const engine = new JsonlFactEngineClient(new ManagedFactEngineTransport(join(coachRoot, "resources")));
@@ -772,6 +773,7 @@ export async function runCommand(options, moduleSources) {
             helper = source.parseOutput(await source.execute(query, { caseRef: observation.caseRef, signal }));
           }
           const raw = projectArenaRawObservation(observation), outputs = {};
+          if (options.experiment.wholeUnitFacts) { const unit = await moduleSources.wholeUnit({ caseRef: observation.caseRef, raw, basicCalculations, signal }); outputs.wholeUnitFacts = unit.wholeUnitFacts; outputs.textbookLibrary = unit.textbookLibrary; }
           if (options.experiment.scenarioHint) outputs.scenario = await moduleSources.scenario({ raw, ...(helper ? { helper } : {}), signal });
           // Fixed selection never receives the visible hint switch, its output, or helper.
           if (options.experiment.teaching === "on") outputs.selection = await moduleSources.selection({ raw, mode: options.experiment.materialRouting,

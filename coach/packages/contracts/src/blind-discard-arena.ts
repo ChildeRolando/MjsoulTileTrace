@@ -29,6 +29,8 @@ export const ArenaExperimentConfigSchema = z.object({
   handStructureFacts: z.boolean().optional(),
   improvementFacts: z.boolean().optional(),
   defenseFacts: z.boolean().optional(),
+  textbookInputBudget: z.boolean().optional(),
+  wholeUnitFacts: z.boolean().optional(),
   scenarioHint: z.boolean(),
   teaching: z.enum(["off", "on"]),
   materialRouting: z.enum(["fixed", "scenario"]),
@@ -43,6 +45,8 @@ export const ArenaExperimentConfigSchema = z.object({
   if (config.handStructureFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_hand_structure_requires_candidates_and_no_tools");
   if (config.improvementFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_improvement_requires_candidates_and_no_tools");
   if (config.defenseFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length || config.handStructureFacts || config.improvementFacts || config.teaching === "on" || config.scenarioHint || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_defense_requires_candidates_and_no_other_interventions");
+  if ((config.textbookInputBudget || config.wholeUnitFacts) && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_textbook_intervention_invalid");
+  if (config.wholeUnitFacts && !config.textbookInputBudget) reject("arena_textbook_budget_required");
   if (config.submission === "tool" && (!config.legalCandidates || !config.explanation)) reject("arena_legacy_submission_requires_candidates_and_explanation");
   if (config.submission === "tile-red" && config.callableTools.length > 0) reject("arena_direct_submission_has_no_tool_loop");
   if (config.teaching === "off" && (config.materialRouting === "scenario" || config.callableTools.includes("search_knowledge"))) reject("arena_routing_requires_teaching");

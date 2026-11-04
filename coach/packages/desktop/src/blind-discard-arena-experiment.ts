@@ -9,6 +9,7 @@ import { z } from "zod";
 import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
 import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
 import { ArenaHandStructureFactsSchema } from "./blind-discard-arena-hand-structure.js";
+import { validateWholeUnitFacts } from "./blind-discard-arena-textbook-unit.js";
 import { ArenaDefenseFactsSchema } from "./blind-discard-arena-defense.js";
 import { ArenaImprovementFactsSchema } from "./blind-discard-arena-improvement.js";
 import type { ArenaProviderMessage, ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
@@ -86,7 +87,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -112,6 +113,9 @@ export function assembleArenaExperiment(input: {
     const expected = observation.visibleState.riichiStates.filter(t => t.actor !== observation.decision.selfActor && t.status !== "none").map(t => [t.actor, t.status === "accepted" ? "riichi_accepted" : "riichi_declared"]);
     if (JSON.stringify(actual) !== JSON.stringify(expected) || defenseFacts.threats.some(t => t.actor === observation.decision.selfActor)) throw new Error("arena_defense_threat_binding_mismatch");
   }
+  if (Boolean(config.wholeUnitFacts) !== (input.wholeUnitFacts !== undefined)) throw new Error("arena_textbook_facts_mismatch");
+  if (!config.wholeUnitFacts && input.textbookLibrary !== undefined) throw new Error("arena_textbook_library_unexpected");
+  const wholeUnitFacts = input.wholeUnitFacts === undefined ? undefined : validateWholeUnitFacts({ library: input.textbookLibrary, caseRef: observation.caseRef, packet: structuredClone(input.wholeUnitFacts) });
   if ((config.teaching === "on") !== (input.material !== undefined)) throw new Error("arena_module_material_mismatch");
   if (config.teaching === "off" && input.materialBaseline !== undefined) throw new Error("arena_module_material_mismatch");
   const helper = input.helper === undefined ? undefined : ArenaMcpResultSchema.parse(structuredClone(input.helper));
@@ -138,6 +142,7 @@ export function assembleArenaExperiment(input: {
     ...(handStructureFacts ? { handStructureFacts } : {}),
     ...(improvementFacts ? { improvementFacts } : {}),
     ...(defenseFacts ? { defenseFacts } : {}),
+    ...(wholeUnitFacts ? { wholeUnitFacts } : {}),
     ...(scenario ? { scenarioHint: scenario } : {}),
     ...(material ? { material } : {}),
   };
@@ -151,6 +156,7 @@ export function assembleArenaExperiment(input: {
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
     ...(basicCalculations ? { basicCalculations: { sourceId: "mahjong-helper-hand13", version: basicCalculations.version, producer: basicCalculations.producer } } : {}),
     ...(handStructureFacts ? { handStructureFacts: { sourceId: "mahjong-hand-structure", version: handStructureFacts.version, producer: handStructureFacts.producer } } : {}),
+    ...(wholeUnitFacts ? { wholeUnitFacts: { sourceId: "textbook-whole-unit-index", version: "ceiling-whole-unit-index/v1", indexSha256: wholeUnitFacts.indexSha256, corpusId: wholeUnitFacts.corpusId, ...(wholeUnitFacts.status === "selected" ? { unitId: wholeUnitFacts.unit.id, contentDigest: wholeUnitFacts.unit.contentDigest } : {}) } } : {}),
     ...(defenseFacts ? { defenseFacts: { sourceId: "mahjong-helper-defense", version: defenseFacts.version, producer: defenseFacts.producer } } : {}),
     ...(improvementFacts ? { improvementFacts: { sourceId: "mahjong-helper-hand13-improves", version: improvementFacts.version, producer: improvementFacts.producer } } : {}),
     ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
