@@ -15,3 +15,4 @@ await build({ absWorkingDir: root, entryPoints: ['arena-console/trace/view.jsx']
     builder.onLoad({ filter: /tool-call-card\.tsx$/ }, () => ({ loader: 'tsx',
       contents: source.replace(/<style href="ui-tool-call" precedence="default">\s*\{css\}\s*<\/style>/g, '') }));
   } }] });
+await build({absWorkingDir:root,entryPoints:['arena-console/research/reader.jsx'],outfile:'arena-console/dist/reader.mjs',bundle:true,minify:true,format:'esm',jsx:'automatic',define:{'process.env.NODE_ENV':'"production"'},legalComments:'linked'});

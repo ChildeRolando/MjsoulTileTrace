@@ -61,8 +61,10 @@ test('console persists public settings, never returns or saves the API key, and 
   }
   const mistakes = await fetch(f.url + '/api/mistakes').then(r => r.json());
   assert.equal((await fetch(f.url + '/research.mjs')).status, 200);
+  for(const asset of ['/reader.mjs','/reader.css','/reader.mjs.LEGAL.txt'])assert.equal((await fetch(f.url+asset)).status,200);
   assert.deepEqual((await fetch(f.url + '/api/research').then(r => r.json())).studies, []);
   assert.equal((await fetch(f.url + '/api/research/unknown')).status, 404);
+  assert.equal((await fetch(f.url + '/api/research/unknown/cases/basic/0')).status, 404);
   assert.equal(mistakes.questions.length, 0);
   assert.equal(mistakes.totals.errors, 0);
   assert.equal((await fetch(f.url + '/api/mistakes?type=invalid')).status, 400);

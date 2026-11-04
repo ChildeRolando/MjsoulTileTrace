@@ -1,6 +1,7 @@
 import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
 import { join, relative, isAbsolute } from 'node:path';
 import { createHash } from 'node:crypto';
+import { readResearchCase } from './arena-research-case.mjs';
 const id = value => createHash('sha256').update(value).digest('hex').slice(0,24);
 const hiddenName = /preflight|synthetic|fixture|smoke|diagnostic|preparation|prep-|audit/i;
 const locations = ['', 'independent-statistics', 'execution-receipt', 'arena-integration'];
@@ -69,5 +70,11 @@ export function createResearchLibrary(configFile) {
       }
       return {...publicStudy(s),groups,statisticsStatus,statisticsError};
     }, document,
+    async case(key, group, caseIndex) {
+      const s=await study(key), detail=await this.detail(key);
+      const g=detail.groups.find(g=>g.name===group);
+      if(!g || !Number.isInteger(caseIndex) || caseIndex<0 || caseIndex>=g.cases.length)throw error('找不到该研究案例。');
+      return readResearchCase(s.directory,group,g.cases[caseIndex]);
+    },
   };
 }
