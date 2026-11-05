@@ -27,6 +27,7 @@ export const ArenaExperimentConfigSchema = z.object({
   helperFacts: z.boolean(),
   basicCalculations: z.boolean().optional(),
   helperForecasts: z.boolean().optional(),
+  compactReferences: z.boolean().optional(),
   handStructureFacts: z.boolean().optional(),
   improvementFacts: z.boolean().optional(),
   defenseFacts: z.boolean().optional(),
@@ -46,6 +47,7 @@ export const ArenaExperimentConfigSchema = z.object({
   if ((config.helperFacts || config.callableTools.includes("analyze_candidates")) && !config.legalCandidates) reject("arena_helper_requires_candidates");
   if (config.basicCalculations && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_basic_calculations_requires_candidates_and_no_tools");
   if (config.helperForecasts && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.fiveAxisFramework || config.structuredBrief || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_helper_forecast_intervention_invalid");
+  if (config.compactReferences && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.helperForecasts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.fiveAxisFramework || config.structuredBrief || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_compact_references_intervention_invalid");
   if (config.handStructureFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_hand_structure_requires_candidates_and_no_tools");
   if (config.improvementFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_improvement_requires_candidates_and_no_tools");
   if (config.defenseFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length || config.handStructureFacts || config.improvementFacts || config.teaching === "on" || config.scenarioHint || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_defense_requires_candidates_and_no_other_interventions");
