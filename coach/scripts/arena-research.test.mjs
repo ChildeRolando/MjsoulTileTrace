@@ -5,6 +5,7 @@ import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {createHash} from 'node:crypto';
 import {createResearchLibrary} from '../bin/arena-research.mjs';
+import {readResearchReference} from '../bin/arena-research-reference.mjs';
 async function fixture(t) {
  const root=await mkdtemp(join(tmpdir(),'arena-research-'));
  const after=callback=>typeof t.after==='function'?t.after(callback):t.onTestFinished(callback);
@@ -60,4 +61,24 @@ test('historical groups resolve only catalogued hash-bound sources with the same
  await assert.rejects(()=>f.lib.case(s.id,'reused',0),/来源未能唯一/);
  await f.write('current','independent-statistics/reuse-registry.json',{groups:[{...registry.groups[0],archive:join(f.root,'outside')}]});
  await assert.rejects(()=>f.lib.case(s.id,'reused',0),/来源未能唯一/);
+});
+
+for(const format of ['rows','files','source-binding'])test(`Mortal reference restores the bound recommendation (${format})`,async t=>{
+ const f=await fixture(t), summary={caseId:'case-a',caseIndex:0}, action='action-red-five';
+ const observation={caseRef:'ref-a',candidates:[{actionRef:action,tile:{id:'5m',red:true}}]};
+ const label={caseId:'case-a',caseRef:'ref-a',label:{caseRef:'ref-a',actionRef:action}};
+ const sha=v=>createHash('sha256').update(JSON.stringify(v)).digest('hex'), path='scoring-preparation/private/000-case-a.json';
+ await f.write('source',path,label);
+ const rows=[{caseId:'case-a',caseRef:'ref-a',privateSha256:sha(label)}];
+ if(format==='rows')await f.write('current','independent-statistics/input-binding.json',{rows});
+ if(format==='files')await f.write('current','independent-statistics/input-binding.json',{files:[{path:join(f.sources,'source',path),sha256:sha(label)}]});
+ if(format==='source-binding'){
+  const source={cases:rows};await f.write('source','independent-statistics/source-binding.json',source);
+  await f.write('current','independent-statistics/selector-static-binding.json',{defenseSourceBindingSha256:sha(source)});
+ }
+ const current=join(f.sources,'current'), roots=[current,join(f.sources,'source')];
+ assert.equal((await readResearchReference(current,summary,observation,roots)).reference,action);
+ await assert.rejects(()=>readResearchReference(current,summary,{...observation,candidates:[]},roots),/当前案例/);
+ await f.write('source',path,{...label,label:{caseRef:'ref-a',actionRef:'changed'}});
+ await assert.rejects(()=>readResearchReference(current,summary,observation,roots),/未找到/);
 });

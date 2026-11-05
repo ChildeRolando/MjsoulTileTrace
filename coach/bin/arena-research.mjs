@@ -2,6 +2,7 @@ import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
 import { join, relative, isAbsolute } from 'node:path';
 import { createHash } from 'node:crypto';
 import { readResearchCase } from './arena-research-case.mjs';
+import { readResearchReference } from './arena-research-reference.mjs';
 const id = value => createHash('sha256').update(value).digest('hex').slice(0,24);
 const hiddenName = /preflight|synthetic|fixture|smoke|diagnostic|preparation|prep-|audit/i;
 const locations = ['', 'independent-statistics', 'execution-receipt', 'arena-integration'];
@@ -109,7 +110,12 @@ export function createResearchLibrary(configFile) {
           return {...restored,summary,source:`历史复用：${candidate.name} / ${restored.source}`};
         }
       }
-      return readResearchCase(s.directory,group,g.cases[caseIndex]);
+      const restored=await readResearchCase(s.directory,group,g.cases[caseIndex]);
+      if(!restored.reference&&restored.observation) {
+        try {Object.assign(restored,await readResearchReference(s.directory,summary,restored.observation,(await index()).studies.map(s=>s.directory)));}
+        catch {restored.referenceError='Mortal 推荐归档校验未通过';}
+      }
+      return restored;
     },
   };
 }
