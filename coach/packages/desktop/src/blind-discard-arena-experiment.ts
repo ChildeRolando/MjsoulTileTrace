@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { FIVE_AXIS_FRAMEWORK_V1 } from "./blind-discard-arena-five-axis-v1-asset.js";
+import { DISCARD_ORDER_KNOWLEDGE, FINAL_FORM_PLANNING } from "./blind-discard-arena-prompt-study-assets.js";
 import { FIVE_AXIS_FRAMEWORK, GENERIC_BRIEF_PROMPT, GENERIC_BRIEF_OUTPUT_SCHEMA } from "./blind-discard-arena-five-axis-assets.js";
 import {
   ArenaBlindObservationSchema, ArenaDirectAnswerSchema, ArenaDirectSubmissionSchema, ArenaStructuredBriefAnswerSchema,
@@ -91,6 +92,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
     ...(config.fiveAxisFrameworkV1Forecast ? [FIVE_AXIS_FRAMEWORK_V1.replace(/[\r\n]+$/u, "")] : []),
     ...(config.structuredBrief ? [GENERIC_BRIEF_PROMPT.replace(/[\r\n]+$/u, "")] : []),
     ...(config.explanation && config.submission === "tile-red" ? ["Also include a concise public rationale in the JSON."] : []),
+    ...(config.promptStudy ? [config.promptStudy === "discardOrder" ? DISCARD_ORDER_KNOWLEDGE : FINAL_FORM_PLANNING] : []),
   ].join("\n").replace(/[\r\n]+$/u, "");
 }
 
@@ -184,6 +186,7 @@ export function assembleArenaExperiment(input: {
     ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
     ...(material ? { material: { sourceId: "arena-local-retriever", version: material.retrieverVersion, corpusVersion: material.corpusVersion }, selection } : {}),
     ...(config.fiveAxisFrameworkV1Forecast ? { promptExperiment: { sourceId: "arena-five-axis-study", version: "v1", frameworkSha256: "29c588517c28ec483b435343eef925caa30715b0c1806bc9f56476f201058cee" } } : {}),
+    ...(config.promptStudy ? { promptStudy: { sourceId: "arena-discard-order-final-form-study", version: "v1", asset: config.promptStudy } } : {}),
     ...((config.fiveAxisFramework || config.structuredBrief) ? { promptExperiment: { sourceId: "arena-five-axis-study", version: config.fiveAxisFramework ? "v2" : "v1", ...(config.fiveAxisFramework ? { frameworkSha256: "08257097f76498068b6250a9a33aa444f13903d227fcd761342560156f528802" } : {}), ...(config.structuredBrief ? { briefPromptSha256: "e0bde17d9ff3f6bd808fc41bd637e0d03bf51ec99410bacec35fe7ab3d412b3a", briefSchemaSha256: "b49c26f6bae80fbcd9a5b4f8bf489488cd54c27f1061dea05d0a6c33b965cdec" } : {}) } } : {}),
     ...((config.comparison || config.explanation) ? { responseInstructions: { sourceId: "arena-experiment-prompt", version } } : {}),
     ...(tools.length ? { tools: { sourceId: "arena-runner-tools", version: "arena-function-call/v1" } } : {}),

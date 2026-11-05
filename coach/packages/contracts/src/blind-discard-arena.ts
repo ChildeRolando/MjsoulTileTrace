@@ -36,6 +36,7 @@ export const ArenaExperimentConfigSchema = z.object({
   textbookInputBudget: z.boolean().optional(),
   wholeUnitFacts: z.boolean().optional(),
   fiveAxisFramework: z.boolean().optional(),
+  promptStudy: z.enum(["discardOrder", "finalForm"]).optional(),
   fiveAxisFrameworkV1Forecast: z.boolean().optional(),
   structuredBrief: z.boolean().optional(),
   scenarioHint: z.boolean(),
@@ -54,6 +55,7 @@ export const ArenaExperimentConfigSchema = z.object({
   if (config.fiveAxisFrameworkV1Forecast && (!config.helperForecasts || config.fiveAxisFramework || config.structuredBrief || config.compactReferences)) reject("arena_v1_forecast_intervention_invalid");
   if (config.selectiveCalculation && (!config.legalCandidates || config.submission !== "tile-red" || config.helperFacts || config.basicCalculations || config.helperForecasts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.fiveAxisFramework || config.fiveAxisFrameworkV1Forecast || config.structuredBrief || config.compactReferences || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || JSON.stringify(config.callableTools) !== JSON.stringify(config.selectiveCalculation === "query" ? ["analyze_candidates"] : []))) reject("arena_selective_calculation_invalid");
   if (config.publicTableRepresentation && config.selectiveCalculation !== "control") reject("arena_public_table_requires_control");
+  if (config.promptStudy && !config.fiveAxisFramework) reject("arena_prompt_study_requires_five_axis");
   if (config.handStructureFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_hand_structure_requires_candidates_and_no_tools");
   if (config.improvementFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_improvement_requires_candidates_and_no_tools");
   if (config.defenseFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length || config.handStructureFacts || config.improvementFacts || config.teaching === "on" || config.scenarioHint || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_defense_requires_candidates_and_no_other_interventions");
