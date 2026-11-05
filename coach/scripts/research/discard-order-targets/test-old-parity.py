@@ -1,0 +1,8 @@
+import json,subprocess,sys
+from pathlib import Path
+P=Path('E:/AgentData/Coach/llm-discard-order-final-form-20261106/target-sample');base=Path('E:/AgentData/Coach/llm-defense-ablation-20261104/sample-preparation-v2');s=json.loads((base/'sample-freeze.json').read_text(encoding='utf8'));x={**s['cases'][154],'edge':['8p','9p']};p=subprocess.Popen(['node','scripts/research/discard-order-targets/validate-window.mjs'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,encoding='utf8');out={}
+try:
+ p.stdin.write(json.dumps(x)+'\n');p.stdin.flush();r=json.loads(p.stdout.readline());assert r['ok'],r.get('error');p.stdin.write('{"op":"counts"}\n');p.stdin.flush();counts=json.loads(p.stdout.readline());old=json.loads((Path('E:/AgentData/Coach/llm-defense-module-20261104/new200/basic')/('154-'+x['caseId']+'.json')).read_text(encoding='utf8'));expected={z['actionRef']:z for z in old['candidates']};pairs=r['result']['basicPairs'];assert pairs and all(expected[a['actionRef']]==a for pair in pairs for a in pair);out={'status':'pass','checks':['historical successful case basic edge rows exact equality','native candidate count parity','new prefix invariant test separately'], 'oldCandidateCount':len(old['candidates']),'newCandidateCount':len(r['result']['binding']['candidates']),'counts':counts};assert out['oldCandidateCount']==out['newCandidateCount']
+except Exception as e:out={'status':'error','error':str(e),'counts':r.get('calls') if 'r' in locals() else None}
+finally:p.stdin.close();p.wait()
+(P/'old-result-parity.json').open('x',encoding='utf8').write(json.dumps(out,ensure_ascii=False,indent=2));print(json.dumps(out,ensure_ascii=False));sys.exit(0 if out['status']=='pass' else 1)

@@ -55,7 +55,7 @@ export function parseMjai(raw) { return parseMjaiDocument(raw).rows; }
 // Fixed tuples, one linear pass. Dora publication can move around a discard in
 // third-party converters; preserve its per-round sequence but not that timing
 // in game identity. The original representation remains separately addressable.
-export function mjaiIdentityProjection(rows) {
+export function mjaiIdentityProjection(rows, { allowOpen = false } = {}) {
   const out = [], doras = [];
   let open = false, terminal = false, rounds = 0;
   for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
@@ -103,7 +103,7 @@ export function mjaiIdentityProjection(rows) {
       default: throw new Error(`unsupported_mjai_event:${r.type}`);
     }
   }
-  if (open || rounds === 0) throw new Error('incomplete_game');
+  if ((!allowOpen && open) || rounds === 0) throw new Error('incomplete_game');
   return out;
 }
 

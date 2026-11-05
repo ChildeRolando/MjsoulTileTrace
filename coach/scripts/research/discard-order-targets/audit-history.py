@@ -1,0 +1,13 @@
+import os,json,hashlib,re
+from pathlib import Path
+B=Path('E:/AgentData/Coach'); P=B/'llm-discard-order-final-form-20261106/target-sample'; preliminary=P/'source-frame.json'; data=json.loads(preliminary.read_text(encoding='utf8')); candidates=data['candidates']; games={x['gameId'] for x in candidates}; hashes={x['sourceHash'] for x in candidates}; hitg=set();hith=set(); sources=[]
+for d in sorted(B.iterdir()):
+ if not d.is_dir() or not (d.name.startswith(('student-','llm-','scene-','encoder-','ceiling-','sealed-')) or d.name=='auto-research-90-20261104'):continue
+ if d.name=='llm-discard-order-final-form-20261106':continue
+ for base,dirs,files in os.walk(d):
+  dirs[:]=sorted(x for x in dirs if x not in ('node_modules','blind','private','features','intents','requests','knowledge','synthetic-e2e','synthetic-e2e-before-riichi-declared','fake-study'))
+  for n in sorted(files):
+   if not n.endswith(('.json','.jsonl')) or not any(s in n for s in ('sample-freeze','screening','prior-index','history-freeze','source-exposures','historical-exclusions','research-read-exclusions')):continue
+   p=Path(base)/n;b=p.read_bytes(); s=b.decode('utf-8-sig'); toks=set(re.findall(r'rc1_[0-9a-f]{64}|(?<![0-9a-f])[0-9a-f]{64}(?![0-9a-f])',s));g=toks&games;h=toks&hashes;hitg.update(g);hith.update(h);sources.append({'path':p.as_posix(),'sha256':hashlib.sha256(b).hexdigest(),'candidateGameHits':sorted(g),'candidateHashHits':sorted(h)})
+remaining=[c for c in candidates if c['gameId'] not in hitg and c['sourceHash'] not in hith];audit={'version':'target-history-coverage-audit/v1','preliminaryFrameSha256':hashlib.sha256(preliminary.read_bytes()).hexdigest(),'selection':'research/development/acceptance metadata names: sample-freeze, screening, prior-index, history-freeze, source-exposures, historical-exclusions, research-read-exclusions; excludes candidate-order as unobserved and excludes response/score contents','sources':sources,'newGameHits':sorted(hitg),'newHashHits':sorted(hith),'remaining':len(remaining)};ab=json.dumps(audit,ensure_ascii=False,separators=(',',':')).encode();(P/'history-coverage-audit.json').open('xb').write(ab);out={'version':'target-final-source-frame/v1','seed':data['seed'],'preliminaryFrameSha256':audit['preliminaryFrameSha256'],'coverageAuditSha256':hashlib.sha256(ab).hexdigest(),'exclusionInventorySha256':data['exclusionInventorySha256'],'algorithm':data['algorithm'],'candidates':remaining};fb=json.dumps(out,ensure_ascii=False,separators=(',',':')).encode();(P/'final-source-frame.json').open('xb').write(fb);print(json.dumps({'sources':len(sources),'newGameHits':len(hitg),'newHashHits':len(hith),'remaining':len(remaining),'auditSha256':hashlib.sha256(ab).hexdigest(),'frameSha256':hashlib.sha256(fb).hexdigest()}))
+
