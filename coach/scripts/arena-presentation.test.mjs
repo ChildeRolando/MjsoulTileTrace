@@ -1,6 +1,13 @@
 const test = process.env.VITEST === 'true' ? (await import('vitest')).test : (await import('node:test')).test;
 import assert from 'node:assert/strict';
-import { aggregateMetrics, runMetrics, sortedTiles, tileAsset, experimentTypeForDataset } from '../arena-console/presentation.mjs';
+import { aggregateMetrics, runMetrics, sortedTiles, tileAsset, experimentTypeForDataset, researchCaseIndices } from '../arena-console/presentation.mjs';
+
+test('mistake filtering preserves original ordinals and excludes failures and missing grades',()=>{
+ const cases=[{match:true},{match:false},{match:false,failure:'timeout'},{match:null},{match:false}];
+ assert.deepEqual(researchCaseIndices(cases,true),[1,4]);
+ assert.deepEqual(researchCaseIndices(cases),[0,1,2,3,4]);
+ assert.deepEqual(researchCaseIndices([{match:true}],true),[]);
+});
 
 test('execution failures lower reliability without lowering agreement among successful cases', () => {
   const summary = { selectedCaseCount: 10, terminalStatuses: { completed: 6 },

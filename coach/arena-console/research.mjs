@@ -1,12 +1,13 @@
 import {api,$,esc,date,rate,message} from '/client.mjs';
 import {tabs} from '/compact-view.mjs';
+import {researchCaseIndices} from '/presentation.mjs';
 import {observationView,actionText,matchBadge,tileImages} from '/case-view.mjs';
 import {mountDocument,mountJson} from '/reader.mjs';
 import {mountTrace} from '/trace.mjs';
 import {caseRecords} from '/trace-model.mjs';
 let data, page=0, disposeDocument, disposeCase=()=>{}, loading=0, caseLoading=0;
 const size=()=>innerHeight>=950?10:innerHeight>=740?7:4;
-const groupNames={raw_position:'原始牌面',raw_plus_legal:'牌面 + 合法候选',raw_plus_legal_and_calculations:'牌面 + 合法候选 + 基础计算',basic_calculations:'基础计算',basic_and_structure:'基础计算 + 手牌结构',basic_and_improvements:'基础计算 + 改良',basic_and_defense:'基础计算 + 防守',basic_and_hand_structure:'基础计算 + 手牌结构',basic_calculations_compare:'基础计算 + 比较提示',basic_calculations_compare_explain:'基础计算 + 比较提示 + 公开解释',basic_and_selected_textbook:'基础计算 + 所选教材'};
+const groupNames={public_table_representation:'四家公开场面表示',candidate_only_protocol:'仅候选动作',candidate_query_archived_basic:'按需查询基础计算',basic_five_axes:'基础计算 + 五轴框架',basic_five_axes_v1:'基础计算 + 五轴框架 V1',basic_five_axes_user_v2:'基础计算 + 用户五轴 V2',basic_structured_brief:'基础计算 + 结构化简报',basic_five_axes_structured_brief:'五轴框架 + 结构化简报',basic_helper_forecasts:'基础计算 + Helper 预测',basic_five_axes_v1_helper_forecasts:'五轴框架 + Helper 预测',basic_compact_references:'基础计算 + 精简参考',raw_position:'原始牌面',raw_plus_legal:'牌面 + 合法候选',raw_plus_legal_and_calculations:'牌面 + 合法候选 + 基础计算',basic_calculations:'基础计算',basic_and_structure:'基础计算 + 手牌结构',basic_and_improvements:'基础计算 + 改良',basic_and_defense:'基础计算 + 防守',basic_and_hand_structure:'基础计算 + 手牌结构',basic_calculations_compare:'基础计算 + 比较提示',basic_calculations_compare_explain:'基础计算 + 比较提示 + 公开解释',basic_and_selected_textbook:'基础计算 + 所选教材'};
 function renderList() {
  const query=$('#research-search').value.toLowerCase(), rows=data.studies.filter(s=>($('#research-hidden').checked||!s.hidden)&&`${s.title} ${s.name}`.toLowerCase().includes(query));
  page=Math.max(0,Math.min(page,Math.ceil(rows.length/size())-1));
@@ -25,7 +26,7 @@ async function openStudy(id) {
   $('#research-list').hidden=true;$('#research-detail').hidden=false;$('#study-title').textContent=study.title;
   $('#study-source').textContent=`${study.kind} · 原始目录：${study.directory}`;
   const report=study.documents.find(d=>d.path.endsWith('.md'))??study.documents[0];
-  $('#study-content').innerHTML=`<section class="panel inspector-section" id="study-report"><div class="report-selection-row"><label>研究资料<select id="study-document">${study.documents.map(d=>`<option value="${d.id}" ${d.id===report.id?'selected':''}>${esc(d.path)}</option>`).join('')}</select></label><div id="report-actions"></div></div><div id="report-content" aria-live="polite"></div></section>${study.groups.length?`<section class="panel inspector-section" id="study-groups"><h3>分组结果</h3><table class="research-table"><thead><tr><th>分组</th><th>执行成功率</th><th>Mortal 匹配率</th></tr></thead><tbody>${study.groups.map(g=>`<tr><td>${esc(groupNames[g.name]??g.name)}</td><td>${g.valid!==null&&g.cases.length?`${g.valid}/${g.cases.length} · ${rate(g.valid,g.cases.length)}`:'未报告分母'}</td><td>${g.valid!==null&&g.matches!==null?`${g.matches}/${g.valid} · ${rate(g.matches,g.valid)}`:'未报告'}</td></tr>`).join('')}</tbody></table><p class="field-hint">匹配率以执行成功案例为分母。置信区间、配对检验和结论范围见原始报告。</p></section><section class="panel inspector-section" id="study-cases"><div class="research-case-controls"><label>分组<select id="study-group">${study.groups.map((g,i)=>`<option value="${i}">${esc(groupNames[g.name]??g.name)}</option>`).join('')}</select></label><label>案例<select id="study-case"></select></label></div><div id="study-case-content"></div></section>`:''}`;
+  $('#study-content').innerHTML=`<section class="panel inspector-section" id="study-report"><div class="report-selection-row"><label>研究资料<select id="study-document">${study.documents.map(d=>`<option value="${d.id}" ${d.id===report.id?'selected':''}>${esc(d.path)}</option>`).join('')}</select></label><div id="report-actions"></div></div><div id="report-content" aria-live="polite"></div></section>${study.groups.length?`<section class="panel inspector-section" id="study-groups"><h3>分组结果</h3><table class="research-table"><thead><tr><th>分组</th><th>执行成功率</th><th>Mortal 匹配率</th></tr></thead><tbody>${study.groups.map(g=>`<tr><td>${esc(groupNames[g.name]??g.name)}</td><td>${g.valid!==null&&g.cases.length?`${g.valid}/${g.cases.length} · ${rate(g.valid,g.cases.length)}`:'未报告分母'}</td><td>${g.valid!==null&&g.matches!==null?`${g.matches}/${g.valid} · ${rate(g.matches,g.valid)}`:'未报告'}</td></tr>`).join('')}</tbody></table><p class="field-hint">匹配率以执行成功案例为分母。置信区间、配对检验和结论范围见原始报告。</p></section><section class="panel inspector-section" id="study-cases"><div class="research-case-controls"><label>分组<select id="study-group">${study.groups.map((g,i)=>`<option value="${i}">${esc(groupNames[g.name]??g.name)}</option>`).join('')}</select></label><label>案例<select id="study-case"></select></label><button type="button" class="quiet-button" id="study-errors" aria-pressed="false">只看错题</button><span id="study-case-count" role="status"></span></div><div id="study-case-content"></div></section>`:''}`;
   if(study.statisticsError) message(study.statisticsError,true);
   const root=$('#study-content');tabs(root,[{title:'研究报告',node:$('#study-report')},{title:'分组结果',node:$('#study-groups')},{title:'逐题记录',node:$('#study-cases')}],'study-'+id);
   async function loadDocument() {
@@ -35,15 +36,24 @@ async function openStudy(id) {
    }catch(e){if(request===loading){$('#report-content').textContent='报告读取失败。';message(e.message,true);}}
   }
   if(study.groups.length) {
+   let mistakesOnly=false;
    async function showCase(){
     const request=++caseLoading, g=study.groups[Number($('#study-group').value)], index=Number($('#study-case').value);
     disposeCase();disposeCase=()=>{};$('#study-case-content').innerHTML='<p role="status">正在读取原始场面与调用记录…</p>';
-    if(!g.cases.length){$('#study-case-content').textContent='该报告未提供逐题记录。';return;}
+    if(!$('#study-case').options.length){$('#study-case-content').textContent=mistakesOnly?'该分组没有已评分错题。':'该报告未提供逐题记录。';return;}
     try {const detail=await api(`/api/research/${id}/cases/${encodeURIComponent(g.name)}/${index}`);if(request!==caseLoading)return;disposeCase=renderCase($('#study-case-content'),detail);}
     catch(e){if(request===caseLoading)$('#study-case-content').innerHTML=`<p role="alert">${esc(e.message)}</p><p class="field-hint">无法可靠关联本题归档，未展示其他案例代替。</p>`;}
    }
-   function selectGroup(){const g=study.groups[Number($('#study-group').value)];$('#study-case').innerHTML=g.cases.map((c,i)=>`<option value="${i}">案例 ${i+1} · ${c.failure?'执行失败':c.match===true?'Mortal 匹配':c.match===false?'Mortal 不匹配':'未报告匹配'}</option>`).join('');showCase();}
-   $('#study-group').onchange=selectGroup;$('#study-case').onchange=showCase;selectGroup();
+   function selectGroup(preserve=false){
+    const g=study.groups[Number($('#study-group').value)], previous=$('#study-case').value, indices=researchCaseIndices(g.cases,mistakesOnly);
+    $('#study-case').innerHTML=indices.map(i=>{const c=g.cases[i];return `<option value="${i}">案例 ${i+1} · ${c.failure?'执行失败':c.match===true?'Mortal 匹配':c.match===false?'Mortal 不匹配':'未报告匹配'}</option>`;}).join('');
+    if(preserve&&indices.includes(Number(previous)))$('#study-case').value=previous;
+    $('#study-case').disabled=!indices.length;
+    $('#study-case-count').textContent=`${indices.length} / ${g.cases.length} 题${mistakesOnly?' · Mortal 不匹配':''}`;
+    showCase();
+   }
+   $('#study-errors').onclick=()=>{mistakesOnly=!mistakesOnly;$('#study-errors').setAttribute('aria-pressed',String(mistakesOnly));$('#study-errors').classList.toggle('selected',mistakesOnly);selectGroup(true);};
+   $('#study-group').onchange=()=>selectGroup();$('#study-case').onchange=showCase;selectGroup();
   }
   $('#study-document').onchange=loadDocument;await loadDocument();$('#study-title').focus({preventScroll:true});
  }catch(e){message(e.message,true);}

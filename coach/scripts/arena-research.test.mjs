@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,rm,readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
+import {createHash} from 'node:crypto';
 import {createResearchLibrary} from '../bin/arena-research.mjs';
 async function fixture(t) {
  const root=await mkdtemp(join(tmpdir(),'arena-research-'));
@@ -37,4 +38,26 @@ test('Windows UTF-8 BOM source configuration discovers the same reports',async t
  const f=await fixture(t);await f.write('real-study','报告.md','# 实验结果');
  await writeFile(f.config,'\uFEFF'+JSON.stringify({roots:[f.sources]}));
  assert.equal((await f.lib.list()).studies[0].title,'实验结果');
+});
+
+test('recent final report filenames are readable and preferred over older reports',async t=>{
+ const f=await fixture(t);await f.write('recent','independent-statistics/统计报告.md','# 最新实验');
+ await f.write('recent','independent-statistics/报告.md','# 旧报告');await f.write('recent','independent-statistics/结果解读附页.md','# 解读');
+ const s=(await f.lib.list()).studies[0];assert.equal(s.title,'最新实验');assert.equal(s.documents.length,3);assert.equal(s.hidden,false);
+});
+
+test('historical groups resolve only catalogued hash-bound sources with the same outcome',async t=>{
+ const f=await fixture(t), c={caseId:'case-a',match:false,failure:null,choice:{tile:'1m',red:false}};
+ const stats={groups:{original:{valid:1,matches:0}},cases:{original:[c]}};
+ await f.write('source','independent-statistics/independent-results.json',stats);
+ const sourceResultsSha256=createHash('sha256').update(JSON.stringify(stats)).digest('hex');
+ await f.write('current','independent-statistics/independent-results.json',{groups:{reused:{valid:1,matches:0}},cases:{reused:[c]}});
+ const registry={groups:[{group:'reused',sourceGroup:'original',archive:join(f.sources,'source'),sourceResultsSha256}]};
+ await f.write('current','independent-statistics/reuse-registry.json',registry);
+ const s=(await f.lib.list()).studies.find(s=>s.name==='current');
+ const d=await f.lib.case(s.id,'reused',0);assert.deepEqual(d.summary,c);assert.match(d.source,/历史复用：source/);
+ await f.write('source','independent-statistics/independent-results.json',{...stats,status:'changed'});
+ await assert.rejects(()=>f.lib.case(s.id,'reused',0),/来源未能唯一/);
+ await f.write('current','independent-statistics/reuse-registry.json',{groups:[{...registry.groups[0],archive:join(f.root,'outside')}]});
+ await assert.rejects(()=>f.lib.case(s.id,'reused',0),/来源未能唯一/);
 });
