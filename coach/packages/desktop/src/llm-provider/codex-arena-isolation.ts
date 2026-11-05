@@ -3,6 +3,7 @@ import { readFile, writeFile, mkdir, lstat, mkdtemp, rm } from "node:fs/promises
 import { join, resolve } from "node:path";
 import { homedir } from "node:os";
 import { rmSync } from "node:fs";
+import type { ErrorItemDiagnostic } from "./codex-error-item-diagnostics.js";
 
 export type ArenaCodexIsolation = {
   /** Explicit research pin; no global executable or catalog fallback. */
@@ -12,7 +13,9 @@ export type ArenaCodexIsolation = {
   expectedCatalogSourceSha256?: string;
   /** Internal process-port test seam; the production factory never supplies it. */
   loopbackProbe?: { baseUrl: string };
-  onDiagnostic?: (value: { status: string; failureCode?: string; unexpectedItemKind?: UnexpectedItemKind; unexpectedItemPhase?: "item.started" | "item.updated" | "item.completed"; rawFinal: string | null; truncated: boolean; stderrBytes: number; reconnectCount: number; events: string[]; usage?: object; physicalRequests: "unknown" }) => void;
+  /** Optional research-only allowlisted error-item metadata; disabled by default. */
+  captureErrorItemDiagnostics?: boolean;
+  onDiagnostic?: (value: { status: string; failureCode?: string; unexpectedItemKind?: UnexpectedItemKind; unexpectedItemPhase?: "item.started" | "item.updated" | "item.completed"; errorItemDiagnostic?: ErrorItemDiagnostic; rawFinal: string | null; truncated: boolean; stderrBytes: number; reconnectCount: number; events: string[]; usage?: object; physicalRequests: "unknown" }) => void;
 };
 export type UnexpectedItemKind = "error" | "command_execution" | "file_change" | "mcp_tool_call" | "web_search" | "todo_list" | "collab_tool_call" | "other" | "missing";
 const hash = (bytes: string | Buffer) => createHash("sha256").update(bytes).digest("hex");

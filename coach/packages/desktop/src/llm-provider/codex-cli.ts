@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import type { ArenaRequestAudit } from "../blind-discard-arena-provider.js";
 import { prepareCodexArenaIsolation, verifyArenaRuntimePin, type ArenaCodexIsolation } from "./codex-arena-isolation.js";
 import { arenaCodexTurnInstructions, ArenaProviderRequestSchema, ArenaToolCallProviderResultSchema, type ArenaProviderRequest, type ArenaProviderFailureCode, type ArenaToolCallProvider, type ArenaToolCallProviderResult } from "../blind-discard-arena-provider.js";
+import { errorItemDiagnostic, type ErrorItemDiagnostic } from "./codex-error-item-diagnostics.js";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -588,13 +589,14 @@ async function runExecAttempt(input: {
       let stderrBytes = 0;
       const events: string[] = [];
       let unexpectedItem: { unexpectedItemKind: import("./codex-arena-isolation.js").UnexpectedItemKind; unexpectedItemPhase: "item.started" | "item.updated" | "item.completed" } | undefined;
+      let errorItem: ErrorItemDiagnostic | undefined;
       const resolvePromise = (result: ExecResult) => {
         if (input.isolation?.options.onDiagnostic) {
           const originalBytes = state.finalText === undefined ? undefined : Buffer.from(state.finalText, "utf8");
           const redactedBytes = state.finalText === undefined || !isolated ? undefined : Buffer.from(isolated.redact(state.finalText), "utf8");
           let rawFinal = redactedBytes === undefined ? null : redactedBytes.subarray(0, 16384).toString("utf8");
           while (rawFinal !== null && Buffer.byteLength(rawFinal, "utf8") > 16384) rawFinal = rawFinal.slice(0, -1);
-          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
+          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem, ...(errorItem ? { errorItemDiagnostic: errorItem } : {}) } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
         }
         const safeResult = result.kind === "success" && isolated ? { ...result, content: isolated.redact(result.content) } : result;
         resolveResult({ ...safeResult, ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
@@ -700,6 +702,9 @@ async function runExecAttempt(input: {
               const known = ["error", "command_execution", "file_change", "mcp_tool_call", "web_search", "todo_list", "collab_tool_call"] as const;
               const unexpectedItemKind = kind === undefined || kind === null ? "missing" : known.find(value => value === kind) ?? "other";
               unexpectedItem = { unexpectedItemKind, unexpectedItemPhase: event.type };
+              if (unexpectedItemKind === "error") {
+                try { errorItem = errorItemDiagnostic(event.item, input.isolation?.options.captureErrorItemDiagnostics === true); } catch { /* diagnostics never alter failure handling */ }
+              }
             }
           }
           if (event.type === "turn.failed") {
