@@ -8,6 +8,7 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
+import { buildArenaHelperForecast } from "./blind-discard-arena-helper-forecasts.js";
 import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
 import { ArenaHandStructureFactsSchema } from "./blind-discard-arena-hand-structure.js";
 import { validateWholeUnitFacts } from "./blind-discard-arena-textbook-unit.js";
@@ -91,7 +92,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -103,6 +104,10 @@ export function assembleArenaExperiment(input: {
   if (Boolean(config.basicCalculations) !== (input.basicCalculations !== undefined)) throw new Error("arena_basic_calculations_mismatch");
   const basicCalculations = input.basicCalculations === undefined ? undefined : ArenaBasicCalculationsSchema.parse(structuredClone(input.basicCalculations));
   if (basicCalculations && (basicCalculations.caseRef !== observation.caseRef || JSON.stringify(basicCalculations.candidates.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_basic_calculations_candidates_mismatch");
+  if (Boolean(config.helperForecasts) !== (input.forecastCapture !== undefined)) throw new Error("arena_forecasts_capture_mismatch");
+  const helperForecasts = input.forecastCapture === undefined ? undefined : buildArenaHelperForecast({ basicCalculations, capture: structuredClone(input.forecastCapture) });
+  if (helperForecasts && (helperForecasts.caseRef !== observation.caseRef || JSON.stringify(helperForecasts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_forecasts_candidates_mismatch");
+  if (helperForecasts && !(["speedScore", "pathPointScore"] as const).some(key => new Set(helperForecasts.rows.flatMap(row => row[key].status === "available" ? [row[key].value] : [])).size >= 2)) throw new Error("arena_forecasts_not_informative");
   if (Boolean(config.handStructureFacts) !== (input.handStructureFacts !== undefined)) throw new Error("arena_hand_structure_mismatch");
   const handStructureFacts = input.handStructureFacts === undefined ? undefined : ArenaHandStructureFactsSchema.parse(structuredClone(input.handStructureFacts));
   if (handStructureFacts && (handStructureFacts.caseRef !== observation.caseRef || JSON.stringify(handStructureFacts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_hand_structure_candidates_mismatch");
@@ -143,6 +148,7 @@ export function assembleArenaExperiment(input: {
     ...(config.legalCandidates ? { legalCandidates: observation.candidates } : {}),
     ...(helper ? { helper } : {}),
     ...(basicCalculations ? { basicCalculations } : {}),
+    ...(helperForecasts ? { helperForecasts } : {}),
     ...(handStructureFacts ? { handStructureFacts } : {}),
     ...(improvementFacts ? { improvementFacts } : {}),
     ...(defenseFacts ? { defenseFacts } : {}),
@@ -158,6 +164,7 @@ export function assembleArenaExperiment(input: {
       ...(observation.rawVisibleHistory === undefined ? {} : { projectionVersion: version }) },
     ...(config.legalCandidates ? { legalCandidates: { sourceId: "libriichi-canonical-candidates", version: LIBRIICHI_RULE_NORMALIZATION_VERSION } } : {}),
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
+    ...(helperForecasts ? { helperForecasts: { sourceId: "mahjong-helper-hand13-forecast", version: helperForecasts.version, ...helperForecasts.source } } : {}),
     ...(basicCalculations ? { basicCalculations: { sourceId: "mahjong-helper-hand13", version: basicCalculations.version, producer: basicCalculations.producer } } : {}),
     ...(handStructureFacts ? { handStructureFacts: { sourceId: "mahjong-hand-structure", version: handStructureFacts.version, producer: handStructureFacts.producer } } : {}),
     ...(wholeUnitFacts ? { wholeUnitFacts: { sourceId: "textbook-whole-unit-index", version: "ceiling-whole-unit-index/v1", indexSha256: wholeUnitFacts.indexSha256, corpusId: wholeUnitFacts.corpusId, ...(wholeUnitFacts.status === "selected" ? { unitId: wholeUnitFacts.unit.id, contentDigest: wholeUnitFacts.unit.contentDigest } : {}) } } : {}),
