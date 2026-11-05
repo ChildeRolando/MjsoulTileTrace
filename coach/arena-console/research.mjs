@@ -47,7 +47,7 @@ async function openStudy(id) {
    function selectGroup(preserve=false){
     const g=study.groups[Number($('#study-group').value)], previous=$('#study-case').value, indices=researchCaseIndices(g.cases,mistakesOnly);
     $('#study-case').innerHTML=indices.map(i=>{const c=g.cases[i];return `<option value="${i}">案例 ${i+1} · ${c.failure?'执行失败':c.match===true?'Mortal 匹配':c.match===false?'Mortal 不匹配':'未报告匹配'}</option>`;}).join('');
-    if(preserve&&indices.includes(Number(previous)))$('#study-case').value=previous;
+    if(preserve&&previous!==''&&indices.includes(Number(previous)))$('#study-case').value=previous;
     $('#study-case').disabled=!indices.length;
     $('#study-case-count').textContent=`${indices.length} / ${g.cases.length} 题${mistakesOnly?' · Mortal 不匹配':''}`;
     showCase();

@@ -82,13 +82,13 @@ export function createResearchLibrary(configFile) {
       let reuse;
       try {
         const registry=join(s.directory,'independent-statistics/reuse-registry.json');await safeFile(s.directory,registry);
-        reuse=JSON.parse(await readFile(registry,'utf8')).groups?.find(row=>row.group===group);
+        reuse=JSON.parse((await readFile(registry,'utf8')).replace(/^\uFEFF/,'')).groups?.find(row=>row.group===group);
       }catch(e){if(e.code!=='ENOENT')throw e;}
       // Some reports reuse a whole historical results file instead of a per-group registry.
       let historicalHash;
       if(!reuse) {
         const stat=s.documents.find(d=>d.path==='independent-statistics/independent-results.json');
-        if(stat)historicalHash=JSON.parse((await document(key,stat.id)).text).provenance?.historicalResultsSha256;
+        if(stat)historicalHash=JSON.parse((await document(key,stat.id)).text.replace(/^\uFEFF/,'')).provenance?.historicalResultsSha256;
       }
       if(reuse||historicalHash) {
         const sources=[];
@@ -97,11 +97,11 @@ export function createResearchLibrary(configFile) {
           const stat=candidate.documents.find(d=>d.path==='independent-statistics/independent-results.json');if(!stat)continue;
           const text=(await document(candidate.id,stat.id)).text;
           if(createHash('sha256').update(text).digest('hex')!==(reuse?.sourceResultsSha256??historicalHash))continue;
-          const sourceGroup=reuse?.sourceGroup??group, raw=JSON.parse(text), cases=raw.cases?.[sourceGroup]??[];
+          const sourceGroup=reuse?.sourceGroup??group, raw=JSON.parse(text.replace(/^\uFEFF/,'')), cases=raw.cases?.[sourceGroup]??[];
           const matches=cases.map((c,i)=>({c,i})).filter(({c})=>c.caseId===summary.caseId);
           if(matches.length!==1)continue;
           const {c,i}=matches[0];
-          if(c.match!==summary.match||c.failure!==summary.failure||JSON.stringify(c.choice)!==JSON.stringify(summary.choice))throw error('历史结果与当前统计不一致。');
+          if(c.match!==summary.match||c.failure!==summary.failure||c.choice?.tile!==summary.choice?.tile||c.choice?.red!==summary.choice?.red)throw error('历史结果与当前统计不一致。');
           sources.push({candidate,sourceGroup,i});
         }
         if(sources.length>1||reuse&&sources.length!==1)throw error('历史研究来源未能唯一对应。');

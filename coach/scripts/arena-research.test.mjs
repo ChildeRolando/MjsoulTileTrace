@@ -52,9 +52,9 @@ test('historical groups resolve only catalogued hash-bound sources with the same
  const stats={groups:{original:{valid:1,matches:0}},cases:{original:[c]}};
  await f.write('source','independent-statistics/independent-results.json',stats);
  const sourceResultsSha256=createHash('sha256').update(JSON.stringify(stats)).digest('hex');
- await f.write('current','independent-statistics/independent-results.json',{groups:{reused:{valid:1,matches:0}},cases:{reused:[c]}});
+ await f.write('current','independent-statistics/independent-results.json','\uFEFF'+JSON.stringify({groups:{reused:{valid:1,matches:0}},cases:{reused:[{...c,choice:{red:false,tile:'1m'}}]}}));
  const registry={groups:[{group:'reused',sourceGroup:'original',archive:join(f.sources,'source'),sourceResultsSha256}]};
- await f.write('current','independent-statistics/reuse-registry.json',registry);
+ await f.write('current','independent-statistics/reuse-registry.json','\uFEFF'+JSON.stringify(registry));
  const s=(await f.lib.list()).studies.find(s=>s.name==='current');
  const d=await f.lib.case(s.id,'reused',0);assert.deepEqual(d.summary,c);assert.match(d.source,/历史复用：source/);
  await f.write('source','independent-statistics/independent-results.json',{...stats,status:'changed'});
