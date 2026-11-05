@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { encodePublicTable, decodePublicTable } from '../dist/blind-discard-arena-public-table.js';
+const input = {raw:{selfActor:0,windowKind:'self_turn',ruleSet:{length:'south',redFives:{man:1,pin:1,sou:1},openTanyao:true,atamahane:false,westExtension:'unknown',ippatsuCancelledByAnkan:'unknown'},visibleHistory:[{eventRef:'x',type:'draw',actor:1,tile:null,from:'live_wall'}],eventOrder:['x'],roundWind:'E',hand:1,honba:0,riichiSticks:0,dealer:0,scores:[1,2,3,4],seatWinds:['E','S','W','N'],remainingDraws:null,doraIndicators:[],rivers:[[],[],[],[]],melds:[],riichiStates:[],self:{concealedTiles:[{id:'5m',red:true},{id:'5m',red:false},{id:'5m',red:false}],currentDraw:null}},caseRef:'original-case-ref',legalCandidates:[{actionRef:'original-action-ref',tile:{id:'5m',red:true},discardMode:'tedashi'}]};
+test('roundtrip preserves null, red, repeats, order and references',()=>{const encoded=encodePublicTable(input);assert.deepEqual(decodePublicTable(encoded),input);assert.equal(JSON.stringify(decodePublicTable(encoded)),JSON.stringify(input));});
+test('rejects unknown fields and unsupported sections',()=>{const bad=structuredClone(input);bad.raw.self.unexpected=1;assert.throws(()=>encodePublicTable(bad),/unsupported_field/);const out=encodePublicTable(input);out.extra=1;assert.throws(()=>decodePublicTable(out),/unsupported_sections/);});
+

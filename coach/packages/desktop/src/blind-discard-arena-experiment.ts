@@ -9,6 +9,7 @@ import {
 } from "@riichi-coach/contracts";
 import { z } from "zod";
 import { compactArenaReferencePresentation } from "./blind-discard-arena-reference-presentation.js";
+import { encodePublicTable } from "./blind-discard-arena-public-table.js";
 import { ArenaMcpResultSchema } from "./blind-discard-arena-mcp.js";
 import { buildArenaHelperForecast } from "./blind-discard-arena-helper-forecasts.js";
 import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
@@ -163,13 +164,14 @@ export function assembleArenaExperiment(input: {
   };
   const version = observation.rawVisibleHistory === undefined ? ARENA_ASSEMBLY_VERSION : ARENA_HISTORY_ASSEMBLY_VERSION;
   const prompt = arenaExperimentPrompt(config, observation.rawVisibleHistory !== undefined);
-  const originalMessages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: JSON.stringify(modules) }];
+  const originalMessages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: JSON.stringify(config.publicTableRepresentation ? encodePublicTable(modules) : modules) }];
   const outputSchema = config.selectiveCalculation ? ARENA_SELECTIVE_OUTPUT_SCHEMA : config.structuredBrief ? structuredClone(GENERIC_BRIEF_OUTPUT_SCHEMA) : arenaDirectOutputSchema(config.explanation);
   const presentation = config.compactReferences ? compactArenaReferencePresentation(originalMessages, tools, outputSchema) : undefined;
   const messages = presentation?.messages ?? originalMessages;
   const sources = {
     raw: { sourceId: "arena-visible-observation", version: observation.schemaVersion,
       ...(observation.rawVisibleHistory === undefined ? {} : { projectionVersion: version }) },
+    ...(config.publicTableRepresentation ? { publicTableRepresentation: { sourceId: "arena-public-table-representation", version: "v1" } } : {}),
     ...(presentation ? { referencePresentation: { sourceId: "arena-reference-presentation", version: "v1" } } : {}),
     ...(config.legalCandidates ? { legalCandidates: { sourceId: "libriichi-canonical-candidates", version: LIBRIICHI_RULE_NORMALIZATION_VERSION } } : {}),
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
