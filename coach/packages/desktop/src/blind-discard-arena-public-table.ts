@@ -18,22 +18,41 @@ function translate(value: unknown, decode: boolean): unknown {
   }));
 }
 const rawOrder = ['selfActor','windowKind','ruleSet','visibleHistory','eventOrder','roundWind','hand','honba','riichiSticks','dealer','scores','seatWinds','remainingDraws','doraIndicators','rivers','melds','riichiStates','self'];
-const groups: Record<string,string[]> = {
-  '场况与规则': ['selfActor','windowKind','ruleSet','roundWind','hand','honba','riichiSticks','dealer','scores','seatWinds','remainingDraws','doraIndicators'],
-  '自己手牌及当前摸牌': ['self'],
-  '四家公开牌河副露及立直': ['rivers','melds','riichiStates'],
-  '完整事件与引用顺序': ['visibleHistory','eventOrder'],
-};
+const general = ['selfActor','windowKind','ruleSet','roundWind','hand','honba','riichiSticks','dealer','scores','seatWinds','remainingDraws','doraIndicators'];
 const keysEqual = (actual: string[],expected: string[]) => JSON.stringify(actual) === JSON.stringify(expected);
-export function encodePublicTable(input: unknown): unknown {
-  const root=object(input), raw=object(root.raw);
-  if (!keysEqual(Object.keys(root),['raw','caseRef','legalCandidates']) || !keysEqual(Object.keys(raw),rawOrder)) throw new Error('public_table_unsupported_layout');
-  return { ...Object.fromEntries(Object.entries(groups).map(([label,keys]) => [label,translate(Object.fromEntries(keys.map(key=>[key,raw[key]])),false)])),
-    '局面引用':root.caseRef, '全部合法候选':translate(root.legalCandidates,false) };
+const array = (v: unknown): unknown[] => { if (!Array.isArray(v)) throw new Error('public_table_array_required'); return v; };
+const cell = (v: unknown) => JSON.stringify(translate(v,false)).replaceAll('\\','\\\\').replaceAll('|','\\|');
+function cells(line: string): string[] {
+  if (!line.startsWith('|') || !line.endsWith('|')) throw new Error('public_table_row_invalid');
+  const out: string[] = []; let text=''; let escaped=false;
+  for (const ch of line.slice(1,-1)) { if (escaped) { if (ch !== '|' && ch !== '\\') throw new Error('public_table_escape_invalid'); text+=ch; escaped=false; } else if (ch==='\\') escaped=true; else if (ch==='|') { out.push(text.trim()); text=''; } else text+=ch; }
+  if (escaped) throw new Error('public_table_escape_invalid'); out.push(text.trim()); return out;
+}
+const row = (...v: string[]) => `| ${v.join(' | ')} |`;
+const value = (v: string) => translate(JSON.parse(v),true);
+const heading = (title: string, columns: string[]) => [`## ${title}`,row(...columns),row(...columns.map(()=> '---'))];
+export function encodePublicTable(input: unknown): string {
+  const root=object(input), raw=object(root.raw), self=object(raw.self), rivers=array(raw.rivers), riichi=array(raw.riichiStates), melds=array(raw.melds), events=array(raw.visibleHistory), order=array(raw.eventOrder), candidates=array(root.legalCandidates);
+  if (!keysEqual(Object.keys(root),['raw','caseRef','legalCandidates']) || !keysEqual(Object.keys(raw),rawOrder) || !keysEqual(Object.keys(self),['concealedTiles','currentDraw']) || rivers.length!==4 || riichi.length!==4) throw new Error('public_table_unsupported_layout');
+  const lines=[...heading('场况与规则',['字段','值']),...general.map(k=>row(encodedKey(k),cell(raw[k]))),row(encodedKey('caseRef'),cell(root.caseRef)),
+    ...heading('自己手牌与摸牌',['字段','值']),row(encodedKey('concealedTiles'),cell(self.concealedTiles)),row(encodedKey('currentDraw'),cell(self.currentDraw)),
+    ...heading('四家公开状态',['座位顺序','牌河（从早到晚）','立直状态']),...rivers.map((v,i)=>row(String(i),cell(v),cell(riichi[i]))),
+    ...heading('公开副露',['顺序','副露']),...melds.map((v,i)=>row(String(i),cell(v))),
+    ...heading('全部合法候选',['顺序','候选']),...candidates.map((v,i)=>row(String(i),cell(v))),
+    ...heading('完整公开事件',['顺序','事件']),...events.map((v,i)=>row(String(i),cell(v))),
+    ...heading('事件引用顺序',['顺序','引用']),...order.map((v,i)=>row(String(i),cell(v)))];
+  return lines.join('\n');
 }
 export function decodePublicTable(input: unknown): unknown {
-  const root=object(input); if (!keysEqual(Object.keys(root),[...Object.keys(groups),'局面引用','全部合法候选'])) throw new Error('public_table_unsupported_sections');
-  const parts: Record<string,unknown> = {};
-  for (const [label,keys] of Object.entries(groups)) { const part=object(translate(root[label],true)); if (!keysEqual(Object.keys(part),keys)) throw new Error('public_table_unsupported_fields'); Object.assign(parts,part); }
-  return { raw:Object.fromEntries(rawOrder.map(key=>[key,parts[key]])), caseRef:root['局面引用'], legalCandidates:translate(root['全部合法候选'],true) };
+  if (typeof input !== 'string') throw new Error('public_table_text_required');
+  const lines=input.split('\n'); let i=0;
+  const section=(title:string,columns:string[])=>{ const expected=heading(title,columns); for(const line of expected) if(lines[i++]!==line)throw new Error('public_table_header_invalid'); };
+  const next=(count:number)=>{ const v=cells(lines[i++] ?? ''); if(v.length!==count)throw new Error('public_table_column_invalid'); return v; };
+  const pairs:Record<string,unknown>={};section('场况与规则',['字段','值']);for(const key of [...general,'caseRef']) {const r=next(2);if(r[0]!==encodedKey(key))throw new Error('public_table_field_order');pairs[key]=value(r[1]!);}
+  section('自己手牌与摸牌',['字段','值']);const self:Record<string,unknown>={};for(const key of ['concealedTiles','currentDraw']){const r=next(2);if(r[0]!==encodedKey(key))throw new Error('public_table_field_order');self[key]=value(r[1]!);}
+  section('四家公开状态',['座位顺序','牌河（从早到晚）','立直状态']);const rivers:unknown[]=[],riichiStates:unknown[]=[];for(let n=0;n<4;n++){const r=next(3);if(r[0]!==String(n))throw new Error('public_table_seat_order');rivers.push(value(r[1]!));riichiStates.push(value(r[2]!));}
+  const indexed=(title:string,columns:string[])=>{section(title,columns);const out:unknown[]=[];while(i<lines.length&&!lines[i]!.startsWith('## ')){const r=next(2);if(r[0]!==String(out.length))throw new Error('public_table_row_order');out.push(value(r[1]!));}return out;};
+  const melds=indexed('公开副露',['顺序','副露']),legalCandidates=indexed('全部合法候选',['顺序','候选']),visibleHistory=indexed('完整公开事件',['顺序','事件']),eventOrder=indexed('事件引用顺序',['顺序','引用']);
+  const fields={...pairs,self,rivers,riichiStates,melds,visibleHistory,eventOrder};
+  return {raw:Object.fromEntries(rawOrder.map(key=>[key,fields[key as keyof typeof fields]])),caseRef:pairs.caseRef,legalCandidates};
 }

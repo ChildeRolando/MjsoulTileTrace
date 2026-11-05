@@ -164,7 +164,7 @@ export function assembleArenaExperiment(input: {
   };
   const version = observation.rawVisibleHistory === undefined ? ARENA_ASSEMBLY_VERSION : ARENA_HISTORY_ASSEMBLY_VERSION;
   const prompt = arenaExperimentPrompt(config, observation.rawVisibleHistory !== undefined);
-  const originalMessages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: JSON.stringify(config.publicTableRepresentation ? encodePublicTable(modules) : modules) }];
+  const originalMessages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: config.publicTableRepresentation ? encodePublicTable(modules) : JSON.stringify(modules) }];
   const outputSchema = config.selectiveCalculation ? ARENA_SELECTIVE_OUTPUT_SCHEMA : config.structuredBrief ? structuredClone(GENERIC_BRIEF_OUTPUT_SCHEMA) : arenaDirectOutputSchema(config.explanation);
   const presentation = config.compactReferences ? compactArenaReferencePresentation(originalMessages, tools, outputSchema) : undefined;
   const messages = presentation?.messages ?? originalMessages;
