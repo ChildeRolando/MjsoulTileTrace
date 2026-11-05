@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { FIVE_AXIS_FRAMEWORK_V1 } from "./blind-discard-arena-five-axis-v1-asset.js";
 import { FIVE_AXIS_FRAMEWORK, GENERIC_BRIEF_PROMPT, GENERIC_BRIEF_OUTPUT_SCHEMA } from "./blind-discard-arena-five-axis-assets.js";
 import {
   ArenaBlindObservationSchema, ArenaDirectAnswerSchema, ArenaDirectSubmissionSchema, ArenaStructuredBriefAnswerSchema,
@@ -86,6 +87,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
     ...(config.submission === "tool" ? ["Submit using submit_decision with an offered actionRef, observed references, public rationale, alternative and uncertainty."] : []),
     ...(config.comparison ? ["Compare the discard options before choosing."] : []),
     ...(config.fiveAxisFramework ? [FIVE_AXIS_FRAMEWORK.replace(/[\r\n]+$/u, "")] : []),
+    ...(config.fiveAxisFrameworkV1Forecast ? [FIVE_AXIS_FRAMEWORK_V1.replace(/[\r\n]+$/u, "")] : []),
     ...(config.structuredBrief ? [GENERIC_BRIEF_PROMPT.replace(/[\r\n]+$/u, "")] : []),
     ...(config.explanation && config.submission === "tile-red" ? ["Also include a concise public rationale in the JSON."] : []),
   ].join("\n").replace(/[\r\n]+$/u, "");
@@ -107,6 +109,7 @@ export function assembleArenaExperiment(input: {
   if (basicCalculations && (basicCalculations.caseRef !== observation.caseRef || JSON.stringify(basicCalculations.candidates.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_basic_calculations_candidates_mismatch");
   if (Boolean(config.helperForecasts) !== (input.forecastCapture !== undefined)) throw new Error("arena_forecasts_capture_mismatch");
   const helperForecasts = input.forecastCapture === undefined ? undefined : buildArenaHelperForecast({ basicCalculations, capture: structuredClone(input.forecastCapture) });
+  if (config.fiveAxisFrameworkV1Forecast && !helperForecasts) throw new Error("arena_v1_forecast_not_informative");
   if (helperForecasts && (helperForecasts.caseRef !== observation.caseRef || JSON.stringify(helperForecasts.rows.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_forecasts_candidates_mismatch");
   if (helperForecasts && !(["speedScore", "pathPointScore"] as const).some(key => new Set(helperForecasts.rows.flatMap(row => row[key].status === "available" ? [row[key].value] : [])).size >= 2)) throw new Error("arena_forecasts_not_informative");
   if (Boolean(config.handStructureFacts) !== (input.handStructureFacts !== undefined)) throw new Error("arena_hand_structure_mismatch");
@@ -177,6 +180,7 @@ export function assembleArenaExperiment(input: {
     ...(improvementFacts ? { improvementFacts: { sourceId: "mahjong-helper-hand13-improves", version: improvementFacts.version, producer: improvementFacts.producer } } : {}),
     ...(scenario ? { scenario: { sourceId: scenario.sourceId, version: scenario.version, inputDigest: scenario.inputDigest } } : {}),
     ...(material ? { material: { sourceId: "arena-local-retriever", version: material.retrieverVersion, corpusVersion: material.corpusVersion }, selection } : {}),
+    ...(config.fiveAxisFrameworkV1Forecast ? { promptExperiment: { sourceId: "arena-five-axis-study", version: "v1", frameworkSha256: "29c588517c28ec483b435343eef925caa30715b0c1806bc9f56476f201058cee" } } : {}),
     ...((config.fiveAxisFramework || config.structuredBrief) ? { promptExperiment: { sourceId: "arena-five-axis-study", version: config.fiveAxisFramework ? "v2" : "v1", ...(config.fiveAxisFramework ? { frameworkSha256: "08257097f76498068b6250a9a33aa444f13903d227fcd761342560156f528802" } : {}), ...(config.structuredBrief ? { briefPromptSha256: "e0bde17d9ff3f6bd808fc41bd637e0d03bf51ec99410bacec35fe7ab3d412b3a", briefSchemaSha256: "b49c26f6bae80fbcd9a5b4f8bf489488cd54c27f1061dea05d0a6c33b965cdec" } : {}) } } : {}),
     ...((config.comparison || config.explanation) ? { responseInstructions: { sourceId: "arena-experiment-prompt", version } } : {}),
     ...(tools.length ? { tools: { sourceId: "arena-runner-tools", version: "arena-function-call/v1" } } : {}),
