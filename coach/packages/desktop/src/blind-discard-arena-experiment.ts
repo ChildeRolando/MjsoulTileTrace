@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { TWO_DRAW_SEMANTICS } from "./blind-discard-arena-two-draw-asset.js";
 import { FIVE_AXIS_FRAMEWORK_V1 } from "./blind-discard-arena-five-axis-v1-asset.js";
 import { DISCARD_ORDER_KNOWLEDGE, FINAL_FORM_PLANNING } from "./blind-discard-arena-prompt-study-assets.js";
 import { FIVE_AXIS_FRAMEWORK, GENERIC_BRIEF_PROMPT, GENERIC_BRIEF_OUTPUT_SCHEMA } from "./blind-discard-arena-five-axis-assets.js";
@@ -98,7 +99,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; twoDrawStructuralProgress?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -110,6 +111,13 @@ export function assembleArenaExperiment(input: {
   if (Boolean(config.basicCalculations) !== (input.basicCalculations !== undefined)) throw new Error("arena_basic_calculations_mismatch");
   const basicCalculations = input.basicCalculations === undefined ? undefined : ArenaBasicCalculationsSchema.parse(structuredClone(input.basicCalculations));
   if (basicCalculations && (basicCalculations.caseRef !== observation.caseRef || JSON.stringify(basicCalculations.candidates.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_basic_calculations_candidates_mismatch");
+  if (Boolean(config.twoDrawStructuralProgress) !== (input.twoDrawStructuralProgress !== undefined)) throw new Error("arena_two_draw_mismatch");
+  const twoDrawSchema = z.object({ version: z.literal("two-draw-structural-progress-prototype/v1"), semantics: z.literal(TWO_DRAW_SEMANTICS), status: z.enum(["available", "unavailable"]), reason: z.string().nullable(), sharedTargets: z.array(z.number().int().min(-1)), candidates: z.array(z.object({ actionRef: z.string(), status: z.enum(["available", "unavailable"]), reason: z.string().optional(), targets: z.array(z.object({target: z.number().int().min(-1), numerator: z.number().int().nonnegative(), denominator: z.number().int().positive()}).strict()).optional() }).strict()) }).strict();
+  const twoDrawStructuralProgress = input.twoDrawStructuralProgress === undefined ? undefined : twoDrawSchema.parse(structuredClone(input.twoDrawStructuralProgress));
+  if (twoDrawStructuralProgress) {
+    if (JSON.stringify(twoDrawStructuralProgress.candidates.map(x => x.actionRef)) !== JSON.stringify(observation.candidates.map(x => x.actionRef))) throw new Error("arena_two_draw_candidates_mismatch");
+    if (twoDrawStructuralProgress.status === "unavailable" ? (twoDrawStructuralProgress.reason === null || twoDrawStructuralProgress.sharedTargets.length !== 0 || twoDrawStructuralProgress.candidates.some(x => x.status !== "unavailable" || x.targets !== undefined || x.reason !== twoDrawStructuralProgress.reason)) : (twoDrawStructuralProgress.reason !== null || twoDrawStructuralProgress.sharedTargets.length < 1 || twoDrawStructuralProgress.sharedTargets.length > 2 || twoDrawStructuralProgress.candidates.some(x => x.status !== "available" || x.reason !== undefined || !x.targets || JSON.stringify(x.targets.map(t => t.target)) !== JSON.stringify(twoDrawStructuralProgress.sharedTargets) || x.targets.some(t => t.numerator > t.denominator)))) throw new Error("arena_two_draw_status_mismatch");
+  }
   if (Boolean(config.helperForecasts) !== (input.forecastCapture !== undefined)) throw new Error("arena_forecasts_capture_mismatch");
   const helperForecasts = input.forecastCapture === undefined ? undefined : buildArenaHelperForecast({ basicCalculations, capture: structuredClone(input.forecastCapture) });
   if (config.fiveAxisFrameworkV1Forecast && !helperForecasts) throw new Error("arena_v1_forecast_not_informative");
@@ -156,6 +164,7 @@ export function assembleArenaExperiment(input: {
     ...(config.legalCandidates ? { legalCandidates: observation.candidates } : {}),
     ...(helper ? { helper } : {}),
     ...(basicCalculations ? { basicCalculations } : {}),
+    ...(twoDrawStructuralProgress ? { twoDrawStructuralProgress } : {}),
     ...(helperForecasts ? { helperForecasts } : {}),
     ...(handStructureFacts ? { handStructureFacts } : {}),
     ...(improvementFacts ? { improvementFacts } : {}),
