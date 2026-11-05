@@ -16,7 +16,7 @@ import { ArenaHandStructureFactsSchema } from "./blind-discard-arena-hand-struct
 import { validateWholeUnitFacts } from "./blind-discard-arena-textbook-unit.js";
 import { ArenaDefenseFactsSchema } from "./blind-discard-arena-defense.js";
 import { ArenaImprovementFactsSchema } from "./blind-discard-arena-improvement.js";
-import type { ArenaProviderMessage, ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
+import { ARENA_SELECTIVE_OUTPUT_SCHEMA, type ArenaProviderMessage, type ArenaProviderToolDefinition } from "./blind-discard-arena-provider.js";
 
 export const ARENA_ASSEMBLY_VERSION = "arena-modular-messages/v1";
 export const ARENA_HISTORY_ASSEMBLY_VERSION = "arena-modular-messages/v2-visible-history";
@@ -82,7 +82,7 @@ export const arenaContentDigest = (value: unknown): string => createHash("sha256
 
 export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleHistory = false) {
   const directPrompt = config.structuredBrief ? ARENA_RAW_PROMPT.replace('Return only JSON {"tile":"1m","red":false}.', "Return only JSON matching the supplied output schema.") : ARENA_RAW_PROMPT;
-  return [config.submission === "tool" ? ARENA_RAW_PROMPT.replace('Return only JSON {"tile":"1m","red":false}.', "Use the offered submission protocol.") : directPrompt,
+  return [config.selectiveCalculation ? ARENA_RAW_PROMPT.replace('Return only JSON {"tile":"1m","red":false}.', "Return the requested response object. A query is permitted only when the catalog offers it; after at most two queries the third turn must be final. Do not include a rationale.") : config.submission === "tool" ? ARENA_RAW_PROMPT.replace('Return only JSON {"tile":"1m","red":false}.', "Use the offered submission protocol.") : directPrompt,
     ...(hasVisibleHistory ? ["visibleHistory contains all current-round events through this decision in order; other players' draws have tile=null. Event references link calls and declarations. Rule fields may be unknown. Ankan tiles describe composition, not physical positions."] : []),
     ...(config.submission === "tool" ? ["Submit using submit_decision with an offered actionRef, observed references, public rationale, alternative and uncertainty."] : []),
     ...(config.comparison ? ["Compare the discard options before choosing."] : []),
@@ -149,6 +149,7 @@ export function assembleArenaExperiment(input: {
   const passageDigest = (result: NonNullable<typeof material>) => arenaContentDigest(result.passages.map(p => ({ title: p.sourceTitle, location: p.documentLocation, content: p.content })));
   const modules = {
     raw,
+    ...(config.selectiveCalculation ? { caseRef: observation.caseRef } : {}),
     ...(config.legalCandidates ? { legalCandidates: observation.candidates } : {}),
     ...(helper ? { helper } : {}),
     ...(basicCalculations ? { basicCalculations } : {}),
@@ -163,7 +164,7 @@ export function assembleArenaExperiment(input: {
   const version = observation.rawVisibleHistory === undefined ? ARENA_ASSEMBLY_VERSION : ARENA_HISTORY_ASSEMBLY_VERSION;
   const prompt = arenaExperimentPrompt(config, observation.rawVisibleHistory !== undefined);
   const originalMessages: ArenaProviderMessage[] = [{ role: "system", content: prompt }, { role: "user", content: JSON.stringify(modules) }];
-  const outputSchema = config.structuredBrief ? structuredClone(GENERIC_BRIEF_OUTPUT_SCHEMA) : arenaDirectOutputSchema(config.explanation);
+  const outputSchema = config.selectiveCalculation ? ARENA_SELECTIVE_OUTPUT_SCHEMA : config.structuredBrief ? structuredClone(GENERIC_BRIEF_OUTPUT_SCHEMA) : arenaDirectOutputSchema(config.explanation);
   const presentation = config.compactReferences ? compactArenaReferencePresentation(originalMessages, tools, outputSchema) : undefined;
   const messages = presentation?.messages ?? originalMessages;
   const sources = {

@@ -26,6 +26,7 @@ import {
   type MahjongFactEnginePort,
 } from "@riichi-coach/reasoning";
 import { z } from "zod";
+import { ArenaBasicCalculationsSchema } from "./blind-discard-arena-basic-calculations.js";
 import type { ArenaRunAliasVault } from "./blind-discard-arena.js";
 
 export type ArenaMcpLimits = Readonly<{
@@ -109,6 +110,7 @@ export type ArenaMcpErrorCode = z.infer<typeof ArenaMcpErrorCodeSchema>;
 
 const ArenaMcpProducerSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("helper"), identity: EngineIdentitySchema }).strict(),
+  z.object({ kind: z.literal("archived_helper"), identity: EngineIdentitySchema }).strict(),
   z.object({ kind: z.literal("adapter"), name: z.literal("blind-discard-arena-mcp"), version: z.literal("1.0.0") }).strict(),
 ]);
 
@@ -126,6 +128,7 @@ const ArenaMcpFactSchema = z.object({
     "unsupported_dimension",
     "insufficient_decision_facts",
     "helper_missing_visibility",
+    "archived_unavailable",
   ]).optional(),
 }).strict().superRefine((fact, context) => {
   if (fact.status === "available" && (fact.value === undefined || fact.unit === undefined || fact.reason !== undefined)) {
@@ -159,6 +162,9 @@ export type ArenaMcpAuthorizedCase = Readonly<{
 
 export type ArenaMcpServerOptions = Readonly<{
   authorizedCases: readonly ArenaMcpAuthorizedCase[];
+  /** Opt-in research replay: immutable archived basic packets, independently hash-bound by caller. */
+  archivedBasic?: readonly { caseRef: string; packetText: string; packetSha256: string }[];
+  onArchiveLookup?: (info: { caseRef: string; actionRef: string; packetSha256: string }) => void;
   engine: MahjongFactEnginePort;
   aliases: ArenaRunAliasVault;
   /** Immediate transport shutdown for managed clients whose close() queues behind active requests. */
@@ -365,12 +371,21 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
     cases.set(parsed.binding.caseRef, parsed);
   }
 
+  const archive = new Map<string, { packet: z.infer<typeof ArenaBasicCalculationsSchema>; sha: string }>();
+  for (const entry of options.archivedBasic ?? []) {
+    if (!/^[a-f0-9]{64}$/.test(entry.packetSha256) || createHash("sha256").update(entry.packetText, "utf8").digest("hex") !== entry.packetSha256 || archive.has(entry.caseRef)) throw new Error("arena_archive_digest_invalid");
+    const packet = ArenaBasicCalculationsSchema.parse(JSON.parse(entry.packetText)), bound = cases.get(entry.caseRef);
+    if (!bound || packet.caseRef !== entry.caseRef || !packet.producer || JSON.stringify(packet.candidates.map(r=>r.actionRef)) !== JSON.stringify(bound.binding.candidates.map(r=>r.actionRef))) throw new Error("arena_archive_binding_invalid");
+    archive.set(entry.caseRef,{packet,sha:entry.packetSha256});
+  }
+  if (options.archivedBasic && (archive.size !== 1 || cases.size !== 1)) throw new Error("arena_archive_single_case_required");
   const server = new McpServer({ name: "blind-discard-arena-helper", version: "1.0.0" }, {
     maxToolInputElements: 16,
   });
   const startedAt = Date.now();
   let toolCallCount = 0;
   let helperCallCount = 0;
+  let archiveLookupCount = 0;
   let totalHelperTimeMs = 0;
   let identityPromise: Promise<EngineIdentity> | null = null;
   let helperClosed: Promise<void> | null = null;
@@ -462,10 +477,10 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
 
   server.registerTool("analyze_candidates", {
     title: "Analyze selected discard candidates",
-    description: ARENA_MCP_TOOL_DESCRIPTION,
-    inputSchema: ArenaMcpCallInputObjectSchema,
+    description: options.archivedBasic ? ARENA_ARCHIVED_MCP_TOOL_DESCRIPTION : ARENA_MCP_TOOL_DESCRIPTION,
+    inputSchema: options.archivedBasic ? ArenaMcpCallInputObjectSchema.extend({dimensions:z.array(z.enum(["shanten","ukeire","dora_count"])).min(1).max(3)}) : ArenaMcpCallInputObjectSchema,
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
-  }, async (rawInput) => {
+  }, async (rawInput: unknown) => {
     toolCallCount += 1;
     if (toolCallCount > limits.maxToolCallsPerRun) return errorResult("tool_budget_exhausted");
     if (Date.now() - startedAt > limits.maxRunElapsedMs) return errorResult("run_deadline_exceeded");
@@ -473,6 +488,7 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
     activeCall = true;
     try {
       const request = ArenaMcpCallInputSchema.parse(rawInput);
+      if (options.archivedBasic && request.dimensions.some(d=>!["shanten","ukeire","dora_count"].includes(d))) return errorResult("invalid_request");
       if (request.actionRefs.length > limits.maxActionRefsPerCall ||
           request.dimensions.length > limits.maxDimensionsPerCall) {
         return errorResult("invalid_request");
@@ -506,6 +522,28 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
         }
         if (supported.length === 0) continue;
 
+        if (options.archivedBasic) {
+          const source = archive.get(request.caseRef)!;
+          const row = source.packet.candidates.find(item => item.actionRef === actionRef);
+          if (!row) throw new ArenaMcpFault("action_not_offered");
+          archiveLookupCount += 1;
+          options.onArchiveLookup?.({caseRef:request.caseRef,actionRef,packetSha256:source.sha});
+          for (const dimension of supported) {
+            const sourceRef = factReference(options.aliases,request.caseRef,actionRef,dimension);
+            const common = {caseRef:request.caseRef,actionRef,dimension,sourceRef,evidenceRefs:[sourceRef],producer:{kind:"archived_helper" as const,identity:source.packet.producer!}};
+            if (row.status !== "available") { facts.push({...common,status:"unavailable",reason:"archived_unavailable"}); continue; }
+            if (dimension === "shanten") {facts.push({...common,status:"available",value:row.shanten,unit:"shanten"});continue;}
+            if (dimension === "dora_count") {facts.push(row.doraCount === null ? {...common,status:"unavailable",reason:"archived_unavailable"} : {...common,status:"available",value:row.doraCount,unit:"dora_count"});continue;}
+            if (dimension === "ukeire") {
+              if (row.unseenTotal === null || row.effectiveTiles.some(x=>x.unseen === null)) {facts.push({...common,status:"unavailable",reason:"archived_unavailable"});continue;}
+              const tiles=row.effectiveTiles.map(x=>({tile34:TileIdSchema.options.indexOf(x.tile),tileId:x.tile,remainingCopies:x.unseen!}));
+              if (tiles.some(x=>x.tile34<0) || tiles.reduce((n,x)=>n+x.remainingCopies,0)!==row.unseenTotal) throw new ArenaMcpFault("helper_error");
+              facts.push({...common,status:"available",unit:"unseen_tile_copies",value:{shanten:row.shanten,effectiveTileTypeCount:tiles.length,nonExhaustedTileTypeCount:tiles.filter(x=>x.remainingCopies>0).length,totalRemainingCopies:row.unseenTotal,tiles,countBasis:"unseen_copies_not_wall_count"}});continue;
+            }
+            facts.push({...common,status:"unavailable",reason:"archived_unavailable"});
+          }
+          continue;
+        }
         const helperRequest = prepareArenaMcpHand13Request({
           authorizedCase: { binding: authorizedCase.binding, facts: authorizedCase.facts },
           actionRef,
@@ -567,6 +605,7 @@ export function createArenaMcpServer(options: ArenaMcpServerOptions) {
   return {
     server,
     limits,
+    getMetrics: () => ({ mcpRequests: toolCallCount, archiveLookups: archiveLookupCount, helperEngineCalls: helperCallCount }),
     close: closeServer,
     async connectStdio(): Promise<void> {
       const onDisconnect = () => { void closeServer().catch(() => undefined); };
@@ -737,4 +776,5 @@ export class ArenaMcpClient {
   }
 }
 
+export const ARENA_ARCHIVED_MCP_TOOL_DESCRIPTION = "Read archived helper basic facts for selected legal candidates; unseen copies are not live-wall counts.";
 export const ARENA_MCP_TOOL_DESCRIPTION = "Return requested hand facts for a small set of discard actionRefs in an authorized frozen case. Supports shanten, effective_tiles, remaining_waits, ukeire, dora_count. Request ukeire for improving tile IDs, remaining unseen copies per tile, and their total. No record, file, score, or arbitrary calculation access is available.";

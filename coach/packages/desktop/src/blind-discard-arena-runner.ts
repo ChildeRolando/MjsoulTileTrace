@@ -31,6 +31,7 @@ import { z } from "zod";
 import { createArenaScoringCaseInput, scoreArenaBatch } from "./blind-discard-arena-scorer.js";
 import { validateArenaSubmission } from "./blind-discard-arena.js";
 import {
+  ARENA_ARCHIVED_MCP_TOOL_DESCRIPTION,
   ArenaMcpCallInputSchema,
   ArenaMcpClient,
   ArenaMcpResultSchema,
@@ -240,6 +241,7 @@ export const ArenaRunEventSchema = z.discriminatedUnion("type", [
     toolName: z.string().regex(TOOL_NAME).optional(),
     usage: LlmTokenUsageSchema.optional(),
     decisionSummary: z.string().min(1).max(600).optional(),
+    rawResponse: z.string().max(16 * 1024).optional(),
     failureCode: ArenaProviderFailureCodeSchema.optional(),
     reconnectCount: z.number().int().positive().max(100).optional(),
   }).strict(),
@@ -345,10 +347,11 @@ class ArenaRunAbort extends Error {
   constructor(readonly status: "timeout" | "cancelled" | "tool_timeout") { super(status); }
 }
 
-function resolveRunLimits(raw: Partial<ArenaRunLimits> | undefined, textbookBudget = false): ArenaRunLimits {
+function resolveRunLimits(raw: Partial<ArenaRunLimits> | undefined, textbookBudget = false, selectiveBudget = false): ArenaRunLimits {
   const limits = ArenaRunLimitsSchema.parse({ ...ARENA_RUN_LIMITS_V1, ...raw });
   for (const key of Object.keys(ARENA_RUN_LIMITS_V1) as Array<keyof ArenaRunLimits>) {
     if (key === "schemaVersion" || key === "maxProviderOutputTokens") continue;
+    if (key === "maxContextInputBytes" && selectiveBudget && limits[key] <= 128 * 1024) continue;
     if (key === "maxContextInputBytes" && textbookBudget && limits[key] <= 256 * 1024) continue;
     if (limits[key] > ARENA_RUN_LIMITS_V1[key]) throw new Error("arena_run_limit_exceeds_v1_maximum");
   }
@@ -806,7 +809,8 @@ export async function runBlindCoachCase(input: {
 }): Promise<ArenaCoachRunResult> {
   const observation = ArenaBlindObservationSchema.parse(input.observation);
   const experimentConfig = input.experiment === undefined ? undefined : ArenaExperimentConfigSchema.parse(input.experiment);
-  const limits = resolveRunLimits(input.limits, Boolean(experimentConfig?.textbookInputBudget));
+  const limits = resolveRunLimits(input.limits, Boolean(experimentConfig?.textbookInputBudget), Boolean(experimentConfig?.selectiveCalculation));
+  if (experimentConfig?.selectiveCalculation && (limits.maxContextInputBytes !== 128 * 1024 || limits.maxProviderTurns > (experimentConfig.selectiveCalculation === "control" ? 1 : 3) || limits.maxToolCalls > 2)) throw new Error("arena_selective_limits_invalid");
   if (experimentConfig?.textbookInputBudget && limits.maxContextInputBytes !== 256 * 1024) throw new Error("arena_textbook_budget_mismatch");
   if (input.grading.binding.caseRef !== observation.caseRef ||
       input.grading.binding.candidates.length !== observation.candidates.length ||
@@ -821,6 +825,7 @@ export async function runBlindCoachCase(input: {
     toolMap.set(tool.name, tool);
   }
   if (toolMap.size > 16) throw new Error("arena_runner_tool_count_invalid");
+  if (experimentConfig?.selectiveCalculation === "query" && toolMap.get("analyze_candidates")?.description !== ARENA_ARCHIVED_MCP_TOOL_DESCRIPTION) throw new Error("arena_selective_archive_tool_required");
   let assembly: ReturnType<typeof assembleArenaExperiment> | undefined;
   let preparationFailed = false;
   const direct = experimentConfig?.submission === "tile-red";
@@ -1028,7 +1033,7 @@ export async function runBlindCoachCase(input: {
         finished = true;
         break;
       }
-      const tools = direct ? [] : [...toolDefinitions, finalDefinition()];
+      const tools = experimentConfig?.selectiveCalculation ? toolDefinitions : direct ? [] : [...toolDefinitions, finalDefinition()];
       const contextBytes = byteLength({ messages, tools });
       if (contextBytes > limits.maxContextInputBytes) {
         terminalStatus = "budget_exhausted";
@@ -1052,6 +1057,7 @@ export async function runBlindCoachCase(input: {
           ...(direct ? { outputSchema: assembly!.outputSchema } : {}),
           maxOutputTokens: limits.maxProviderOutputTokens,
           maxInputBytes: limits.maxContextInputBytes,
+          ...(experimentConfig?.selectiveCalculation ? { inputProfile: "selective-research-v1" as const } : {}),
           ...(experimentConfig?.textbookInputBudget ? { inputProfile: "textbook-decision-v1" as const } : {}),
           maxOutputBytes: Math.min(
             limits.maxProviderOutputBytesPerTurn,
@@ -1087,6 +1093,8 @@ export async function runBlindCoachCase(input: {
         finished = true;
         break;
       }
+      // Preserve reported usage even if a local limit terminates this turn.
+      if (experimentConfig?.selectiveCalculation && response.usage !== undefined) usages.push(response.usage);
       if (clock() - startedAtMs >= limits.maxRunElapsedMs) {
         abortStatus = "timeout";
         runController.abort();
@@ -1098,25 +1106,26 @@ export async function runBlindCoachCase(input: {
           elapsedMs: Math.max(0, clock() - startedAtMs),
           inputBytes: contextBytes,
           result: "timeout",
+          ...(experimentConfig?.selectiveCalculation && response.usage !== undefined ? { usage: response.usage } : {}),
         });
         finished = true;
         break;
       }
       const outputBytes = response.status === "ready" || response.status === "final"
-        ? Math.max(response.outputBytes, byteLength(response))
+        ? experimentConfig?.selectiveCalculation ? response.outputBytes : Math.max(response.outputBytes, byteLength(response))
         : byteLength(response);
       totalProviderOutputBytes += outputBytes;
       if (outputBytes > limits.maxProviderOutputBytesPerTurn ||
           totalProviderOutputBytes > limits.maxProviderOutputBytesPerRun) {
         terminalStatus = "budget_exhausted";
         attempt = { status: "budget_exhausted" };
-        append({ type: "provider_turn", turn, elapsedMs: Math.max(0, clock() - startedAtMs), inputBytes: contextBytes, result: "output_too_large", outputBytes });
+        append({ type: "provider_turn", turn, elapsedMs: Math.max(0, clock() - startedAtMs), inputBytes: contextBytes, result: "output_too_large", outputBytes, ...(experimentConfig?.selectiveCalculation && response.usage !== undefined ? { usage: response.usage } : {}) });
         finished = true;
         break;
       }
-      if (response.usage !== undefined) usages.push(response.usage);
+      if (!experimentConfig?.selectiveCalculation && response.usage !== undefined) usages.push(response.usage);
       if ((response.status === "ready" || response.status === "final") && response.usage?.outputTokens !== undefined &&
-          response.usage.outputTokens > limits.maxProviderOutputTokens) {
+          (experimentConfig?.selectiveCalculation ? usages.reduce((n,u)=>n+(u.outputTokens ?? 0),0) : response.usage.outputTokens) > limits.maxProviderOutputTokens) {
         terminalStatus = "budget_exhausted";
         attempt = { status: "budget_exhausted" };
         append({
@@ -1144,6 +1153,7 @@ export async function runBlindCoachCase(input: {
         ...(response.status !== "ready" && response.status !== "final" && response.failureCode !== undefined ? { failureCode: response.failureCode } : {}),
         ...("reconnectCount" in response && response.reconnectCount !== undefined ? { reconnectCount: response.reconnectCount } : {}),
         ...(response.status === "ready" && response.decisionSummary !== undefined ? { decisionSummary: response.decisionSummary } : {}),
+        ...((response.status === "ready" || response.status === "final") && response.rawResponse !== undefined ? { rawResponse: response.rawResponse } : {}),
       });
       if (eventBudgetExceeded) {
         terminalStatus = "budget_exhausted";
@@ -1164,7 +1174,7 @@ export async function runBlindCoachCase(input: {
         if (eventBudgetExceeded) { terminalStatus = "budget_exhausted"; attempt = { status: "budget_exhausted" }; }
         finished = true; break;
       }
-      if (response.status === "final" || (direct && response.status === "ready")) {
+      if (response.status === "final" || (direct && response.status === "ready" && (!experimentConfig?.selectiveCalculation || !toolMap.has(response.call.name)))) {
         terminalStatus = "invalid_submission"; attempt = { status: "invalid_submission" }; finished = true; break;
       }
       if (response.status !== "ready") {
@@ -1228,7 +1238,7 @@ export async function runBlindCoachCase(input: {
       toolCallCount += 1;
       const callOrdinal = toolCallCount;
       const localCallId = `arena-call-${callOrdinal}`;
-      messages.push({ role: "assistant", toolCalls: [{ id: localCallId, name: call.name, arguments: call.arguments }] });
+      messages.push({ role: "assistant", toolCalls: [{ id: localCallId, name: call.name, arguments: call.arguments }], ...(response.rawResponse === undefined ? {} : { responseContent: response.rawResponse }) });
       const tool = toolMap.get(call.name);
       if (tool === undefined) {
         toolFailureCount += 1;
@@ -1273,6 +1283,7 @@ export async function runBlindCoachCase(input: {
           timeoutMs: limits.maxToolCallDurationMs,
         });
         toolResult = tool.parseOutput(output);
+        if (experimentConfig?.selectiveCalculation && ArenaMcpResultSchema.parse(toolResult).facts.some(f=>f.producer.kind !== "archived_helper")) throw new ArenaToolExecutionError("tool_failed", true);
         if (tool.applicabilityGate !== undefined) {
           const gate = tool.applicabilityGate;
           const application = await awaitApplicabilityGate({

@@ -1,5 +1,6 @@
 import {
   LlmTokenUsageSchema,
+  TileIdSchema,
   type LlmTokenUsage,
 } from "@riichi-coach/contracts";
 import { z } from "zod";
@@ -20,6 +21,13 @@ export const ARENA_TOOL_CALL_PROMPT = [
   "When ready, call submit_decision exactly once with an offered actionRef, only observed evidence/source refs, a short checkable rationale, a useful alternative when available, and material uncertainty.",
   "Do not produce or reveal hidden chain-of-thought. The final rationale is public and concise.",
 ].join("\n");
+
+export const ARENA_SELECTIVE_OUTPUT_SCHEMA = {
+  type: "object", additionalProperties: false, properties: { response: { anyOf: [
+    { type: "object", additionalProperties: false, properties: { kind: { type: "string", enum: ["final"] }, answer: { type: "object", additionalProperties: false, properties: { tile: { type: "string", enum: [...TileIdSchema.options] }, red: { type: "boolean" } }, required: ["tile", "red"] } }, required: ["kind", "answer"] },
+    { type: "object", additionalProperties: false, properties: { kind: { type: "string", enum: ["query"] }, call: { type: "object", additionalProperties: false, properties: { name: { type: "string", enum: ["analyze_candidates"] }, arguments: { type: "object", additionalProperties: false, properties: { caseRef: {type:"string"}, actionRefs: {type:"array", minItems:1,maxItems:3,items:{type:"string"}}, dimensions: {type:"array",minItems:1,maxItems:3,items:{type:"string",enum:["shanten","ukeire","dora_count"]}} }, required:["caseRef","actionRefs","dimensions"] } }, required:["name","arguments"] } }, required:["kind","call"] }
+  ] } }, required: ["response"]
+} as const;
 
 const JsonObjectSchema = z.record(z.unknown());
 
@@ -44,7 +52,7 @@ export type ArenaProviderToolCall = z.infer<typeof ArenaProviderToolCallSchema>;
 export const ArenaProviderMessageSchema = z.discriminatedUnion("role", [
   z.object({ role: z.literal("system"), content: z.string().min(1).max(ARENA_TEXTBOOK_MAX_INPUT_BYTES) }).strict(),
   z.object({ role: z.literal("user"), content: z.string().min(1).max(ARENA_TEXTBOOK_MAX_INPUT_BYTES) }).strict(),
-  z.object({ role: z.literal("assistant"), toolCalls: z.array(ArenaProviderToolCallSchema).min(1).max(1) }).strict(),
+  z.object({ role: z.literal("assistant"), toolCalls: z.array(ArenaProviderToolCallSchema).min(1).max(1), responseContent: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES).optional() }).strict(),
   z.object({
     role: z.literal("tool"),
     toolCallId: z.string().min(1).max(128),
@@ -60,13 +68,14 @@ export const ArenaProviderRequestSchema = z.object({
   requireIsolatedContext: z.boolean().optional(),
   maxOutputTokens: z.number().int().positive().safe(),
   maxInputBytes: z.number().int().min(1).max(ARENA_TEXTBOOK_MAX_INPUT_BYTES),
-  inputProfile: z.enum(["textbook-selector-v1", "textbook-decision-v1"]).optional(),
+  inputProfile: z.enum(["textbook-selector-v1", "textbook-decision-v1", "selective-research-v1"]).optional(),
   maxOutputBytes: z.number().int().min(1).max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
 }).strict().superRefine((request, context) => {
-  const ceiling = request.inputProfile === "textbook-selector-v1" ? 128 * 1024 : request.inputProfile === "textbook-decision-v1" ? ARENA_TEXTBOOK_MAX_INPUT_BYTES : ARENA_PROVIDER_MAX_INPUT_BYTES;
+  const ceiling = (request.inputProfile === "textbook-selector-v1" || request.inputProfile === "selective-research-v1") ? 128 * 1024 : request.inputProfile === "textbook-decision-v1" ? ARENA_TEXTBOOK_MAX_INPUT_BYTES : ARENA_PROVIDER_MAX_INPUT_BYTES;
   if (request.maxInputBytes > ceiling || request.messages.some(message => (message.role === "system" || message.role === "user") && message.content.length > ceiling)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_input_profile_limit" });
-  if (request.inputProfile && (request.tools.length !== 0 || !request.outputSchema || request.requireIsolatedContext !== true)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_textbook_profile_requires_isolation" });
-  if ((request.tools.length === 0) !== (request.outputSchema !== undefined)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_output_protocol_mismatch" });
+  if (request.inputProfile && request.inputProfile !== "selective-research-v1" && (request.tools.length !== 0 || !request.outputSchema || request.requireIsolatedContext !== true)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_textbook_profile_requires_isolation" });
+  if (request.inputProfile === "selective-research-v1" && (!request.outputSchema || JSON.stringify(request.outputSchema) !== JSON.stringify(ARENA_SELECTIVE_OUTPUT_SCHEMA) || request.maxInputBytes !== 128 * 1024 || request.requireIsolatedContext !== true || request.tools.some(t => t.function.name !== "analyze_candidates") || request.tools.length > 1)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_selective_profile_invalid" });
+  if (request.inputProfile !== "selective-research-v1" && (request.tools.length === 0) !== (request.outputSchema !== undefined)) context.addIssue({ code: z.ZodIssueCode.custom, message: "arena_output_protocol_mismatch" });
 });
 export type ArenaProviderRequest = z.infer<typeof ArenaProviderRequestSchema>;
 
@@ -89,13 +98,14 @@ export const ArenaProviderFailureCodeSchema = z.enum([
 export type ArenaProviderFailureCode = z.infer<typeof ArenaProviderFailureCodeSchema>;
 const failureFields = { failureCode: ArenaProviderFailureCodeSchema.optional(), usage: LlmTokenUsageSchema.optional(), reconnectCount: z.number().int().positive().max(100).optional() };
 export const ArenaToolCallProviderResultSchema = z.discriminatedUnion("status", [
-  z.object({ status: z.literal("final"), content: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
+  z.object({ status: z.literal("final"), content: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES), rawResponse: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES).optional(),
     outputBytes: z.number().int().nonnegative(), usage: LlmTokenUsageSchema.optional() }).strict(),
   z.object({
     status: z.literal("ready"),
     call: z.object({ name: z.string().regex(TOOL_NAME), arguments: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES) }).strict(),
     outputBytes: z.number().int().nonnegative().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES),
     decisionSummary: z.string().min(1).max(600).optional(),
+    rawResponse: z.string().max(ARENA_PROVIDER_MAX_OUTPUT_BYTES).optional(),
     usage: LlmTokenUsageSchema.optional(),
     reconnectCount: z.number().int().positive().max(100).optional(),
   }).strict(),

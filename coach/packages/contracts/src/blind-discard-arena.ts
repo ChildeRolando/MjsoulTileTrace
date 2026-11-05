@@ -28,6 +28,7 @@ export const ArenaExperimentConfigSchema = z.object({
   basicCalculations: z.boolean().optional(),
   helperForecasts: z.boolean().optional(),
   compactReferences: z.boolean().optional(),
+  selectiveCalculation: z.enum(["control", "query"]).optional(),
   handStructureFacts: z.boolean().optional(),
   improvementFacts: z.boolean().optional(),
   defenseFacts: z.boolean().optional(),
@@ -50,6 +51,7 @@ export const ArenaExperimentConfigSchema = z.object({
   if (config.helperForecasts && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.fiveAxisFramework || config.structuredBrief || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_helper_forecast_intervention_invalid");
   if (config.compactReferences && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.helperForecasts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.fiveAxisFramework || config.structuredBrief || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_compact_references_intervention_invalid");
   if (config.fiveAxisFrameworkV1Forecast && (!config.helperForecasts || config.fiveAxisFramework || config.structuredBrief || config.compactReferences)) reject("arena_v1_forecast_intervention_invalid");
+  if (config.selectiveCalculation && (!config.legalCandidates || config.submission !== "tile-red" || config.helperFacts || config.basicCalculations || config.helperForecasts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.fiveAxisFramework || config.fiveAxisFrameworkV1Forecast || config.structuredBrief || config.compactReferences || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || JSON.stringify(config.callableTools) !== JSON.stringify(config.selectiveCalculation === "query" ? ["analyze_candidates"] : []))) reject("arena_selective_calculation_invalid");
   if (config.handStructureFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_hand_structure_requires_candidates_and_no_tools");
   if (config.improvementFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length)) reject("arena_improvement_requires_candidates_and_no_tools");
   if (config.defenseFacts && (!config.legalCandidates || config.helperFacts || config.callableTools.length || config.handStructureFacts || config.improvementFacts || config.teaching === "on" || config.scenarioHint || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_defense_requires_candidates_and_no_other_interventions");
@@ -57,7 +59,7 @@ export const ArenaExperimentConfigSchema = z.object({
   if (config.wholeUnitFacts && !config.textbookInputBudget) reject("arena_textbook_budget_required");
   if ((config.fiveAxisFramework || config.structuredBrief) && (!config.legalCandidates || !config.basicCalculations || config.helperFacts || config.handStructureFacts || config.improvementFacts || config.defenseFacts || config.wholeUnitFacts || config.textbookInputBudget || config.callableTools.length || config.scenarioHint || config.teaching !== "off" || config.comparison || config.explanation || config.submission !== "tile-red")) reject("arena_five_axis_intervention_invalid");
   if (config.submission === "tool" && (!config.legalCandidates || !config.explanation)) reject("arena_legacy_submission_requires_candidates_and_explanation");
-  if (config.submission === "tile-red" && config.callableTools.length > 0) reject("arena_direct_submission_has_no_tool_loop");
+  if (config.submission === "tile-red" && !config.selectiveCalculation && config.callableTools.length > 0) reject("arena_direct_submission_has_no_tool_loop");
   if (config.teaching === "off" && (config.materialRouting === "scenario" || config.callableTools.includes("search_knowledge"))) reject("arena_routing_requires_teaching");
 });
 export type ArenaExperimentConfig = z.infer<typeof ArenaExperimentConfigSchema>;
