@@ -6,6 +6,21 @@ import {tmpdir} from 'node:os';
 import {createHash} from 'node:crypto';
 import {readResearchCase} from '../bin/arena-research-case.mjs';
 const sha=text=>createHash('sha256').update(text).digest('hex');
+
+test('selective archives bind slot, frozen input and result; partial traces stay readable',async t=>{
+ const f=await fixture(t), group='query', ordinal=9;
+ const input={caseId:f.summary.caseId,caseIndex:0,caseRef:'ref-0',group};
+ const inputSha256=await f.write('module-preflight/inputs/query/000-same-case.json',input);
+ const scheduleSha256=await f.write(`${f.base}/schedule-preliminary.json`,{slots:[{slotOrdinal:ordinal,caseIndex:0,caseId:f.summary.caseId,group,inputSha256}]});
+ await f.write(`${f.base}/active-run/run-index.json`,{version:'selective-study-run-index/v1',runId:'selective',scheduleSha256});
+ const path=`${f.base}/active-run/result-${ordinal}.json`;
+ await f.write(path,{slotOrdinal:ordinal,caseResult:f.result});
+ let d=await readResearchCase(f.root,group,f.summary);assert.deepEqual(d.result,f.result);assert.equal(d.caseOrdinal,9);assert.deepEqual(d.observation,f.events[0].observation);
+ await f.write(path,{slotOrdinal:8,caseResult:f.result});await assert.rejects(()=>readResearchCase(f.root,group,f.summary),/身份/);
+ await rm(join(f.root,path));await f.write(`${f.base}/active-run/trace-9.jsonl`,f.events.map(e=>JSON.stringify(e)).join('\n'));
+ d=await readResearchCase(f.root,group,f.summary);assert.equal(d.result,null);assert.equal(d.trace.length,f.events.length);
+ await f.write('module-preflight/inputs/query/000-same-case.json',{...input,caseRef:'wrong'});await assert.rejects(()=>readResearchCase(f.root,group,f.summary),/冻结映射/);
+});
 async function fixture(t,kind='standard') {
  const root=await mkdtemp(join(tmpdir(),'arena-study-case-'));
  const after=callback=>typeof t.after==='function'?t.after(callback):t.onTestFinished(callback);after(()=>rm(root,{recursive:true,force:true}));

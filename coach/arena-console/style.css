@@ -82,3 +82,7 @@
 #resume-generation{margin-top:12px}
 @media(max-width:1100px){.generation-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.generation-fields>label:first-child{grid-column:1/-1}}
 @media(max-width:600px){.generation-fields{grid-template-columns:1fr}.generation-fields>label:first-child{grid-column:auto}}
+
+.research-case-controls{display:flex;align-items:end;flex-wrap:wrap;gap:12px}.research-case-controls label{flex:1;min-width:180px}.research-case-controls button[aria-pressed="true"]{background:var(--accent,#246b5c);color:#fff}.research-case-controls [role="status"]{align-self:center}
+
+.research-decision-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 16px}.research-decision-pair>section{min-width:0}.research-decision-pair h3{font-size:14px;margin:0 0 12px}.research-decision-pair .tile-label{white-space:normal}

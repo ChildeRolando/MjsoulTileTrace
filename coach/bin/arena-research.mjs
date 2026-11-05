@@ -2,10 +2,11 @@ import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
 import { join, relative, isAbsolute } from 'node:path';
 import { createHash } from 'node:crypto';
 import { readResearchCase } from './arena-research-case.mjs';
+import { readResearchReference } from './arena-research-reference.mjs';
 const id = value => createHash('sha256').update(value).digest('hex').slice(0,24);
 const hiddenName = /preflight|synthetic|fixture|smoke|diagnostic|preparation|prep-|audit/i;
 const locations = ['', 'independent-statistics', 'execution-receipt', 'arena-integration'];
-const names = ['200题执行收据.md','报告.md','research-plan.json','research-design.json','root-result-review.json','independent-results.json','execution-receipt.json','batch-execution-receipt.json','operational-independent-recompute.json','summary.json','report.json','results.json'];
+const names = ['200题执行收据.md','统计报告.md','报告-实验设置补全版.md','报告.md','实验设置-统计审阅版.md','结果解读附页.md','research-plan.json','research-design.json','root-result-review.json','independent-results.json','execution-receipt.json','batch-execution-receipt.json','operational-independent-recompute.json','summary.json','report.json','results.json'];
 const labels = {'research-plan.json':'研究计划','research-design.json':'研究设计','root-result-review.json':'结果复核','independent-results.json':'独立统计','execution-receipt.json':'执行记录','batch-execution-receipt.json':'批量执行记录','operational-independent-recompute.json':'独立复算','summary.json':'汇总','report.json':'研究报告','results.json':'结果','报告.md':'研究报告'};
 const MAX_BYTES = 16 * 1024 * 1024;
 const inside = (root, target) => { const rel=relative(root,target); return rel && !rel.startsWith('..') && !isAbsolute(rel); };
@@ -34,7 +35,9 @@ export function createResearchLibrary(configFile) {
           try { const {info}=await safeFile(root,file); documents.push({id:id(location+'/'+name),name:labels[name]??name,path:location?`${location}/${name}`:name,modified:info.mtime.toISOString(),bytes:info.size,file,root}); } catch { /* absent/oversize documents are not advertised */ }
         }
         if(!documents.length) continue;
-        documents.sort((a,b)=>Number(b.path==='arena-integration/200题执行收据.md')-Number(a.path==='arena-integration/200题执行收据.md') || Number(b.path==='independent-statistics/报告.md')-Number(a.path==='independent-statistics/报告.md') || Number(b.path==='arena-integration/报告.md')-Number(a.path==='arena-integration/报告.md'));
+        const preferred=['arena-integration/200题执行收据.md','independent-statistics/统计报告.md','independent-statistics/报告-实验设置补全版.md','independent-statistics/报告.md','arena-integration/报告.md'];
+        const rank=path=>preferred.includes(path)?preferred.indexOf(path):preferred.length;
+        documents.sort((a,b)=>rank(a.path)-rank(b.path));
         let title=dir.name;
         const report=documents.find(d=>d.path.endsWith('.md'));
         if(report) { const text=await readFile(report.file,'utf8'); title=text.match(/^#\s+(.+)$/m)?.[1]?.trim().slice(0,180)||title; }
@@ -70,11 +73,49 @@ export function createResearchLibrary(configFile) {
       }
       return {...publicStudy(s),groups,statisticsStatus,statisticsError};
     }, document,
-    async case(key, group, caseIndex) {
+    async case(key, group, caseIndex, visited=new Set()) {
+      if(visited.has(key))throw error('历史研究来源存在循环。');visited.add(key);
       const s=await study(key), detail=await this.detail(key);
       const g=detail.groups.find(g=>g.name===group);
       if(!g || !Number.isInteger(caseIndex) || caseIndex<0 || caseIndex>=g.cases.length)throw error('找不到该研究案例。');
-      return readResearchCase(s.directory,group,g.cases[caseIndex]);
+      const summary=g.cases[caseIndex];
+      let reuse;
+      try {
+        const registry=join(s.directory,'independent-statistics/reuse-registry.json');await safeFile(s.directory,registry);
+        reuse=JSON.parse((await readFile(registry,'utf8')).replace(/^\uFEFF/,'')).groups?.find(row=>row.group===group);
+      }catch(e){if(e.code!=='ENOENT')throw e;}
+      // Some reports reuse a whole historical results file instead of a per-group registry.
+      let historicalHash;
+      if(!reuse) {
+        const stat=s.documents.find(d=>d.path==='independent-statistics/independent-results.json');
+        if(stat)historicalHash=JSON.parse((await document(key,stat.id)).text.replace(/^\uFEFF/,'')).provenance?.historicalResultsSha256;
+      }
+      if(reuse||historicalHash) {
+        const sources=[];
+        for(const candidate of (await index()).studies) {
+          if(candidate.id===key || (reuse&&candidate.directory.replaceAll('\\','/')!==reuse.archive.replaceAll('\\','/')))continue;
+          const stat=candidate.documents.find(d=>d.path==='independent-statistics/independent-results.json');if(!stat)continue;
+          const text=(await document(candidate.id,stat.id)).text;
+          if(createHash('sha256').update(text).digest('hex')!==(reuse?.sourceResultsSha256??historicalHash))continue;
+          const sourceGroup=reuse?.sourceGroup??group, raw=JSON.parse(text.replace(/^\uFEFF/,'')), cases=raw.cases?.[sourceGroup]??[];
+          const matches=cases.map((c,i)=>({c,i})).filter(({c})=>c.caseId===summary.caseId);
+          if(matches.length!==1)continue;
+          const {c,i}=matches[0];
+          if(c.match!==summary.match||c.failure!==summary.failure||c.choice?.tile!==summary.choice?.tile||c.choice?.red!==summary.choice?.red)throw error('历史结果与当前统计不一致。');
+          sources.push({candidate,sourceGroup,i});
+        }
+        if(sources.length>1||reuse&&sources.length!==1)throw error('历史研究来源未能唯一对应。');
+        if(sources.length===1) {
+          const {candidate,sourceGroup,i}=sources[0], restored=await this.case(candidate.id,sourceGroup,i,visited);
+          return {...restored,summary,source:`历史复用：${candidate.name} / ${restored.source}`};
+        }
+      }
+      const restored=await readResearchCase(s.directory,group,g.cases[caseIndex]);
+      if(!restored.reference&&restored.observation) {
+        try {Object.assign(restored,await readResearchReference(s.directory,summary,restored.observation,(await index()).studies.map(s=>s.directory)));}
+        catch {restored.referenceError='Mortal 推荐归档校验未通过';}
+      }
+      return restored;
     },
   };
 }

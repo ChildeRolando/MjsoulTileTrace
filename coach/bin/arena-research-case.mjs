@@ -25,7 +25,7 @@ async function json(root, rel, expected, encoding='bytes') {
 async function rowsForCase(root, rel, ordinal, field='caseOrdinal') {
   const path=await checkedPath(root,rel,128*1024*1024), stream=createReadStream(path,{encoding:'utf8'});
   const lines=createInterface({input:stream,crlfDelay:Infinity}), rows=[];
-  try {for await(const line of lines) {if(!line.trim())continue;const row=JSON.parse(line);if(row[field]===ordinal)rows.push(row);}}
+  try {for await(const line of lines) {if(!line.trim())continue;const row=JSON.parse(line);if(field===null||row[field]===ordinal)rows.push(row);}}
   finally {lines.close();stream.destroy();}
   return rows;
 }
@@ -38,6 +38,7 @@ export async function readResearchCase(directory, group, summary) {
   }
   if(!selected)return {available:false,reason:'这项研究没有保存可关联的 Arena 逐题归档。',summary};
   const f=selected, base=f.base, index=await json(root,`${base}/${f.index}`);
+  if(index.version==='selective-study-run-index/v1') return readSelectiveCase(root,index,group,summary);
   const plan=await json(root,`${base}/${f.plan}`,index[f.hash]);
   let slots=plan.slots;
   if(!slots && Array.isArray(plan.caseOrder) && group==='raw_position') {
@@ -91,4 +92,30 @@ export async function readResearchCase(directory, group, summary) {
   return {available:Boolean(result||records.length),reason:result||records.length?null:'本题尚未保存执行记录。',summary,
     caseOrdinal:slot.batchCaseOrdinal,source:`${f.archive}${slot.batchId}`,manifest,events,trace,traceLive:false,
     observation:start?.observation??null,result:result??null,reference,preparation};
+}
+
+async function readSelectiveCase(root,index,group,summary) {
+  if(!index.scheduleSha256)throw Error('缺少冻结排程摘要');
+  const schedule=await json(root,'execution-preparation/schedule-preliminary.json',index.scheduleSha256);
+  const slots=schedule.slots?.filter(s=>s.caseId===summary.caseId&&s.group===group)??[];
+  if(slots.length!==1)throw Error('研究案例未能唯一对应到冻结排程');
+  const slot=slots[0], ordinal=slot.slotOrdinal;
+  if(!Number.isInteger(ordinal)||ordinal<0||!Number.isInteger(slot.caseIndex)||slot.caseIndex<0||!/^[a-zA-Z0-9_-]+$/.test(slot.caseId)||!/^[a-zA-Z0-9_-]+$/.test(group)||!slot.inputSha256)throw Error('研究排程无效');
+  const name=`${String(slot.caseIndex).padStart(3,'0')}-${slot.caseId}.json`;
+  let input;
+  try {input=await json(root,`execution-preparation/inputs/${name}`,slot.inputSha256);}
+  catch(e){if(e.code!=='ENOENT')throw e;input=await json(root,`module-preflight/inputs/${group}/${name}`,slot.inputSha256);}
+  if(input.caseId!==summary.caseId||input.caseIndex!==slot.caseIndex||input.group!==group||!input.caseRef)throw Error('研究输入与排程不一致');
+  const archive='execution-preparation/active-run';
+  let saved=null;
+  try {saved=await json(root,`${archive}/result-${ordinal}.json`);}catch(e){if(e.code!=='ENOENT')throw e;}
+  const result=saved?.caseResult??null;
+  let records=result?.events??[];
+  if(!records.length)try {records=await rowsForCase(root,`${archive}/trace-${ordinal}.jsonl`,undefined,null);}catch(e){if(e.code!=='ENOENT')throw e;}
+  const start=records.find(e=>e.type==='run_started');
+  if((saved&&saved.slotOrdinal!==ordinal)||(result&&result.caseRef!==input.caseRef)||(start&&start.caseRef!==input.caseRef)||(start?.observation&&start.observation.caseRef!==input.caseRef))throw Error('研究案例身份与牌面不一致');
+  return {available:Boolean(result||records.length),reason:result||records.length?null:'本题尚未保存执行记录。',summary,caseOrdinal:ordinal,
+    source:`${archive}/result-${ordinal}.json`,manifest:{runId:index.runId},
+    events:result?[{type:'case_run',caseOrdinal:ordinal,result}]:[],trace:records.map(event=>({caseOrdinal:ordinal,event})),traceLive:false,
+    observation:start?.observation??null,result,reference:null,preparation:null};
 }
