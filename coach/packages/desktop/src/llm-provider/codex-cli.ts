@@ -590,13 +590,16 @@ async function runExecAttempt(input: {
       const events: string[] = [];
       let unexpectedItem: { unexpectedItemKind: import("./codex-arena-isolation.js").UnexpectedItemKind; unexpectedItemPhase: "item.started" | "item.updated" | "item.completed" } | undefined;
       let errorItem: ErrorItemDiagnostic | undefined;
+      const localEvidenceStart = process.hrtime.bigint();
+      let errorItemObservedMs: number | null = null;
+      let outerAbortTriggered = false;
       const resolvePromise = (result: ExecResult) => {
         if (input.isolation?.options.onDiagnostic) {
           const originalBytes = state.finalText === undefined ? undefined : Buffer.from(state.finalText, "utf8");
           const redactedBytes = state.finalText === undefined || !isolated ? undefined : Buffer.from(isolated.redact(state.finalText), "utf8");
-          let rawFinal = redactedBytes === undefined ? null : redactedBytes.subarray(0, 16384).toString("utf8");
+          let rawFinal = input.isolation.options.captureLocalEventEvidence === true || redactedBytes === undefined ? null : redactedBytes.subarray(0, 16384).toString("utf8");
           while (rawFinal !== null && Buffer.byteLength(rawFinal, "utf8") > 16384) rawFinal = rawFinal.slice(0, -1);
-          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem, ...(errorItem ? { errorItemDiagnostic: errorItem } : {}) } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
+          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem, ...(errorItem ? { errorItemDiagnostic: errorItem } : {}) } : {}), ...(input.isolation.options.captureLocalEventEvidence === true ? { localEventEvidence: { errorItemObservedMs, localTimer: timedOut ? "triggered" as const : "not_triggered" as const, outerAbort: outerAbortTriggered ? "triggered" as const : "not_triggered" as const, termination: childClosed ? "closed" as const : terminationUnconfirmed ? "grace_expired" as const : "unknown" as const } } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
         }
         const safeResult = result.kind === "success" && isolated ? { ...result, content: isolated.redact(result.content) } : result;
         resolveResult({ ...safeResult, ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
@@ -703,6 +706,7 @@ async function runExecAttempt(input: {
               const unexpectedItemKind = kind === undefined || kind === null ? "missing" : known.find(value => value === kind) ?? "other";
               unexpectedItem = { unexpectedItemKind, unexpectedItemPhase: event.type };
               if (unexpectedItemKind === "error") {
+                if (input.isolation?.options.captureLocalEventEvidence === true && errorItemObservedMs === null) errorItemObservedMs = Number((process.hrtime.bigint() - localEvidenceStart) / 1_000_000n);
                 try { errorItem = errorItemDiagnostic(event.item, input.isolation?.options.captureErrorItemDiagnostics === true); } catch { /* diagnostics never alter failure handling */ }
               }
             }
@@ -771,7 +775,7 @@ async function runExecAttempt(input: {
         kill();
       });
       child.once("exit", (code) => { exitCode = code; });
-      const onAbort = () => failAndKill({ errorCode: "provider_unavailable", retryable: false });
+      const onAbort = () => { outerAbortTriggered = true; failAndKill({ errorCode: "provider_unavailable", retryable: false }); };
       child.once("close", (code) => {
         childClosed = true;
         if (processExit !== undefined) process.removeListener("exit", processExit);
