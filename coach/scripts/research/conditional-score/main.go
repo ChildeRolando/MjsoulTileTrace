@@ -17,9 +17,9 @@ import (
 )
 
 const (
-	maxShape     int64 = 9999975
-	maxPrimitive int64 = 1999975
-	maxScore     int64 = 199984
+	maxShape     int64 = 40000000
+	maxPrimitive int64 = 8000000
+	maxScore     int64 = 800000
 )
 
 type Tile struct {
@@ -95,7 +95,7 @@ type Eval struct {
 }
 
 func (e *Eval) check() {
-	if time.Since(e.batch) >= 300*time.Second {
+	if time.Since(e.batch) >= 1200*time.Second {
 		panic(stop{"batch_time"})
 	}
 	if time.Since(e.start) >= 30*time.Second {
@@ -634,7 +634,7 @@ func main() {
 	var x struct {
 		Cases []Case `json:"cases"`
 	}
-	if err = json.Unmarshal(b, &x); err != nil || len(x.Cases) != 20 {
+	if err = json.Unmarshal(b, &x); err != nil || len(x.Cases) != 79 {
 		panic("invalid input")
 	}
 	dir := os.Args[2]
