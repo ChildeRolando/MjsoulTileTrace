@@ -107,7 +107,7 @@ export type ArenaToolReferences = Readonly<{
 }>;
 
 /**
- * Generic post-retrieval gate port (spec §4.6). The runner knows nothing about
+ * Generic post-retrieval gate port (spec 搂4.6). The runner knows nothing about
  * RAG: it only orders `execute -> parseOutput -> apply -> parseOutput -> references`.
  */
 export type ArenaRunnerApplicabilityGate = Readonly<{
@@ -711,7 +711,7 @@ export function createArenaRagRunnerTool(input: {
   };
   return {
     name: "search_knowledge",
-    description: "Search local Chinese teaching summaries about 进张计数 (effective tile counts) or 复合牌形 (overlapping shapes). Use a short Chinese concept query to check a general principle before citing it; this corpus contains no case answers. Off mode returns disabled.",
+    description: "Search local Chinese teaching summaries about 杩涘紶璁℃暟 (effective tile counts) or 澶嶅悎鐗屽舰 (overlapping shapes). Use a short Chinese concept query to check a general principle before citing it; this corpus contains no case answers. Off mode returns disabled.",
     parameters: ARENA_RAG_TOOL_PARAMETERS,
     parseInput(raw) {
       const parsed = ArenaRagRequestSchema.safeParse(raw);
@@ -800,7 +800,7 @@ export async function runBlindCoachCase(input: {
   moduleMaterialBaseline?: unknown;
   moduleScenario?: unknown;
   moduleSelection?: unknown;
-  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; basicCalculations?: unknown; twoDrawStructuralProgress?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
+  prepareModules?: (context: { signal: AbortSignal; raw: ReturnType<typeof projectArenaRawObservation>; candidates: ArenaBlindObservation["candidates"] }) => Promise<{ helper?: unknown; basicCalculations?: unknown; twoDrawStructuralProgress?: unknown; discardOrderWitness?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown; scenario?: unknown; selection?: unknown }>;
   limits?: Partial<ArenaRunLimits>;
   signal?: AbortSignal;
   clock?: () => number;

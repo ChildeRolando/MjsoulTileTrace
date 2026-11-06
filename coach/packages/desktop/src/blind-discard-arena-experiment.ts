@@ -1,3 +1,4 @@
+import { validateDiscardOrderWitness } from "./blind-discard-arena-discard-order-witness.js";
 import { createHash } from "node:crypto";
 import { TWO_DRAW_SEMANTICS } from "./blind-discard-arena-two-draw-asset.js";
 import { FIVE_AXIS_FRAMEWORK_V1 } from "./blind-discard-arena-five-axis-v1-asset.js";
@@ -99,7 +100,7 @@ export function arenaExperimentPrompt(config: ArenaExperimentConfig, hasVisibleH
 
 export function assembleArenaExperiment(input: {
   observation: ArenaBlindObservation; config: ArenaExperimentConfig;
-  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; twoDrawStructuralProgress?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
+  tools?: readonly ArenaProviderToolDefinition[]; helper?: unknown; basicCalculations?: unknown; twoDrawStructuralProgress?: unknown; discardOrderWitness?: unknown; forecastCapture?: unknown; handStructureFacts?: unknown; improvementFacts?: unknown; defenseFacts?: unknown; wholeUnitFacts?: unknown; textbookLibrary?: unknown; material?: unknown; materialBaseline?: unknown;
   scenario?: unknown; selection?: unknown;
 }) {
   const config = ArenaExperimentConfigSchema.parse(input.config);
@@ -111,6 +112,8 @@ export function assembleArenaExperiment(input: {
   if (Boolean(config.basicCalculations) !== (input.basicCalculations !== undefined)) throw new Error("arena_basic_calculations_mismatch");
   const basicCalculations = input.basicCalculations === undefined ? undefined : ArenaBasicCalculationsSchema.parse(structuredClone(input.basicCalculations));
   if (basicCalculations && (basicCalculations.caseRef !== observation.caseRef || JSON.stringify(basicCalculations.candidates.map(row => row.actionRef)) !== JSON.stringify(observation.candidates.map(row => row.actionRef)))) throw new Error("arena_basic_calculations_candidates_mismatch");
+  if (Boolean(config.discardOrderWitness) !== (input.discardOrderWitness !== undefined)) throw new Error("arena_discard_order_witness_mismatch");
+  const discardOrderWitness = input.discardOrderWitness === undefined ? undefined : validateDiscardOrderWitness(structuredClone(input.discardOrderWitness), observation, basicCalculations!);
   if (Boolean(config.twoDrawStructuralProgress) !== (input.twoDrawStructuralProgress !== undefined)) throw new Error("arena_two_draw_mismatch");
   const twoDrawSchema = z.object({ version: z.literal("two-draw-structural-progress-prototype/v1"), semantics: z.literal(TWO_DRAW_SEMANTICS), status: z.enum(["available", "unavailable"]), reason: z.string().nullable(), sharedTargets: z.array(z.number().int().min(-1)), candidates: z.array(z.object({ actionRef: z.string(), status: z.enum(["available", "unavailable"]), reason: z.string().optional(), targets: z.array(z.object({target: z.number().int().min(-1), numerator: z.number().int().nonnegative(), denominator: z.number().int().positive()}).strict()).optional() }).strict()) }).strict();
   const twoDrawStructuralProgress = input.twoDrawStructuralProgress === undefined ? undefined : twoDrawSchema.parse(structuredClone(input.twoDrawStructuralProgress));
@@ -165,6 +168,7 @@ export function assembleArenaExperiment(input: {
     ...(helper ? { helper } : {}),
     ...(basicCalculations ? { basicCalculations } : {}),
     ...(twoDrawStructuralProgress ? { twoDrawStructuralProgress } : {}),
+    ...(discardOrderWitness ? { discardOrderWitness } : {}),
     ...(helperForecasts ? { helperForecasts } : {}),
     ...(handStructureFacts ? { handStructureFacts } : {}),
     ...(improvementFacts ? { improvementFacts } : {}),
@@ -188,6 +192,7 @@ export function assembleArenaExperiment(input: {
     ...(helper ? { helper: { sourceId: "arena-mcp", version: helper.schemaVersion, producers: helper.facts.map(f => f.producer) } } : {}),
     ...(helperForecasts ? { helperForecasts: { sourceId: "mahjong-helper-hand13-forecast", version: helperForecasts.version, ...helperForecasts.source } } : {}),
     ...(basicCalculations ? { basicCalculations: { sourceId: "mahjong-helper-hand13", version: basicCalculations.version, producer: basicCalculations.producer } } : {}),
+    ...(discardOrderWitness ? { discardOrderWitness: { sourceId: "public-structure-preflight", version: discardOrderWitness.version } } : {}),
     ...(handStructureFacts ? { handStructureFacts: { sourceId: "mahjong-hand-structure", version: handStructureFacts.version, producer: handStructureFacts.producer } } : {}),
     ...(wholeUnitFacts ? { wholeUnitFacts: { sourceId: "textbook-whole-unit-index", version: "ceiling-whole-unit-index/v1", indexSha256: wholeUnitFacts.indexSha256, corpusId: wholeUnitFacts.corpusId, ...(wholeUnitFacts.status === "selected" ? { unitId: wholeUnitFacts.unit.id, contentDigest: wholeUnitFacts.unit.contentDigest } : {}) } } : {}),
     ...(defenseFacts ? { defenseFacts: { sourceId: "mahjong-helper-defense", version: defenseFacts.version, producer: defenseFacts.producer } } : {}),
