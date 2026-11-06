@@ -18,8 +18,8 @@ type ResearchTrace struct {
 	Division      *DivideResult `json:"division"`
 	WinTile       int           `json:"winTile"`
 	IsParent      bool          `json:"isParent"`
-	ChildPayment  int           `json:"childPayment"`
-	ParentPayment int           `json:"parentPayment"`
+	ChildPayment  *int          `json:"childPayment"`
+	ParentPayment *int          `json:"parentPayment"`
 	Reason        string        `json:"reason,omitempty"`
 }
 
@@ -30,6 +30,11 @@ func ResearchCalcPoint(p *model.PlayerInfo) (tr ResearchTrace) {
 	defer func() {
 		if recover() != nil {
 			tr.Status = "unknown"
+			tr.Point = nil
+			tr.Han = nil
+			tr.Fu = nil
+			tr.ChildPayment = nil
+			tr.ParentPayment = nil
 			tr.Reason = "upstream_panic"
 		}
 	}()
@@ -78,6 +83,7 @@ func ResearchCalcPoint(p *model.PlayerInfo) (tr ResearchTrace) {
 		tr.Han = &han
 		tr.Fu = &fu
 	}
-	tr.ChildPayment, tr.ParentPayment = CalcPointTsumo(r.han, r.fu, r.yakumanTimes, p.IsParent)
+	child, parent := CalcPointTsumo(r.han, r.fu, r.yakumanTimes, p.IsParent)
+	tr.ChildPayment, tr.ParentPayment = &child, &parent
 	return
 }
