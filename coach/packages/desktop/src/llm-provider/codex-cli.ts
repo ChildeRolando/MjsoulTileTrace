@@ -704,7 +704,7 @@ async function runExecAttempt(input: {
           const stages = diagnosticOne.stages;
           if (event.type === "thread.started" && stages.thread === null) stages.thread = stageMs();
           if (event.type === "turn.started" && stages.turn === null) stages.turn = stageMs();
-          if ((event.type === "item.started" || event.type === "item.updated" || event.type === "item.completed") && isRecord(event.item) && event.item.type === "agent_message" && stages.visible === null) stages.visible = stageMs();
+          if ((event.type === "item.started" || event.type === "item.updated" || event.type === "item.completed") && isRecord(event.item) && event.item.type === "agent_message" && typeof event.item.text === "string" && event.item.text.length > 0 && stages.visible === null) stages.visible = stageMs();
         }
         const problem = parseEvent(event, state, input.arenaStructuredOutput, input.isolation !== undefined);
         if (problem !== null) {
