@@ -1,6 +1,6 @@
 import json,gzip,hashlib,collections,sys
 from pathlib import Path
-P=Path('E:/AgentData/Coach/llm-conditional-score-preflight-20261106');sample=json.loads((P/'sample/sample-freeze.json').read_text(encoding='utf8'));receipt=json.loads((P/'run/receipt.json').read_text(encoding='utf8'));H=lambda b:hashlib.sha256(b).hexdigest();assert len(sample['cases'])==receipt['cases']==20;stats=collections.Counter();witnessChecks=0
+P=Path('E:/AgentData/Coach/llm-conditional-score-preflight-20261106');sample=json.loads((P/'sample/sample-freeze.json').read_text(encoding='utf8'));receipt=json.loads((P/'run/receipt.json').read_text(encoding='utf8'));H=lambda b:hashlib.sha256(b).hexdigest();assert len(sample['cases'])==receipt['cases']==20;stats=collections.Counter();witnessChecks=0;noYakuDoraMismatches=0;noYakuPaths=0
 
 def collapse(h):
  a=h[:34]
@@ -10,10 +10,16 @@ def idx(t):return 'mpsz'.index(t['id'][1])*9+int(t['id'][0])-1
 def dora(i):return i+1 if i<27 and i%9<8 else i-8 if i<27 else i+1 if i<30 else 27 if i==30 else i+1 if i<33 else 31
 def meldtiles(m):return m['tiles'] if m['kind']=='ankan' else [m['calledTile']]+m['consumedTiles']+([m['addedTile']] if m['kind']=='kakan' else [])
 def checktrace(id,traces,h,win,c):
- global witnessChecks
+ global witnessChecks,noYakuDoraMismatches,noYakuPaths
  t=traces[id];raw=json.dumps(t,ensure_ascii=False,separators=(',',':')).encode();assert H(raw)==id
  assert t['winTile']==(4+9*(win-34) if win>=34 else win) and t['isParent']==c['dealer']
- if t['status']=='no_yaku':assert t['point']==0 and t['reason']=='all_supported_divisions_no_yaku';return 0
+ if t['status']=='no_yaku':
+  assert t['point']==0 and t['reason']=='all_supported_divisions_no_yaku';a=collapse(h);extra=[]
+  for m in c['ownMelds']:extra.extend(meldtiles(m))
+  actual=sum(a[dora(v)] for v in c['doraIndicators'])+sum(sum(idx(z)==dora(v) for z in extra) for v in c['doraIndicators'])+sum(h[34:])+sum(z['red'] for z in extra)
+  noYakuPaths+=1
+  if t['doraCount']!=actual:noYakuDoraMismatches+=1
+  return 0
  assert t['status']=='supported' and t['point'] and t['point']>0
  assert t['point']==(3*t['childPayment'] if t['isParent'] else 2*t['childPayment']+t['parentPayment'])
  if t['yakumanTimes']>0:assert t['han'] is None and t['fu'] is None
@@ -59,4 +65,4 @@ for case in sample['cases']:
     mx=max(z['pointMass'] for z in discards);ties=[z['variant'] for z in discards if z['pointMass']==mx];assert b['ties']==ties and b['bestDiscard']==ties[0] and b['pointMass']==mx;chosen=next(z for z in discards if z['variant']==ties[0]);assert b['winMass']==chosen['winMass']
    num+=nx*b['pointMass'];wm+=nx*b['winMass']
   assert r['numerator']==num and r['winMassNumerator']==wm and 0<=wm<=r['denominator']
-out={'version':'conditional-score-arithmetic-audit/v1','status':'pass','sampleSha256':H((P/'sample/sample-freeze.json').read_bytes()),'runReceiptSha256':H((P/'run/receipt.json').read_bytes()),'cases':len(sample['cases']),'candidateStatuses':dict(stats),'completionTraceChecks':witnessChecks,'checks':['full outcome enumeration and 37-class no-replacement weights','same-policy winmass and max outside second-draw sum with canonical ties','sample/native candidate order and denominator','trace digest, physical hand division, red/dora and individual payment sum','unknown or incomplete candidates do not have numerical fractions'],'limitations':['does not independently recompute helper yaku or shanten','does not independently establish scores as full rules truth'],'extraScoreCalls':0,'extraShapeCalls':0,'modelCalls':0,'mortalCalls':0};path=P/'arithmetic-audit.json';path.open('x',encoding='utf8').write(json.dumps(out,ensure_ascii=False,indent=2));print(json.dumps({'status':'pass','candidateStatuses':dict(stats),'completionTraceChecks':witnessChecks,'sha256':H(path.read_bytes())},ensure_ascii=False))
+out={'version':'conditional-score-arithmetic-audit/v1','status':'pass','sampleSha256':H((P/'sample/sample-freeze.json').read_bytes()),'runReceiptSha256':H((P/'run/receipt.json').read_bytes()),'cases':len(sample['cases']),'candidateStatuses':dict(stats),'completionTraceChecks':witnessChecks,'noYakuPaths':noYakuPaths,'noYakuDoraFieldMismatches':noYakuDoraMismatches,'checks':['full outcome enumeration and 37-class no-replacement weights','same-policy winmass and max outside second-draw sum with canonical ties','sample/native candidate order and denominator','trace digest, physical hand division, red/dora and individual payment sum','unknown or incomplete candidates do not have numerical fractions'],'limitations':['does not independently recompute helper yaku or shanten','does not independently establish scores as full rules truth'],'extraScoreCalls':0,'extraShapeCalls':0,'modelCalls':0,'mortalCalls':0};path=P/'arithmetic-audit-v2.json';path.open('x',encoding='utf8').write(json.dumps(out,ensure_ascii=False,indent=2));print(json.dumps({'status':'pass','candidateStatuses':dict(stats),'completionTraceChecks':witnessChecks,'noYakuPaths':noYakuPaths,'noYakuDoraFieldMismatches':noYakuDoraMismatches,'sha256':H(path.read_bytes())},ensure_ascii=False))

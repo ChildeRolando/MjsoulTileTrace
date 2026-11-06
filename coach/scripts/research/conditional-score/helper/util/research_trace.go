@@ -14,7 +14,7 @@ type ResearchTrace struct {
 	Fu            *int          `json:"fu"`
 	YakumanTimes  int           `json:"yakumanTimes"`
 	YakuIDs       []int         `json:"yakuIds"`
-	DoraCount     int           `json:"doraCount"`
+	DoraCount     *int          `json:"doraCount"`
 	Division      *DivideResult `json:"division"`
 	WinTile       int           `json:"winTile"`
 	IsParent      bool          `json:"isParent"`
@@ -37,6 +37,8 @@ func ResearchCalcPoint(p *model.PlayerInfo) (tr ResearchTrace) {
 		tr.Reason = "unsupported_context"
 		return
 	}
+	dora := p.CountDora()
+	tr.DoraCount = &dora
 	divisions := DivideTiles34(p.HandTiles34)
 	if len(divisions) == 0 {
 		tr.Reason = "unsupported_or_unrecognized_completion"
@@ -65,7 +67,6 @@ func ResearchCalcPoint(p *model.PlayerInfo) (tr ResearchTrace) {
 	point := r.Point
 	tr.Point = &point
 	tr.YakumanTimes = r.yakumanTimes
-	tr.DoraCount = p.CountDora()
 	tr.YakuIDs = append([]int(nil), r.yakuTypes...)
 	sort.Ints(tr.YakuIDs)
 	d := *r.divideResult
