@@ -17,7 +17,8 @@ export type ArenaCodexIsolation = {
   captureErrorItemDiagnostics?: boolean;
   /** Additional bounded local lifecycle evidence; default off. */
   captureLocalEventEvidence?: boolean;
-  onDiagnostic?: (value: { status: string; failureCode?: string; unexpectedItemKind?: UnexpectedItemKind; unexpectedItemPhase?: "item.started" | "item.updated" | "item.completed"; errorItemDiagnostic?: ErrorItemDiagnostic; localEventEvidence?: { errorItemObservedMs: number | null; localTimer: "triggered" | "not_triggered"; outerAbort: "triggered" | "not_triggered"; termination: "closed" | "grace_expired" | "unknown" }; rawFinal: string | null; truncated: boolean; stderrBytes: number; reconnectCount: number; events: string[]; usage?: object; physicalRequests: "unknown" }) => void;
+  captureDiagnosticOne?: boolean;
+  onDiagnostic?: (value: { status: string; diagnosticOne?: import("./codex-diagnostic-one.js").DiagnosticOne; failureCode?: string; unexpectedItemKind?: UnexpectedItemKind; unexpectedItemPhase?: "item.started" | "item.updated" | "item.completed"; errorItemDiagnostic?: ErrorItemDiagnostic; localEventEvidence?: { errorItemObservedMs: number | null; localTimer: "triggered" | "not_triggered"; outerAbort: "triggered" | "not_triggered"; termination: "closed" | "grace_expired" | "unknown" }; rawFinal: string | null; truncated: boolean; stderrBytes: number; reconnectCount: number; events: string[]; usage?: object; physicalRequests: "unknown" }) => void;
 };
 export type UnexpectedItemKind = "error" | "command_execution" | "file_change" | "mcp_tool_call" | "web_search" | "todo_list" | "collab_tool_call" | "other" | "missing";
 const hash = (bytes: string | Buffer) => createHash("sha256").update(bytes).digest("hex");

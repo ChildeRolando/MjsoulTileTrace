@@ -1,3 +1,4 @@
+import { diagnosticTemplates, type DiagnosticOne } from "./codex-diagnostic-one.js";
 import { z } from "zod";
 import { createHash } from "node:crypto";
 import type { ArenaRequestAudit } from "../blind-discard-arena-provider.js";
@@ -592,6 +593,8 @@ async function runExecAttempt(input: {
       let errorItem: ErrorItemDiagnostic | undefined;
       const localEvidenceStart = process.hrtime.bigint();
       let errorItemObservedMs: number | null = null;
+      const diagnosticOne: DiagnosticOne = { version: "arena-diagnostic-one/v1", templates: [], httpCodes: [], osCodes: [], stages: { thread: null, turn: null, visible: null, error: null, close: null } };
+      const stageMs = () => Number((process.hrtime.bigint() - localEvidenceStart) / 1_000_000n);
       let outerAbortTriggered = false;
       const resolvePromise = (result: ExecResult) => {
         if (input.isolation?.options.onDiagnostic) {
@@ -599,7 +602,7 @@ async function runExecAttempt(input: {
           const redactedBytes = state.finalText === undefined || !isolated ? undefined : Buffer.from(isolated.redact(state.finalText), "utf8");
           let rawFinal = input.isolation.options.captureLocalEventEvidence === true || redactedBytes === undefined ? null : redactedBytes.subarray(0, 16384).toString("utf8");
           while (rawFinal !== null && Buffer.byteLength(rawFinal, "utf8") > 16384) rawFinal = rawFinal.slice(0, -1);
-          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem, ...(errorItem ? { errorItemDiagnostic: errorItem } : {}) } : {}), ...(input.isolation.options.captureLocalEventEvidence === true ? { localEventEvidence: { errorItemObservedMs, localTimer: timedOut ? "triggered" as const : "not_triggered" as const, outerAbort: outerAbortTriggered ? "triggered" as const : "not_triggered" as const, termination: childClosed ? "closed" as const : terminationUnconfirmed ? "grace_expired" as const : "unknown" as const } } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
+          try { input.isolation.options.onDiagnostic({ status: result.kind === "success" ? "completed" : result.failure.errorCode, ...(input.isolation.options.captureDiagnosticOne === true ? { diagnosticOne } : {}), ...(result.kind === "failure" ? { failureCode: result.failure.diagnosticCode ?? result.failure.errorCode, ...unexpectedItem, ...(errorItem ? { errorItemDiagnostic: errorItem } : {}) } : {}), ...(input.isolation.options.captureLocalEventEvidence === true ? { localEventEvidence: { errorItemObservedMs, localTimer: timedOut ? "triggered" as const : "not_triggered" as const, outerAbort: outerAbortTriggered ? "triggered" as const : "not_triggered" as const, termination: childClosed ? "closed" as const : terminationUnconfirmed ? "grace_expired" as const : "unknown" as const } } : {}), rawFinal, truncated: (originalBytes?.length ?? 0) > 16384 || (redactedBytes?.length ?? 0) > 16384, stderrBytes, reconnectCount: state.reconnectCount ?? 0, events, ...(state.usage ? { usage: state.usage } : {}), physicalRequests: "unknown" }); } catch { /* diagnostic failures do not alter execution */ }
         }
         const safeResult = result.kind === "success" && isolated ? { ...result, content: isolated.redact(result.content) } : result;
         resolveResult({ ...safeResult, ...(state.reconnectCount ? { reconnectCount: state.reconnectCount } : {}) });
@@ -697,6 +700,12 @@ async function runExecAttempt(input: {
           return;
         }
         if (events.length < 64 && typeof event.type === "string") events.push(["thread.started", "turn.started", "item.started", "item.updated", "item.completed", "turn.completed", "turn.failed", "error"].includes(event.type) ? event.type : "unknown");
+        if (input.isolation?.options.captureDiagnosticOne === true) {
+          const stages = diagnosticOne.stages;
+          if (event.type === "thread.started" && stages.thread === null) stages.thread = stageMs();
+          if (event.type === "turn.started" && stages.turn === null) stages.turn = stageMs();
+          if ((event.type === "item.started" || event.type === "item.updated" || event.type === "item.completed") && isRecord(event.item) && event.item.type === "agent_message" && stages.visible === null) stages.visible = stageMs();
+        }
         const problem = parseEvent(event, state, input.arenaStructuredOutput, input.isolation !== undefined);
         if (problem !== null) {
           if ((event.type === "item.started" || event.type === "item.updated" || event.type === "item.completed") && state.threadStarted && state.turnStarted) {
@@ -706,6 +715,10 @@ async function runExecAttempt(input: {
               const unexpectedItemKind = kind === undefined || kind === null ? "missing" : known.find(value => value === kind) ?? "other";
               unexpectedItem = { unexpectedItemKind, unexpectedItemPhase: event.type };
               if (unexpectedItemKind === "error") {
+                if (input.isolation?.options.captureDiagnosticOne === true && diagnosticOne.stages.error === null) {
+                  diagnosticOne.stages.error = stageMs();
+                  try { Object.assign(diagnosticOne, diagnosticTemplates(event.item)); } catch { /* diagnostic never affects request */ }
+                }
                 if (input.isolation?.options.captureLocalEventEvidence === true && errorItemObservedMs === null) errorItemObservedMs = Number((process.hrtime.bigint() - localEvidenceStart) / 1_000_000n);
                 try { errorItem = errorItemDiagnostic(event.item, input.isolation?.options.captureErrorItemDiagnostics === true); } catch { /* diagnostics never alter failure handling */ }
               }
@@ -778,6 +791,7 @@ async function runExecAttempt(input: {
       const onAbort = () => { outerAbortTriggered = true; failAndKill({ errorCode: "provider_unavailable", retryable: false }); };
       child.once("close", (code) => {
         childClosed = true;
+        if (input.isolation?.options.captureDiagnosticOne === true) diagnosticOne.stages.close = stageMs();
         if (processExit !== undefined) process.removeListener("exit", processExit);
         input.signal?.removeEventListener("abort", onAbort);
         if (deferCwdCleanupUntilClose && cwd !== undefined) {
